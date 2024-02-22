@@ -54,56 +54,101 @@ class SignUpWidgets {
           content: const Text(
               'A 6 - Digit OTP has been sent to your email address, enter it below to continue'),
           actions: [
-            BlocBuilder<SignUpBloc, SignUpState>(
+            BlocConsumer<SignUpBloc, SignUpState>(
+              listener: (context, state) {
+                print('First');
+                if (state is UserAlreadyExistsState) {
+                  // Navigator.pop(context);
+                  print('first snackbar');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('User already existsssss 1'),
+                    ),
+                  );
+                }
+                if (state is EmailAlreadyExistsState) {
+                  print('Second snackbar');
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('User already exists 2'),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
-                return Form(
-                  key: formKey,
-                  child: CustomTxtFormField(
-                    hintText: 'OTP',
-                    controller: otpController,
-                    validator: (val) {
-                      if (val!.length < 2) {
-                        return "Please enter a valid OTP";
-                      }
-                      if (state is UserOtpErrorState) {
-                        return 'Invalid OTP';
-                      }
-                      return null;
-                    },
-                  ),
+                return Column(
+                  children: [
+                    Form(
+                      key: formKey,
+                      child: CustomTxtFormField(
+                        hintText: 'OTP',
+                        controller: otpController,
+                        validator: (val) {
+                          if (state is UserOtpErrorState ||
+                              state is UserAlreadyExistsState) {
+                            return "Please enter a valid OTP";
+                          }
+                          if (val!.length < 2) {
+                            return "Please enter a valid OTP";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
             kHeight(20),
-            CustomButton(
-              buttonText: 'Continue',
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  debugPrint(otpController!.text);
-
-                  final user = UserModel(
-                    accountType: accountType,
-                    username: username,
-                    password: password,
-                    email: email,
-                    fullName: fullName,
-                    phoneNumber: phoneNo,
-                    otp: otpController.text,
-                  );
-                  debugPrint('Account type: $accountType');
-                  debugPrint('Username: $username');
-                  debugPrint('Password: $password');
-                  debugPrint('Email: $email');
-                  debugPrint('Full name: $fullName');
-                  debugPrint('Phone no.: $phoneNo');
-                  debugPrint('OTP: ${otpController.text}');
-                  context.read<SignUpBloc>().add(UserSignUpEvent(user: user));
-                }
-              },
-            ),
+            signUpButton(formKey, otpController, accountType, username,
+                password, email, fullName, phoneNo, context),
           ],
         );
       },
+    );
+  }
+
+  static Widget signUpButton(
+      GlobalKey<FormState> formKey,
+      TextEditingController? otpController,
+      String? accountType,
+      String? username,
+      String? password,
+      String? email,
+      String? fullName,
+      String? phoneNo,
+      BuildContext context) {
+    return BlocListener<SignUpBloc, SignUpState>(
+      listener: (context, state) {
+        // if (state is UserAlreadyExistsState) {
+        //   print('Third User exists');
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     const SnackBar(
+        //       content: SnackBar(
+        //         content: Text('User name already exists 3'),
+        //       ),
+        //     ),
+        //   );
+        // }
+      },
+      child: CustomButton(
+        buttonText: 'Sign Up',
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            final user = UserModel(
+              accountType: accountType,
+              username: username,
+              password: password,
+              email: email,
+              fullName: fullName,
+              phoneNumber: phoneNo,
+              otp: otpController!.text,
+            );
+            context.read<SignUpBloc>().add(UserSignUpEvent(user: user));
+          }
+        },
+      ),
     );
   }
 }

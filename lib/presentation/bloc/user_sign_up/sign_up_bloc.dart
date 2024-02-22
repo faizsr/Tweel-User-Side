@@ -18,14 +18,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       UserSignUpEvent event, Emitter<SignUpState> emit) async {
     emit(UserSignUpLoadingState());
     String response = await AuthRepo.userSignUp(user: event.user);
-    debugPrint('success: $response');
+    debugPrint('response: $response');
     if (response == 'success') {
       emit(UserSignUpSuccessState());
-    } else if (response == 'invalid-otp') {
-      emit(UserOtpErrorState());
-    } else {
-      emit(UserSignUpErrorState());
     }
+    if (response == 'invalid-otp') {
+      debugPrint('Invalid OTP');
+      emit(UserOtpErrorState());
+    }
+    if (response == 'username-exists') {
+      print('emittting');
+      emit(UserAlreadyExistsState());
+    }
+    emit(UserSignUpErrorState());
   }
 
   FutureOr<void> userOtpVerificationEvent(

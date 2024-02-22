@@ -18,3 +18,5 @@ class UserOtpSuccessState extends SignUpState {}
 class UserOtpErrorState extends SignUpState {}
 
 class UserAlreadyExistsState extends SignUpState {}
+
+class EmailAlreadyExistsState extends SignUpState {}

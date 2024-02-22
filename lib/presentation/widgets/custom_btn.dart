@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: BlocBuilder<SignUpBloc, SignUpState>(
           builder: (context, state) {
-            return state is UserOtpLoadingState
+            return state is UserOtpLoadingState || state is UserSignUpLoadingState
                 ? const SizedBox(
                     height: 22,
                     width: 22,
