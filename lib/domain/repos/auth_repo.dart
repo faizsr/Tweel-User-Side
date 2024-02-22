@@ -6,39 +6,54 @@ import 'package:tweel_social_media/core/api_endpoints.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
 class AuthRepo {
-  static Future<bool> userSignUp({required UserModel user}) async {
+  static Future<String> userSignUp({required UserModel user}) async {
     var client = http.Client();
     String signUpUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.userSignUp}";
     try {
-      var response =
-          await client.post(Uri.parse(signUpUrl), body: jsonEncode(user));
+      var response = await client.post(
+        Uri.parse(signUpUrl),
+        body: jsonEncode(user),
+        headers: {'Content-Type': 'application/json'},
+      );
       debugPrint('Status code: ${response.statusCode}');
       debugPrint(response.body);
 
       if (response.statusCode == 201) {
-        return true;
+        return 'success';
       }
-      return false;
+      if (response.statusCode == 400) {
+        return 'invalid-otp';
+      }
+      return 'error';
     } catch (e) {
-      return false;
+      print(e.toString());
+      return 'error';
     }
   }
 
-  static Future<bool> userVerifyOtp({required String email}) async {
+  static Future<String> userVerifyOtp({required String email}) async {
+    print(email);
     var client = http.Client();
     String signUpUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.userVerifyOtp}";
     try {
-      var response = await client.post(Uri.parse(signUpUrl),
-          body: jsonEncode({"email": email}));
+      var body = {"email": email};
+      var response = await client.post(
+        Uri.parse(signUpUrl),
+        body: body,
+      );
       debugPrint('Status code: ${response.statusCode}');
       debugPrint(response.body);
 
       if (response.statusCode == 200) {
-        return true;
+        return 'success';
       }
-      return false;
+      if (response.statusCode == 401) {
+        return 'already-exists';
+      }
+      return 'error';
     } catch (e) {
-      return false;
+      print(e.toString());
+      return 'error';
     }
   }
 }

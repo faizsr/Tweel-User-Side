@@ -24,9 +24,12 @@ class CustomTxtFormField extends StatelessWidget {
       style: const TextStyle(fontSize: 15),
       onChanged: onChanged,
       decoration: InputDecoration(
-        errorMaxLines: 1,
+        errorMaxLines: 2,
+        errorStyle: const TextStyle(height: 0.5),
+        prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+        prefixIcon: const SizedBox(width: 15),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: 5,
           vertical: 16,
         ),
         hintText: hintText,

@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/core/validations.dart';
+import 'package:tweel_social_media/presentation/pages/user_signup/user_signup_two.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/widgets/widgets.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
 
-class UserSignUpPageOne extends StatelessWidget {
+class UserSignUpPageOne extends StatefulWidget {
   const UserSignUpPageOne({super.key});
+
+  @override
+  State<UserSignUpPageOne> createState() => _UserSignUpPageOneState();
+}
+
+class _UserSignUpPageOneState extends State<UserSignUpPageOne> {
+  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController accountTypeController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: kWhite,
@@ -31,7 +43,14 @@ class UserSignUpPageOne extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                signUpForm(context),
+                signUpForm(
+                  context,
+                  fullnameController,
+                  emailController,
+                  phoneNumberController,
+                  accountTypeController,
+                  formKey,
+                ),
                 Positioned(
                   bottom: 0,
                   child: SignUpWidgets.signInNavigate(),
@@ -44,35 +63,70 @@ class UserSignUpPageOne extends StatelessWidget {
     );
   }
 
-  Widget signUpForm(BuildContext context) {
+  Widget signUpForm(
+    BuildContext context,
+    TextEditingController fullnameController,
+    TextEditingController emailController,
+    TextEditingController phoneNumberController,
+    TextEditingController accountTypeController,
+    GlobalKey<FormState> formKey,
+  ) {
     return Form(
+      key: formKey,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             // Full name field
-            const CustomTxtFormField(
+            CustomTxtFormField(
               hintText: 'Full name',
+              controller: fullnameController,
+              validator: (val) {
+                if (val!.length < 3) {
+                  return 'Email field cannot be empty';
+                }
+                return null;
+              },
             ),
             kHeight(20),
 
             // Email address field
-            const CustomTxtFormField(
+            CustomTxtFormField(
               hintText: 'Email address',
+              controller: emailController,
+              validator: (val) {
+                if (!RegExp(emailRegexPattern).hasMatch(val!) || val.isEmpty) {
+                  return 'Enter a valid email';
+                }
+                return null;
+              },
             ),
             kHeight(20),
 
             // Phone number field
-            const CustomTxtFormField(
+            CustomTxtFormField(
               hintText: 'Phone number',
+              controller: phoneNumberController,
+              validator: (val) {
+                if (val!.length < 10) {
+                  return 'Enter a valid phone number';
+                }
+                return null;
+              },
             ),
             kHeight(20),
 
             // Account type field
-            const CustomTxtFormField(
+            CustomTxtFormField(
               hintText: 'Account type',
+              controller: accountTypeController,
+              validator: (val) {
+                if (val!.isEmpty) {
+                  return 'Choose an account type';
+                }
+                return null;
+              },
             ),
             kHeight(25),
 
@@ -80,7 +134,18 @@ class UserSignUpPageOne extends StatelessWidget {
             CustomButton(
               buttonText: 'Continue',
               onPressed: () {
-                SignUpWidgets.validateEmail(context);
+                if (formKey.currentState!.validate()) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => UserSignUpPageTwo(
+                        email: emailController.text,
+                        accountType: accountTypeController.text,
+                        fullName: fullnameController.text,
+                        phoneNo: phoneNumberController.text,
+                      ),
+                    ),
+                  );
+                }
               },
             ),
           ],
