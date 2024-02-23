@@ -158,7 +158,6 @@ class _UserSignUpPageTwoState extends State<UserSignUpPageTwo> {
       BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
-   
         if (state is UserOtpSuccessState) {
           SignUpWidgets.validateEmail(
             context: context,

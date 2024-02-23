@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/constants.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
 
@@ -56,22 +57,36 @@ class SignUpWidgets {
           actions: [
             BlocConsumer<SignUpBloc, SignUpState>(
               listener: (context, state) {
-                print('First');
-                if (state is UserAlreadyExistsState) {
+                if (state is UserSignUpSuccessState) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ));
+                }
+                debugPrint('First');
+                if (state is UsernameExistsErrorState) {
                   // Navigator.pop(context);
-                  print('first snackbar');
+                  debugPrint('Username already exists');
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('User already existsssss 1'),
+                      content: Text('Username already exists'),
                     ),
                   );
                 }
-                if (state is EmailAlreadyExistsState) {
-                  print('Second snackbar');
+                if (state is EmailExistsErrorState) {
+                  debugPrint('Email already exists');
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('User already exists 2'),
+                      content: Text('Email already exists'),
+                    ),
+                  );
+                }
+                if (state is PhonenoExistsErrorState) {
+                  debugPrint('Phone number already exists');
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Phone number already exists'),
                     ),
                   );
                 }
@@ -86,7 +101,7 @@ class SignUpWidgets {
                         controller: otpController,
                         validator: (val) {
                           if (state is UserOtpErrorState ||
-                              state is UserAlreadyExistsState) {
+                              state is UsernameExistsErrorState) {
                             return "Please enter a valid OTP";
                           }
                           if (val!.length < 2) {
@@ -119,36 +134,22 @@ class SignUpWidgets {
       String? fullName,
       String? phoneNo,
       BuildContext context) {
-    return BlocListener<SignUpBloc, SignUpState>(
-      listener: (context, state) {
-        // if (state is UserAlreadyExistsState) {
-        //   print('Third User exists');
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     const SnackBar(
-        //       content: SnackBar(
-        //         content: Text('User name already exists 3'),
-        //       ),
-        //     ),
-        //   );
-        // }
+    return CustomButton(
+      buttonText: 'Sign Up',
+      onPressed: () {
+        if (formKey.currentState!.validate()) {
+          final user = UserModel(
+            accountType: accountType,
+            username: username,
+            password: password,
+            email: email,
+            fullName: fullName,
+            phoneNumber: phoneNo,
+            otp: otpController!.text,
+          );
+          context.read<SignUpBloc>().add(UserSignUpEvent(user: user));
+        }
       },
-      child: CustomButton(
-        buttonText: 'Sign Up',
-        onPressed: () {
-          if (formKey.currentState!.validate()) {
-            final user = UserModel(
-              accountType: accountType,
-              username: username,
-              password: password,
-              email: email,
-              fullName: fullName,
-              phoneNumber: phoneNo,
-              otp: otpController!.text,
-            );
-            context.read<SignUpBloc>().add(UserSignUpEvent(user: user));
-          }
-        },
-      ),
     );
   }
 }

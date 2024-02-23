@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/widgets/widgets.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
 
-class UserSignInPage extends StatelessWidget {
+class UserSignInPage extends StatefulWidget {
   const UserSignInPage({super.key});
 
   @override
+  State<UserSignInPage> createState() => _UserSignInPageState();
+}
+
+class _UserSignInPageState extends State<UserSignInPage> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey();
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -24,62 +33,118 @@ class UserSignInPage extends StatelessWidget {
           ),
         ),
       ),
-      body: signInForm(formKey, context),
+      body:
+          signInForm(formKey, context, usernameController, passwordController),
     );
   }
 
-  Widget signInForm(GlobalKey<FormState> formKey, BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(40, 40, 40, 30),
-      child: Form(
-        key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            kHeight(30),
-            const Spacer(),
+  Widget signInForm(
+    GlobalKey<FormState> formKey,
+    BuildContext context,
+    TextEditingController usernameControllerr,
+    TextEditingController passwordController,
+  ) {
+    return BlocConsumer<SignInBloc, SignInState>(
+      listener: (context, state) {
+        if (state is InvalidUsernameErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Username doesn't exist"),
+            ),
+          );
+        }
+        if (state is InvalidPasswordErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Incorrect password"),
+            ),
+          );
+        }
+        if (state is UserSignInSuccessState) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        }
+        if (state is UserSignInErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Error signing in'),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(40, 40, 40, 30),
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                kHeight(30),
+                const Spacer(),
 
-            // Username field
-            CustomTxtFormField(
-              hintText: 'Username',
-              validator: (value) {
-                if (value!.length < 4) {
-                  return 'Username doesnot contain';
-                }
-                return null;
-              },
-            ),
-            kHeight(20),
+                // Username field
+                CustomTxtFormField(
+                  controller: usernameController,
+                  hintText: 'Username',
+                  validator: (value) {
+                    if (value!.length < 4) {
+                      return 'Username should not be empty';
+                    }
+                    if (state is InvalidUsernameErrorState) {
+                      return "Username doesn't exists";
+                    }
 
-            // Password field
-            CustomTxtFormField(
-              hintText: 'Password',
-              validator: (value) {
-                if (value!.length < 4) {
-                  return 'Username doesnot contain .,-';
-                }
-                return null;
-              },
-            ),
-            kHeight(25),
+                    return null;
+                  },
+                ),
+                kHeight(20),
 
-            // Sign in button
-            CustomButton(
-              buttonText: 'Sign In',
-              onPressed: () {},
+                // Password field
+                CustomTxtFormField(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  validator: (value) {
+                    if (value!.length < 4) {
+                      return 'Password should not be empty';
+                    }
+                    if ((state is InvalidPasswordErrorState)) {
+                      return "Incorrect password";
+                    }
+                    return null;
+                  },
+                ),
+                kHeight(25),
+
+                // Sign in button
+                CustomButton(
+                  buttonText: 'Sign In',
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      context.read<SignInBloc>().add(UserSignInEvent(
+                            username: usernameController.text,
+                            password: passwordController.text,
+                          ));
+                    }
+                  },
+                ),
+                kHeight(10),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Forget Password?',
+                  ),
+                ),
+                const Spacer(),
+                SignInWidgets.signUpNavigate(context),
+              ],
             ),
-            kHeight(10),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Forget Password?',
-              ),
-            ),
-            const Spacer(),
-            SignInWidgets.signUpNavigate(context),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

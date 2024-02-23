@@ -21,14 +21,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     debugPrint('response: $response');
     if (response == 'success') {
       emit(UserSignUpSuccessState());
-    }
-    if (response == 'invalid-otp') {
+    } else if (response == 'invalid-otp') {
       debugPrint('Invalid OTP');
       emit(UserOtpErrorState());
-    }
-    if (response == 'username-exists') {
-      print('emittting');
-      emit(UserAlreadyExistsState());
+    } else if (response == 'username-exists') {
+      emit(UsernameExistsErrorState());
+    } else if (response == 'email-exists') {
+      emit(EmailExistsErrorState());
+    } else if (response == 'phoneno-exists') {
+      emit(PhonenoExistsErrorState());
     }
     emit(UserSignUpErrorState());
   }
@@ -43,7 +44,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(UserOtpSuccessState());
     } else if (response == 'already-exists') {
       debugPrint(response);
-      emit(UserAlreadyExistsState());
+      emit(UsernameExistsErrorState());
     } else {
       debugPrint(response);
       emit(UserOtpErrorState());

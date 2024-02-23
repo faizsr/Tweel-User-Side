@@ -4,7 +4,7 @@ import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down_cubit.dart';
-import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
+import 'package:tweel_social_media/presentation/pages/splash/splash_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Tweel Social Media',
         theme: lightTheme,
-        home: const UserSignInPage(),
+        home: const SplashPage(),
       ),
     );
   }

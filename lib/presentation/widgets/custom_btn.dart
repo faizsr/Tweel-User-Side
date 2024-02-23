@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 
 class CustomButton extends StatelessWidget {
@@ -23,23 +24,30 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
         color: Colors.black,
         onPressed: onPressed,
-        child: BlocBuilder<SignUpBloc, SignUpState>(
-          builder: (context, state) {
-            return state is UserOtpLoadingState || state is UserSignUpLoadingState
-                ? const SizedBox(
-                    height: 22,
-                    width: 22,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                : Text(
-                    buttonText,
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
-                  );
+        child: BlocBuilder<SignInBloc, SignInState>(
+          builder: (context, state1) {
+            return BlocBuilder<SignUpBloc, SignUpState>(
+              builder: (context, state2) {
+                return state2 is UserOtpLoadingState ||
+                        state2 is UserSignUpLoadingState ||
+                        state1 is UserSignInLoadingState
+                    ? const SizedBox(
+                        height: 22,
+                        width: 22,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        buttonText,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 16),
+                      );
+              },
+            );
           },
         ),
       ),

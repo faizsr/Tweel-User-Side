@@ -17,6 +17,8 @@ class UserOtpSuccessState extends SignUpState {}
 
 class UserOtpErrorState extends SignUpState {}
 
-class UserAlreadyExistsState extends SignUpState {}
+class UsernameExistsErrorState extends SignUpState {}
 
-class EmailAlreadyExistsState extends SignUpState {}
+class EmailExistsErrorState extends SignUpState {}
+
+class PhonenoExistsErrorState extends SignUpState {}
