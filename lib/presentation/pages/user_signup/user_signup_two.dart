@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/constants.dart';
-import 'package:tweel_social_media/core/validations.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/validations.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/widgets/widgets.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
@@ -31,7 +31,6 @@ class _UserSignUpPageTwoState extends State<UserSignUpPageTwo> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final TextEditingController otpController = TextEditingController();
-
   final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
@@ -181,9 +180,7 @@ class _UserSignUpPageTwoState extends State<UserSignUpPageTwo> {
                   .add(UserOtpVerificationEvent(email: email));
             }
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Passwords doesn't match"),
-            ));
+            customSnackbar(context, "Passwords doesn't match");
           }
         },
       ),

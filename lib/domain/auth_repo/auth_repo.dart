@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tweel_social_media/core/api_endpoints.dart';
-import 'package:tweel_social_media/core/tokens.dart';
+import 'package:tweel_social_media/core/utils/api_endpoints.dart';
+import 'package:tweel_social_media/core/utils/tokens.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
 class AuthRepo {

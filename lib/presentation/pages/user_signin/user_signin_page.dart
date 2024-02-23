@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/forgot_password/forget_password_page.dart';
 import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/widgets/widgets.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
@@ -45,36 +46,7 @@ class _UserSignInPageState extends State<UserSignInPage> {
     TextEditingController passwordController,
   ) {
     return BlocConsumer<SignInBloc, SignInState>(
-      listener: (context, state) {
-        if (state is InvalidUsernameErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Username doesn't exist"),
-            ),
-          );
-        }
-        if (state is InvalidPasswordErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Incorrect password"),
-            ),
-          );
-        }
-        if (state is UserSignInSuccessState) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => const HomePage(),
-            ),
-          );
-        }
-        if (state is UserSignInErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Error signing in'),
-            ),
-          );
-        }
-      },
+      listener: signInListener,
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(40, 40, 40, 30),
@@ -97,7 +69,6 @@ class _UserSignInPageState extends State<UserSignInPage> {
                     if (state is InvalidUsernameErrorState) {
                       return "Username doesn't exists";
                     }
-
                     return null;
                   },
                 ),
@@ -124,18 +95,25 @@ class _UserSignInPageState extends State<UserSignInPage> {
                   buttonText: 'Sign In',
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      context.read<SignInBloc>().add(UserSignInEvent(
-                            username: usernameController.text,
-                            password: passwordController.text,
-                          ));
+                      context.read<SignInBloc>().add(
+                            UserSignInEvent(
+                              username: usernameController.text,
+                              password: passwordController.text,
+                            ),
+                          );
                     }
                   },
                 ),
                 kHeight(10),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Forget Password?',
+                InkWell(
+                  onTap: () {
+                    nextScreen(context, const ForgotPasswordPage());
+                  },
+                  child: const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Forget Password?',
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -146,5 +124,20 @@ class _UserSignInPageState extends State<UserSignInPage> {
         );
       },
     );
+  }
+
+  void signInListener(BuildContext context, SignInState state) {
+    if (state is InvalidUsernameErrorState) {
+      customSnackbar(context, "Username doesn't exist");
+    }
+    if (state is InvalidPasswordErrorState) {
+      customSnackbar(context, "Incorrect password");
+    }
+    if (state is UserSignInSuccessState) {
+      nextScreenRemoveUntil(context, const HomePage());
+    }
+    if (state is UserSignInErrorState) {
+      customSnackbar(context, 'Error signing in');
+    }
   }
 }

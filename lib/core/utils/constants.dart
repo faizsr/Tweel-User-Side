@@ -16,13 +16,44 @@ const fontWeightW600 = <FontVariation>[FontVariation('wght', 600.0)];
 SizedBox kHeight(double? height) => SizedBox(height: height);
 SizedBox kWidth(double? width) => SizedBox(width: width);
 
-
-
 nextScreen(context, page) {
   Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => page,
+    ),
+  );
+}
+
+nextScreenReplacement(context, page) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => page,
+    ),
+  );
+}
+
+nextScreenRemoveUntil(context, page) {
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(
+      builder: (context) => page,
+    ),
+    (route) => false,
+  );
+}
+
+customSnackbar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      backgroundColor: kBlack,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+      behavior: SnackBarBehavior.floating,
+      content: Text(message),
     ),
   );
 }

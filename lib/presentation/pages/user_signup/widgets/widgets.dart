@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
@@ -58,37 +58,23 @@ class SignUpWidgets {
             BlocConsumer<SignUpBloc, SignUpState>(
               listener: (context, state) {
                 if (state is UserSignUpSuccessState) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ));
+                  nextScreenRemoveUntil(context, const HomePage());
                 }
                 debugPrint('First');
                 if (state is UsernameExistsErrorState) {
-                  // Navigator.pop(context);
                   debugPrint('Username already exists');
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Username already exists'),
-                    ),
-                  );
+                  Navigator.pop(context);
+                  customSnackbar(context, 'Username already exists');
                 }
                 if (state is EmailExistsErrorState) {
                   debugPrint('Email already exists');
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Email already exists'),
-                    ),
-                  );
+                  customSnackbar(context, 'Email already exists');
                 }
                 if (state is PhonenoExistsErrorState) {
                   debugPrint('Phone number already exists');
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Phone number already exists'),
-                    ),
-                  );
+                  customSnackbar(context, 'Phone number already exists');
                 }
               },
               builder: (context, state) {

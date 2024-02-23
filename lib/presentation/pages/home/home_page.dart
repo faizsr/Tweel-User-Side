@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,17 +15,14 @@ class HomePage extends StatelessWidget {
         onTap: () async {
           SharedPreferences preferences = await SharedPreferences.getInstance();
           preferences.setBool('SIGNIN', false);
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const UserSignInPage(),
-          ));
+          nextScreenRemoveUntil(context, const UserSignInPage());
         },
         child: const Center(
           child: Text(
             'Home',
             style: TextStyle(fontSize: 30),
           ),
-        )
-        ,
+        ),
       ),
     );
   }

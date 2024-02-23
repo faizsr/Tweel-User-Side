@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down_cubit.dart';
 
 class AccountTypeDropDown extends StatelessWidget {

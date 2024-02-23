@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/pages/get_started/get_started_page.dart';
 import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
@@ -37,20 +38,14 @@ class _SplashPageState extends State<SplashPage> {
     final userOnInitial = preferences.getBool('ON_INITIAL');
     final userSignIn = preferences.getBool('SIGNIN');
     if (userOnInitial == false) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const GetStartedPage(),
-      ));
+      nextScreenRemoveUntil(context, const GetStartedPage());
     } else {
       if (userSignIn == false) {
         await Future.delayed(const Duration(seconds: 3));
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const UserSignInPage(),
-        ));
+        nextScreenRemoveUntil(context, const UserSignInPage());
       } else {
         await Future.delayed(const Duration(seconds: 3));
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ));
+        nextScreenRemoveUntil(context, const HomePage());
       }
     }
   }

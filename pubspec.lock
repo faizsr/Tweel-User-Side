@@ -168,6 +168,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  multi_bloc_builder:
+    dependency: "direct main"
+    description:
+      name: multi_bloc_builder
+      sha256: "2993c8e207b165635711f2e573c3346d73543037bd0a028c99f9e59d27fc2b80"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   nested:
     dependency: transitive
     description:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/constants.dart';
-import 'package:tweel_social_media/core/validations.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/validations.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/user_signup_two.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/widgets/account_type_dropdown.dart';
@@ -131,14 +131,13 @@ class _UserSignUpPageOneState extends State<UserSignUpPageOne> {
                   buttonText: 'Continue',
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => UserSignUpPageTwo(
-                            email: emailController.text,
-                            accountType: state.name,
-                            fullName: fullnameController.text,
-                            phoneNo: phoneNumberController.text,
-                          ),
+                      nextScreen(
+                        context,
+                        UserSignUpPageTwo(
+                          email: emailController.text,
+                          accountType: state.name,
+                          fullName: fullnameController.text,
+                          phoneNo: phoneNumberController.text,
                         ),
                       );
                     }

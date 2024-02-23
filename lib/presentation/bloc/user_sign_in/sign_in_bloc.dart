@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/domain/repos/auth_repo.dart';
+import 'package:tweel_social_media/domain/auth_repo/auth_repo.dart';
 
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';

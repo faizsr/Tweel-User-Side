@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
 class GetStartedPage extends StatefulWidget {

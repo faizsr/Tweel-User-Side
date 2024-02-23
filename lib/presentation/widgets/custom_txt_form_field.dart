@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 
 class CustomTxtFormField extends StatelessWidget {
   const CustomTxtFormField({

@@ -3,4 +3,6 @@ class ApiEndPoints {
   static String userSignUp = '/signup';
   static String userSignIn = '/login';
   static String userVerifyOtp = "/send-otp";
+  static String forgetSendOtp = "/forget-send-otp";
+  static String resetPassword = "/forget-password";
 }

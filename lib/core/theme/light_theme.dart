@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tweel_social_media/core/constants.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 
 void mySystemTheme() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
