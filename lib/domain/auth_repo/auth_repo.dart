@@ -31,6 +31,7 @@ class AuthRepo {
       if (response.statusCode == 400) {
         return 'invalid-otp';
       }
+
       if (response.statusCode == 409) {
         if (jsonResponse['error'] ==
             "Username Already Taken. Please Choose different one or login instead") {
@@ -78,7 +79,12 @@ class AuthRepo {
         return 'invalid-username';
       }
       if (response.statusCode == 401) {
-        return 'invalid-password';
+        if (jsonResponse['error'] == "User Has Been Blocked by Admin") {
+          return 'blocked-by-admin';
+        }
+        if (jsonResponse['error'] == "Invalid Password") {
+          return 'invalid-password';
+        }
       }
       return 'error';
     } catch (e) {

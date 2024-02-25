@@ -81,6 +81,22 @@ class _UserSignUpPageOneState extends State<UserSignUpPageOne> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Create an account',
+                  style:
+                      TextStyle(fontSize: 20, fontVariations: fontWeightW700),
+                ),
+                kHeight(10),
+                const Text(
+                  "Please enter you information and create your account.",
+                  style: TextStyle(fontSize: 15),
+                ),
+              ],
+            ),
+            kHeight(25),
             // Full name field
             CustomTxtFormField(
               hintText: 'Full name',

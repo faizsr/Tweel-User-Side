@@ -57,7 +57,25 @@ class _UserSignInPageState extends State<UserSignInPage> {
               children: [
                 kHeight(30),
                 const Spacer(),
-
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Welcome back!',
+                        style: TextStyle(
+                            fontSize: 20, fontVariations: fontWeightW700),
+                      ),
+                      kHeight(10),
+                      const Text(
+                        "Enter your login details to continue.",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+                kHeight(25),
                 // Username field
                 CustomTxtFormField(
                   controller: usernameController,
@@ -66,9 +84,9 @@ class _UserSignInPageState extends State<UserSignInPage> {
                     if (value!.length < 4) {
                       return 'Username should not be empty';
                     }
-                    if (state is InvalidUsernameErrorState) {
-                      return "Username doesn't exists";
-                    }
+                    // if (state is InvalidUsernameErrorState) {
+                    //   return "Username doesn't exists";
+                    // }
                     return null;
                   },
                 ),
@@ -82,9 +100,9 @@ class _UserSignInPageState extends State<UserSignInPage> {
                     if (value!.length < 4) {
                       return 'Password should not be empty';
                     }
-                    if ((state is InvalidPasswordErrorState)) {
-                      return "Incorrect password";
-                    }
+                    // if ((state is InvalidPasswordErrorState)) {
+                    //   return "Incorrect password";
+                    // }
                     return null;
                   },
                 ),
@@ -132,6 +150,9 @@ class _UserSignInPageState extends State<UserSignInPage> {
     }
     if (state is InvalidPasswordErrorState) {
       customSnackbar(context, "Incorrect password");
+    }
+    if (state is BlockedbyAdminErrorState) {
+      customSnackbar(context, 'You have by blocked by tweel');
     }
     if (state is UserSignInSuccessState) {
       nextScreenRemoveUntil(context, const HomePage());

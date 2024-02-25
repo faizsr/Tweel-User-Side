@@ -30,8 +30,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(EmailExistsErrorState());
     } else if (response == 'phoneno-exists') {
       emit(PhonenoExistsErrorState());
+    } else {
+      emit(UserSignUpErrorState());
     }
-    emit(UserSignUpErrorState());
   }
 
   FutureOr<void> userOtpVerificationEvent(

@@ -13,4 +13,6 @@ class InvalidUsernameErrorState extends SignInState {}
 
 class InvalidPasswordErrorState extends SignInState {}
 
+class BlockedbyAdminErrorState extends SignInState {}
+
 class UserSignInErrorState extends SignInState {}

@@ -25,6 +25,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     } else if (response == 'invalid-password') {
       print('yes invalid password');
       emit(InvalidPasswordErrorState());
+    } else if (response == 'blocked-by-admin') {
+      emit(BlockedbyAdminErrorState());
     } else {
       emit(UserSignInErrorState());
     }
