@@ -39,6 +39,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   shared_preferences: ^2.2.2
   multi_bloc_builder: ^1.0.0
+  readmore: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -81,10 +82,10 @@ flutter:
     - family: Coco-Gothic-Pro
       fonts:
         - asset: assets/fonts/Coco-Gothic-Pro-Alt-Variable-Roman-trial.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
+    #         style: italic
+    - family: CustomIcons
+      fonts:
+        - asset: assets/icons/CustomIcons.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #

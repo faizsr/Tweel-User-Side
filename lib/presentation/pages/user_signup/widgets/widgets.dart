@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
-import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
+import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
 
@@ -58,7 +58,7 @@ class SignUpWidgets {
             BlocConsumer<SignUpBloc, SignUpState>(
               listener: (context, state) {
                 if (state is UserSignUpSuccessState) {
-                  nextScreenRemoveUntil(context, const HomePage());
+                  nextScreenRemoveUntil(context, MainPage());
                 }
                 debugPrint('First');
                 if (state is UsernameExistsErrorState) {

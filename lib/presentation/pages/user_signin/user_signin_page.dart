@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/forgot_password/forget_password_page.dart';
-import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
+import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/widgets/widgets.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
@@ -18,9 +18,9 @@ class UserSignInPage extends StatefulWidget {
 class _UserSignInPageState extends State<UserSignInPage> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -34,8 +34,26 @@ class _UserSignInPageState extends State<UserSignInPage> {
           ),
         ),
       ),
-      body:
-          signInForm(formKey, context, usernameController, passwordController),
+      body: SingleChildScrollView(
+        child: Container(
+          constraints:
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 40, 0, 30),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                signInForm(
+                    formKey, context, usernameController, passwordController),
+                Positioned(
+                  bottom: 0,
+                  child: SignInWidgets.signUpNavigate(context),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -55,8 +73,6 @@ class _UserSignInPageState extends State<UserSignInPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                kHeight(30),
-                const Spacer(),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
@@ -84,9 +100,6 @@ class _UserSignInPageState extends State<UserSignInPage> {
                     if (value!.length < 4) {
                       return 'Username should not be empty';
                     }
-                    // if (state is InvalidUsernameErrorState) {
-                    //   return "Username doesn't exists";
-                    // }
                     return null;
                   },
                 ),
@@ -100,9 +113,6 @@ class _UserSignInPageState extends State<UserSignInPage> {
                     if (value!.length < 4) {
                       return 'Password should not be empty';
                     }
-                    // if ((state is InvalidPasswordErrorState)) {
-                    //   return "Incorrect password";
-                    // }
                     return null;
                   },
                 ),
@@ -134,8 +144,6 @@ class _UserSignInPageState extends State<UserSignInPage> {
                     ),
                   ),
                 ),
-                const Spacer(),
-                SignInWidgets.signUpNavigate(context),
               ],
             ),
           ),
@@ -155,7 +163,7 @@ class _UserSignInPageState extends State<UserSignInPage> {
       customSnackbar(context, 'You have by blocked by tweel');
     }
     if (state is UserSignInSuccessState) {
-      nextScreenRemoveUntil(context, const HomePage());
+      nextScreenRemoveUntil(context,  MainPage());
     }
     if (state is UserSignInErrorState) {
       customSnackbar(context, 'Error signing in');

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/pages/get_started/get_started_page.dart';
-import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
+import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -45,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
         nextScreenRemoveUntil(context, const UserSignInPage());
       } else {
         await Future.delayed(const Duration(seconds: 3));
-        nextScreenRemoveUntil(context, const HomePage());
+        nextScreenRemoveUntil(context, MainPage());
       }
     }
   }
