@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/presentation/pages/get_started/get_started_page.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
@@ -34,9 +34,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> checkUserStatus() async {
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final userOnInitial = preferences.getBool('ON_INITIAL');
-    final userSignIn = preferences.getBool('SIGNIN');
+    final userOnInitial = await UserAuthStatus.isUserOnInitial();
+    final userSignIn = await UserAuthStatus.getUserStatus();
     if (userOnInitial == false) {
       nextScreenRemoveUntil(context, const GetStartedPage());
     } else {

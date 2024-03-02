@@ -1,7 +1,9 @@
 import 'dart:async';
+// import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/domain/auth_repo/auth_repo.dart';
 
 part 'sign_in_event.dart';
@@ -15,17 +17,18 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   FutureOr<void> userSignInEvent(
       UserSignInEvent event, Emitter<SignInState> emit) async {
     emit(UserSignInLoadingState());
-    String response = await AuthRepo.userSignIn(
+    SignInResult response = await AuthRepo.userSignIn(
         username: event.username, password: event.password);
-    if (response == 'success') {
-      emit(UserSignInSuccessState());
-    } else if (response == 'invalid-username') {
-      print('yes invalid username');
+    if (response.status == 'success') {
+      final userModel = UserModel.fromJson(response.responseBody);
+      emit(UserSignInSuccessState(userModel: userModel));
+    } else if (response.status == 'invalid-username') {
+      debugPrint('yes invalid username');
       emit(InvalidUsernameErrorState());
-    } else if (response == 'invalid-password') {
-      print('yes invalid password');
+    } else if (response.status == 'invalid-password') {
+      debugPrint('yes invalid password');
       emit(InvalidPasswordErrorState());
-    } else if (response == 'blocked-by-admin') {
+    } else if (response.status == 'blocked-by-admin') {
       emit(BlockedbyAdminErrorState());
     } else {
       emit(UserSignInErrorState());

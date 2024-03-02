@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
-import 'package:tweel_social_media/core/utils/tokens.dart';
+import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
 class AuthRepo {
@@ -23,9 +22,8 @@ class AuthRepo {
       debugPrint(response.body);
 
       if (response.statusCode == 201) {
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        preferences.setBool('SIGNIN', true);
-        await saveToken(jsonResponse['token']);
+        await UserAuthStatus.saveUserStatus(true);
+        await UserToken.saveToken(jsonResponse['token']);
         return 'success';
       }
       if (response.statusCode == 400) {
@@ -51,7 +49,7 @@ class AuthRepo {
     }
   }
 
-  static Future<String> userSignIn(
+  static Future<SignInResult> userSignIn(
       {required String username, required String password}) async {
     var client = http.Client();
     String signUpUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.userSignIn}";
@@ -70,26 +68,25 @@ class AuthRepo {
       debugPrint(response.body);
 
       if (response.statusCode == 201) {
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        preferences.setBool('SIGNIN', true);
-        await saveToken(jsonResponse['token']);
-        return 'success';
+        await UserAuthStatus.saveUserStatus(true);
+        await UserToken.saveToken(jsonResponse['token']);
+        return SignInResult(status: 'success', responseBody: jsonResponse);
       }
       if (response.statusCode == 400) {
-        return 'invalid-username';
+        return SignInResult(status: 'invalid-username', responseBody: null);
       }
       if (response.statusCode == 401) {
         if (jsonResponse['error'] == "User Has Been Blocked by Admin") {
-          return 'blocked-by-admin';
+          return SignInResult(status: 'blocked-by-admin', responseBody: null);
         }
         if (jsonResponse['error'] == "Invalid Password") {
-          return 'invalid-password';
+          return SignInResult(status: 'invalid-password', responseBody: null);
         }
       }
-      return 'error';
+      return SignInResult(status: 'error', responseBody: null);
     } catch (e) {
       debugPrint(e.toString());
-      return 'error';
+      return SignInResult(status: 'error', responseBody: null);
     }
   }
 
@@ -118,4 +115,11 @@ class AuthRepo {
       return 'error';
     }
   }
+}
+
+class SignInResult {
+  final String? status;
+  final dynamic responseBody;
+
+  SignInResult({this.status, this.responseBody});
 }

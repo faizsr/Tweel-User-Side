@@ -7,7 +7,13 @@ final class SignInInitial extends SignInState {}
 
 class UserSignInLoadingState extends SignInState {}
 
-class UserSignInSuccessState extends SignInState {}
+class UserSignInSuccessState extends SignInState {
+  final UserModel userModel;
+
+  UserSignInSuccessState({
+    required this.userModel,
+  });
+}
 
 class InvalidUsernameErrorState extends SignInState {}
 
