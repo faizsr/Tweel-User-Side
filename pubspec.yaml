@@ -40,6 +40,8 @@ dependencies:
   shared_preferences: ^2.2.2
   multi_bloc_builder: ^1.0.0
   readmore: ^2.2.0
+  wechat_assets_picker: ^9.0.0
+  photo_manager: ^3.0.0
 
 dev_dependencies:
   flutter_test:

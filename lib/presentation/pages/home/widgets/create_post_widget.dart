@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/pages/create_post/media_picker/media_picker_page.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class CreatePostCard extends StatelessWidget {
   const CreatePostCard({
@@ -58,7 +60,16 @@ class CreatePostCard extends StatelessWidget {
                 backgroundColor: Colors.white,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
-              onPressed: () {},
+              onPressed: () {
+                nextScreen(
+                  context,
+                  const MediaPicker(
+                    maxCount: 10,
+                    requestType: RequestType.common,
+                  ),
+                  // const CreatePostPage(),
+                );
+              },
               child: const Text(
                 'CREATE NEW POST',
                 style: TextStyle(
