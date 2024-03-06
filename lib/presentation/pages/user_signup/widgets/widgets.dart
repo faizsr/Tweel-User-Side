@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
@@ -8,21 +9,25 @@ import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
 
 class SignUpWidgets {
-  static Text signInNavigate() {
-    return const Text.rich(
-      TextSpan(
-        children: [
-          TextSpan(
-            text: "Already have an account? ",
-            style: TextStyle(
-              color: kGray,
+  static FadeInUp signInNavigate() {
+    return FadeInUp(
+      delay: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 1000),
+      child: const Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: "Already have an account? ",
+              style: TextStyle(
+                color: kGray,
+              ),
             ),
-          ),
-          TextSpan(
-            text: 'Sign In.',
-            style: TextStyle(color: kBlack),
-          ),
-        ],
+            TextSpan(
+              text: 'Sign In.',
+              style: TextStyle(color: kBlack),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -130,7 +135,7 @@ class SignUpWidgets {
             password: password,
             email: email,
             fullName: fullName,
-            phoneNumber: phoneNo,
+            phoneNumber: int.parse(phoneNo ?? '0'),
             otp: otpController!.text,
           );
           context.read<SignUpBloc>().add(UserSignUpEvent(user: user));

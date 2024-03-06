@@ -28,7 +28,7 @@ class _UserSignUpPageTwoState extends State<UserSignUpPageTwo> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppbar.show(),
+      appBar: CustomAppbar.show(context,true),
       body: SingleChildScrollView(
         child: Container(
           constraints: BoxConstraints(minHeight: mediaHeight),

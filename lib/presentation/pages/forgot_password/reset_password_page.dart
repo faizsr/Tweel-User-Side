@@ -22,7 +22,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppbar.show(),
+      appBar: CustomAppbar.show(context,true),
       body: SingleChildScrollView(
         child: Container(
           constraints: BoxConstraints(minHeight: mediaHeight),

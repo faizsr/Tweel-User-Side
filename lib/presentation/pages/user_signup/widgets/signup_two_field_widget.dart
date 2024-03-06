@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
@@ -34,79 +35,83 @@ class _SignUpTwoFieldWidgetState extends State<SignUpTwoFieldWidget> {
   final GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Username field
-            CustomTxtFormField(
-              hintText: 'Username',
-              controller: userNameController,
-              validator: (val) {
-                if (val!.length < 4) {
-                  return 'Username should have at least 4 characters';
-                }
-                if (val.endsWith('.') || val.endsWith('_')) {
-                  return "Username can't end with period or underscore";
-                }
-                if (!RegExp(r"^(?=.{4,20}$)(?![_.])[a-zA-Z0-9._]+(?<![_.])$")
-                    .hasMatch(val)) {
-                  return 'Username can only user letters, numbers, underscores and periods';
-                }
-                return null;
-              },
-            ),
-
-            // Create password field
-            kHeight(20),
-            CustomTxtFormField(
-              hintText: 'Create password',
-              controller: passWordController,
-              validator: (val) {
-                if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
-                  return 'Passwords should be 8 characters, at least one number and one special character';
-                }
-                return null;
-              },
-            ),
-            kHeight(20),
-
-            // Confirm passowrd field
-            CustomTxtFormField(
-              hintText: 'Confirm password',
-              controller: confirmPasswordController,
-              validator: (val) {
-                if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
-                  return 'Passwords should be 8 characters, at least one number and one special character';
-                }
-                return null;
-              },
-            ),
-            kHeight(25),
-
-            // Sign Up button
-            BlocListener<SignUpBloc, SignUpState>(
-              listener: signUpListener,
-              child: CustomButton(
-                buttonText: 'Sign Up',
-                onPressed: () {
-                  if (passWordController.text ==
-                      confirmPasswordController.text) {
-                    if (formKey.currentState!.validate()) {
-                      context
-                          .read<SignUpBloc>()
-                          .add(UserOtpVerificationEvent(email: widget.email));
-                    }
-                  } else {
-                    customSnackbar(context, "Passwords doesn't match");
+    return FadeInDown(
+      delay: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 1000),
+      child: Form(
+        key: formKey,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Username field
+              CustomTxtFormField(
+                hintText: 'Username',
+                controller: userNameController,
+                validator: (val) {
+                  if (val!.length < 4) {
+                    return 'Username should have at least 4 characters';
                   }
+                  if (val.endsWith('.') || val.endsWith('_')) {
+                    return "Username can't end with period or underscore";
+                  }
+                  if (!RegExp(r"^(?=.{4,20}$)(?![_.])[a-zA-Z0-9._]+(?<![_.])$")
+                      .hasMatch(val)) {
+                    return 'Username can only user letters, numbers, underscores and periods';
+                  }
+                  return null;
                 },
               ),
-            )
-          ],
+
+              // Create password field
+              kHeight(20),
+              CustomTxtFormField(
+                hintText: 'Create password',
+                controller: passWordController,
+                validator: (val) {
+                  if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
+                    return 'Passwords should be 8 characters, at least one number and one special character';
+                  }
+                  return null;
+                },
+              ),
+              kHeight(20),
+
+              // Confirm passowrd field
+              CustomTxtFormField(
+                hintText: 'Confirm password',
+                controller: confirmPasswordController,
+                validator: (val) {
+                  if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
+                    return 'Passwords should be 8 characters, at least one number and one special character';
+                  }
+                  return null;
+                },
+              ),
+              kHeight(25),
+
+              // Sign Up button
+              BlocListener<SignUpBloc, SignUpState>(
+                listener: signUpListener,
+                child: CustomButton(
+                  buttonText: 'Sign Up',
+                  onPressed: () {
+                    if (passWordController.text ==
+                        confirmPasswordController.text) {
+                      if (formKey.currentState!.validate()) {
+                        context
+                            .read<SignUpBloc>()
+                            .add(UserOtpVerificationEvent(email: widget.email));
+                      }
+                    } else {
+                      customSnackbar(context, "Passwords doesn't match");
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

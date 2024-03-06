@@ -1,5 +1,7 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/forget_password/forget_password_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
@@ -24,7 +26,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-        color: Colors.black,
+        color: kBlack,
         onPressed: onPressed,
         child: MultiBlocBuilder(
           blocs: [
@@ -51,9 +53,13 @@ class CustomButton extends StatelessWidget {
                       ),
                     ),
                   )
-                : Text(
-                    buttonText,
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                : FadeInUp(
+                    delay: const Duration(milliseconds: 700),
+                    duration: const Duration(milliseconds: 1000),
+                    child: Text(
+                      buttonText,
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   );
           },
         ),

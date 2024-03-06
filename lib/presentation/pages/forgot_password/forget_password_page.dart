@@ -14,7 +14,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppbar.show(),
+      appBar: CustomAppbar.show(context,true),
       body: const ForgetFieldWidget(),
     );
   }
