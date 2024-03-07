@@ -27,7 +27,10 @@ class MainPage extends StatelessWidget {
         body: ValueListenableBuilder(
           valueListenable: indexChangeNotifier,
           builder: (context, int index, child) {
-            return _pages[index];
+            return IndexedStack(
+              index: index,
+              children: _pages,
+            );
           },
         ),
         bottomNavigationBar: const BottomNavigationWidget(),

@@ -106,16 +106,22 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
         style: TextStyle(fontSize: 18, fontVariations: fontWeightW600),
       ),
       actions: [
-        IconButton(
-          onPressed: () {
-            nextScreen(context, CreatePostPage(selectedAssetList: widget.selectedAssetList,));
-            // Navigator.pop(context, widget.selectedAssetList);
-          },
-          icon: const Icon(
-            Icons.arrow_forward,
-            size: 22,
-          ),
-        )
+        widget.selectedAssetList.isNotEmpty
+            ? IconButton(
+                onPressed: () {
+                  nextScreen(
+                    context,
+                    CreatePostPage(
+                      selectedAssetList: widget.selectedAssetList,
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_forward,
+                  size: 22,
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }

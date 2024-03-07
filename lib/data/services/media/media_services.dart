@@ -19,6 +19,7 @@ class MediaServices {
       start: 0,
       end: await selectedAlbum.assetCountAsync,
     );
+    print(assetList.length);
     return assetList;
   }
 }

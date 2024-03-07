@@ -3,8 +3,10 @@ class UserModel {
   final String? username;
   final String? password;
   final String? email;
-  final String? phoneNumber;
+  final int? phoneNumber;
   final String? accountType;
+  final String? profilePicture;
+  final String? bio;
   final String? fullName;
   final List? followers;
   final List? following;
@@ -20,6 +22,8 @@ class UserModel {
     this.email,
     this.phoneNumber,
     this.accountType,
+    this.profilePicture,
+    this.bio,
     this.fullName,
     this.followers,
     this.following,
@@ -36,6 +40,8 @@ class UserModel {
         email: json['email'],
         phoneNumber: json['phonenumber'],
         accountType: json['account_type'],
+        profilePicture: json['profile_picture'],
+        bio: json['bio'],
         fullName: json['fullname'],
         followers: json['followers'],
         following: json['following'],
@@ -52,6 +58,8 @@ class UserModel {
         "email": email,
         "phonenumber": phoneNumber,
         "account_type": accountType,
+        "profile_picture": profilePicture,
+        "bio": bio,
         "fullname": fullName,
         "followers": followers,
         "following": following,

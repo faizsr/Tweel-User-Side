@@ -29,6 +29,7 @@ class _BottomImageListviewState extends State<BottomImageListview> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           AssetEntity assetEntity = widget.selectedAssetList[index];
+          // assetEntity.file.then((value) => print(value));
           return Container(
             margin: const EdgeInsets.only(left: 15),
             width: 90,

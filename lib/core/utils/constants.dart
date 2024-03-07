@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 const kWhite = Colors.white;
 const kLightWhite = Color(0xFFF5F6FA);
+const kLightGrey = Color(0xFFF4F4F4);
 const kGray = Color(0xFF8F8F8F);
 const kDarkGrey = Color(0xFF4B4B4B);
 const kBlack = Colors.black;
