@@ -19,7 +19,6 @@ class CreatePostCard extends StatefulWidget {
 class _CreatePostCardState extends State<CreatePostCard> {
   @override
   void initState() {
-    context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
     super.initState();
   }
 
@@ -42,6 +41,10 @@ class _CreatePostCardState extends State<CreatePostCard> {
         children: [
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
+              if (state is UserProfileInitialState) {
+                context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+                return _loadingWidget();
+              }
               if (state is UserDetailFetchingLoadingState) {
                 return _loadingWidget();
               }
@@ -49,7 +52,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                 return Row(
                   children: [
                     CircleAvatar(
-                      radius: 30,
+                      radius: 28,
                       backgroundImage: NetworkImage(
                         state.userDetails.profilePicture!,
                       ),
@@ -65,6 +68,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                             fontVariations: fontWeightW500,
                           ),
                         ),
+                        kHeight(5),
                         Text(
                           '@${state.userDetails.username}',
                           style: const TextStyle(fontSize: 12),

@@ -3,7 +3,7 @@ part of 'profile_bloc.dart';
 @immutable
 sealed class ProfileState {}
 
-final class ProfileInitial extends ProfileState {}
+final class UserProfileInitialState extends ProfileState {}
 
 class UserDetailFetchingLoadingState extends ProfileState {}
 

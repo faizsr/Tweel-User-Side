@@ -8,4 +8,6 @@ class ApiEndPoints {
   static String resetPassword = "/forget-password";
 
   static String allPosts = "/posts";
+  static String addComment = "/post/comment/add";
+  static String deleteComment = "/post/comment/delete";
 }

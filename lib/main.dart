@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/light_theme.dart';
+import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/forget_password/forget_password_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ForgetPasswordBloc()),
         BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => PostBloc()),
+        BlocProvider(create: (context) => CommentBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

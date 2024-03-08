@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class MediaServices {
@@ -19,7 +20,7 @@ class MediaServices {
       start: 0,
       end: await selectedAlbum.assetCountAsync,
     );
-    print(assetList.length);
+    debugPrint('${assetList.length}');
     return assetList;
   }
 }

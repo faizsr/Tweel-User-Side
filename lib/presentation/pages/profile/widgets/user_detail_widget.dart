@@ -8,14 +8,24 @@ import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
-class UserDetailsWidget extends StatelessWidget {
+class UserDetailsWidget extends StatefulWidget {
   const UserDetailsWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  State<UserDetailsWidget> createState() => _UserDetailsWidgetState();
+}
+
+class _UserDetailsWidgetState extends State<UserDetailsWidget> {
+  @override
+  void initState() {
     context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {},
       builder: (context, state) {

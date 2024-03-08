@@ -9,7 +9,7 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super(ProfileInitial()) {
+  ProfileBloc() : super(UserProfileInitialState()) {
     on<UserDetailInitialFetchEvent>(userDetailInitialFetchEvent);
   }
 

@@ -31,14 +31,18 @@ class _MediaPickerState extends State<MediaPicker> {
     MediaServices().loadAlbums(widget.requestType).then(
       (value) {
         setState(() {
-          albumList = value;
-          selectedAlbum = value[0];
+          if (value != null && value.isNotEmpty) {
+            albumList = value;
+            selectedAlbum = value[0];
+          }
         });
         MediaServices().loadAssets(selectedAlbum!).then(
           (value) {
-            setState(() {
-              assetList = value;
-            });
+            if (value != null && value.isNotEmpty) {
+              setState(() {
+                assetList = value;
+              });
+            }
           },
         );
       },

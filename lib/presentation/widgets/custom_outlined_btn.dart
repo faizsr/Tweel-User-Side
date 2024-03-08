@@ -25,7 +25,7 @@ class CustomOutlinedBtn extends StatelessWidget {
           backgroundColor: Colors.white,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           btnText,
           style: const TextStyle(

@@ -21,8 +21,8 @@ class ProfileRepo {
       );
       debugPrint('Status code: ${response.statusCode}');
       if (response.statusCode == 200) {
-        final Map<String, dynamic> usersList = jsonDecode(response.body);
-        UserModel user = UserModel.fromJson(usersList);
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        UserModel user = UserModel.fromJson(responseData['user']);
         return user;
       }
       return null;

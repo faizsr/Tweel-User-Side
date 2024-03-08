@@ -35,4 +35,59 @@ class PostRepo {
       return [];
     }
   }
+
+  static Future<String> addComment(String comment, String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String addCommentUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.addComment}";
+    var data = {
+      "postId": postId,
+      "comment": comment,
+    };
+    try {
+      var response = await dio.post(
+        addCommentUrl,
+        data: data,
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        }),
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
+
+  static Future<String> deleteComment(String commentId, String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String addCommentUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.deleteComment}";
+    var data = {
+      "postId": postId,
+      "commentId": commentId,
+    };
+    try {
+      var response = await dio.post(
+        addCommentUrl,
+        data: data,
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        }),
+      );
+      if (response.statusCode == 200) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
 }
