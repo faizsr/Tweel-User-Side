@@ -10,6 +10,7 @@ class PostModel {
   final String? createdDate;
   final String? updatedDate;
   final Map<String, dynamic>? user;
+  final String? userId;
   bool isBlocked;
 
   PostModel({
@@ -22,6 +23,7 @@ class PostModel {
     this.createdDate,
     this.updatedDate,
     this.user,
+    this.userId,
     this.isBlocked = false,
   });
 
@@ -39,7 +41,8 @@ class PostModel {
       createdDate: json['createdAt'],
       updatedDate: json['updatedAt'],
       isBlocked: json['isBlocked'],
-      user: json['userId'],
+      user: json['userId'] is Map<String, dynamic> ? json['userId'] : {},
+      userId: json['userId'] is String ? json['userId'] : '',
     );
   }
 
@@ -53,7 +56,7 @@ class PostModel {
         'createdAt': createdDate,
         'updatedAt': updatedDate,
         'isBlocked': isBlocked,
-        'userId': user,
+        'userId': user is Map<String, dynamic> ? user : userId,
       };
 }
 

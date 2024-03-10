@@ -9,7 +9,7 @@ class UserDetailFetchingLoadingState extends ProfileState {}
 
 class UserDetailFetchingSucessState extends ProfileState {
   final UserModel userDetails;
-  final List<UserPostModel> posts;
+  final List<PostModel> posts;
 
   UserDetailFetchingSucessState({
     required this.userDetails,

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
 import 'package:tweel_social_media/core/utils/shared_preference.dart';
-import 'package:tweel_social_media/data/models/post_model/user_post_model.dart';
+import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
 class ProfileRepo {
@@ -12,7 +12,7 @@ class ProfileRepo {
     var client = http.Client();
     String token = await UserToken.getToken();
     String userDetailUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.userProfile}";
-    List<UserPostModel> posts = [];
+    List<PostModel> posts = [];
     try {
       var response = await client.get(
         Uri.parse(userDetailUrl),
@@ -29,7 +29,7 @@ class ProfileRepo {
         final List postsList = responseData['posts'];
         for (int i = 0; i < postsList.length; i++) {
           // debugPrint(':::::: ${postsList[0]}');
-          UserPostModel post = UserPostModel.fromJson(postsList[i]);
+          PostModel post = PostModel.fromJson(postsList[i]);
           posts.add(post);
         }
         return ProfileDetailsModel(user: user, posts: posts);
@@ -44,7 +44,7 @@ class ProfileRepo {
 
 class ProfileDetailsModel {
   final UserModel user;
-  final List<UserPostModel> posts;
+  final List<PostModel> posts;
 
   ProfileDetailsModel({
     required this.user,
