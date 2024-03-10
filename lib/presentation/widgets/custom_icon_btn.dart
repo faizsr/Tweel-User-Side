@@ -7,10 +7,12 @@ class CustomIconBtn extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.onTap,
+     this.color,
   });
 
   final String title;
   final IconData icon;
+  final Color? color;
   final void Function()? onTap;
 
   @override
@@ -19,7 +21,7 @@ class CustomIconBtn extends StatelessWidget {
       onTap: onTap,
       child: Row(
         children: [
-          Icon(icon, size: 20),
+          Icon(icon, size: 20, color: color ?? Colors.black),
           kWidth(5),
           Text(title),
         ],

@@ -45,13 +45,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisCount: 3,
                   ),
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: NetworkImage(state.posts[index].mediaURL[0]),
-                        fit: BoxFit.cover,
-                      )),
+                    return InkWell(
+                      onTap: () {},
+                      child: postImageCard(state, index),
                     );
                   },
                 )
@@ -61,6 +57,17 @@ class _ProfilePageState extends State<ProfilePage> {
           return Container();
         },
       ),
+    );
+  }
+
+  Container postImageCard(UserDetailFetchingSucessState state, int index) {
+    return Container(
+      margin: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: NetworkImage(state.posts[index].mediaURL[0]),
+        fit: BoxFit.cover,
+      )),
     );
   }
 }

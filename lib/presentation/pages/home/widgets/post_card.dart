@@ -77,20 +77,25 @@ class PostCardWidget extends StatelessWidget {
                   builder: (context, state) {
                     return CustomIconBtn(
                       title: 'Like',
-                      icon: postModel.likes!.contains(userModel.id) ? CupertinoIcons.heart_fill : CustomIcons.like,
+                      color: postModel.likes!.contains(userModel.id)
+                          ? kDarkBlue
+                          : kBlack,
+                      icon: postModel.likes!.contains(userModel.id)
+                          ? CupertinoIcons.heart_fill
+                          : CustomIcons.like,
                       onTap: () {
                         if (postModel.likes!.contains(userModel.id)) {
                           postModel.likes!.remove(userModel.id.toString());
                           context.read<LikeUnlikePostBloc>().add(
                                 UnlikePostEvent(postId: postModel.id!),
                               );
-                          print('unliking post');
+                          debugPrint('unliking post');
                         } else {
                           postModel.likes!.add(userModel.id.toString());
                           context.read<LikeUnlikePostBloc>().add(
                                 LikePostEvent(postId: postModel.id!),
                               );
-                          print('liking post');
+                          debugPrint('liking post');
                         }
                       },
                     );

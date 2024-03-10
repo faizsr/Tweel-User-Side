@@ -87,6 +87,8 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
+      print(response.statusCode);
+      print(response.data);
       if (response.statusCode == 200) {
         return 'success';
       }
@@ -115,12 +117,14 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
+      print(response.statusCode);
+      print(response.data);
       if (response.statusCode == 200) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Error: $e');
       return '';
     }
   }

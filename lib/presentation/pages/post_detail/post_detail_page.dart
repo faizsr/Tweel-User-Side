@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
+import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/widgets/comment_card_widget.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/widgets/comment_text_field.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_icon_btn.dart';
@@ -63,11 +65,15 @@ class PostDetailPage extends StatelessWidget {
                               onTap: () {},
                             ),
                             Container(color: kGray, height: 20, width: 0.5),
-                            CustomIconBtn(
-                              title:
-                                  '${(postModel.comments!.isEmpty ? 'No' : '${postModel.comments!.length}')} comments',
-                              icon: CustomIcons.messages_2,
-                              onTap: () {},
+                            BlocBuilder<CommentBloc, CommentState>(
+                              builder: (context, state) {
+                                return CustomIconBtn(
+                                  title:
+                                      '${(postModel.comments!.isEmpty ? 'No' : '${postModel.comments!.length}')} comments',
+                                  icon: CustomIcons.messages_2,
+                                  onTap: () {},
+                                );
+                              },
                             ),
                             Container(color: kGray, height: 20, width: 0.5),
                             CustomIconBtn(
@@ -82,14 +88,18 @@ class PostDetailPage extends StatelessWidget {
                     ),
                   ),
                   kHeight(10),
-                  Column(
-                    children: List.generate(
-                      postModel.comments!.length,
-                      (index) => CommentCardWidget(
-                        commentModel: postModel.comments![index],
-                        postModel: postModel,
-                      ),
-                    ),
+                  BlocBuilder<CommentBloc, CommentState>(
+                    builder: (context, state) {
+                      return Column(
+                        children: List.generate(
+                          postModel.comments!.length,
+                          (index) => CommentCardWidget(
+                            commentModel: postModel.comments![index],
+                            postModel: postModel,
+                          ),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),

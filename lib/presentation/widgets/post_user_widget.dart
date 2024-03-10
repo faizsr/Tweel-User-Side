@@ -19,7 +19,6 @@ class PostUserDetail extends StatelessWidget {
             radius: 20,
             backgroundImage: NetworkImage(postModel.user!['profile_picture']),
           ),
-          
         ),
         kWidth(10),
         Column(
@@ -42,7 +41,16 @@ class PostUserDetail extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        const Icon(Icons.more_vert_sharp)
+        InkWell(
+          onTap: () {
+            print('post more');
+          },
+          child: const Padding(
+            padding: EdgeInsets.fromLTRB(5, 5, 0, 5),
+            child: 
+            Icon(Icons.more_vert_sharp),
+          ),
+        ),
       ],
     );
   }
