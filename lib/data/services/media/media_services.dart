@@ -7,6 +7,12 @@ class MediaServices {
     List<AssetPathEntity> albumList = [];
     if (permission.isAuth == true) {
       albumList = await PhotoManager.getAssetPathList(
+        filterOption: FilterOptionGroup(
+            videoOption: const FilterOption(
+          durationConstraint: DurationConstraint(
+            max: Duration(minutes: 2),
+          ),
+        )),
         type: requestType,
       );
     } else {

@@ -63,17 +63,21 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () async {
-                      context.read<CommentBloc>().add(AddCommentEvent(
-                            postId: widget.postModel.id,
-                            comment: commentController.text,
-                            postModel: widget.postModel,
-                            userModel: state.userDetails,
-                          ));
-                      commentController.clear();
+                  BlocBuilder<CommentBloc, CommentState>(
+                    builder: (context, state1) {
+                      return InkWell(
+                        onTap: () async {
+                          context.read<CommentBloc>().add(AddCommentEvent(
+                                postId: widget.postModel.id!,
+                                comment: commentController.text,
+                                postModel: widget.postModel,
+                                userModel: state.userDetails,
+                              ));
+                          commentController.clear();
+                        },
+                        child: const Icon(CustomIcons.send_2),
+                      );
                     },
-                    child: const Icon(CustomIcons.send_2),
                   ),
                 ],
               ),

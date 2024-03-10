@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/data/models/post_model/post_model.dart';
+import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/create_post/widgets/bottom_image_listview.dart';
 import 'package:tweel_social_media/presentation/pages/create_post/widgets/create_post_appbar.dart';
+import 'package:tweel_social_media/presentation/pages/create_post/widgets/user_detail_widget.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class CreatePostPage extends StatefulWidget {
@@ -22,24 +25,68 @@ class _CreatePostPageState extends State<CreatePostPage> {
   final descriptionController = TextEditingController();
 
   @override
-  void initState() {
-    context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(40),
-        child: CreatePostAppbar(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(40),
+        child: BlocListener<PostBloc, PostState>(
+          listener: (context, state) {
+            if (state is CreatePostLoadingState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  backgroundColor: kBlack,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                  content: const Row(
+                    children: [
+                      Text('Uploading...'),
+                      Spacer(),
+                      SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+            if (state is UploadImageSuccessState) {
+              context.read<PostBloc>().add(
+                    CreatePostEvent(
+                      postModel: PostModel(
+                        description: descriptionController.text,
+                        location: locationController.text,
+                        mediaURL: state.imagePathList,
+                      ),
+                    ),
+                  );
+            }
+            if (state is CreatePostSuccessState) {
+              Navigator.pop(context);
+              Navigator.pop(context);
+              customSnackbar(context, 'New post uploaded successfully');
+              context.read<PostBloc>().add(PostInitialFetchEvent());
+              context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+            }
+          },
+          child: CreatePostAppbar(
+            selectedAssets: widget.selectedAssetList,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           child: Column(
             children: [
-              userDetailWidget(),
+              const UserDetailWidget(),
               kHeight(20),
               TextFormField(
                 controller: locationController,
@@ -63,46 +110,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
       ),
       bottomSheet:
           BottomImageListview(selectedAssetList: widget.selectedAssetList),
-    );
-  }
-
-  Widget userDetailWidget() {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
-        if (state is UserDetailFetchingSucessState) {
-          return Row(
-            children: [
-              CircleAvatar(
-                radius: 25,
-                backgroundImage:
-                    NetworkImage(state.userDetails.profilePicture!),
-              ),
-              kWidth(10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    state.userDetails.fullName!,
-                    style: const TextStyle(
-                      fontVariations: fontWeightW600,
-                      fontSize: 15,
-                    ),
-                  ),
-                  kHeight(5),
-                  Text(
-                    state.userDetails.accountType!,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: kGray,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          );
-        }
-        return const SizedBox();
-      },
     );
   }
 }

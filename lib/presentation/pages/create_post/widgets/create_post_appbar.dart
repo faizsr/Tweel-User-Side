@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class CreatePostAppbar extends StatelessWidget {
-  const CreatePostAppbar({super.key});
+  const CreatePostAppbar({
+    super.key,
+    required this.selectedAssets,
+  });
+
+  final List<AssetEntity> selectedAssets;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +36,20 @@ class CreatePostAppbar extends StatelessWidget {
       ),
       actions: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            context
+                .read<PostBloc>()
+                .add(UploadImageToCloudEvent(selectedAssets: selectedAssets));
+          },
           child: const Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Text(
-                'POST',
-                style:
-                    TextStyle(fontVariations: fontWeightW500, color: kDarkBlue),
-              )),
-        )
+            padding: EdgeInsets.only(right: 10),
+            child: Text(
+              'POST',
+              style:
+                  TextStyle(fontVariations: fontWeightW500, color: kDarkBlue),
+            ),
+          ),
+        ),
       ],
     );
   }

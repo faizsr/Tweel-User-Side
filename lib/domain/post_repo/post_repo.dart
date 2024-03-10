@@ -24,6 +24,7 @@ class PostRepo {
       if (response.statusCode == 200) {
         final List postsList = response.data;
         for (int i = 0; i < postsList.length; i++) {
+          // debugPrint('From message ::: ${postsList[0]}');
           PostModel post = PostModel.fromJson(postsList[i]);
           posts.add(post);
         }
@@ -31,8 +32,41 @@ class PostRepo {
       }
       return [];
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('messsaage: ${e.toString()}');
       return [];
+    }
+  }
+
+  static Future<String> createPost(PostModel post) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String createPostUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.createPost}";
+    try {
+      var data = {
+        "postData": {
+          "description": post.description,
+          'image': post.mediaURL,
+          "location": post.location,
+        }
+      };
+      var response = await dio.post(createPostUrl,
+          data: data,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+          ));
+      print(response.statusCode);
+      print(response.data);
+
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
     }
   }
 
@@ -66,7 +100,7 @@ class PostRepo {
   static Future<String> deleteComment(String commentId, String postId) async {
     final dio = Dio();
     String token = await UserToken.getToken();
-    String addCommentUrl =
+    String deleteCommentUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.deleteComment}";
     var data = {
       "postId": postId,
@@ -74,13 +108,63 @@ class PostRepo {
     };
     try {
       var response = await dio.post(
-        addCommentUrl,
+        deleteCommentUrl,
         data: data,
         options: Options(headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token'
         }),
       );
+      if (response.statusCode == 200) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
+
+  static Future<String> likePost(String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String likePostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.likePost}$postId";
+    try {
+      var response = await dio.patch(
+        likePostUrl,
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        }),
+      );
+      debugPrint('${response.statusCode}');
+      debugPrint(response.data.toString());
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
+
+  static Future<String> unlikePost(String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String likePostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.unlikePost}$postId";
+    try {
+      var response = await dio.patch(
+        likePostUrl,
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        }),
+      );
+      debugPrint('${response.statusCode}');
+      debugPrint(response.data.toString());
       if (response.statusCode == 200) {
         return 'success';
       }

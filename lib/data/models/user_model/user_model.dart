@@ -1,3 +1,5 @@
+import 'package:tweel_social_media/data/models/post_model/post_model.dart';
+
 class UserModel {
   final String? id;
   final String? username;
@@ -8,6 +10,7 @@ class UserModel {
   final String? profilePicture;
   final String? bio;
   final String? fullName;
+  final List<PostModel>? posts;
   final List? followers;
   final List? following;
   final bool? isBlocked;
@@ -25,6 +28,7 @@ class UserModel {
     this.profilePicture,
     this.bio,
     this.fullName,
+    this.posts,
     this.followers,
     this.following,
     this.isBlocked,
@@ -43,6 +47,7 @@ class UserModel {
         profilePicture: json['profile_picture'],
         bio: json['bio'],
         fullName: json['fullname'],
+        posts: json['posts'],
         followers: json['followers'],
         following: json['following'],
         isBlocked: json['isBlocked'],
@@ -61,6 +66,7 @@ class UserModel {
         "profile_picture": profilePicture,
         "bio": bio,
         "fullname": fullName,
+        "posts": posts,
         "followers": followers,
         "following": following,
         "isBlocked": isBlocked,

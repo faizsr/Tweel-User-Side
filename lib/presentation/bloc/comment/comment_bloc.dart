@@ -20,7 +20,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     String response = await PostRepo.addComment(event.comment, event.postId);
     if (response == 'success') {
       debugPrint('Comment added');
-      event.postModel.comments.add(
+      event.postModel.comments!.add(
         CommentModel(
           user: event.userModel,
           comment: event.comment,
@@ -38,7 +38,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     String response =
         await PostRepo.deleteComment(event.commentId, event.postId);
     if (response == 'success') {
-      event.postModel.comments
+      event.postModel.comments!
           .removeWhere((element) => element.id == event.commentId);
       debugPrint('Comment deleted');
       emit(CommentDeletedState());

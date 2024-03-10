@@ -18,11 +18,6 @@ class CreatePostCard extends StatefulWidget {
 
 class _CreatePostCardState extends State<CreatePostCard> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),

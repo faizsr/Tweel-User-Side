@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
+import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlike_post_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_icon_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/post_image_widget.dart';
@@ -12,9 +16,11 @@ class PostCardWidget extends StatelessWidget {
   const PostCardWidget({
     super.key,
     required this.postModel,
+    required this.userModel,
   });
 
   final PostModel postModel;
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +73,27 @@ class PostCardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomIconBtn(
-                  title: 'Like',
-                  icon: CustomIcons.like,
-                  onTap: () {
-                    debugPrint('like pressed');
+                BlocBuilder<LikeUnlikePostBloc, LikeUnlikePostState>(
+                  builder: (context, state) {
+                    return CustomIconBtn(
+                      title: 'Like',
+                      icon: postModel.likes!.contains(userModel.id) ? CupertinoIcons.heart_fill : CustomIcons.like,
+                      onTap: () {
+                        if (postModel.likes!.contains(userModel.id)) {
+                          postModel.likes!.remove(userModel.id.toString());
+                          context.read<LikeUnlikePostBloc>().add(
+                                UnlikePostEvent(postId: postModel.id!),
+                              );
+                          print('unliking post');
+                        } else {
+                          postModel.likes!.add(userModel.id.toString());
+                          context.read<LikeUnlikePostBloc>().add(
+                                LikePostEvent(postId: postModel.id!),
+                              );
+                          print('liking post');
+                        }
+                      },
+                    );
                   },
                 ),
                 Container(height: 15, width: 1, color: Colors.grey.shade300),

@@ -20,7 +20,7 @@ class CommentCardWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read<CommentBloc>().add(DeleteCommentEvent(
-              postId: postModel.id,
+              postId: postModel.id!,
               commentId: commentModel.id,
               postModel: postModel,
             ));

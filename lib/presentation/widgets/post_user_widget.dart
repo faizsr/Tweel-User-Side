@@ -17,15 +17,16 @@ class PostUserDetail extends StatelessWidget {
           },
           child: CircleAvatar(
             radius: 20,
-            backgroundImage: NetworkImage(postModel.user.profilePicture!),
+            backgroundImage: NetworkImage(postModel.user!['profile_picture']),
           ),
+          
         ),
         kWidth(10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              postModel.user.fullName!,
+              postModel.user!['fullname'],
               style: const TextStyle(fontSize: 15),
             ),
             kHeight(5),

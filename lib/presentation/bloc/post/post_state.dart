@@ -3,7 +3,7 @@ part of 'post_bloc.dart';
 @immutable
 sealed class PostState {}
 
-final class PostInitial extends PostState {}
+final class PostInitialState extends PostState {}
 
 class PostDetailFetchingLoadingState extends PostState {}
 
@@ -16,3 +16,21 @@ class PostDetailFetchingSucessState extends PostState {
 }
 
 class PostDetailFetchingErrorState extends PostState {}
+
+class CreatePostLoadingState extends PostState {}
+
+class CreatePostSuccessState extends PostState {}
+
+class CreatePostErrorState extends PostState {}
+
+class UploadImageLoadingState extends PostState {}
+
+class UploadImageSuccessState extends PostState {
+  final List<String> imagePathList;
+
+  UploadImageSuccessState({
+    required this.imagePathList,
+  });
+}
+
+class UploadImageErrorState extends PostState {}

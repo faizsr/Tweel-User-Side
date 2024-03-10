@@ -58,14 +58,14 @@ class PostDetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomIconBtn(
-                              title: '${postModel.likes.length} likes',
+                              title: '${postModel.likes!.length} likes',
                               icon: CustomIcons.like,
                               onTap: () {},
                             ),
                             Container(color: kGray, height: 20, width: 0.5),
                             CustomIconBtn(
                               title:
-                                  '${(postModel.comments.isEmpty ? 'No' : '${postModel.comments.length}')} comments',
+                                  '${(postModel.comments!.isEmpty ? 'No' : '${postModel.comments!.length}')} comments',
                               icon: CustomIcons.messages_2,
                               onTap: () {},
                             ),
@@ -84,9 +84,9 @@ class PostDetailPage extends StatelessWidget {
                   kHeight(10),
                   Column(
                     children: List.generate(
-                      postModel.comments.length,
+                      postModel.comments!.length,
                       (index) => CommentCardWidget(
-                        commentModel: postModel.comments[index],
+                        commentModel: postModel.comments![index],
                         postModel: postModel,
                       ),
                     ),

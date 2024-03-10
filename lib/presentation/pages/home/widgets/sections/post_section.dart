@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post_card.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post_card_loading.dart';
 
@@ -15,11 +17,6 @@ class PostSection extends StatefulWidget {
 }
 
 class _PostSectionState extends State<PostSection> {
-  @override
-  void initState() {
-    context.read<PostBloc>().add(PostrInitialFetchEvent());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +30,37 @@ class _PostSectionState extends State<PostSection> {
             style: TextStyle(fontSize: 16),
           ),
           kHeight(10),
-          BlocBuilder<PostBloc, PostState>(
+          MultiBlocBuilder(
+            blocs: [
+              context.watch<PostBloc>(),
+              context.watch<ProfileBloc>(),
+            ],
             builder: (context, state) {
-              if (state is PostDetailFetchingLoadingState) {
+              var state1 = state[0];
+              var state2 = state[1];
+              if (state1 is PostInitialState) {
+                context.read<PostBloc>().add(PostInitialFetchEvent());
                 return Column(
                   children:
                       List.generate(5, (index) => const PostCardLoading()),
                 );
               }
-              if (state is PostDetailFetchingSucessState) {
+              if (state1 is PostDetailFetchingLoadingState) {
                 return Column(
-                  children: List.generate(state.posts.length,
-                      (index) => PostCardWidget(postModel: state.posts[index])),
+                  children:
+                      List.generate(5, (index) => const PostCardLoading()),
+                );
+              }
+              if (state1 is PostDetailFetchingSucessState &&
+                  state2 is UserDetailFetchingSucessState) {
+                return Column(
+                  children: List.generate(
+                    state1.posts.length,
+                    (index) => PostCardWidget(
+                      postModel: state1.posts[index],
+                      userModel: state2.userDetails,
+                    ),
+                  ),
                 );
               }
               return Container();
