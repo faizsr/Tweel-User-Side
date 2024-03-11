@@ -19,18 +19,24 @@ class PostDetailFetchingErrorState extends PostState {}
 
 class CreatePostLoadingState extends PostState {}
 
-class CreatePostSuccessState extends PostState {}
-
-class CreatePostErrorState extends PostState {}
-
-class UploadImageLoadingState extends PostState {}
-
-class UploadImageSuccessState extends PostState {
+class CreatePostSuccessState extends PostState {
   final List<String> imagePathList;
 
-  UploadImageSuccessState({
+  CreatePostSuccessState({
     required this.imagePathList,
   });
 }
 
-class UploadImageErrorState extends PostState {}
+class CreatePostErrorState extends PostState {}
+
+class EditPostLoadingState extends PostState {}
+
+class EditPostSuccessState extends PostState {}
+
+class EditPostErrorState extends PostState {}
+
+class RemovePostLoadingState extends PostState {}
+
+class RemovePostSuccessState extends PostState {}
+
+class RemovePostErrorState extends PostState {}

@@ -14,7 +14,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc() : super(PostInitialState()) {
     on<PostInitialFetchEvent>(postInitialFetchEvent);
     on<CreatePostEvent>(createPostEvent);
-    on<UploadImageToCloudEvent>(uploadImageToCloudEvent);
+    on<EditPostEvent>(editPostEvent);
+    on<RemovePostEvent>(removePostEvent);
   }
 
   FutureOr<void> postInitialFetchEvent(
@@ -31,23 +32,41 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   FutureOr<void> createPostEvent(
       CreatePostEvent event, Emitter<PostState> emit) async {
     emit(CreatePostLoadingState());
-    String response = await PostRepo.createPost(event.postModel);
-    if (response == 'success') {
-      emit(CreatePostSuccessState());
+    debugPrint('description ${event.description}');
+    debugPrint('location ${event.location}');
+    String description = event.description;
+    String location = event.location;
+    List<String> imageUrlList =
+        await CloudRepo.uploadImage(event.selectedAssets);
+    String response =
+        await PostRepo.createPost(location, description, imageUrlList);
+    if (response == 'success' && imageUrlList.isNotEmpty) {
+      emit(CreatePostSuccessState(imagePathList: imageUrlList));
     } else {
       emit(CreatePostErrorState());
     }
   }
 
-  FutureOr<void> uploadImageToCloudEvent(
-      UploadImageToCloudEvent event, Emitter<PostState> emit) async {
-    emit(CreatePostLoadingState());
-    List<String> imageUrlList =
-        await CloudRepo.uploadImage(event.selectedAssets);
-    if (imageUrlList.isNotEmpty) {
-      emit(UploadImageSuccessState(imagePathList: imageUrlList));
+  FutureOr<void> editPostEvent(
+      EditPostEvent event, Emitter<PostState> emit) async {
+    emit(EditPostLoadingState());
+    String response = await PostRepo.editPost(event.postModel);
+    if (response == 'success') {
+      emit(EditPostSuccessState());
     } else {
-      emit(UploadImageErrorState());
+      emit(EditPostErrorState());
+    }
+  }
+
+  FutureOr<void> removePostEvent(
+      RemovePostEvent event, Emitter<PostState> emit) async {
+    emit(RemovePostLoadingState());
+    String response = await PostRepo.removePost(event.postId);
+    if (response == 'success') {
+      debugPrint('Post removed successfully');
+      emit(RemovePostSuccessState());
+    } else {
+      emit(RemovePostErrorState());
     }
   }
 }

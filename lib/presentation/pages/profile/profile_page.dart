@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/user_detail_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -46,7 +47,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        nextScreen(
+                          context,
+                          PostDetailPage(
+                            postModel: state.posts[index],
+                            userModel: state.userDetails,
+                          ),
+                        );
+                      },
                       child: postImageCard(state, index),
                     );
                   },
@@ -65,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
       margin: const EdgeInsets.all(3),
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: NetworkImage(state.posts[index].mediaURL[0]),
+        image: NetworkImage(state.posts[index].mediaURL![0]),
         fit: BoxFit.cover,
       )),
     );

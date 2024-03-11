@@ -4,7 +4,7 @@ class PostModel {
   final String? id;
   final String description;
   final String location;
-  final List mediaURL;
+  final List? mediaURL;
   final List? likes;
   final List<CommentModel>? comments;
   final String? createdDate;
@@ -17,7 +17,7 @@ class PostModel {
     this.id,
     required this.description,
     required this.location,
-    required this.mediaURL,
+     this.mediaURL,
     this.likes,
     this.comments,
     this.createdDate,

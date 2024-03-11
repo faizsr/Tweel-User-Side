@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:tweel_social_media/core/theme/image_preview_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/services/media/media_services.dart';
-import 'package:tweel_social_media/presentation/pages/create_post/media_picker/widgets/media_picker_appbar.dart';
+import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/widgets/media_picker_appbar.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class MediaPicker extends StatefulWidget {

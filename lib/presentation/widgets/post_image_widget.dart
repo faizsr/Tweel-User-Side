@@ -19,12 +19,12 @@ class PostImageWidget extends StatelessWidget {
       child: SizedBox(
         height: 400,
         child: PageView.builder(
-          itemCount: postModel.mediaURL.length,
+          itemCount: postModel.mediaURL!.length,
           itemBuilder: (context, index) {
             return Container(
-              child: postModel.mediaURL[index].toString().contains('image')
-                  ? Image.network(postModel.mediaURL[index], fit: BoxFit.cover)
-                  : VideoPlayerWidget(videoUrl: postModel.mediaURL[index]),
+              child: postModel.mediaURL![index].toString().contains('image')
+                  ? Image.network(postModel.mediaURL![index], fit: BoxFit.cover)
+                  : VideoPlayerWidget(videoUrl: postModel.mediaURL![index]),
             );
           },
         ),

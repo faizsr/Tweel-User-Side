@@ -24,104 +24,113 @@ class PostCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        debugPrint('card pressed');
-        nextScreen(context, PostDetailPage(postModel: postModel));
-      },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 20),
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 15),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: kWhite,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 40,
-              color: Colors.black.withOpacity(0.05),
-            )
-          ],
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Posted User Details
-            PostUserDetail(postModel: postModel),
-            kHeight(15),
-
-            // Post Description
-            ReadMoreText(
-              postModel.description,
-              trimLines: 3,
-              textAlign: TextAlign.start,
-              colorClickableText: Colors.pink,
-              trimMode: TrimMode.Line,
-              trimCollapsedText: 'more',
-              trimExpandedText: ' less',
-              style: const TextStyle(fontSize: 13),
-              lessStyle: const TextStyle(fontSize: 13, color: kGray),
-              moreStyle: const TextStyle(fontSize: 13, color: kGray),
-            ),
-            kHeight(15),
-
-            // Post Image Section
-            PostImageWidget(postModel: postModel),
-            kHeight(15),
-
-            // Post Action Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                BlocBuilder<LikeUnlikePostBloc, LikeUnlikePostState>(
-                  builder: (context, state) {
-                    return CustomIconBtn(
-                      title: 'Like',
-                      color: postModel.likes!.contains(userModel.id)
-                          ? kDarkBlue
-                          : kBlack,
-                      icon: postModel.likes!.contains(userModel.id)
-                          ? CupertinoIcons.heart_fill
-                          : CustomIcons.like,
-                      onTap: () {
-                        if (postModel.likes!.contains(userModel.id)) {
-                          postModel.likes!.remove(userModel.id.toString());
-                          context.read<LikeUnlikePostBloc>().add(
-                                UnlikePostEvent(postId: postModel.id!),
-                              );
-                          debugPrint('unliking post');
-                        } else {
-                          postModel.likes!.add(userModel.id.toString());
-                          context.read<LikeUnlikePostBloc>().add(
-                                LikePostEvent(postId: postModel.id!),
-                              );
-                          debugPrint('liking post');
-                        }
-                      },
-                    );
-                  },
-                ),
-                Container(height: 15, width: 1, color: Colors.grey.shade300),
-                CustomIconBtn(
-                  title: 'Comment',
-                  icon: CustomIcons.messages_2,
-                  onTap: () {
-                    debugPrint('comment pressed');
-                  },
-                ),
-                Container(height: 15, width: 1, color: Colors.grey.shade300),
-                CustomIconBtn(
-                  title: 'Share',
-                  icon: CustomIcons.send_2,
-                  onTap: () {
-                    debugPrint('share pressed');
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 15),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: kWhite,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 40,
+            color: Colors.black.withOpacity(0.05),
+          )
+        ],
+        borderRadius: BorderRadius.circular(12),
       ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Posted User Details
+          PostUserDetail(
+            postModel: postModel,
+            userModel: userModel,
+          ),
+          kHeight(15),
+
+          // Post Description
+          ReadMoreText(
+            postModel.description,
+            trimLines: 3,
+            textAlign: TextAlign.start,
+            colorClickableText: Colors.pink,
+            trimMode: TrimMode.Line,
+            trimCollapsedText: 'more',
+            trimExpandedText: ' less',
+            style: const TextStyle(fontSize: 13),
+            lessStyle: const TextStyle(fontSize: 13, color: kGray),
+            moreStyle: const TextStyle(fontSize: 13, color: kGray),
+          ),
+          kHeight(15),
+
+          // Post Image Section
+          PostImageWidget(postModel: postModel),
+          kHeight(15),
+
+          // Post Action Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              likeButton(),
+              Container(height: 15, width: 1, color: Colors.grey.shade300),
+              commentButton(context),
+              Container(height: 15, width: 1, color: Colors.grey.shade300),
+              CustomIconBtn(
+                title: 'Share',
+                icon: CustomIcons.send_2,
+                onTap: () {
+                  debugPrint('share pressed');
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget commentButton(BuildContext context) {
+    return CustomIconBtn(
+      title: 'Comment',
+      icon: CustomIcons.messages_2,
+      onTap: () {
+        debugPrint('comment pressed');
+        nextScreen(
+            context,
+            PostDetailPage(
+              postModel: postModel,
+              userModel: userModel,
+            ));
+      },
+    );
+  }
+
+  Widget likeButton() {
+    return BlocBuilder<LikeUnlikePostBloc, LikeUnlikePostState>(
+      builder: (context, state) {
+        return CustomIconBtn(
+          title: 'Like',
+          color: postModel.likes!.contains(userModel.id) ? kDarkBlue : kBlack,
+          icon: postModel.likes!.contains(userModel.id)
+              ? CupertinoIcons.heart_fill
+              : CustomIcons.like,
+          onTap: () {
+            if (postModel.likes!.contains(userModel.id)) {
+              postModel.likes!.remove(userModel.id.toString());
+              context.read<LikeUnlikePostBloc>().add(
+                    UnlikePostEvent(postId: postModel.id!),
+                  );
+              debugPrint('unliking post');
+            } else {
+              postModel.likes!.add(userModel.id.toString());
+              context.read<LikeUnlikePostBloc>().add(
+                    LikePostEvent(postId: postModel.id!),
+                  );
+              debugPrint('liking post');
+            }
+          },
+        );
+      },
     );
   }
 }

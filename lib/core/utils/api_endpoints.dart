@@ -9,6 +9,8 @@ class ApiEndPoints {
 
   static String allPosts = "/posts";
   static String createPost = "/createpost";
+  static String editPost = "/post/";
+  static String removePost = "/post/";
 
   static String addComment = "/post/comment/add";
   static String deleteComment = "/post/comment/delete";

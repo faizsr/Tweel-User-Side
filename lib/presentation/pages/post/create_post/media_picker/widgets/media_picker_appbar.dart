@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/presentation/pages/create_post/create_post.dart';
+import 'package:tweel_social_media/presentation/pages/post/create_post/create_post.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class MediaPickerAppbar extends StatefulWidget {

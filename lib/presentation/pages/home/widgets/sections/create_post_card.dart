@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
-import 'package:tweel_social_media/presentation/pages/create_post/media_picker/media_picker_page.dart';
+import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';

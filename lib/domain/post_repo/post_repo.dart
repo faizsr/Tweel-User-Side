@@ -37,16 +37,22 @@ class PostRepo {
     }
   }
 
-  static Future<String> createPost(PostModel post) async {
+  static Future<String> createPost(
+      String location, String description, List<String> imageUrlList) async {
+    debugPrint('image url lenght: ${imageUrlList.length}');
+    debugPrint('image 1: ${imageUrlList[0]}');
     final dio = Dio();
     String token = await UserToken.getToken();
     String createPostUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.createPost}";
     try {
+      print(imageUrlList.isEmpty);
+      print(description);
+      print(location);
       var data = {
         "postData": {
-          "description": post.description,
-          'image': post.mediaURL,
-          "location": post.location,
+          "description": description,
+          'image': imageUrlList,
+          "location": location,
         }
       };
       var response = await dio.post(createPostUrl,
@@ -60,6 +66,68 @@ class PostRepo {
       print(response.statusCode);
       print(response.data);
 
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
+
+  static Future<String> editPost(PostModel post) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String editPostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.editPost}${post.id}";
+    print('on repo');
+    print(post.id);
+    print(post.description);
+    print(post.location);
+    print(post.mediaURL!.length);
+    try {
+      var data = {
+        "description": post.description,
+        'image': post.mediaURL,
+        "location": post.location,
+      };
+      var response = await dio.patch(editPostUrl,
+          data: data,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+          ));
+      print(response.statusCode);
+      print(response.data);
+
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
+
+  static Future<String> removePost(String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String removePostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.removePost}$postId";
+    try {
+      var response = await dio.delete(removePostUrl,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+          ));
+      print(response.statusCode);
+      print(response.data);
       if (response.statusCode == 201) {
         return 'success';
       }

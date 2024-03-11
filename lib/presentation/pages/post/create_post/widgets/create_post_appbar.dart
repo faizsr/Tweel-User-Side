@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+// import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
+// import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-class CreatePostAppbar extends StatelessWidget {
+class CreatePostAppbar extends StatefulWidget {
   const CreatePostAppbar({
     super.key,
-    required this.selectedAssets,
+    required this.onTap,
+    // required this.description,
+    // required this.location,
   });
 
-  final List<AssetEntity> selectedAssets;
+  final void Function()? onTap;
+  // final String description;
+  // final String location;
+
+  @override
+  State<CreatePostAppbar> createState() => _CreatePostAppbarState();
+}
+
+class _CreatePostAppbarState extends State<CreatePostAppbar> {
+  @override
+  void initState() {
+    // print('Description on screen: ${widget.description}');
+    // print('Location on screen : ${widget.location}');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +52,7 @@ class CreatePostAppbar extends StatelessWidget {
       ),
       actions: [
         InkWell(
-          onTap: () {
-            context
-                .read<PostBloc>()
-                .add(UploadImageToCloudEvent(selectedAssets: selectedAssets));
-          },
+          onTap: widget.onTap,
           child: const Padding(
             padding: EdgeInsets.only(right: 10),
             child: Text(
