@@ -29,12 +29,15 @@ class PostDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Post'),
+        title: const Text(
+          'Post',
+          style: TextStyle(fontSize: 18),
+        ),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(CustomIcons.arrow_left),
+          icon: const Icon(CustomIcons.arrow_left, size: 24),
         ),
         titleSpacing: 0,
       ),
@@ -47,7 +50,7 @@ class PostDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -12,6 +12,7 @@ part 'profile_state.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(UserProfileInitialState()) {
     on<UserDetailInitialFetchEvent>(userDetailInitialFetchEvent);
+    on<EditUserDetailEvent>(editUserDetailEvent);
   }
 
   FutureOr<void> userDetailInitialFetchEvent(
@@ -25,6 +26,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ));
     } else {
       emit(UserDetailFetchingErrorState());
+    }
+  }
+
+  FutureOr<void> editUserDetailEvent(
+      EditUserDetailEvent event, Emitter<ProfileState> emit) async {
+    emit(EditUserDetailsLoadingState());
+    String response = await ProfileRepo.updateUserDetails(event.user);
+    if (response == 'success') {
+      emit(EditUserDetailsSuccessState());
+    } else {
+      emit(EditUserDetailsErrorState());
     }
   }
 }

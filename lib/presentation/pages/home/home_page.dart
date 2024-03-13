@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/presentation/pages/home/widgets/sections/create_post_card.dart';
+import 'package:tweel_social_media/presentation/pages/home/sections/create_post_card.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/heading_widget.dart';
-import 'package:tweel_social_media/presentation/pages/home/widgets/sections/post_section.dart';
-import 'package:tweel_social_media/presentation/pages/home/widgets/sections/story_section.dart';
+import 'package:tweel_social_media/presentation/pages/home/sections/post_section.dart';
+import 'package:tweel_social_media/presentation/pages/home/sections/story_section.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
         shrinkWrap: true,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
             child: Column(
               children: [
                 const HeadingWidget(),

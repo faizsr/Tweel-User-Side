@@ -24,8 +24,10 @@ class PostUserDetail extends StatelessWidget {
           },
           child: CircleAvatar(
             radius: 20,
-            backgroundImage: NetworkImage(postModel.user!['profile_picture'] ??
-                userModel!.profilePicture),
+            backgroundColor: kWhite,
+            backgroundImage: NetworkImage(
+              postModel.user!['profile_picture'] ?? userModel!.profilePicture,
+            ),
           ),
         ),
         kWidth(10),
@@ -49,19 +51,28 @@ class PostUserDetail extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        GestureDetector(
-          onTap: () {
-            PostMoreWidget.bottomSheet(
-              context: context,
-              postModel: postModel,
-              userId: userModel!.id!,
-              postId: userModel!.id!,
-            );
-          },
-          child: const Padding(
-            padding: EdgeInsets.fromLTRB(5, 5, 0, 5),
-            child: Icon(Icons.more_vert_sharp),
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                timeAgo(DateTime.parse(postModel.createdDate!)),
+                style: const TextStyle(fontSize: 11),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                PostMoreWidget.bottomSheet(
+                  context: context,
+                  postModel: postModel,
+                  userId: userModel!.id!,
+                  postId: userModel!.id!,
+                );
+              },
+              icon: const Icon(Icons.more_vert_sharp),
+            ),
+          ],
         ),
       ],
     );

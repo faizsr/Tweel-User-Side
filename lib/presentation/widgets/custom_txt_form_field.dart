@@ -5,12 +5,16 @@ class CustomTxtFormField extends StatelessWidget {
   const CustomTxtFormField({
     super.key,
     required this.hintText,
+    this.labelText,
+    this.readOnly,
     this.validator,
     this.controller,
     this.onChanged,
   });
 
   final String hintText;
+  final String? labelText;
+  final bool? readOnly;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   final TextEditingController? controller;
@@ -18,12 +22,14 @@ class CustomTxtFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly ?? false,
       textCapitalization: TextCapitalization.none,
       controller: controller,
       validator: validator,
       style: const TextStyle(fontSize: 15),
       onChanged: onChanged,
       decoration: InputDecoration(
+        labelText: labelText,
         errorMaxLines: 2,
         errorStyle: const TextStyle(),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),

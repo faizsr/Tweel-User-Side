@@ -6,6 +6,7 @@ import 'package:tweel_social_media/presentation/bloc/forget_password/forget_pass
 import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlike_post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down_cubit.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => PostBloc()),
         BlocProvider(create: (context) => CommentBloc()),
         BlocProvider(create: (context) => LikeUnlikePostBloc()),
+        BlocProvider(create: (context) => StoryBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

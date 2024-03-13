@@ -24,12 +24,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: kWhite,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 40,
-            color: Colors.black.withOpacity(0.05),
-          )
-        ],
+        boxShadow: kBoxShadow,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -48,6 +43,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                   children: [
                     CircleAvatar(
                       radius: 28,
+                      backgroundColor: kWhite,
                       backgroundImage: NetworkImage(
                         state.userDetails.profilePicture!,
                       ),
@@ -98,7 +94,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
     return Row(
       children: [
         const CircleAvatar(
-          radius: 30,
+          radius: 28,
           backgroundColor: kLightGrey,
         ),
         kWidth(20),

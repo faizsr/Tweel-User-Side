@@ -21,7 +21,8 @@ class PostImageWidget extends StatelessWidget {
         child: PageView.builder(
           itemCount: postModel.mediaURL!.length,
           itemBuilder: (context, index) {
-            return Container(
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(6),
               child: postModel.mediaURL![index].toString().contains('image')
                   ? Image.network(postModel.mediaURL![index], fit: BoxFit.cover)
                   : VideoPlayerWidget(videoUrl: postModel.mediaURL![index]),

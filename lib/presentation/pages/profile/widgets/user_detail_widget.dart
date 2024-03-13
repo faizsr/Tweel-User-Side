@@ -94,7 +94,7 @@ class UserDetailsWidget extends StatelessWidget {
                         ],
                       ),
                       kHeight(15),
-                      const Text('Hey folks 🖐️'),
+                      userModel.bio != '' ? Text(userModel.bio!) : Container(),
                     ],
                   ),
                 ),

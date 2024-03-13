@@ -4,8 +4,8 @@ import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
-import 'package:tweel_social_media/presentation/pages/home/widgets/post_card.dart';
-import 'package:tweel_social_media/presentation/pages/home/widgets/post_card_loading.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_card.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_card_loading.dart';
 
 class PostSection extends StatefulWidget {
   const PostSection({
@@ -17,11 +17,10 @@ class PostSection extends StatefulWidget {
 }
 
 class _PostSectionState extends State<PostSection> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -54,13 +53,15 @@ class _PostSectionState extends State<PostSection> {
               if (state1 is PostDetailFetchingSucessState &&
                   state2 is UserDetailFetchingSucessState) {
                 return Column(
-                  children: List.generate(
-                    state1.posts.length,
-                    (index) => PostCardWidget(
-                      postModel: state1.posts[index],
-                      userModel: state2.userDetails,
-                    ),
-                  ),
+                  children: List.generate(state1.posts.length, (index) {
+                    if (state1.posts[index].isBlocked == false) {
+                      return PostCardWidget(
+                        postModel: state1.posts[index],
+                        userModel: state2.userDetails,
+                      );
+                    }
+                    return Container();
+                  }),
                 );
               }
               return Container();

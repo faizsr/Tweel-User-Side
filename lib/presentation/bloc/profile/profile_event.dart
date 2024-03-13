@@ -4,3 +4,9 @@ part of 'profile_bloc.dart';
 sealed class ProfileEvent {}
 
 class UserDetailInitialFetchEvent extends ProfileEvent {}
+
+class EditUserDetailEvent extends ProfileEvent {
+  final UserModel user;
+
+  EditUserDetailEvent({required this.user});
+}

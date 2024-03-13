@@ -26,12 +26,7 @@ class _PostCardLoadingState extends State<PostCardLoading> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: kWhite,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 40,
-            color: Colors.black.withOpacity(0.05),
-          )
-        ],
+        boxShadow: kBoxShadow,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -79,7 +74,6 @@ class _PostCardLoadingState extends State<PostCardLoading> {
           ],
         ),
         const Spacer(),
-        const Icon(Icons.more_vert_sharp)
       ],
     );
   }

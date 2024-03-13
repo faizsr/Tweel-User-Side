@@ -7,7 +7,7 @@ class CustomIconBtn extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.onTap,
-     this.color,
+    this.color,
   });
 
   final String title;
@@ -23,7 +23,7 @@ class CustomIconBtn extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: color ?? Colors.black),
           kWidth(5),
-          Text(title),
+          Text(title, style: const TextStyle(fontSize: 13)),
         ],
       ),
     );

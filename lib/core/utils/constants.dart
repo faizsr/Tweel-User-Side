@@ -93,3 +93,10 @@ String timeAgo(DateTime dateTime) {
     return 'Just now';
   }
 }
+
+var kBoxShadow = [
+          BoxShadow(
+            blurRadius: 40,
+            color: Colors.black.withOpacity(0.05),
+          ),
+        ];

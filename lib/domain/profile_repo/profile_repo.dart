@@ -40,6 +40,32 @@ class ProfileRepo {
       return null;
     }
   }
+
+  static Future<String> updateUserDetails(UserModel user) async {
+    var client = http.Client();
+    String token = await UserToken.getToken();
+    String updateDetailUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.editUserProfile}";
+    try {
+      var response = await client.patch(
+        Uri.parse(updateDetailUrl),
+        body: jsonEncode(user),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      debugPrint('Status code: ${response.statusCode}');
+      debugPrint('Response: ${response.body}');
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint('message: ${e.toString()}');
+      return '';
+    }
+  }
 }
 
 class ProfileDetailsModel {

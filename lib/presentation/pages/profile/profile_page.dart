@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/user_detail_widget.dart';
@@ -23,41 +25,60 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kLightWhite,
-      body: BlocBuilder<ProfileBloc, ProfileState>(
+      body: MultiBlocBuilder(
+        blocs: [context.watch<PostBloc>(), context.watch<ProfileBloc>()],
         builder: (context, state) {
-          if (state is UserDetailFetchingLoadingState) {
+          var postState = state[0];
+          var profileState = state[1];
+          if (postState is RemovePostSuccessState) {
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+          }
+          if (profileState is UserDetailFetchingLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is UserDetailFetchingSucessState) {
+          if (profileState is UserDetailFetchingSucessState) {
             return ListView(
               children: [
                 UserDetailsWidget(
-                  userModel: state.userDetails,
-                  postsList: state.posts,
+                  userModel: profileState.userDetails,
+                  postsList: profileState.posts,
                 ),
-                kHeight(60),
+                kHeight(50),
+                const Center(
+                  child: Text(
+                    'Posts',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+                kHeight(10),
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: state.posts.length,
+                  itemCount: profileState.posts.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                   ),
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        nextScreen(
-                          context,
-                          PostDetailPage(
-                            postModel: state.posts[index],
-                            userModel: state.userDetails,
-                          ),
-                        );
-                      },
-                      child: postImageCard(state, index),
-                    );
+                    if (profileState.posts[index].isBlocked == false) {
+                      return InkWell(
+                        onTap: () {
+                          nextScreen(
+                            context,
+                            PostDetailPage(
+                              postModel: profileState.posts[index],
+                              userModel: profileState.userDetails,
+                            ),
+                          );
+                        },
+                        child: postImageCard(profileState, index),
+                      );
+                    }
+                    return Container();
                   },
                 )
               ],
