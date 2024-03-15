@@ -43,14 +43,11 @@ class PostCardWidget extends StatelessWidget {
           kHeight(15),
 
           // Post Image Section
-          PostImageWidget(postModel: postModel),
+          PostImageWidget(postModel: postModel, height: 380),
           kHeight(15),
 
           // Post Action Buttons
-          PostActionButtons(
-            postModel: postModel,
-            userModel: userModel,
-          )
+          PostActionButtons(postModel: postModel, userModel: userModel)
         ],
       ),
     );

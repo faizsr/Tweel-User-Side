@@ -6,9 +6,11 @@ class PostImageWidget extends StatelessWidget {
   const PostImageWidget({
     super.key,
     required this.postModel,
+    required this.height,
   });
 
   final PostModel postModel;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class PostImageWidget extends StatelessWidget {
         debugPrint('Image preview');
       },
       child: SizedBox(
-        height: 400,
+        height: height,
         child: PageView.builder(
           itemCount: postModel.mediaURL!.length,
           itemBuilder: (context, index) {

@@ -24,7 +24,6 @@ class PostRepo {
       if (response.statusCode == 200) {
         final List postsList = response.data;
         for (int i = 0; i < postsList.length; i++) {
-          // debugPrint('From message ::: ${postsList[0]}');
           PostModel post = PostModel.fromJson(postsList[i]);
           posts.add(post);
         }
@@ -45,9 +44,6 @@ class PostRepo {
     String token = await UserToken.getToken();
     String createPostUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.createPost}";
     try {
-      print(imageUrlList.isEmpty);
-      print(description);
-      print(location);
       var data = {
         "postData": {
           "description": description,

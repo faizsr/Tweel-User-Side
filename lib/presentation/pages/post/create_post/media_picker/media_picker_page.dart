@@ -1,52 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/image_preview_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/data/services/media/media_services.dart';
+import 'package:tweel_social_media/presentation/bloc/media_picker/media_picker_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
+import 'package:tweel_social_media/presentation/pages/post/create_post/create_post.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/widgets/media_picker_appbar.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+enum ScreenType { post, story, profile }
 
 class MediaPicker extends StatefulWidget {
   const MediaPicker({
     super.key,
     required this.maxCount,
     required this.requestType,
+    required this.screenType,
   });
 
   final int maxCount;
   final RequestType requestType;
+  final ScreenType screenType;
 
   @override
   State<MediaPicker> createState() => _MediaPickerState();
 }
 
 class _MediaPickerState extends State<MediaPicker> {
-  AssetPathEntity? selectedAlbum;
-  List<AssetPathEntity> albumList = [];
-  List<AssetEntity> assetList = [];
   List<AssetEntity> selectedAssetList = [];
 
   @override
   void initState() {
-    MediaServices().loadAlbums(widget.requestType).then(
-      (value) {
-        setState(() {
-          if (value != null && value.isNotEmpty) {
-            albumList = value;
-            selectedAlbum = value[0];
-          }
-        });
-        MediaServices().loadAssets(selectedAlbum!).then(
-          (value) {
-            if (value != null && value.isNotEmpty) {
-              setState(() {
-                assetList = value;
-              });
-            }
-          },
-        );
-      },
-    );
+    context
+        .read<MediaPickerBloc>()
+        .add(LoadAlbumsAndAssetsEvent(requestType: RequestType.common));
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.blue,
     ));
@@ -58,47 +46,71 @@ class _MediaPickerState extends State<MediaPicker> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90),
-        child: MediaPickerAppbar(
-          albumList: albumList,
-          selectedAlbum: selectedAlbum,
-          selectedAssetList: selectedAssetList,
-          onChanged: (AssetPathEntity? value) {
-            setState(() {
-              selectedAlbum = value;
-            });
-            MediaServices().loadAssets(selectedAlbum!).then(
-              (value) {
-                setState(() {
-                  assetList = value;
-                });
-              },
-            );
+        child: BlocBuilder<MediaPickerBloc, MediaPickerState>(
+          builder: (context, state) {
+            if (state is MediaSuccessState) {
+              debugPrint('SelectedAlbum ${state.selectedAlbum}');
+              debugPrint(
+                  'Length of album after selecting ${state.albumList.length}');
+              return MediaPickerAppbar(
+                albumList: state.albumList,
+                selectedAlbum: state.selectedAlbum ?? state.albumList[0],
+                selectedAssetList: selectedAssetList,
+                onChanged: (AssetPathEntity? value) {
+                  context.read<MediaPickerBloc>().add(LoadSelectedAssetEvent(
+                      selectedAlbum: value, albumList: state.albumList));
+                },
+                onPressed: () {
+                  if (widget.screenType == ScreenType.post) {
+                    nextScreen(context,
+                        CreatePostPage(selectedAssetList: selectedAssetList));
+                  } else if (widget.screenType == ScreenType.profile) {
+                    context.read<SetProfileImageCubit>().setProfileImage(selectedAssetList);
+                    Navigator.of(context).pop(selectedAssetList);
+                  } else if (widget.screenType == ScreenType.story) {
+                    Navigator.of(context).pop();
+                  }
+                },
+              );
+            }
+            return Container();
           },
         ),
       ),
-      body: assetList.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : GridView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-              physics: const BouncingScrollPhysics(),
-              itemCount: assetList.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3),
-              itemBuilder: (context, index) {
-                AssetEntity assetEntity = assetList[index];
-                return Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: assetWidget(assetEntity),
-                );
-              },
-            ),
+      body: BlocBuilder<MediaPickerBloc, MediaPickerState>(
+        builder: (context, state) {
+          if (state is MediaSuccessState) {
+            if (state.assetList.isEmpty) {
+              return const Center(
+                child: Text('No albums found'),
+              );
+            } else {
+              return GridView.builder(
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                physics: const BouncingScrollPhysics(),
+                itemCount: state.assetList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemBuilder: (context, index) {
+                  AssetEntity assetEntity = state.assetList[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: assetWidget(assetEntity, state.assetList),
+                  );
+                },
+              );
+            }
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 
-  Widget assetWidget(AssetEntity assetEntity) {
+  Widget assetWidget(AssetEntity assetEntity, List<AssetEntity> assetList) {
     return Stack(
       children: [
         Positioned.fill(

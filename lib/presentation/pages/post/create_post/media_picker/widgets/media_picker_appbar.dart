@@ -1,7 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/presentation/pages/post/create_post/create_post.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class MediaPickerAppbar extends StatefulWidget {
@@ -11,12 +10,14 @@ class MediaPickerAppbar extends StatefulWidget {
     required this.albumList,
     required this.selectedAlbum,
     required this.onChanged,
+    required this.onPressed,
   });
 
   final List<AssetEntity> selectedAssetList;
   final List<AssetPathEntity> albumList;
   final AssetPathEntity? selectedAlbum;
   final void Function(AssetPathEntity?)? onChanged;
+  final void Function()? onPressed;
 
   @override
   State<MediaPickerAppbar> createState() => _MediaPickerAppbarState();
@@ -108,14 +109,7 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
       actions: [
         widget.selectedAssetList.isNotEmpty
             ? IconButton(
-                onPressed: () {
-                  nextScreen(
-                    context,
-                    CreatePostPage(
-                      selectedAssetList: widget.selectedAssetList,
-                    ),
-                  );
-                },
+                onPressed: widget.onPressed,
                 icon: const Icon(
                   Icons.arrow_forward,
                   size: 22,

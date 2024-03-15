@@ -40,14 +40,14 @@ class _PostCardLoadingState extends State<PostCardLoading> {
           kHeight(10),
           const Skelton(width: 250),
           kHeight(15),
-          const Skelton(height: 400),
+          const Skelton(height: 380),
           kHeight(15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _postActionBtn('Like', CustomIcons.like),
+              _postActionBtn('0 likes', CustomIcons.like),
               Container(height: 15, width: 1, color: Colors.grey.shade300),
-              _postActionBtn('Comment', CustomIcons.messages_2),
+              _postActionBtn('0 comments', CustomIcons.messages_2),
               Container(height: 15, width: 1, color: Colors.grey.shade300),
               _postActionBtn('Share', CustomIcons.send_2),
             ],

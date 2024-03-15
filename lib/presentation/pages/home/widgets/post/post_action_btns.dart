@@ -29,7 +29,7 @@ class PostActionButtons extends StatelessWidget {
         commentButton(context),
         Container(height: 15, width: 1, color: Colors.grey.shade300),
         CustomIconBtn(
-          title: '0 shares',
+          title: 'Share',
           icon: CustomIcons.send_2,
           onTap: () {
             debugPrint('share pressed');

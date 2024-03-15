@@ -13,7 +13,7 @@ class CreateLoadingSnackbar {
         behavior: SnackBarBehavior.floating,
         content: const Row(
           children: [
-            Text('Uploading...'),
+            Text('Updating details...'),
             Spacer(),
             SizedBox(
               height: 20,

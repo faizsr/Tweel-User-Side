@@ -65,7 +65,7 @@ class PostDetailPage extends StatelessWidget {
                           style: const TextStyle(fontSize: 13),
                         ),
                         kHeight(10),
-                        PostImageWidget(postModel: postModel),
+                        PostImageWidget(postModel: postModel,height: 420),
                         kHeight(20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +76,7 @@ class PostDetailPage extends StatelessWidget {
                               builder: (context, state) {
                                 return CustomIconBtn(
                                   title:
-                                      '${(postModel.comments!.isEmpty ? 'No' : '${postModel.comments!.length}')} comments',
+                                      '${postModel.comments!.length} comments',
                                   icon: CustomIcons.messages_2,
                                   onTap: () {},
                                 );

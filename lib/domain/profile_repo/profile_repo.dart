@@ -41,15 +41,30 @@ class ProfileRepo {
     }
   }
 
-  static Future<String> updateUserDetails(UserModel user) async {
+  static Future<String> updateUserDetails(UserModel initialUser,
+      UserModel updatedUser, String updateProfilePicture) async {
     var client = http.Client();
     String token = await UserToken.getToken();
     String updateDetailUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.editUserProfile}";
     try {
+      Map<String, dynamic> updatedFields = {};
+      if (updatedUser.fullName != initialUser.fullName) {
+        updatedFields['fullname'] = updatedUser.fullName;
+      }
+      if (updatedUser.username != initialUser.username) {
+        updatedFields['username'] = updatedUser.username;
+      }
+      if (updatedUser.bio != initialUser.bio) {
+        updatedFields['bio'] = updatedUser.bio;
+      }
+      if (updateProfilePicture != initialUser.profilePicture &&
+          updateProfilePicture.isNotEmpty) {
+        updatedFields['profile_picture'] = updateProfilePicture;
+      }
       var response = await client.patch(
         Uri.parse(updateDetailUrl),
-        body: jsonEncode(user),
+        body: jsonEncode(updatedFields),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -59,6 +74,9 @@ class ProfileRepo {
       debugPrint('Response: ${response.body}');
       if (response.statusCode == 201) {
         return 'success';
+      }
+      if (response.statusCode == 404) {
+        return 'username-exists';
       }
       return '';
     } catch (e) {

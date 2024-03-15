@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
+
+class EditFormField extends StatelessWidget {
+  const EditFormField({
+    super.key,
+    required this.fullnameController,
+    required this.usernameController,
+    required this.bioController,
+    required this.emailController,
+    required this.phonenumberController,
+  });
+
+  final TextEditingController fullnameController;
+  final TextEditingController usernameController;
+  final TextEditingController bioController;
+  final TextEditingController emailController;
+  final TextEditingController phonenumberController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textfieldHeading('Full name:'),
+        kHeight(6),
+        CustomTxtFormField(
+          controller: fullnameController,
+          hintText: 'Fullname',
+        ),
+        kHeight(20),
+        textfieldHeading('Username:'),
+        kHeight(6),
+        CustomTxtFormField(
+          controller: usernameController,
+          hintText: 'Username',
+        ),
+        kHeight(20),
+        textfieldHeading('Bio:'),
+        kHeight(6),
+        CustomTxtFormField(
+          controller: bioController,
+          hintText: 'Bio',
+        ),
+        kHeight(20),
+        textfieldHeading('Email address:'),
+        kHeight(6),
+        CustomTxtFormField(
+          readOnly: true,
+          controller: emailController,
+          hintText: 'Email address',
+        ),
+        kHeight(20),
+        textfieldHeading('Phone number:'),
+        kHeight(6),
+        CustomTxtFormField(
+          readOnly: true,
+          controller: phonenumberController,
+          hintText: 'Phone number',
+        ),
+      ],
+    );
+  }
+
+  Text textfieldHeading(String text) {
+    return Text(
+      text,
+      style: const TextStyle(fontVariations: fontWeightW600),
+    );
+  }
+}

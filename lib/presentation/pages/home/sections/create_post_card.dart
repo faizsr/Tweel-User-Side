@@ -80,6 +80,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                 const MediaPicker(
                   maxCount: 10,
                   requestType: RequestType.common,
+                  screenType: ScreenType.post,
                 ),
               );
             },
