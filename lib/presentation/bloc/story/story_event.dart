@@ -7,10 +7,10 @@ class FetchAllStoriesEvent extends StoryEvent {}
 
 class AddStoryEvent extends StoryEvent {
   final String userId;
-  final String imageUrl;
+  final List<AssetEntity> selectedAssets;
 
   AddStoryEvent({
     required this.userId,
-    required this.imageUrl,
+    required this.selectedAssets,
   });
 }

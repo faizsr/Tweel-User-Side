@@ -57,6 +57,7 @@ class StoryRepo {
         ),
       );
       debugPrint('Status code: ${response.statusCode}');
+      debugPrint('Story response: ${response.data.toString()}');
       if (response.statusCode == 200) {
         return 'success';
       }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/image_preview_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/media_picker/media_picker_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/create_post.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/widgets/media_picker_appbar.dart';
@@ -12,16 +13,17 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 enum ScreenType { post, story, profile }
 
 class MediaPicker extends StatefulWidget {
-  const MediaPicker({
-    super.key,
-    required this.maxCount,
-    required this.requestType,
-    required this.screenType,
-  });
+  const MediaPicker(
+      {super.key,
+      required this.maxCount,
+      required this.requestType,
+      required this.screenType,
+      this.userId});
 
   final int maxCount;
   final RequestType requestType;
   final ScreenType screenType;
+  final String? userId;
 
   @override
   State<MediaPicker> createState() => _MediaPickerState();
@@ -65,10 +67,17 @@ class _MediaPickerState extends State<MediaPicker> {
                     nextScreen(context,
                         CreatePostPage(selectedAssetList: selectedAssetList));
                   } else if (widget.screenType == ScreenType.profile) {
-                    context.read<SetProfileImageCubit>().setProfileImage(selectedAssetList);
+                    context
+                        .read<SetProfileImageCubit>()
+                        .setProfileImage(selectedAssetList);
                     Navigator.of(context).pop(selectedAssetList);
                   } else if (widget.screenType == ScreenType.story) {
-                    Navigator.of(context).pop();
+                    context.read<StoryBloc>().add(
+                          AddStoryEvent(
+                            userId: widget.userId!,
+                            selectedAssets: selectedAssetList,
+                          ),
+                        );
                   }
                 },
               );

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
+import 'package:tweel_social_media/domain/cloud_repo/cloud_repo.dart';
 import 'package:tweel_social_media/domain/story_repo/story_repo.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 part 'story_event.dart';
 part 'story_state.dart';
@@ -28,7 +30,9 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
   FutureOr<void> addStoryEvent(
       AddStoryEvent event, Emitter<StoryState> emit) async {
     emit(AddStoryLoadingState());
-    String result = await StoryRepo.addStory(event.userId, event.imageUrl);
+    List<String> imageUrlList =
+        await CloudRepo.uploadImage(event.selectedAssets);
+    String result = await StoryRepo.addStory(event.userId, imageUrlList[0]);
     if (result == 'success') {
       emit(AddStorySucessState());
     } else {
