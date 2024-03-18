@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 
+var mainFont = 'Coco-Gothic-Pro';
+
 void mySystemTheme() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -10,8 +12,18 @@ void mySystemTheme() {
   ));
 }
 
+void changeSystemThemeOnPopup() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Color(0xFFb8b7bb),
+    ),
+  );
+}
+
 var lightTheme = ThemeData(
-  fontFamily: 'Coco-Gothic-Pro',
+  fontFamily: mainFont,
   scaffoldBackgroundColor: kWhite,
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(

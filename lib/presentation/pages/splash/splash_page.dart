@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
     final userOnInitial = await UserAuthStatus.isUserOnInitial();
     final userSignIn = await UserAuthStatus.getUserStatus();
     if (userOnInitial == false) {
-      nextScreenRemoveUntil(context, const GetStartedPage());
+      nextScreen(context, const GetStartedPage());
     } else {
       if (userSignIn == false) {
         await Future.delayed(const Duration(seconds: 3));

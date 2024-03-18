@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
@@ -7,7 +5,9 @@ import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
+import 'package:tweel_social_media/presentation/pages/profile/followers_list/followers_list_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
 class UserDetailsWidget extends StatelessWidget {
   const UserDetailsWidget({
@@ -88,7 +88,16 @@ class UserDetailsWidget extends StatelessWidget {
                                 style: const TextStyle(fontSize: 12),
                               ),
                               kHeight(10),
-                              _editProfileBtn(context, userModel),
+                              SizedBox(
+                                width: 150,
+                                child: CustomOutlinedBtn(
+                                  onPressed: () {
+                                    nextScreen(context,
+                                        EditProfilePage(user: userModel));
+                                  },
+                                  btnText: 'EDIT PROFILE',
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -117,21 +126,40 @@ class UserDetailsWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       _userPostFollowCountCard(
-                          postsList.length.toString(), 'POSTS'),
+                        count: postsList.length.toString(),
+                        title: 'POSTS',
+                        onTap: () {},
+                      ),
                       Container(
                         height: double.infinity,
                         width: 0.5,
                         color: Colors.grey,
                       ),
                       _userPostFollowCountCard(
-                          '${userModel.followers!.length}', 'FOLLOWERS'),
+                        count: '${userModel.followers!.length}',
+                        title: 'FOLLOWERS',
+                        onTap: () {
+                          nextScreen(
+                            context,
+                            const FollowerListPage(selectedPage: 0),
+                          );
+                        },
+                      ),
                       Container(
                         height: double.infinity,
                         width: 0.5,
                         color: Colors.grey,
                       ),
                       _userPostFollowCountCard(
-                          '${userModel.followers!.length}', 'FOLLOWING'),
+                        count: '${userModel.followers!.length}',
+                        title: 'FOLLOWING',
+                        onTap: () {
+                          nextScreen(
+                            context,
+                            const FollowerListPage(selectedPage: 1),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -144,49 +172,29 @@ class UserDetailsWidget extends StatelessWidget {
   }
 }
 
-SizedBox _userPostFollowCountCard(String count, String title) {
-  return SizedBox(
-    width: 100,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          count,
-          style: const TextStyle(fontSize: 22),
-        ),
-        Text(
-          title,
-          style: const TextStyle(fontSize: 10),
-        ),
-      ],
-    ),
-  );
-}
-
-SizedBox _editProfileBtn(BuildContext context, UserModel user) {
-  return SizedBox(
-    width: 150,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(width: 0.5),
-          borderRadius: BorderRadius.circular(3),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+Widget _userPostFollowCountCard(
+    {required String count, required String title, void Function()? onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: kWhite,
       ),
-      onPressed: () {
-        nextScreen(context, EditProfilePage(user: user));
-      },
-      child: const Text(
-        'EDIT PROFILE',
-        style: TextStyle(
-          fontVariations: fontWeightW900,
-          color: kBlack,
-          fontSize: 11,
-        ),
+      width: 100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            count,
+            style: const TextStyle(fontSize: 22),
+          ),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 10),
+          ),
+        ],
       ),
     ),
   );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
@@ -63,6 +64,7 @@ class PostUserDetail extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
+                changeSystemThemeOnPopup();
                 PostMoreWidget.bottomSheet(
                   context: context,
                   postModel: postModel,

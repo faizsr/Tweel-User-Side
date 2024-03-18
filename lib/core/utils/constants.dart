@@ -10,6 +10,13 @@ const kDarkGrey = Color(0xFF4B4B4B);
 const kBlack = Colors.black;
 const kDarkBlue = Color(0xFF3E23A9);
 
+const profileOne = 'assets/images/profile1.jpg';
+const profileTwo = 'assets/images/profile2.jpg';
+const profileThree = 'assets/images/profile3.jpg';
+const profileFour = 'assets/images/profile4.jpg';
+const profileFive = 'assets/images/profile5.jpg';
+
+const fontWeightW300 = <FontVariation>[FontVariation('wght', 300.0)];
 const fontWeightRegular = <FontVariation>[FontVariation('wght', 400.0)];
 const fontWeightW500 = <FontVariation>[FontVariation('wght', 500.0)];
 const fontWeightW600 = <FontVariation>[FontVariation('wght', 600.0)];
@@ -95,8 +102,8 @@ String timeAgo(DateTime dateTime) {
 }
 
 var kBoxShadow = [
-          BoxShadow(
-            blurRadius: 40,
-            color: Colors.black.withOpacity(0.05),
-          ),
-        ];
+  BoxShadow(
+    blurRadius: 40,
+    color: Colors.black.withOpacity(0.05),
+  ),
+];
