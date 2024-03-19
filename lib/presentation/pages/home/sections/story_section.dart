@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
@@ -76,10 +78,10 @@ class StoryWidget extends StatelessWidget {
                   if (stories.length > 1) {
                     List<String> images = [];
                     List<String> createdDates = [];
-                    stories.forEach((story) {
+                    for (var story in stories) {
                       images.add(story.image);
                       createdDates.add(story.createdDate);
-                    });
+                    }
                     storyCards.add(
                       GestureDetector(
                         onTap: () {

@@ -23,14 +23,14 @@ class ExplorePosts extends StatelessWidget {
           itemCount: 32,
           itemBuilder: (context, index) {
             if (index % 2 == 0) {
-              return Tile(height: 220);
+              return const Tile(height: 220);
             }
             if (index % 3 == 0) {
-              return Tile(height: 150);
+              return const Tile(height: 150);
             }
-            return Tile(height: 190);
+            return const Tile(height: 190);
           },
-          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+          staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
           mainAxisSpacing: 8.0,
           crossAxisSpacing: 8.0,
         ),
