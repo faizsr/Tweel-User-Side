@@ -12,12 +12,12 @@ void mySystemTheme() {
   ));
 }
 
-void changeSystemThemeOnPopup() {
+void changeSystemThemeOnPopup({Color? color}) {
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
+    SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Color(0xFFb8b7bb),
+      systemNavigationBarColor: color ?? const Color(0xFFb8b7bb),
     ),
   );
 }

@@ -55,6 +55,9 @@ dependencies:
   hidable: ^1.0.6
   dotted_border: ^2.1.0
   anim_search_bar: ^2.0.3
+  flextras: ^1.0.0
+  flutter_animate: ^4.5.0
+  sized_context: ^1.0.0+4
 
 dev_dependencies:
   flutter_test:

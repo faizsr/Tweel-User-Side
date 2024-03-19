@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/followers_list/followers_list_page.dart';
-import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
+import 'package:tweel_social_media/presentation/pages/profile/profile_menu.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
 class UserDetailsWidget extends StatelessWidget {
@@ -34,11 +34,13 @@ class UserDetailsWidget extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () async {
-                  UserAuthStatus.saveUserStatus(false);
-                  nextScreenRemoveUntil(
-                    context,
-                    const UserSignInPage(),
-                  );
+                  changeSystemThemeOnPopup(color: const Color(0xFF757575));
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return ProfileMenu(profileImage: userModel.profilePicture!,);
+                    },
+                  ).then((value) => mySystemTheme());
                 },
                 child: const Icon(CustomIcons.setting_2),
               ),

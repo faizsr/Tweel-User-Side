@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/presentation/pages/notification/notification.dart';
 
 class HeadingWidget extends StatelessWidget {
   const HeadingWidget({
@@ -8,14 +10,19 @@ class HeadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
+        const Text(
           'Tweel.',
           style: TextStyle(fontSize: 24),
         ),
-        Icon(CustomIcons.notification_off_bing),
+        InkWell(
+          onTap: () {
+            nextScreen(context, const NotificationPage());
+          },
+          child: const Icon(CustomIcons.notification_off_bing),
+        ),
       ],
     );
   }
