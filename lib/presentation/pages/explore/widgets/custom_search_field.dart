@@ -15,7 +15,7 @@ class CustomSearchField extends StatelessWidget {
       children: [
         kHeight(15),
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: CupertinoSearchTextField(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
             backgroundColor: kWhite,

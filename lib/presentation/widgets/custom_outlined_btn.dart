@@ -17,15 +17,14 @@ class CustomOutlinedBtn extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 0.5),
-            borderRadius: BorderRadius.circular(3),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.white,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          padding: EdgeInsets.all(0)
-        ),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(width: 0.5),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.white,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: const EdgeInsets.all(0)),
         onPressed: onPressed,
         child: Text(
           btnText,

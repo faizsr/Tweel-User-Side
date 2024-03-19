@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:story_view/widgets/story_view.dart';
@@ -52,7 +54,7 @@ class _MoreStoriesState extends State<MoreStories> {
             }),
             onStoryShow: (storyItem, index) {
               // setState(() {
-                whenCreated = widget.dateList[index];
+              whenCreated = widget.dateList[index];
               // });
             },
             onComplete: () {

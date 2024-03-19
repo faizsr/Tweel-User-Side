@@ -1,4 +1,7 @@
+// <<<<<<< HEAD
 
+// =======
+// >>>>>>> 3dc048ca250c0fed2f942660e1d93d69a36a53b2
 import 'package:flutter/material.dart';
 
 const kWhite = Colors.white;
