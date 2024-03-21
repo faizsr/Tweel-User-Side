@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 
 var mainFont = 'Coco-Gothic-Pro';
 
-void mySystemTheme() {
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+void mySystemTheme(BuildContext context) {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Theme.of(context).colorScheme.primaryContainer,
+    statusBarIconBrightness: Theme.of(context).colorScheme.brightness,
   ));
 }
 
@@ -16,7 +17,7 @@ void changeSystemThemeOnPopup({Color? color}) {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
       systemNavigationBarColor: color ?? const Color(0xFFb8b7bb),
     ),
   );
@@ -24,24 +25,105 @@ void changeSystemThemeOnPopup({Color? color}) {
 
 var lightTheme = ThemeData(
   fontFamily: mainFont,
-  scaffoldBackgroundColor: kWhite,
-  appBarTheme: const AppBarTheme(
-    systemOverlayStyle: SystemUiOverlayStyle(
+  colorScheme: const ColorScheme(
+    brightness: Brightness.dark,
+    primary: lBlack, // Icon || Text Primary Color
+    onPrimary: lBlue, // Selected Color
+    primaryContainer: lWhite, // Card Color
+    onPrimaryContainer: lWhite,
+    secondary: lDarkGrey, // Text Color Secondary
+    onSecondary: lGrey, // Text Light Color
+    outline: lLightGrey, // Divider Color
+    surface: lLightWhite, // Background Color
+    error: Colors.red,
+    onError: Colors.red,
+    background: Colors.transparent,
+    onBackground: Colors.transparent,
+    onSurface: Colors.transparent,
+  ),
+  listTileTheme: const ListTileThemeData(iconColor: lBlack, textColor: lBlack),
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(
+      color: kBlack,
+      fontFamily: mainFont,
+      fontSize: 20,
+      fontVariations: fontWeightRegular,
+    ),
+    iconTheme: const IconThemeData(color: kBlack),
+    systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
     ),
   ),
+  iconTheme: const IconThemeData(color: kBlack),
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    bodyMedium: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    bodySmall: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    labelSmall: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    labelMedium: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    labelLarge: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    displaySmall: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    displayMedium: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    displayLarge: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    titleSmall: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    titleMedium: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
-    titleLarge: TextStyle(fontVariations: fontWeightRegular, color: kBlack),
+    bodyLarge: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    bodyMedium: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    bodySmall: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    labelSmall: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    labelMedium: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    labelLarge: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    displaySmall: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    displayMedium: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    displayLarge: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    titleSmall: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    titleMedium: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    titleLarge: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    headlineSmall: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    headlineMedium: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+    headlineLarge: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
+  ),
+);
+
+var darkTheme = ThemeData(
+  fontFamily: mainFont,
+  colorScheme: const ColorScheme(
+    brightness: Brightness.light,
+    primary: dWhite, // Icon || Text Primary Color
+    onPrimary: dBlue, // Selected Color
+    primaryContainer: dLightBlueGrey, // Card Color
+    onPrimaryContainer: lBlack,
+    secondary: dLightGrey, // Text Color Secondary
+    onSecondary: dDarkGrey, // Text Light Color
+    outline: dDarkGrey2, // Divider Color
+    surface: dBlueGrey, // Background Color
+    error: Colors.red,
+    onError: Colors.red,
+    background: Colors.transparent,
+    onBackground: Colors.transparent,
+    onSurface: Colors.transparent,
+  ),
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(
+      color: kWhite,
+      fontFamily: mainFont,
+      fontSize: 20,
+      fontVariations: fontWeightRegular,
+    ),
+    iconTheme: const IconThemeData(color: kWhite),
+    systemOverlayStyle: const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+    ),
+  ),
+  listTileTheme: const ListTileThemeData(iconColor: dWhite, textColor: dWhite),
+  dividerColor: kLightGrey2,
+  iconTheme: const IconThemeData(color: kWhite),
+  textTheme: const TextTheme(
+    bodyLarge: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    bodyMedium: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    bodySmall: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    labelSmall: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    labelMedium: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    labelLarge: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    displaySmall: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    displayMedium: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    displayLarge: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    titleSmall: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    titleMedium: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    titleLarge: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
+    headlineLarge: TextStyle(
+      fontVariations: fontWeightRegular,
+      color: kWhite,
+      fontSize: 24,
+    ),
   ),
 );

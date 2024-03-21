@@ -34,7 +34,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ResetFieldWidget(email: widget.emailController.text),
                 Positioned(
                   bottom: 0,
-                  child: SignUpWidgets.signInNavigate(),
+                  child: SignUpWidgets.signInNavigate(context),
                 ),
               ],
             ),

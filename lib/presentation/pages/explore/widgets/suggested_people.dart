@@ -8,9 +8,10 @@ class SuggestedPeople extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Column(
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 20, right: 20),
           child: Row(
             children: [
@@ -18,7 +19,7 @@ class SuggestedPeople extends StatelessWidget {
               Spacer(),
               Text(
                 'Show all',
-                style: TextStyle(fontSize: 12, color: kDarkBlue),
+                style: TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
               ),
             ],
           ),
@@ -33,7 +34,7 @@ class SuggestedPeople extends StatelessWidget {
           itemBuilder: (context, index) {
             return Container(
               decoration: BoxDecoration(
-                color: kWhite,
+                color: theme.colorScheme.primaryContainer,
                 boxShadow: kBoxShadow,
                 borderRadius: BorderRadius.circular(10),
               ),

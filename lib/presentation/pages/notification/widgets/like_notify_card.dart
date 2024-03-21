@@ -12,9 +12,8 @@ class LikeNotifyCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 14),
       decoration: BoxDecoration(
-        color: kWhite,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(10),
-        // boxShadow: kBoxShadow,
       ),
       child: Stack(
         children: [
@@ -31,11 +30,14 @@ class LikeNotifyCard extends StatelessWidget {
               const Spacer(),
             ],
           ),
-          const Align(
+          Align(
             alignment: Alignment.topRight,
             child: Text(
               '2 min ago',
-              style: TextStyle(fontSize: 11, color: kGray),
+              style: TextStyle(
+                fontSize: 11,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             ),
           )
         ],

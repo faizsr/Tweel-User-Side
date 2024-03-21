@@ -7,10 +7,16 @@ import 'package:flutter/material.dart';
 const kWhite = Colors.white;
 const kLightWhite = Color(0xFFF5F6FA);
 const kLightGrey = Color(0xFFF4F4F4);
+const kLightGrey2 = Color(0xFFCCCCCC);
 const kGray = Color(0xFF8F8F8F);
-const kDarkGrey = Color(0xFF4B4B4B);
+const kDarkGrey = Color(0xFF787878);
+const kDarkGrey2 = Color(0xFF3D3E43);
 const kBlack = Colors.black;
 const kDarkBlue = Color(0xFF3E23A9);
+const klightBlue = Color(0xFF3C4FF9);
+
+const kBlueGrey = Color(0xFF1B1C22);
+const klightBlueGrey = Color(0xFF25262C);
 
 const profileOne = 'assets/images/profile1.jpg';
 const profileTwo = 'assets/images/profile2.jpg';
@@ -29,8 +35,8 @@ const fontWeightW900 = <FontVariation>[FontVariation('wght', 900.0)];
 SizedBox kHeight(double? height) => SizedBox(height: height);
 SizedBox kWidth(double? width) => SizedBox(width: width);
 
-nextScreen(context, page) {
-  Navigator.push(
+Future<dynamic> nextScreen(context, page) {
+  return Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => page,
@@ -38,8 +44,8 @@ nextScreen(context, page) {
   );
 }
 
-nextScreenReplacement(context, page) {
-  Navigator.pushReplacement(
+Future<dynamic> nextScreenReplacement(context, page) {
+  return Navigator.pushReplacement(
     context,
     MaterialPageRoute(
       builder: (context) => page,
@@ -47,8 +53,8 @@ nextScreenReplacement(context, page) {
   );
 }
 
-nextScreenRemoveUntil(context, page) {
-  Navigator.pushAndRemoveUntil(
+Future<dynamic> nextScreenRemoveUntil(context, page) {
+  return Navigator.pushAndRemoveUntil(
     context,
     MaterialPageRoute(
       builder: (context) => page,
@@ -61,7 +67,7 @@ customSnackbar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-      backgroundColor: kBlack,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
@@ -98,6 +104,30 @@ String timeAgo(DateTime dateTime) {
     return '${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago';
   } else if (difference.inMinutes > 0) {
     return '${difference.inMinutes} ${difference.inMinutes == 1 ? 'min' : 'min'} ago';
+  } else {
+    return 'Just now';
+  }
+}
+
+String filterPostTime(DateTime dateTime) {
+  final now = DateTime.now();
+  final difference = now.difference(dateTime);
+
+  if (difference.inDays > 365) {
+    final years = (difference.inDays / 365).floor();
+    return '$years${years == 1 ? 'y' : 'y'}';
+  } else if (difference.inDays >= 30) {
+    final months = (difference.inDays / 30).floor();
+    return '$months${months == 1 ? 'm' : 'm'}';
+  } else if (difference.inDays >= 7) {
+    final weeks = (difference.inDays / 7).floor();
+    return '$weeks${weeks == 1 ? 'w' : 'w'}';
+  } else if (difference.inDays > 0) {
+    return '${difference.inDays}${difference.inDays == 1 ? 'd' : 'd'}';
+  } else if (difference.inHours > 0) {
+    return '${difference.inHours} ${difference.inHours == 1 ? 'h' : 'h'} ago';
+  } else if (difference.inMinutes > 0) {
+    return '${difference.inMinutes}${difference.inMinutes == 1 ? 'min' : 'min'}';
   } else {
     return 'Just now';
   }

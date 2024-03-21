@@ -23,28 +23,28 @@ class EditFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        textfieldHeading('Full name:'),
+        textfieldHeading('Full name:', context),
         kHeight(6),
         CustomTxtFormField(
           controller: fullnameController,
           hintText: 'Fullname',
         ),
         kHeight(20),
-        textfieldHeading('Username:'),
+        textfieldHeading('Username:', context),
         kHeight(6),
         CustomTxtFormField(
           controller: usernameController,
           hintText: 'Username',
         ),
         kHeight(20),
-        textfieldHeading('Bio:'),
+        textfieldHeading('Bio:', context),
         kHeight(6),
         CustomTxtFormField(
           controller: bioController,
           hintText: 'Bio',
         ),
         kHeight(20),
-        textfieldHeading('Email address:'),
+        textfieldHeading('Email address:', context),
         kHeight(6),
         CustomTxtFormField(
           readOnly: true,
@@ -52,7 +52,7 @@ class EditFormField extends StatelessWidget {
           hintText: 'Email address',
         ),
         kHeight(20),
-        textfieldHeading('Phone number:'),
+        textfieldHeading('Phone number:', context),
         kHeight(6),
         CustomTxtFormField(
           readOnly: true,
@@ -63,10 +63,13 @@ class EditFormField extends StatelessWidget {
     );
   }
 
-  Text textfieldHeading(String text) {
+  Text textfieldHeading(String text, BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontVariations: fontWeightW600),
+      style: TextStyle(
+        fontVariations: fontWeightW600,
+        color: Theme.of(context).colorScheme.secondary,
+      ),
     );
   }
 }

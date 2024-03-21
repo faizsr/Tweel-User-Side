@@ -1,10 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:story_view/widgets/story_view.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
+import 'package:tweel_social_media/presentation/cubit/story_index/story_index_cubit.dart';
 
 class MoreStories extends StatefulWidget {
   const MoreStories({
@@ -23,12 +25,11 @@ class MoreStories extends StatefulWidget {
 
 class _MoreStoriesState extends State<MoreStories> {
   final storyController = StoryController();
-  late String whenCreated;
+  int index = 0;
 
   @override
   void initState() {
-    print(widget.dateList[0]);
-    whenCreated = widget.dateList[0];
+    print(widget.dateList[index]);
     super.initState();
   }
 
@@ -40,42 +41,43 @@ class _MoreStoriesState extends State<MoreStories> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          StoryView(
-            inline: true,
-            storyItems: List.generate(widget.imageUrlList.length, (index) {
-              return StoryItem.pageImage(
-                imageFit: BoxFit.cover,
-                url: widget.imageUrlList[index],
-                controller: storyController,
-              );
-            }),
-            onStoryShow: (storyItem, index) {
-              // setState(() {
-              whenCreated = widget.dateList[index];
-              // });
-            },
-            onComplete: () {
-              Navigator.pop(context);
-            },
-            onVerticalSwipeComplete: (p0) {
-              Navigator.pop(context);
-            },
-            progressPosition: ProgressPosition.top,
-            repeat: false,
-            controller: storyController,
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              top: 80,
-              left: 16,
-              right: 16,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            StoryView(
+              inline: false,
+              indicatorHeight: IndicatorHeight.medium,
+              storyItems: List.generate(
+                widget.imageUrlList.length,
+                (index) {
+                  return StoryItem.pageImage(
+                    imageFit: BoxFit.cover,
+                    url: widget.imageUrlList[index],
+                    controller: storyController,
+                  );
+                },
+              ),
+              onStoryShow: (storyItem, index) {
+                context.read<StoryIndexCubit>().currentIndex(index);
+              },
+              onComplete: () {
+                Navigator.pop(context);
+              },
+              onVerticalSwipeComplete: (direction) {
+                Navigator.pop(context);
+              },
+              progressPosition: ProgressPosition.top,
+              repeat: false,
+              controller: storyController,
             ),
-            child: _buildProfileView(),
-          ),
-        ],
+            Positioned.fill(
+              top: 25,
+              left: 20,
+              child: _buildProfileView(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -91,26 +93,40 @@ class _MoreStoriesState extends State<MoreStories> {
         const SizedBox(
           width: 16,
         ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.story.user['username'],
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              widget.story.user['username'],
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              Text(
-                timeAgo(DateTime.parse(whenCreated)),
-                style: const TextStyle(
-                  color: Colors.white38,
-                ),
-              )
-            ],
-          ),
-        )
+            ),
+            BlocBuilder<StoryIndexCubit, int>(
+              builder: (context, index) {
+                print('Index: $index');
+                return Text(
+                  timeAgo(DateTime.parse(widget.dateList[index])),
+                  style: const TextStyle(color: Colors.white38, fontSize: 12),
+                );
+              },
+            )
+          ],
+        ),
+        const Spacer(),
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                content: Text('Delele story'),
+              ),
+            );
+          },
+          icon: Icon(Icons.more_vert_outlined, color: Theme.of(context).colorScheme.background),
+        ),
       ],
     );
   }

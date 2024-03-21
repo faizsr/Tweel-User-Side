@@ -40,7 +40,7 @@ class StoryUtils {
               width: 60,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(width: 0.5, color: kBlack),
+                border: Border.all(width: 0.5, color: Theme.of(context).colorScheme.primary),
               ),
               child: const Icon(Icons.add),
             ),

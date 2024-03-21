@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
 
 class ExplorePosts extends StatelessWidget {
   const ExplorePosts({super.key});
@@ -50,7 +49,7 @@ class Tile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      color: kWhite,
+      color: Theme.of(context).colorScheme.primaryContainer,
     );
   }
 }

@@ -28,6 +28,7 @@ class PostDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text(
           'Post',
@@ -65,13 +66,16 @@ class PostDetailPage extends StatelessWidget {
                           style: const TextStyle(fontSize: 13),
                         ),
                         kHeight(10),
-                        PostImageWidget(postModel: postModel,height: 420),
+                        PostImageWidget(postModel: postModel, height: 420),
                         kHeight(20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             likePostButton(),
-                            Container(color: kGray, height: 20, width: 0.5),
+                            Container(
+                                color: Theme.of(context).colorScheme.outline,
+                                height: 20,
+                                width: 0.5),
                             BlocBuilder<CommentBloc, CommentState>(
                               builder: (context, state) {
                                 return CustomIconBtn(
@@ -82,7 +86,10 @@ class PostDetailPage extends StatelessWidget {
                                 );
                               },
                             ),
-                            Container(color: kGray, height: 20, width: 0.5),
+                            Container(
+                                color: Theme.of(context).colorScheme.outline,
+                                height: 20,
+                                width: 0.5),
                             CustomIconBtn(
                               title: 'Share',
                               icon: CustomIcons.send_2,
@@ -90,7 +97,11 @@ class PostDetailPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Divider(height: 30, thickness: 0.5),
+                        Divider(
+                          height: 30,
+                          thickness: 0.5,
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
                       ],
                     ),
                   ),

@@ -37,11 +37,11 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
             height: 60,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
                     width: 0.5,
-                    color: kGray,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
@@ -57,8 +57,9 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
                       onTap: widget.onTap,
                       onChanged: widget.onChanged,
                       controller: commentController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: 'Add a comment...',
+                        hintStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
                         border: InputBorder.none,
                       ),
                     ),

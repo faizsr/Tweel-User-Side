@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
@@ -6,7 +7,7 @@ import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/followers_list/followers_list_page.dart';
-import 'package:tweel_social_media/presentation/pages/profile/profile_menu.dart';
+import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
 class UserDetailsWidget extends StatelessWidget {
@@ -21,6 +22,8 @@ class UserDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Column(
@@ -34,13 +37,17 @@ class UserDetailsWidget extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () async {
-                  changeSystemThemeOnPopup(color: const Color(0xFF757575));
+                  changeSystemThemeOnPopup(
+                    color: isDarkMode ? dDialog : lDialog,
+                  );
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return ProfileMenu(profileImage: userModel.profilePicture!,);
+                      return ProfileMenu(
+                        profileImage: userModel.profilePicture!,
+                      );
                     },
-                  ).then((value) => mySystemTheme());
+                  ).then((value) => mySystemTheme(context));
                 },
                 child: const Icon(CustomIcons.setting_2),
               ),
@@ -54,7 +61,7 @@ class UserDetailsWidget extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -94,8 +101,12 @@ class UserDetailsWidget extends StatelessWidget {
                                 width: 150,
                                 child: CustomOutlinedBtn(
                                   onPressed: () {
+                                    changeSystemThemeOnPopup(
+                                        color: isDarkMode
+                                            ? dBlueGrey
+                                            : lLightWhite);
                                     nextScreen(context,
-                                        EditProfilePage(user: userModel));
+                                        EditProfilePage(user: userModel)).then((value) => mySystemTheme(context));
                                   },
                                   btnText: 'EDIT PROFILE',
                                 ),
@@ -115,8 +126,10 @@ class UserDetailsWidget extends StatelessWidget {
                 child: Container(
                   height: 90,
                   decoration: BoxDecoration(
-                    color: kWhite,
-                    border: Border.all(width: 0.5),
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    border: Border.all(
+                        width: 0.5,
+                        color: Theme.of(context).colorScheme.primary),
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
@@ -135,7 +148,7 @@ class UserDetailsWidget extends StatelessWidget {
                       Container(
                         height: double.infinity,
                         width: 0.5,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       _userPostFollowCountCard(
                         count: '${userModel.followers!.length}',
@@ -150,7 +163,7 @@ class UserDetailsWidget extends StatelessWidget {
                       Container(
                         height: double.infinity,
                         width: 0.5,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       _userPostFollowCountCard(
                         count: '${userModel.followers!.length}',
@@ -181,7 +194,6 @@ Widget _userPostFollowCountCard(
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: kWhite,
       ),
       width: 100,
       child: Column(

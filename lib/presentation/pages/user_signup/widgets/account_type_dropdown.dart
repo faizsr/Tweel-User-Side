@@ -1,7 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down/drop_down_cubit.dart';
 
 class AccountTypeDropDown extends StatelessWidget {
@@ -25,8 +24,8 @@ class AccountTypeDropDown extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
-              borderSide: const BorderSide(
-                color: Colors.black,
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
                 width: 0.5,
               ),
             ),
@@ -52,9 +51,12 @@ class AccountTypeDropDown extends StatelessWidget {
               ),
             ),
           ),
-          hint: const Text(
+          hint: Text(
             'Account Type',
-            style: TextStyle(fontSize: 14, color: kBlack),
+            style: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
           items: const [
             DropdownMenuItem(
@@ -92,10 +94,10 @@ class AccountTypeDropDown extends StatelessWidget {
           buttonStyleData: const ButtonStyleData(
             padding: EdgeInsets.only(right: 8),
           ),
-          iconStyleData: const IconStyleData(
+          iconStyleData: IconStyleData(
             icon: Icon(
               Icons.arrow_drop_down,
-              color: kBlack,
+              color: Theme.of(context).colorScheme.primary,
             ),
             iconSize: 24,
           ),

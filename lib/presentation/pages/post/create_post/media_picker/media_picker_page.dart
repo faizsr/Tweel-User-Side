@@ -1,3 +1,4 @@
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,84 +38,85 @@ class _MediaPickerState extends State<MediaPicker> {
     context
         .read<MediaPickerBloc>()
         .add(LoadAlbumsAndAssetsEvent(requestType: RequestType.common));
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
-    ));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(90),
-        child: BlocBuilder<MediaPickerBloc, MediaPickerState>(
+    return ColorfulSafeArea(
+      color: Theme.of(context).colorScheme.surface,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(90),
+          child: BlocBuilder<MediaPickerBloc, MediaPickerState>(
+            builder: (context, state) {
+              if (state is MediaSuccessState) {
+                debugPrint('SelectedAlbum ${state.selectedAlbum}');
+                debugPrint(
+                    'Length of album after selecting ${state.albumList.length}');
+                return MediaPickerAppbar(
+                  albumList: state.albumList,
+                  selectedAlbum: state.selectedAlbum ?? state.albumList[0],
+                  selectedAssetList: selectedAssetList,
+                  onChanged: (AssetPathEntity? value) {
+                    context.read<MediaPickerBloc>().add(LoadSelectedAssetEvent(
+                        selectedAlbum: value, albumList: state.albumList));
+                  },
+                  onPressed: () {
+                    if (widget.screenType == ScreenType.post) {
+                      nextScreen(context,
+                          CreatePostPage(selectedAssetList: selectedAssetList));
+                    } else if (widget.screenType == ScreenType.profile) {
+                      context
+                          .read<SetProfileImageCubit>()
+                          .setProfileImage(selectedAssetList);
+                      Navigator.of(context).pop(selectedAssetList);
+                    } else if (widget.screenType == ScreenType.story) {
+                      context.read<StoryBloc>().add(
+                            AddStoryEvent(
+                              userId: widget.userId!,
+                              selectedAssets: selectedAssetList,
+                            ),
+                          );
+                    }
+                  },
+                );
+              }
+              return Container();
+            },
+          ),
+        ),
+        body: BlocBuilder<MediaPickerBloc, MediaPickerState>(
           builder: (context, state) {
             if (state is MediaSuccessState) {
-              debugPrint('SelectedAlbum ${state.selectedAlbum}');
-              debugPrint(
-                  'Length of album after selecting ${state.albumList.length}');
-              return MediaPickerAppbar(
-                albumList: state.albumList,
-                selectedAlbum: state.selectedAlbum ?? state.albumList[0],
-                selectedAssetList: selectedAssetList,
-                onChanged: (AssetPathEntity? value) {
-                  context.read<MediaPickerBloc>().add(LoadSelectedAssetEvent(
-                      selectedAlbum: value, albumList: state.albumList));
-                },
-                onPressed: () {
-                  if (widget.screenType == ScreenType.post) {
-                    nextScreen(context,
-                        CreatePostPage(selectedAssetList: selectedAssetList));
-                  } else if (widget.screenType == ScreenType.profile) {
-                    context
-                        .read<SetProfileImageCubit>()
-                        .setProfileImage(selectedAssetList);
-                    Navigator.of(context).pop(selectedAssetList);
-                  } else if (widget.screenType == ScreenType.story) {
-                    context.read<StoryBloc>().add(
-                          AddStoryEvent(
-                            userId: widget.userId!,
-                            selectedAssets: selectedAssetList,
-                          ),
-                        );
-                  }
-                },
-              );
+              if (state.assetList.isEmpty) {
+                return const Center(
+                  child: Text('No albums found'),
+                );
+              } else {
+                return GridView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: state.assetList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3),
+                  itemBuilder: (context, index) {
+                    AssetEntity assetEntity = state.assetList[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: assetWidget(assetEntity, state.assetList),
+                    );
+                  },
+                );
+              }
             }
-            return Container();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
-      ),
-      body: BlocBuilder<MediaPickerBloc, MediaPickerState>(
-        builder: (context, state) {
-          if (state is MediaSuccessState) {
-            if (state.assetList.isEmpty) {
-              return const Center(
-                child: Text('No albums found'),
-              );
-            } else {
-              return GridView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-                physics: const BouncingScrollPhysics(),
-                itemCount: state.assetList.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3),
-                itemBuilder: (context, index) {
-                  AssetEntity assetEntity = state.assetList[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: assetWidget(assetEntity, state.assetList),
-                  );
-                },
-              );
-            }
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
       ),
     );
   }

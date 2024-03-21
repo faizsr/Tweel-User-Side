@@ -11,6 +11,7 @@ class CustomSearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Column(
       children: [
         kHeight(15),
@@ -18,28 +19,28 @@ class CustomSearchField extends StatelessWidget {
           margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: CupertinoSearchTextField(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            backgroundColor: kWhite,
+            backgroundColor: theme.colorScheme.primaryContainer,
             prefixInsets: const EdgeInsetsDirectional.only(start: 10),
             suffixInsets: const EdgeInsetsDirectional.only(end: 10),
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               CustomIcons.search_normal_2,
-              color: kBlack,
+              color: theme.colorScheme.primary,
               size: 20,
             ),
-            suffixIcon: const Icon(
+            suffixIcon: Icon(
               Icons.close,
-              color: Color(0xFF737373),
+              color: theme.colorScheme.onSecondary,
             ),
             placeholder: 'Search here...',
             placeholderStyle: TextStyle(
-              color: kGray,
+              color: theme.colorScheme.secondary,
               fontSize: 14,
               fontFamily: mainFont,
               fontVariations: fontWeightW500,
               letterSpacing: 0.2,
             ),
             style: TextStyle(
-              color: kBlack,
+              color: theme.colorScheme.primary,
               fontSize: 14,
               fontFamily: mainFont,
               fontVariations: fontWeightW500,

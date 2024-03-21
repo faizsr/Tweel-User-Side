@@ -1,14 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:ui';
 
 import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/shared_preference.dart';
+import 'package:tweel_social_media/presentation/pages/settings/settings.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
-class ProfileMenu extends StatefulWidget {
+class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
     super.key,
     required this.profileImage,
@@ -17,12 +21,9 @@ class ProfileMenu extends StatefulWidget {
   final String profileImage;
 
   @override
-  State<ProfileMenu> createState() => _ProfileMenuState();
-}
-
-class _ProfileMenuState extends State<ProfileMenu> {
-  @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
       child: Center(
@@ -33,13 +34,13 @@ class _ProfileMenuState extends State<ProfileMenu> {
             children: [
               CircleAvatar(
                 radius: 60,
-                backgroundImage: NetworkImage(widget.profileImage),
+                backgroundImage: NetworkImage(profileImage),
               )
                   .animate()
                   .fade(duration: const Duration(milliseconds: 200))
                   .scale(begin: const Offset(.8, .8), curve: Curves.easeOut),
               kHeight(20),
-              _buildBottomBtns(context),
+              _buildBottomBtns(context, isDarkMode),
               kHeight(50),
             ],
           ),
@@ -48,10 +49,10 @@ class _ProfileMenuState extends State<ProfileMenu> {
     );
   }
 
-  Widget _buildBottomBtns(BuildContext context) {
+  Widget _buildBottomBtns(BuildContext context, bool isDarkMode) {
     return SeparatedColumn(
       separatorBuilder: () =>
-          const Divider(thickness: 1.5, height: 1).animate().scale(
+          const Divider(thickness: 1, height: 1, color: lWhite).animate().scale(
                 duration: const Duration(milliseconds: 800),
                 delay: const Duration(microseconds: 500),
                 curve: Curves.easeOutBack,
@@ -59,17 +60,25 @@ class _ProfileMenuState extends State<ProfileMenu> {
       children: [
         _MenuTextBtn(
           label: 'Settings',
-          onTap: () {},
+          onTap: () async {
+            changeSystemThemeOnPopup(
+                color: isDarkMode ? dBlueGrey : lLightWhite);
+            await nextScreen(context, const SettingsPage()).then((value) {
+              Navigator.pop(context);
+            });
+          },
         ),
         _MenuTextBtn(
           label: 'Logout',
-          onTap: () {
+          onTap: () async {
             UserAuthStatus.saveUserStatus(false);
-            nextScreenRemoveUntil(
+            changeSystemThemeOnPopup(
+                color: isDarkMode ? dBlueGrey : lLightWhite);
+            await nextScreenRemoveUntil(
               context,
               const UserSignInPage(),
             );
-            mySystemTheme();
+            mySystemTheme(context);
           },
         ),
         _MenuTextBtn(

@@ -29,7 +29,7 @@ class ProfilePictureWidget extends StatelessWidget {
       },
       child: CircleAvatar(
         radius: 80,
-        backgroundColor: kLightWhite,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         child: BlocBuilder<SetProfileImageCubit, SetProfileImageState>(
           builder: (context, state) {
             if (state is SetProfileImageSuccessState) {

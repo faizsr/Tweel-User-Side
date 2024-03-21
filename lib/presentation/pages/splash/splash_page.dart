@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/presentation/pages/get_started/get_started_page.dart';
@@ -23,6 +24,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    mySystemTheme(context);
     return const Scaffold(
       body: Center(
         child: Text(

@@ -1,12 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 
 class CustomAppbar {
   static AppBar show(BuildContext context, enableIcon) {
     return AppBar(
-      backgroundColor: kWhite,
       elevation: 0,
       centerTitle: true,
       leading: enableIcon

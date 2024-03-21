@@ -27,6 +27,7 @@ class _UserSignUpPageTwoState extends State<UserSignUpPageTwo> {
     final mediaHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       extendBodyBehindAppBar: true,
       appBar: CustomAppbar.show(context,true),
       body: SingleChildScrollView(
@@ -45,7 +46,7 @@ class _UserSignUpPageTwoState extends State<UserSignUpPageTwo> {
                 ),
                 Positioned(
                   bottom: 0,
-                  child: SignUpWidgets.signInNavigate(),
+                  child: SignUpWidgets.signInNavigate(context),
                 ),
               ],
             ),

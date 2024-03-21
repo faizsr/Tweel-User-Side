@@ -24,7 +24,7 @@ class PostCardWidget extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(18, 15, 18, 15),
       decoration: BoxDecoration(
-        color: kWhite,
+        color: Theme.of(context).colorScheme.primaryContainer,
         boxShadow: kBoxShadow,
         borderRadius: BorderRadius.circular(12),
       ),
@@ -39,7 +39,11 @@ class PostCardWidget extends StatelessWidget {
           kHeight(15),
 
           // Post Description
-          ReadMoreWidget(text: postModel.description),
+          ReadMoreWidget(
+            text: postModel.description,
+            postModel: postModel,
+            userModel: userModel,
+          ),
           kHeight(15),
 
           // Post Image Section

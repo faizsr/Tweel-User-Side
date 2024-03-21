@@ -40,9 +40,10 @@ class FollowersAppbar extends StatelessWidget {
         ),
         indicatorPadding: const EdgeInsets.all(0),
         splashFactory: NoSplash.splashFactory,
-        labelColor: kDarkBlue,
+        dividerColor: Theme.of(context).colorScheme.outline,
+        labelColor: Theme.of(context).colorScheme.onPrimary,
         labelPadding: const EdgeInsets.all(0),
-        unselectedLabelColor: kBlack,
+        unselectedLabelColor: Theme.of(context).colorScheme.primary,
         labelStyle: TextStyle(
           fontFamily: mainFont,
           fontSize: 12,
@@ -112,13 +113,16 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                 : Container(),
           ),
           _isSearchActive
-              ? const Padding(
-                  padding: EdgeInsets.only(right: 10),
-                  child: Icon(Icons.close, color: kBlack),
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(
+                    Icons.close,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 )
               : const Padding(
                   padding: EdgeInsets.only(right: 15),
-                  child: Icon(CustomIcons.search_normal_2, color: kBlack),
+                  child: Icon(CustomIcons.search_normal_2),
                 ),
         ],
       ),

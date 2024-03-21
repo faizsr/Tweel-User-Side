@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
+import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
@@ -28,10 +29,11 @@ class _ProfilePageState extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
+    mySystemTheme(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: kLightWhite,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: MultiBlocBuilder(
           blocs: [context.watch<PostBloc>(), context.watch<ProfileBloc>()],
           builder: (context, state) {

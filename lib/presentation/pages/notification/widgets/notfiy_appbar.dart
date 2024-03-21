@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
@@ -18,7 +17,7 @@ class NotifyAppbar extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(CustomIcons.arrow_left_2, color: kBlack),
+            icon: const Icon(CustomIcons.arrow_left_2),
           ),
           const Text(
             'Notifications',

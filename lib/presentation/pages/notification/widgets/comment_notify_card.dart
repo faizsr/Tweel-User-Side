@@ -11,9 +11,8 @@ class CommentNotifyCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 14),
       decoration: BoxDecoration(
-        color: kWhite,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(10),
-        // boxShadow: kBoxShadow,
       ),
       child: Stack(
         children: [
@@ -33,11 +32,11 @@ class CommentNotifyCard extends StatelessWidget {
                     style: TextStyle(fontSize: 14),
                   ),
                   kHeight(5),
-                  const Text(
+                  Text(
                     'Greatly appreciated',
                     style: TextStyle(
                       fontSize: 13,
-                      color: kGray,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   )
                 ],
@@ -45,11 +44,13 @@ class CommentNotifyCard extends StatelessWidget {
               const Spacer(),
             ],
           ),
-          const Align(
+          Align(
             alignment: Alignment.topRight,
             child: Text(
               '1 hour ago',
-              style: TextStyle(fontSize: 11, color: kGray),
+              style: TextStyle(
+                  fontSize: 11,
+                  color: Theme.of(context).colorScheme.onSecondary),
             ),
           )
         ],

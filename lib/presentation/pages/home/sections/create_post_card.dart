@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
@@ -19,11 +21,14 @@ class CreatePostCard extends StatefulWidget {
 class _CreatePostCardState extends State<CreatePostCard> {
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: kWhite,
+        color: theme.colorScheme.primaryContainer,
         boxShadow: kBoxShadow,
         borderRadius: BorderRadius.circular(12),
       ),
@@ -43,7 +48,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                   children: [
                     CircleAvatar(
                       radius: 28,
-                      backgroundColor: kWhite,
+                      backgroundColor: Colors.transparent,
                       backgroundImage: NetworkImage(
                         state.userDetails.profilePicture!,
                       ),
@@ -62,7 +67,10 @@ class _CreatePostCardState extends State<CreatePostCard> {
                         kHeight(5),
                         Text(
                           '@${state.userDetails.username}',
-                          style: const TextStyle(fontSize: 12),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: theme.colorScheme.secondary,
+                          ),
                         ),
                       ],
                     )
@@ -75,6 +83,8 @@ class _CreatePostCardState extends State<CreatePostCard> {
           kHeight(20),
           CustomOutlinedBtn(
             onPressed: () {
+              changeSystemThemeOnPopup(
+                  color: isDarkMode ? dBlueGrey : lLightWhite);
               nextScreen(
                 context,
                 const MediaPicker(
@@ -82,7 +92,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                   requestType: RequestType.common,
                   screenType: ScreenType.post,
                 ),
-              );
+              ).then((value) => mySystemTheme(context));
             },
             btnText: 'CREATE NEW POST',
           ),

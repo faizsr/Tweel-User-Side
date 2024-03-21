@@ -13,24 +13,26 @@ class CustomOutlinedBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 0.5),
-              borderRadius: BorderRadius.circular(3),
-            ),
-            elevation: 0,
-            backgroundColor: Colors.white,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            padding: const EdgeInsets.all(0)),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(width: 0.5,color: theme.textTheme.labelLarge!.color!),
+            borderRadius: BorderRadius.circular(3),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          padding: const EdgeInsets.all(0),
+        ),
         onPressed: onPressed,
         child: Text(
           btnText,
-          style: const TextStyle(
+          style: TextStyle(
             fontVariations: fontWeightW900,
-            color: kBlack,
+            color: theme.textTheme.labelLarge!.color,
             fontSize: 10,
           ),
         ),

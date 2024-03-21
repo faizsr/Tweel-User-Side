@@ -39,22 +39,22 @@ class CustomTxtFormField extends StatelessWidget {
           vertical: 16,
         ),
         hintText: hintText,
-        hintStyle: const TextStyle(
-          color: Colors.black,
+        hintStyle: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
           fontSize: 14,
           fontVariations: fontWeightRegular,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
-          borderSide: const BorderSide(
-            color: Colors.black,
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
             width: 0.5,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
-          borderSide: const BorderSide(
-            color: Colors.blue,
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.onPrimary,
             width: 1.0,
           ),
         ),

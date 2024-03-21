@@ -22,7 +22,7 @@ class _BottomImageListviewState extends State<BottomImageListview> {
       padding: const EdgeInsets.only(bottom: 10),
       height: 100,
       width: double.infinity,
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: widget.selectedAssetList.length,

@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 // import 'package:tweel_social_media/data/models/post_model/post_model.dart';
@@ -30,6 +33,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40),
         child: CreatePostAppbar(
@@ -67,22 +71,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
               children: [
                 const UserDetailWidget(),
                 kHeight(20),
-                TextFormField(
-                  controller: locationController,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter location',
-                    border: InputBorder.none,
-                  ),
-                ),
-                TextFormField(
-                  controller: descriptionController,
-                  maxLines: null,
-                  decoration: const InputDecoration(
-                    hintText: 'What do you want to talk about?',
-                    border: InputBorder.none,
-                  ),
-                ),
+                createPostTextField(context:  context,controller: locationController,hintText: 'Enter location'),
+                createPostTextField(context: context, controller:  descriptionController,hintText: 'What do you want to talk about?'),
               ],
             ),
           ),
@@ -90,6 +80,22 @@ class _CreatePostPageState extends State<CreatePostPage> {
       ),
       bottomSheet:
           BottomImageListview(selectedAssetList: widget.selectedAssetList),
+    );
+  }
+
+  TextFormField createPostTextField({
+    required BuildContext context,
+    required TextEditingController controller,
+    required String hintText,
+  }) {
+    return TextFormField(
+      controller: controller,
+      maxLines: 1,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+        border: InputBorder.none,
+      ),
     );
   }
 }

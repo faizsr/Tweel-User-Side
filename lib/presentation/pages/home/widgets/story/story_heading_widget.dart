@@ -59,7 +59,12 @@ class _StoryHeadingWidgetState extends State<StoryHeadingWidget> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle, border: Border.all(width: 0.5)),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 0.5,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                     child: const Icon(
                       CustomIcons.add,
                       size: 25,

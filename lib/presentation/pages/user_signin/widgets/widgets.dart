@@ -10,18 +10,17 @@ class SignInWidgets {
       child: FadeInUp(
         delay: const Duration(milliseconds: 700),
         duration: const Duration(milliseconds: 1000),
-        child: const Text.rich(
+        child: Text.rich(
           TextSpan(
             children: [
               TextSpan(
                 text: "Don't have an account yet? ",
                 style: TextStyle(
-                  color: kGray,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
-              TextSpan(
+              const TextSpan(
                 text: 'Sign Up.',
-                style: TextStyle(color: kBlack),
               ),
             ],
           ),

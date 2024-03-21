@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 import 'package:tweel_social_media/presentation/pages/notification/notification.dart';
@@ -10,6 +12,8 @@ class HeadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -19,7 +23,10 @@ class HeadingWidget extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            nextScreen(context, const NotificationPage());
+            changeSystemThemeOnPopup(
+                color: isDarkMode ? dBlueGrey : lLightWhite);
+            nextScreen(context, const NotificationPage())
+                .then((value) => mySystemTheme(context));
           },
           child: const Icon(CustomIcons.notification_off_bing),
         ),

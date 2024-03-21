@@ -17,6 +17,7 @@ class _UserSignInPageState extends State<UserSignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       extendBodyBehindAppBar: true,
       appBar: CustomAppbar.show(context,false),
       body: SingleChildScrollView(

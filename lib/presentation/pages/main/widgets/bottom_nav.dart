@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 
 ValueNotifier<int> indexChangeNotifier = ValueNotifier(0);
@@ -9,42 +8,43 @@ class BottomNavigationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return ValueListenableBuilder<int>(
         valueListenable: indexChangeNotifier,
         builder: (context, int newIndex, _) {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             height: 70,
-            color: kWhite,
+            color: Theme.of(context).colorScheme.primaryContainer,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                kIconbutton(0, CustomIcons.home),
+                kIconbutton(0, CustomIcons.home, theme),
                 Container(
                   height: 20,
                   width: 2,
-                  color: Colors.grey.shade300,
+                  color: theme.colorScheme.outline,
                 ),
-                kIconbutton(1, CustomIcons.search_normal),
+                kIconbutton(1, CustomIcons.search_normal, theme),
                 Container(
                   height: 20,
                   width: 2,
-                  color: Colors.grey.shade300,
+                  color: theme.colorScheme.outline,
                 ),
-                kIconbutton(2, CustomIcons.message_off),
+                kIconbutton(2, CustomIcons.message_off, theme),
                 Container(
                   height: 20,
                   width: 2,
-                  color: Colors.grey.shade300,
+                  color: theme.colorScheme.outline,
                 ),
-                kIconbutton(3, CustomIcons.user),
+                kIconbutton(3, CustomIcons.user, theme),
               ],
             ),
           );
         });
   }
 
-  IconButton kIconbutton(int index, IconData icon) {
+  IconButton kIconbutton(int index, IconData icon, ThemeData theme) {
     return IconButton(
       enableFeedback: false,
       onPressed: () {
@@ -53,12 +53,12 @@ class BottomNavigationWidget extends StatelessWidget {
       icon: indexChangeNotifier.value == index
           ? Icon(
               icon,
-              color: kDarkBlue,
+              color: theme.colorScheme.onPrimary,
               size: 25,
             )
           : Icon(
               icon,
-              color: kBlack,
+              color: theme.iconTheme.color,
               size: 25,
             ),
     );

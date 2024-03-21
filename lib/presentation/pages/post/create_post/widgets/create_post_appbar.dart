@@ -33,7 +33,6 @@ class _CreatePostAppbarState extends State<CreatePostAppbar> {
     return AppBar(
       toolbarHeight: 40,
       automaticallyImplyLeading: false,
-      backgroundColor: kWhite,
       elevation: 0,
       leading: IconButton(
         onPressed: () {
@@ -48,17 +47,18 @@ class _CreatePostAppbarState extends State<CreatePostAppbar> {
       centerTitle: true,
       title: const Text(
         'Create New Post',
-        style: TextStyle(fontSize: 18, fontVariations: fontWeightW600),
+        style: TextStyle(fontSize: 18),
       ),
       actions: [
         InkWell(
           onTap: widget.onTap,
-          child: const Padding(
-            padding: EdgeInsets.only(right: 10),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
             child: Text(
               'POST',
-              style:
-                  TextStyle(fontVariations: fontWeightW500, color: kDarkBlue),
+              style: TextStyle(
+                  fontVariations: fontWeightW500,
+                  color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
         ),

@@ -21,7 +21,7 @@ class CustomIconBtn extends StatelessWidget {
       onTap: onTap,
       child: Row(
         children: [
-          Icon(icon, size: 20, color: color ?? Colors.black),
+          Icon(icon, size: 20, color: color ?? Theme.of(context).colorScheme.primary),
           kWidth(5),
           Text(title, style: const TextStyle(fontSize: 13)),
         ],

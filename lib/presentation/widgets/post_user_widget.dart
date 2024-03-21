@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
@@ -17,6 +18,9 @@ class PostUserDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    ThemeData theme = Theme.of(context);
     return Row(
       children: [
         InkWell(
@@ -25,7 +29,7 @@ class PostUserDetail extends StatelessWidget {
           },
           child: CircleAvatar(
             radius: 20,
-            backgroundColor: kWhite,
+            backgroundColor: Colors.transparent,
             backgroundImage: NetworkImage(
               postModel.user!['profile_picture'] ?? userModel!.profilePicture,
             ),
@@ -46,7 +50,10 @@ class PostUserDetail extends StatelessWidget {
                 postModel.location,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 11, color: kDarkGrey),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: theme.colorScheme.secondary,
+                ),
               ),
             ),
           ],
@@ -58,13 +65,16 @@ class PostUserDetail extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                timeAgo(DateTime.parse(postModel.createdDate!)),
-                style: const TextStyle(fontSize: 11),
+                filterPostTime(DateTime.parse(postModel.createdDate!)),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: theme.colorScheme.onSecondary,
+                ),
               ),
             ),
-            IconButton(
-              onPressed: () {
-                changeSystemThemeOnPopup();
+            InkWell(
+              onTap: () {
+                changeSystemThemeOnPopup(color: isDarkMode ? dBottom : lBottom);
                 PostMoreWidget.bottomSheet(
                   context: context,
                   postModel: postModel,
@@ -72,7 +82,7 @@ class PostUserDetail extends StatelessWidget {
                   postId: userModel!.id!,
                 );
               },
-              icon: const Icon(Icons.more_vert_sharp),
+              child: const Icon(Icons.more_vert_sharp),
             ),
           ],
         ),

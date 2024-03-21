@@ -9,23 +9,20 @@ import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
 
 class SignUpWidgets {
-  static FadeInUp signInNavigate() {
+  static FadeInUp signInNavigate(BuildContext context) {
     return FadeInUp(
       delay: const Duration(milliseconds: 700),
       duration: const Duration(milliseconds: 1000),
-      child: const Text.rich(
+      child: Text.rich(
         TextSpan(
           children: [
             TextSpan(
               text: "Already have an account? ",
               style: TextStyle(
-                color: kGray,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
-            TextSpan(
-              text: 'Sign In.',
-              style: TextStyle(color: kBlack),
-            ),
+            const TextSpan(text: 'Sign In.'),
           ],
         ),
       ),
@@ -47,14 +44,15 @@ class SignUpWidgets {
       context: context!,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: kWhite,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          title: const Text(
+          title: Text(
             'Verification',
             style: TextStyle(
               fontVariations: fontWeightW600,
+              color: Theme.of(context).colorScheme.primary
             ),
           ),
           content: const Text(

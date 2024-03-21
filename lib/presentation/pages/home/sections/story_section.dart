@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/light_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
@@ -21,7 +22,7 @@ class StoryWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 0, 0, 20),
       decoration: BoxDecoration(
-        color: kWhite,
+        color: Theme.of(context).colorScheme.primaryContainer,
         boxShadow: kBoxShadow,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(12),
@@ -72,7 +73,7 @@ class StoryWidget extends StatelessWidget {
               if (state is FetchStoriesSuccessState) {
                 Map<String, List<StoryModel>> userStories =
                     eachUserStory(state.storiesList);
-                print(userStories);
+                print(userStories.length);
                 List<Widget> storyCards = [];
                 userStories.forEach((userId, stories) {
                   if (stories.length > 1) {
@@ -86,6 +87,7 @@ class StoryWidget extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           // Handle onTap
+                          changeSystemThemeOnPopup(color: kBlack);
                           nextScreen(
                             context,
                             MoreStories(
@@ -93,7 +95,7 @@ class StoryWidget extends StatelessWidget {
                               dateList: createdDates,
                               story: stories.first,
                             ),
-                          );
+                          ).then((value) => mySystemTheme(context));
                         },
                         child: StoryCard(
                           storyModel: stories.first, // Show first story
@@ -104,6 +106,7 @@ class StoryWidget extends StatelessWidget {
                     storyCards.add(
                       GestureDetector(
                         onTap: () {
+                          changeSystemThemeOnPopup(color: kBlack);
                           nextScreen(
                             context,
                             MoreStories(
@@ -111,7 +114,7 @@ class StoryWidget extends StatelessWidget {
                               dateList: [stories.first.createdDate],
                               story: stories.first,
                             ),
-                          );
+                          ).then((value) => mySystemTheme(context));
                         },
                         child: StoryCard(storyModel: stories.first),
                       ),

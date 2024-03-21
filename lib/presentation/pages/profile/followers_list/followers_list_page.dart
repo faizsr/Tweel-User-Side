@@ -28,6 +28,7 @@ class _FollowerListPageState extends State<FollowerListPage> {
       length: 2,
       initialIndex: widget.selectedPage,
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(100),
           child: FollowersAppbar(

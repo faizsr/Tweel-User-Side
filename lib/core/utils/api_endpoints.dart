@@ -20,5 +20,5 @@ class ApiEndPoints {
   static String unlikePost = "/post/unlike/";
 
   static String allStories = "/stories";
-  static String addStory = "/story/add"; 
+  static String addStory = "/story/add";
 }

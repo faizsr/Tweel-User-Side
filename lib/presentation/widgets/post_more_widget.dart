@@ -23,6 +23,9 @@ class PostMoreWidget {
       isDismissible: true,
       isScrollControlled: true,
       context: context,
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width - 40,
+      ),
       builder: (context) {
         return FadeInUp(
           delay: const Duration(microseconds: 100),
@@ -30,9 +33,8 @@ class PostMoreWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
             child: Container(
-              margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               decoration: BoxDecoration(
-                color: kWhite,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: ListView(
@@ -65,7 +67,9 @@ class PostMoreWidget {
                       listener: (context, state) {
                         if (state is RemovePostSuccessState) {
                           Navigator.pop(context);
-                          context.read<PostBloc>().add(PostInitialFetchEvent());
+                          context
+                              .read<PostBloc>()
+                              .add(PostInitialFetchEvent());
                           context
                               .read<ProfileBloc>()
                               .add(UserDetailInitialFetchEvent());
@@ -98,7 +102,7 @@ class PostMoreWidget {
         );
       },
     ).then((value) {
-      mySystemTheme();
+      mySystemTheme(context);
     });
   }
 }
