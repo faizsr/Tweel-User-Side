@@ -35,9 +35,9 @@ class UserDetailWidget extends StatelessWidget {
                   kHeight(5),
                   Text(
                     state.userDetails.accountType!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
-                      color: kGray,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ],

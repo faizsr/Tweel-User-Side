@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/light_theme.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 
@@ -34,7 +35,8 @@ class FollowersAppbar extends StatelessWidget {
       bottom: TabBar(
         indicatorSize: TabBarIndicatorSize.label,
         indicator: UnderlineTabIndicator(
-          borderSide: const BorderSide(width: 2, color: kDarkBlue),
+          borderSide: BorderSide(
+              width: 2, color: Theme.of(context).colorScheme.onPrimary),
           insets: const EdgeInsets.symmetric(horizontal: 16.0),
           borderRadius: BorderRadius.circular(10),
         ),
@@ -101,12 +103,15 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                       textAlign: TextAlign.start,
                       autofocus: true,
                       focusNode: _focusNode,
-                      style: const TextStyle(color: kBlack),
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(bottom: 10),
+                      style: const TextStyle(color: lBlack),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(bottom: 10),
                         border: InputBorder.none,
                         hintText: "Search",
-                        hintStyle: TextStyle(color: kGray, fontSize: 16),
+                        hintStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   )

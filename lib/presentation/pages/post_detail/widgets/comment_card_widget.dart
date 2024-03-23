@@ -47,8 +47,8 @@ class CommentCardWidget extends StatelessWidget {
                     kHeight(5),
                     Text(
                       commentModel.comment,
-                      style: const TextStyle(
-                        color: kDarkGrey,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 13,
                       ),
                     ),
@@ -66,7 +66,10 @@ class CommentCardWidget extends StatelessWidget {
                 const Spacer(),
                 Text(
                   timeAgo(DateTime.parse(commentModel.createdDate)),
-                  style: const TextStyle(color: kGray, fontSize: 11),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

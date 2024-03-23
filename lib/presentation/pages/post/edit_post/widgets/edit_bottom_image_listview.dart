@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/widgets/video_player.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +24,7 @@ class _EditBottomImageListviewState extends State<EditBottomImageListview> {
       padding: const EdgeInsets.only(bottom: 10),
       height: 100,
       width: double.infinity,
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: widget.imageUrlList.length,
@@ -106,8 +107,8 @@ class _EditBottomImageListviewState extends State<EditBottomImageListview> {
                     },
                     child: const CircleAvatar(
                       radius: 10,
-                      backgroundColor: kWhite,
-                      foregroundColor: kBlack,
+                      backgroundColor: lWhite,
+                      foregroundColor: lBlack,
                       child: Icon(
                         Icons.close,
                         size: 15,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 
 class CreateLoadingSnackbar {
   static showSnackbar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-        backgroundColor: kBlack,
+        backgroundColor: lBlack,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),

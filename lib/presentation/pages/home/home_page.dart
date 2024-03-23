@@ -1,6 +1,6 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/light_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/pages/home/sections/create_post_card.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/heading_widget.dart';

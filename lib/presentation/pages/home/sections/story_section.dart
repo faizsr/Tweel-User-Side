@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/theme/light_theme.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
@@ -87,7 +88,7 @@ class StoryWidget extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           // Handle onTap
-                          changeSystemThemeOnPopup(color: kBlack);
+                          changeSystemThemeOnPopup(color: lBlack);
                           nextScreen(
                             context,
                             MoreStories(
@@ -106,7 +107,7 @@ class StoryWidget extends StatelessWidget {
                     storyCards.add(
                       GestureDetector(
                         onTap: () {
-                          changeSystemThemeOnPopup(color: kBlack);
+                          changeSystemThemeOnPopup(color: lBlack);
                           nextScreen(
                             context,
                             MoreStories(

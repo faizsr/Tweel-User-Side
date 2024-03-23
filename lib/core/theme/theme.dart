@@ -44,17 +44,17 @@ var lightTheme = ThemeData(
   listTileTheme: const ListTileThemeData(iconColor: lBlack, textColor: lBlack),
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(
-      color: kBlack,
+      color: lBlack,
       fontFamily: mainFont,
       fontSize: 20,
       fontVariations: fontWeightRegular,
     ),
-    iconTheme: const IconThemeData(color: kBlack),
+    iconTheme: const IconThemeData(color: lBlack),
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
     ),
   ),
-  iconTheme: const IconThemeData(color: kBlack),
+  iconTheme: const IconThemeData(color: lBlack),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
     bodyMedium: TextStyle(fontVariations: fontWeightRegular, color: lBlack),
@@ -94,19 +94,19 @@ var darkTheme = ThemeData(
   ),
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(
-      color: kWhite,
+      color: dWhite,
       fontFamily: mainFont,
       fontSize: 20,
       fontVariations: fontWeightRegular,
     ),
-    iconTheme: const IconThemeData(color: kWhite),
+    iconTheme: const IconThemeData(color: dWhite),
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
     ),
   ),
   listTileTheme: const ListTileThemeData(iconColor: dWhite, textColor: dWhite),
   dividerColor: kLightGrey2,
-  iconTheme: const IconThemeData(color: kWhite),
+  iconTheme: const IconThemeData(color: dWhite),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
     bodyMedium: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
@@ -122,7 +122,7 @@ var darkTheme = ThemeData(
     titleLarge: TextStyle(fontVariations: fontWeightRegular, color: dWhite),
     headlineLarge: TextStyle(
       fontVariations: fontWeightRegular,
-      color: kWhite,
+      color: dWhite,
       fontSize: 24,
     ),
   ),

@@ -4,19 +4,8 @@
 // >>>>>>> 3dc048ca250c0fed2f942660e1d93d69a36a53b2
 import 'package:flutter/material.dart';
 
-const kWhite = Colors.white;
-const kLightWhite = Color(0xFFF5F6FA);
 const kLightGrey = Color(0xFFF4F4F4);
 const kLightGrey2 = Color(0xFFCCCCCC);
-const kGray = Color(0xFF8F8F8F);
-const kDarkGrey = Color(0xFF787878);
-const kDarkGrey2 = Color(0xFF3D3E43);
-const kBlack = Colors.black;
-const kDarkBlue = Color(0xFF3E23A9);
-const klightBlue = Color(0xFF3C4FF9);
-
-const kBlueGrey = Color(0xFF1B1C22);
-const klightBlueGrey = Color(0xFF25262C);
 
 const profileOne = 'assets/images/profile1.jpg';
 const profileTwo = 'assets/images/profile2.jpg';

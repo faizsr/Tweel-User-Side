@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:tweel_social_media/core/theme/light_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
@@ -12,7 +12,7 @@ class ExplorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kLightWhite,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
         child: Container(
@@ -21,12 +21,11 @@ class ExplorePage extends StatelessWidget {
           margin: const EdgeInsets.fromLTRB(15, 60, 15, 20),
           child: CupertinoSearchTextField(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            backgroundColor: kWhite,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             prefixInsets: const EdgeInsetsDirectional.only(start: 10),
             suffixInsets: const EdgeInsetsDirectional.only(end: 10),
             prefixIcon: const Icon(
               CustomIcons.search_normal_2,
-              color: kBlack,
               size: 20,
             ),
             suffixIcon: const Icon(
@@ -35,14 +34,13 @@ class ExplorePage extends StatelessWidget {
             ),
             placeholder: 'Search here...',
             placeholderStyle: TextStyle(
-              color: kGray,
+              color: Theme.of(context).colorScheme.secondary,
               fontSize: 14,
               fontFamily: mainFont,
               fontVariations: fontWeightW500,
               letterSpacing: 0.2,
             ),
             style: TextStyle(
-              color: kBlack,
               fontSize: 14,
               fontFamily: mainFont,
               fontVariations: fontWeightW500,
@@ -53,15 +51,18 @@ class ExplorePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 20, right: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Row(
               children: [
-                Text('Suggested People'),
-                Spacer(),
+                const Text('Suggested People'),
+                const Spacer(),
                 Text(
                   'Show all',
-                  style: TextStyle(fontSize: 12, color: kDarkBlue),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               ],
             ),
@@ -76,7 +77,7 @@ class ExplorePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return Container(
                 decoration: BoxDecoration(
-                  color: kWhite,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   boxShadow: kBoxShadow,
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -140,7 +141,7 @@ class Tile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      color: kWhite,
+      color: Theme.of(context).colorScheme.primaryContainer,
     );
   }
 }

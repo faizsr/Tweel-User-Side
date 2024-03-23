@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/light_theme.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/presentation/pages/get_started/get_started_page.dart';
@@ -24,9 +25,12 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    mySystemTheme(context);
-    return const Scaffold(
-      body: Center(
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : dWhite);
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: const Center(
         child: Text(
           'Tweel.',
           style: TextStyle(fontSize: 35),
@@ -46,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
         nextScreenRemoveUntil(context, const UserSignInPage());
       } else {
         await Future.delayed(const Duration(seconds: 3));
-        nextScreenRemoveUntil(context, MainPage());
+         nextScreenRemoveUntil(context, MainPage());
       }
     }
   }

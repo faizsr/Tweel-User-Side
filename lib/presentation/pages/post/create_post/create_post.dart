@@ -5,6 +5,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 // import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
@@ -32,6 +34,9 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : dWhite);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: PreferredSize(
@@ -71,8 +76,14 @@ class _CreatePostPageState extends State<CreatePostPage> {
               children: [
                 const UserDetailWidget(),
                 kHeight(20),
-                createPostTextField(context:  context,controller: locationController,hintText: 'Enter location'),
-                createPostTextField(context: context, controller:  descriptionController,hintText: 'What do you want to talk about?'),
+                createPostTextField(
+                    context: context,
+                    controller: locationController,
+                    hintText: 'Enter location'),
+                createPostTextField(
+                    context: context,
+                    controller: descriptionController,
+                    hintText: 'What do you want to talk about?'),
               ],
             ),
           ),

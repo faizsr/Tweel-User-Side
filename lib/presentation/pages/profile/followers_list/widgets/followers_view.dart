@@ -25,11 +25,11 @@ class FollowersView extends StatelessWidget {
             ),
           ),
           minVerticalPadding: 18,
-          subtitle: const Text(
+          subtitle: Text(
             '@williamsam',
             style: TextStyle(
               fontSize: 12,
-              color: kGray,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
           trailing: SizedBox(

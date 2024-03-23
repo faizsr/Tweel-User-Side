@@ -11,10 +11,11 @@ class EditPostAppbar extends StatelessWidget {
     return AppBar(
       toolbarHeight: 40,
       automaticallyImplyLeading: false,
-      backgroundColor: kWhite,
       elevation: 0,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       leading: IconButton(
         onPressed: () {
+          Navigator.pop(context);
           Navigator.pop(context);
         },
         icon: const Icon(
@@ -31,12 +32,14 @@ class EditPostAppbar extends StatelessWidget {
       actions: [
         InkWell(
           onTap: onTap,
-          child: const Padding(
-            padding: EdgeInsets.only(right: 10),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
             child: Text(
               'DONE',
-              style:
-                  TextStyle(fontVariations: fontWeightW500, color: kDarkBlue),
+              style: TextStyle(
+                fontVariations: fontWeightW500,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ),
           ),
         ),

@@ -13,7 +13,7 @@ class ForgotPasswordWidgets {
       context: context!,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: kWhite,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

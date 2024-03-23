@@ -6,7 +6,7 @@ import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
-import 'package:tweel_social_media/core/theme/light_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/presentation/pages/settings/settings.dart';
@@ -112,7 +112,7 @@ class _MenuTextBtn extends StatelessWidget {
             label,
             style: const TextStyle(
               fontSize: 15,
-              color: kWhite,
+              color: lWhite,
               fontVariations: fontWeightW500,
             ),
           ),

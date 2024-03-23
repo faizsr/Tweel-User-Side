@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 
 var imagePreviewlightTheme = ThemeData(
   brightness: Brightness.light,
@@ -8,9 +8,9 @@ var imagePreviewlightTheme = ThemeData(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
     ),
-    color: kWhite,
+    color: lWhite,
   ),
-  scaffoldBackgroundColor: kWhite,
-  canvasColor: kBlack,
-  iconTheme: const IconThemeData(color: kBlack),
+  scaffoldBackgroundColor: lWhite,
+  canvasColor: lBlack,
+  iconTheme: const IconThemeData(color: lBlack),
 );

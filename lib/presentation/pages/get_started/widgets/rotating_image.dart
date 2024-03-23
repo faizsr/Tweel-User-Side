@@ -38,19 +38,19 @@ class _LoginAssetsState extends State<LoginAssets>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.fromLTRB(40,20,40,40),
       child: Stack(
         children: [
-          const Positioned(
+          Positioned(
             top: 0,
             bottom: 0,
             left: 20,
             right: 20,
             child: Padding(
-              padding: EdgeInsets.all(60.0),
+              padding: const EdgeInsets.all(60.0),
               child: CircleAvatar(
-                backgroundColor: kLightWhite,
-                child: Padding(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                child: const Padding(
                   padding: EdgeInsets.all(0.0),
                   child: CircleAvatar(
                     radius: 35,
@@ -66,7 +66,7 @@ class _LoginAssetsState extends State<LoginAssets>
             child: DottedBorder(
               borderType: BorderType.Circle,
               radius: const Radius.circular(30),
-              color: kGray,
+              color: Theme.of(context).colorScheme.secondary,
               strokeWidth: 1,
               dashPattern: const [10, 10],
               child: Container(

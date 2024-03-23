@@ -168,17 +168,4 @@ class PostDetailPage extends StatelessWidget {
       },
     );
   }
-
-  Center commentHeading(String text) {
-    return Center(
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 16,
-          fontVariations: fontWeightW500,
-          color: kDarkBlue,
-        ),
-      ),
-    );
-  }
 }

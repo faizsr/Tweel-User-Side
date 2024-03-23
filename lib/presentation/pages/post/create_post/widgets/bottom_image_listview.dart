@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/image_preview_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -29,7 +30,6 @@ class _BottomImageListviewState extends State<BottomImageListview> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           AssetEntity assetEntity = widget.selectedAssetList[index];
-          // assetEntity.file.then((value) => print(value));
           return Container(
             margin: const EdgeInsets.only(left: 15),
             width: 90,
@@ -98,8 +98,8 @@ class _BottomImageListviewState extends State<BottomImageListview> {
                     },
                     child: const CircleAvatar(
                       radius: 10,
-                      backgroundColor: kWhite,
-                      foregroundColor: kBlack,
+                      backgroundColor: lWhite,
+                      foregroundColor: lBlack,
                       child: Icon(
                         Icons.close,
                         size: 15,
