@@ -120,12 +120,13 @@ class _MoreStoriesState extends State<MoreStories> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (context) => AlertDialog(
+              builder: (context) => const AlertDialog(
                 content: Text('Delele story'),
               ),
             );
           },
-          icon: Icon(Icons.more_vert_outlined, color: Theme.of(context).colorScheme.background),
+          icon: Icon(Icons.more_vert_outlined,
+              color: Theme.of(context).colorScheme.background),
         ),
       ],
     );

@@ -40,7 +40,9 @@ class ProfilePictureWidget extends StatelessWidget {
             }
             return CircleAvatar(
               radius: 63,
-              backgroundImage: NetworkImage(widget.user.profilePicture!),
+              backgroundImage: widget.user.profilePicture == ""
+                  ? Image.asset(profilePlaceholder).image
+                  : NetworkImage(widget.user.profilePicture!),
             );
           },
         ),

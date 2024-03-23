@@ -9,7 +9,7 @@ class PostModel {
   final List<CommentModel>? comments;
   final String? createdDate;
   final String? updatedDate;
-  final Map<String, dynamic>? user;
+  final UserModel? user;
   final String? userId;
   bool isBlocked;
 
@@ -17,7 +17,7 @@ class PostModel {
     this.id,
     required this.description,
     required this.location,
-     this.mediaURL,
+    this.mediaURL,
     this.likes,
     this.comments,
     this.createdDate,
@@ -41,7 +41,9 @@ class PostModel {
       createdDate: json['createdAt'],
       updatedDate: json['updatedAt'],
       isBlocked: json['isBlocked'],
-      user: json['userId'] is Map<String, dynamic> ? json['userId'] : {},
+      user: json['userId'] is Map<String, dynamic>
+          ? UserModel.fromJson(json['userId'])
+          : UserModel(),
       userId: json['userId'] is String ? json['userId'] : '',
     );
   }
@@ -56,7 +58,7 @@ class PostModel {
         'createdAt': createdDate,
         'updatedAt': updatedDate,
         'isBlocked': isBlocked,
-        'userId': user is Map<String, dynamic> ? user : userId,
+        'userId': user is Map<String, dynamic> ? user?.toJson() : userId,
       };
 }
 

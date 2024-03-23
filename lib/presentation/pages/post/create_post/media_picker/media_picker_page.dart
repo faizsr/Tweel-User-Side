@@ -1,6 +1,5 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/image_preview_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';

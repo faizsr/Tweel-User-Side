@@ -46,7 +46,7 @@ class PostMoreWidget {
                     leading: Icon(Icons.bookmark_border_outlined),
                     title: Text('Save'),
                   ),
-                  if ((postModel!.user!['_id'] ?? postId) == userId)
+                  if ((postModel!.user!.id ?? postId) == userId)
                     ListTile(
                       leading: const Icon(Icons.edit),
                       title: const Text('Edit post'),
@@ -62,7 +62,7 @@ class PostMoreWidget {
                         );
                       },
                     ),
-                  if ((postModel.user!['_id'] ?? postId) == userId)
+                  if ((postModel.user!.id ?? postId) == userId)
                     BlocListener<PostBloc, PostState>(
                       listener: (context, state) {
                         if (state is RemovePostSuccessState) {
@@ -85,12 +85,12 @@ class PostMoreWidget {
                         },
                       ),
                     ),
-                  if ((postModel.user!['_id'] ?? postId) != userId)
+                  if ((postModel.user!.id ?? postId) != userId)
                     const ListTile(
                       leading: Icon(Icons.report_sharp),
                       title: Text('Report'),
                     ),
-                  if ((postModel.user!['_id'] ?? postId) != userId)
+                  if ((postModel.user!.id ?? postId) != userId)
                     const ListTile(
                       leading: Icon(Icons.person),
                       title: Text('View account'),

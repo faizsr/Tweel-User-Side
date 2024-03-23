@@ -20,7 +20,9 @@ class StoryCard extends StatelessWidget {
           CircleAvatar(
             radius: 30,
             backgroundColor: Theme.of(context).colorScheme.background,
-            backgroundImage: NetworkImage(storyModel.user['profile_picture']),
+            backgroundImage: storyModel.user['profile_picture'] == ""
+                ? Image.asset(profilePlaceholder).image
+                : NetworkImage(storyModel.user['profile_picture']),
           ),
           kHeight(5),
           SizedBox(
@@ -38,4 +40,3 @@ class StoryCard extends StatelessWidget {
     );
   }
 }
-

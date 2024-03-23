@@ -18,8 +18,9 @@ class UserDetailWidget extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 25,
-                backgroundImage:
-                    NetworkImage(state.userDetails.profilePicture!),
+                backgroundImage: state.userDetails.profilePicture == ""
+                    ? Image.asset(profilePlaceholder).image
+                    : NetworkImage(state.userDetails.profilePicture!),
               ),
               kWidth(10),
               Column(

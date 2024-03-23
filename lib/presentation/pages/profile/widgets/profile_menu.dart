@@ -34,7 +34,7 @@ class ProfileMenu extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 60,
-                backgroundImage: NetworkImage(profileImage),
+                backgroundImage: profileImage == "" ? Image.asset(profilePlaceholder).image : NetworkImage(profileImage),
               )
                   .animate()
                   .fade(duration: const Duration(milliseconds: 200))

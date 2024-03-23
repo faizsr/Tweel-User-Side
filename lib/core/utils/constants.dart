@@ -12,6 +12,7 @@ const profileTwo = 'assets/images/profile2.jpg';
 const profileThree = 'assets/images/profile3.jpg';
 const profileFour = 'assets/images/profile4.jpg';
 const profileFive = 'assets/images/profile5.jpg';
+const profilePlaceholder = 'assets/images/profile_placeholder.jpg';
 
 const fontWeightW300 = <FontVariation>[FontVariation('wght', 300.0)];
 const fontWeightRegular = <FontVariation>[FontVariation('wght', 400.0)];
@@ -114,7 +115,7 @@ String filterPostTime(DateTime dateTime) {
   } else if (difference.inDays > 0) {
     return '${difference.inDays}${difference.inDays == 1 ? 'd' : 'd'}';
   } else if (difference.inHours > 0) {
-    return '${difference.inHours} ${difference.inHours == 1 ? 'h' : 'h'} ago';
+    return '${difference.inHours}${difference.inHours == 1 ? 'h' : 'h'}';
   } else if (difference.inMinutes > 0) {
     return '${difference.inMinutes}${difference.inMinutes == 1 ? 'min' : 'min'}';
   } else {

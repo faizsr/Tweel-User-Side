@@ -12,14 +12,15 @@ class SuggestedPeople extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
             children: [
-              Text('Suggested People'),
-              Spacer(),
+              const Text('Suggested People'),
+              const Spacer(),
               Text(
                 'Show all',
-                style: TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
+                style:
+                    TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
               ),
             ],
           ),

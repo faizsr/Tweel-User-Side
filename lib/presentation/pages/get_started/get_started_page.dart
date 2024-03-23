@@ -52,10 +52,10 @@ class _GetStartedPageState extends State<GetStartedPage> {
               const Text('Swipe up to get started.'),
               const Spacer(),
               Container(
-                height: 100,
                 width: 70,
-                padding: const EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.only(bottom: 20,top: 50),
+                // clipBehavior: Clip.hardEdge,
+                foregroundDecoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
                         width: 0.8,

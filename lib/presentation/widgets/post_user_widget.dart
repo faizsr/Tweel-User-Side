@@ -30,9 +30,11 @@ class PostUserDetail extends StatelessWidget {
           child: CircleAvatar(
             radius: 20,
             backgroundColor: Colors.transparent,
-            backgroundImage: NetworkImage(
-              postModel.user!['profile_picture'] ?? userModel!.profilePicture,
-            ),
+            backgroundImage: postModel.user!.profilePicture == ""
+                ? Image.asset(profilePlaceholder).image
+                : NetworkImage(
+                    postModel.user!.profilePicture!,
+                  ),
           ),
         ),
         kWidth(10),
@@ -40,7 +42,7 @@ class PostUserDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              postModel.user!['fullname'] ?? userModel!.fullName,
+              postModel.user!.fullName!,
               style: const TextStyle(fontSize: 15),
             ),
             kHeight(5),

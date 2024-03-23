@@ -79,9 +79,11 @@ class UserDetailsWidget extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 50,
-                            backgroundImage: NetworkImage(
-                              userModel.profilePicture!,
-                            ),
+                            backgroundImage: userModel.profilePicture == ""
+                                ? Image.asset(profilePlaceholder).image
+                                : NetworkImage(
+                                    userModel.profilePicture!,
+                                  ),
                           ),
                           kWidth(20),
                           Column(
@@ -106,7 +108,9 @@ class UserDetailsWidget extends StatelessWidget {
                                             ? dBlueGrey
                                             : lLightWhite);
                                     nextScreen(context,
-                                        EditProfilePage(user: userModel)).then((value) => mySystemTheme(context));
+                                            EditProfilePage(user: userModel))
+                                        .then(
+                                            (value) => mySystemTheme(context));
                                   },
                                   btnText: 'EDIT PROFILE',
                                 ),

@@ -46,7 +46,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
         }
       },
       child: FlickVideoPlayer(
-        preferredDeviceOrientationFullscreen: [
+        preferredDeviceOrientationFullscreen: const [
           DeviceOrientation.portraitUp,
           DeviceOrientation.landscapeLeft,
           DeviceOrientation.landscapeRight,
