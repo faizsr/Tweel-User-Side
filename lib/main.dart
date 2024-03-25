@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/follow_unfollow_user/follow_unfollow_user_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/forget_password/forget_password_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlike_post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/media_picker/media_picker_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/search_follower/search_follower_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/theme/theme_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down/drop_down_cubit.dart';
@@ -41,6 +45,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => MediaPickerBloc()),
         BlocProvider(create: (context) => StoryIndexCubit()),
         BlocProvider(create: (context) => ThemeBloc()),
+        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => UserByIdBloc()),
+        BlocProvider(create: (context) => FollowUnfollowUserBloc()),
+        BlocProvider(create: (context) => SearchBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeMode>(
         builder: (context, state) {

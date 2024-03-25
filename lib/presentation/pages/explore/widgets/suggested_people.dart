@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/explore/widgets/suggested_grid_view.dart';
 
 class SuggestedPeople extends StatelessWidget {
   const SuggestedPeople({super.key});
@@ -9,53 +9,45 @@ class SuggestedPeople extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Row(
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) {
+        if (state is UserInitial) {
+          context.read<UserBloc>().add(FetchAllUserEvent());
+        }
+        if (state is UserDetailFetchingLoadingState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is UserDetailFetchingSuccessState) {
+          return Column(
             children: [
-              const Text('Suggested People'),
-              const Spacer(),
-              Text(
-                'Show all',
-                style:
-                    TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
-              ),
+              suggestedHeading(theme),
+              SuggestedPeopleGridView(theme: theme, state:state),
             ],
+          );
+        }
+        return const Center(
+          child: Text('No data'),
+        );
+      },
+    );
+  }
+
+  Padding suggestedHeading(ThemeData theme) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: Row(
+        children: [
+          const Text('Suggested People'),
+          const Spacer(),
+          Text(
+            'Show all',
+            style: TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
           ),
-        ),
-        StaggeredGridView.countBuilder(
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer,
-                boxShadow: kBoxShadow,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin: const EdgeInsets.all(8),
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircleAvatar(radius: 30, backgroundColor: kLightGrey),
-                  kHeight(10),
-                  const Text('Wiliam Sam'),
-                  const Text('@william'),
-                  kHeight(10),
-                  CustomOutlinedBtn(onPressed: () {}, btnText: 'FOLLOW')
-                ],
-              ),
-            );
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
+

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/user/profile_page.dart';
 import 'package:tweel_social_media/presentation/widgets/post_more_widget.dart';
 
 class PostUserDetail extends StatelessWidget {
@@ -26,14 +29,20 @@ class PostUserDetail extends StatelessWidget {
         InkWell(
           onTap: () {
             debugPrint('Go to profile');
+            nextScreen(context, const UserProfilePage());
+            context
+                .read<UserByIdBloc>()
+                .add(FetchUserByIdEvent(userId: userModel!.id!));
           },
           child: CircleAvatar(
             radius: 20,
             backgroundColor: Colors.transparent,
-            backgroundImage: postModel.user!.profilePicture == ""
+            backgroundImage: postModel.user!.profilePicture == "" ||
+                    userModel!.profilePicture == ""
                 ? Image.asset(profilePlaceholder).image
                 : NetworkImage(
-                    postModel.user!.profilePicture!,
+                    postModel.user!.profilePicture ??
+                        userModel!.profilePicture!,
                   ),
           ),
         ),
@@ -42,7 +51,7 @@ class PostUserDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              postModel.user!.fullName!,
+              postModel.user!.fullName ?? userModel!.fullName!,
               style: const TextStyle(fontSize: 15),
             ),
             kHeight(5),
@@ -67,7 +76,8 @@ class PostUserDetail extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                filterPostTime(DateTime.parse(postModel.createdDate!)),
+                filterPostTime(DateTime.parse(
+                    postModel.createdDate ?? userModel!.createdAt!)),
                 style: TextStyle(
                   fontSize: 11,
                   color: theme.colorScheme.onSecondary,

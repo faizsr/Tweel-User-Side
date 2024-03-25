@@ -84,6 +84,8 @@ class _CreatePostCardState extends State<CreatePostCard> {
           ),
           kHeight(20),
           CustomOutlinedBtn(
+            width: double.infinity,
+            height: 50,
             onPressed: () {
               changeSystemThemeOnPopup(
                   color: isDarkMode ? dBlueGrey : lLightWhite);

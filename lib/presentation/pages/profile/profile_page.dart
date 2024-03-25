@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
@@ -20,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   int count = 5;
   late TabController tabController;
+  
   @override
   void initState() {
     context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
@@ -27,48 +30,56 @@ class _ProfilePageState extends State<ProfilePage>
     super.initState();
   }
 
+  Future<void> _handleRefresh() async {
+    await Future.delayed(const Duration(seconds: 2));
+    context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     mySystemTheme(context);
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        body: MultiBlocBuilder(
-          blocs: [context.watch<PostBloc>(), context.watch<ProfileBloc>()],
-          builder: (context, state) {
-            var postState = state[0];
-            var profileState = state[1];
-            if (postState is RemovePostSuccessState) {
-              Navigator.pop(context);
-              Navigator.pop(context);
-              Navigator.pop(context);
-              context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
-            }
-            if (profileState is UserDetailFetchingLoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (profileState is UserDetailFetchingSucessState) {
-              return ListView(
-                children: [
-                  UserDetailsWidget(
-                    userModel: profileState.userDetails,
-                    postsList: profileState.posts,
-                  ),
-                  kHeight(50),
-                  CustomTabBarWiget(tabController: tabController),
-                  kHeight(15),
-                  CustomTabviewWidget(
-                    profileState: profileState,
-                    tabController: tabController,
-                  ),
-                ],
-              );
-            }
-            return Container();
-          },
+    return RefreshIndicator(
+      onRefresh: _handleRefresh,
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          body: MultiBlocBuilder(
+            blocs: [context.watch<PostBloc>(), context.watch<ProfileBloc>()],
+            builder: (context, state) {
+              var postState = state[0];
+              var profileState = state[1];
+              if (postState is RemovePostSuccessState) {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+              }
+              if (profileState is UserDetailFetchingLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (profileState is UserDetailFetchingSucessState) {
+                return ListView(
+                  children: [
+                    UserDetailsWidget(
+                      userModel: profileState.userDetails,
+                      postsList: profileState.posts,
+                    ),
+                    kHeight(50),
+                    CustomTabBarWiget(tabController: tabController),
+                    kHeight(15),
+                    CustomTabviewWidget(
+                      profileState: profileState,
+                      tabController: tabController,
+                    ),
+                  ],
+                );
+              }
+              return Container();
+            },
+          ),
         ),
       ),
     );

@@ -6,10 +6,14 @@ class CustomOutlinedBtn extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.btnText,
+    this.height = 0,
+    this.width = 0,
   });
 
   final void Function()? onPressed;
   final String btnText;
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,8 @@ class CustomOutlinedBtn extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            side: BorderSide(width: 0.5,color: theme.textTheme.labelLarge!.color!),
+            side: BorderSide(
+                width: 0.5, color: theme.textTheme.labelLarge!.color!),
             borderRadius: BorderRadius.circular(3),
           ),
           elevation: 0,

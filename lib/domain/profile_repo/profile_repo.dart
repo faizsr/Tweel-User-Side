@@ -11,7 +11,7 @@ class ProfileRepo {
   static Future<ProfileDetailsModel?> fetchUserDetails() async {
     var client = http.Client();
     String token = await UserToken.getToken();
-    String userDetailUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.userProfile}";
+    String userDetailUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.profile}";
     List<PostModel> posts = [];
     try {
       var response = await client.get(
@@ -36,7 +36,7 @@ class ProfileRepo {
       }
       return null;
     } catch (e) {
-      debugPrint('message: ${e.toString()}');
+      debugPrint('message1: ${e.toString()}');
       return null;
     }
   }

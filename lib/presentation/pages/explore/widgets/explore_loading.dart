@@ -91,7 +91,12 @@ class ExplorePage extends StatelessWidget {
                     const Text('Wiliam Sam'),
                     const Text('@william'),
                     kHeight(10),
-                    CustomOutlinedBtn(onPressed: () {}, btnText: 'FOLLOW')
+                    CustomOutlinedBtn(
+                      width: 70,
+                      height: 35,
+                      onPressed: () {},
+                      btnText: 'FOLLOW',
+                    )
                   ],
                 ),
               );

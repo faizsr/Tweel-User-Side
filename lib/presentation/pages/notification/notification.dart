@@ -50,6 +50,8 @@ class NotificationPage extends StatelessWidget {
                             height: 35,
                             width: 100,
                             child: CustomOutlinedBtn(
+                              height: 35,
+                              width: 70,
                               onPressed: () {},
                               btnText: 'FOLLOW BACK',
                             ),

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
-import 'package:tweel_social_media/core/theme/theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
-import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
-import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
-import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_post_follow_count.dart';
+import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/user/widgets/follow_btn_widget.dart';
+import 'package:tweel_social_media/presentation/pages/user/widgets/post_follow_count_card.dart';
+import 'package:tweel_social_media/presentation/pages/user/widgets/user_heading_widget.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
-class UserDetailsWidget extends StatelessWidget {
-  const UserDetailsWidget({
+class UserProfileDetailsWidget extends StatelessWidget {
+  const UserProfileDetailsWidget({
     super.key,
     required this.userModel,
     required this.postsList,
@@ -22,37 +21,13 @@ class UserDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
+    // var brightness = MediaQuery.of(context).platformBrightness;
+    // bool isDarkMode = brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                userModel.username!,
-                style: const TextStyle(fontVariations: fontWeightW700),
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () async {
-                  changeSystemThemeOnPopup(
-                    color: isDarkMode ? dDialog : lDialog,
-                  );
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return ProfileMenu(
-                        profileImage: userModel.profilePicture!,
-                      );
-                    },
-                  ).then((value) => mySystemTheme(context));
-                },
-                child: const Icon(CustomIcons.setting_2),
-              ),
-            ],
-          ),
+          UserHeadingWidget(userModel: userModel),
           kHeight(10),
           Stack(
             clipBehavior: Clip.none,
@@ -99,23 +74,18 @@ class UserDetailsWidget extends StatelessWidget {
                                 style: const TextStyle(fontSize: 12),
                               ),
                               kHeight(10),
-                              SizedBox(
-                                width: 150,
-                                child: CustomOutlinedBtn(
-                                  height: 40,
-                                  width: double.infinity,
-                                  onPressed: () {
-                                    changeSystemThemeOnPopup(
-                                        color: isDarkMode
-                                            ? dBlueGrey
-                                            : lLightWhite);
-                                    nextScreen(context,
-                                            EditProfilePage(user: userModel))
-                                        .then(
-                                            (value) => mySystemTheme(context));
-                                  },
-                                  btnText: 'EDIT PROFILE',
-                                ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: 35,
+                                    width: 80,
+                                    child: FollowButton(
+                                      userModel: userModel,
+                                    ),
+                                  ),
+                                  kWidth(10),
+                                  _messageBtn(),
+                                ],
                               ),
                             ],
                           ),
@@ -129,14 +99,34 @@ class UserDetailsWidget extends StatelessWidget {
               ),
               Positioned(
                 bottom: -40,
-                child: ProfilePostFollowCountWidget(
-                  postsList: postsList,
-                  userModel: userModel,
+                child: BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    if (state is UserDetailFetchingSucessState) {
+                      return PostFollowCountWidget(
+                        postsList: postsList,
+                        userModel: userModel,
+                        currentUserModel: state.userDetails,
+                        // isFollow: true,
+                      );
+                    }
+                    return Container();
+                  },
                 ),
               ),
             ],
           )
         ],
+      ),
+    );
+  }
+
+  Widget _messageBtn() {
+    return SizedBox(
+      height: 35,
+      width: 80,
+      child: CustomOutlinedBtn(
+        onPressed: () {},
+        btnText: 'MESSAGE',
       ),
     );
   }

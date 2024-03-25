@@ -8,9 +8,13 @@ class FollowersAppbar extends StatelessWidget {
   const FollowersAppbar({
     super.key,
     required this.searchController,
+    required this.onChanged,
+    required this.tabController,
   });
 
   final TextEditingController searchController;
+  final void Function(String)? onChanged;
+  final TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +33,14 @@ class FollowersAppbar extends StatelessWidget {
           size: 25,
         ),
       ),
-      actions: const [
-        AnimatedSearchBar(),
+      actions: [
+        AnimatedSearchBar(
+          searchController: searchController,
+          onChanged: onChanged,
+        ),
       ],
       bottom: TabBar(
+        controller: tabController,
         indicatorSize: TabBarIndicatorSize.label,
         indicator: UnderlineTabIndicator(
           borderSide: BorderSide(
@@ -67,7 +75,14 @@ class FollowersAppbar extends StatelessWidget {
 }
 
 class AnimatedSearchBar extends StatefulWidget {
-  const AnimatedSearchBar({super.key});
+  const AnimatedSearchBar({
+    super.key,
+    required this.searchController,
+    required this.onChanged,
+  });
+
+  final TextEditingController searchController;
+  final void Function(String)? onChanged;
 
   @override
   State<AnimatedSearchBar> createState() => _AnimatedSearchBarState();
@@ -82,6 +97,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
       _isSearchActive = !_isSearchActive;
     });
     if (!_isSearchActive) {
+      widget.searchController.clear();
       _focusNode.unfocus();
     }
   }
@@ -100,6 +116,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
             child: _isSearchActive
                 ? Expanded(
                     child: TextField(
+                      controller: widget.searchController,
                       textAlign: TextAlign.start,
                       autofocus: true,
                       focusNode: _focusNode,
@@ -113,6 +130,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                           fontSize: 16,
                         ),
                       ),
+                      onChanged: widget.onChanged,
                     ),
                   )
                 : Container(),

@@ -1,6 +1,6 @@
 class ApiEndPoints {
   static String baseUrl = 'http://10.0.2.2:5000';
-  static String userProfile = '/me';
+  static String profile = '/me';
   static String editUserProfile = '/profile/edit';
   static String userSignUp = '/signup';
   static String userSignIn = '/login';
@@ -21,4 +21,10 @@ class ApiEndPoints {
 
   static String allStories = "/stories";
   static String addStory = "/story/add";
+
+  static String allUsers = '/users';
+  static String user = '/user/';
+
+  static String followUser = "/follow/";
+  static String unfollowUser = "/unfollow/";
 }
