@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get_thumbnail_video/index.dart';
-import 'package:get_thumbnail_video/video_thumbnail.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 
@@ -57,7 +55,8 @@ class PostGridView extends StatelessWidget {
       );
     } else if (state.posts[index].mediaURL![0].toString().contains('video')) {
       return FutureBuilder(
-        future: getVideoThumbnail(state.posts[index].mediaURL![0]),
+        future: VideoThumbnailServices.getVideoThumbnail(
+            state.posts[index].mediaURL![0]),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ClipRRect(
@@ -72,24 +71,6 @@ class PostGridView extends StatelessWidget {
         },
       );
     }
-
     return Container();
-  }
-
-  Future<XFile?> getVideoThumbnail(String videoUrl) async {
-    try {
-      final fileName = await VideoThumbnail.thumbnailFile(
-        video: videoUrl,
-        thumbnailPath: (await getTemporaryDirectory()).path,
-        imageFormat: ImageFormat.WEBP,
-        maxHeight: 64,
-        quality: 75,
-      );
-      debugPrint(fileName.path);
-      return fileName;
-    } catch (e) {
-      debugPrint(e.toString());
-      return null;
-    }
   }
 }

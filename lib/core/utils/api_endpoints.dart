@@ -19,6 +19,10 @@ class ApiEndPoints {
   static String likePost = "/post/like/";
   static String unlikePost = "/post/unlike/";
 
+  static String savePost = "/save-post/";
+  static String unsavePost = "/unsave-post/";
+  static String allSavedPosts = "/saved-post";
+
   static String allStories = "/stories";
   static String addStory = "/story/add";
 

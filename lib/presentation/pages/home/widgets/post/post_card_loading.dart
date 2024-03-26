@@ -25,7 +25,7 @@ class _PostCardLoadingState extends State<PostCardLoading> {
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.onPrimaryContainer,
         boxShadow: kBoxShadow,
         borderRadius: BorderRadius.circular(12),
       ),

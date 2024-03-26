@@ -28,6 +28,7 @@ class PostModel {
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
+    // print("Comment type: ${json['comments'] is String?}");
     return PostModel(
       id: json['_id'],
       description: json['description'],
@@ -54,7 +55,9 @@ class PostModel {
         'location': location,
         'mediaURL': mediaURL,
         'likes': likes,
-        'comments': comments!.map((comment) => comment.toJson()).toList(),
+        'comments': comments is Map<String, dynamic>
+            ? comments!.map((comment) => comment.toJson()).toList()
+            : [],
         'createdAt': createdDate,
         'updatedAt': updatedDate,
         'isBlocked': isBlocked,

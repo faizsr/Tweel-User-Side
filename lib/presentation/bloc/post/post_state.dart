@@ -17,26 +17,3 @@ class PostDetailFetchingSucessState extends PostState {
 
 class PostDetailFetchingErrorState extends PostState {}
 
-class CreatePostLoadingState extends PostState {}
-
-class CreatePostSuccessState extends PostState {
-  final List<String> imagePathList;
-
-  CreatePostSuccessState({
-    required this.imagePathList,
-  });
-}
-
-class CreatePostErrorState extends PostState {}
-
-class EditPostLoadingState extends PostState {}
-
-class EditPostSuccessState extends PostState {}
-
-class EditPostErrorState extends PostState {}
-
-class RemovePostLoadingState extends PostState {}
-
-class RemovePostSuccessState extends PostState {}
-
-class RemovePostErrorState extends PostState {}

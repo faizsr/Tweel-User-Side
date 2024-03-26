@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
 import 'package:tweel_social_media/core/utils/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
+import 'package:tweel_social_media/data/models/saved_post_model/saved_post_model.dart';
 
 class PostRepo {
   static Future<List<PostModel>> fetchAllPosts() async {
@@ -25,7 +26,9 @@ class PostRepo {
       debugPrint('Status code: ${response.statusCode}');
       if (response.statusCode == 200) {
         final List postsList = response.data;
+        print(postsList.length);
         for (int i = 0; i < postsList.length; i++) {
+          print('From post');
           PostModel post = PostModel.fromJson(postsList[i]);
           posts.add(post);
         }
@@ -242,6 +245,95 @@ class PostRepo {
     } catch (e) {
       debugPrint(e.toString());
       return '';
+    }
+  }
+
+  static Future<String> savePost(String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String savePostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.savePost}$postId";
+    print(savePostUrl);
+    try {
+      var response = await dio.post(
+        savePostUrl,
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        }),
+      );
+      debugPrint('${response.statusCode}');
+      debugPrint(response.data.toString());
+      if (response.statusCode == 200) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
+
+  static Future<String> unsavePost(String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String unsavePostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.unsavePost}$postId";
+    print(unsavePostUrl);
+    try {
+      var response = await dio.patch(
+        unsavePostUrl,
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        }),
+      );
+      debugPrint('${response.statusCode}');
+      debugPrint(response.data.toString());
+      if (response.statusCode == 200) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
+  }
+
+  static Future<List<SavedPostModel>> fetchAllSavedPost() async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String fetchAllSavedPostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.allSavedPosts}";
+    List<SavedPostModel> savedPosts = [];
+    try {
+      var response = await dio.get(
+        fetchAllSavedPostUrl,
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+      debugPrint(response.statusCode.toString());
+      // debugPrint(response.data.toString());
+      if (response.statusCode == 200) {
+        var responseData = response.data['saved-posts']['posts'];
+        List savedPostsList = responseData;
+        print('Saved post length: ${savedPostsList.length}');
+        for (int i = 0; i < savedPostsList.length; i++) {
+          print('from saved post');
+          SavedPostModel savedPost = SavedPostModel.fromJson(savedPostsList[i]);
+          savedPosts.add(savedPost);
+        }
+        print(savedPosts.length.toString());
+        return savedPosts;
+      }
+      return [];
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
     }
   }
 }

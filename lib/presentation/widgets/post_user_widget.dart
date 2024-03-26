@@ -5,8 +5,9 @@ import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
-import 'package:tweel_social_media/presentation/pages/user/profile_page.dart';
+import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
 import 'package:tweel_social_media/presentation/widgets/post_more_widget.dart';
 
 class PostUserDetail extends StatelessWidget {
@@ -84,17 +85,25 @@ class PostUserDetail extends StatelessWidget {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                changeSystemThemeOnPopup(color: isDarkMode ? dBottom : lBottom);
-                PostMoreWidget.bottomSheet(
-                  context: context,
-                  postModel: postModel,
-                  userId: userModel!.id!,
-                  postId: userModel!.id!,
-                );
+            BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                if (state is UserDetailFetchingSucessState) {
+                  return InkWell(
+                    onTap: () {
+                      changeSystemThemeOnPopup(
+                          color: isDarkMode ? dBottom : lBottom);
+                      PostMoreWidget.bottomSheet(
+                        context: context,
+                        postModel: postModel,
+                        userId: state.userDetails.id!,
+                        postId: userModel!.id!,
+                      );
+                    },
+                    child: const Icon(Icons.more_vert_sharp),
+                  );
+                }
+                return Container();
               },
-              child: const Icon(Icons.more_vert_sharp),
             ),
           ],
         ),

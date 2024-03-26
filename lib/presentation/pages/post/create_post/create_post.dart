@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/bloc/bloc_logics/post_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/widgets/bottom_image_listview.dart';
@@ -42,7 +43,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             print(descriptionController.text);
             print(locationController.text);
             print(widget.selectedAssetList.length);
-            context.read<PostBloc>().add(
+            context.read<PostLogicsBloc>().add(
                   CreatePostEvent(
                     description: descriptionController.text,
                     location: locationController.text,
@@ -52,7 +53,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           },
         ),
       ),
-      body: BlocListener<PostBloc, PostState>(
+      body: BlocListener<PostLogicsBloc, PostLogicsState>(
         listener: (context, state) {
           if (state is CreatePostLoadingState) {
             CreateLoadingSnackbar.showSnackbar(context);
