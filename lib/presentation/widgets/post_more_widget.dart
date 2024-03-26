@@ -33,7 +33,7 @@ class PostMoreWidget {
         maxWidth: MediaQuery.of(context).size.width - 40,
       ),
       builder: (context) {
-        bool isSaved = context.read<PostBloc>().isSaved;
+        Set<String> savedPostIds = context.read<PostLogicsBloc>().savedPostIds;
         return FadeInUp(
           delay: const Duration(milliseconds: 100),
           duration: const Duration(milliseconds: 600),
@@ -68,24 +68,24 @@ class PostMoreWidget {
                     },
                     builder: (context, state) {
                       return ListTile(
-                        leading: isSaved
+                        leading: savedPostIds.contains(postModel!.id)
                             ? const Icon(Icons.bookmark)
                             : const Icon(Icons.bookmark_border_outlined),
                         onTap: () {
-                          if (isSaved) {
-                            isSaved = false;
+                          if (savedPostIds.contains(postModel.id)) {
+                            // isSaved = false;
                             context
                                 .read<PostLogicsBloc>()
-                                .add(UnsavePostEvent(postId: postModel!.id!));
+                                .add(UnsavePostEvent(postId: postModel.id!));
                           } else {
-                            isSaved = true;
+                            // isSaved = true;
                             context
                                 .read<PostLogicsBloc>()
-                                .add(SavePostEvent(postId: postModel!.id!));
+                                .add(SavePostEvent(postId: postModel.id!));
                           }
                         },
                         title:
-                            isSaved ? const Text('Unsave') : const Text('Save'),
+                            savedPostIds.contains(postModel.id) ? const Text('Unsave') : const Text('Save'),
                       );
                     },
                   ),

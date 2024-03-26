@@ -59,8 +59,17 @@ class CustomTabviewWidget extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: state.savedPosts.length,
-                itemBuilder: (context, index) =>
-                    savedImageCard(savedPostState: state, index: index),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      // nextScreen(
+                      //   context,
+                      //   PostDetailPage(postModel: state.savedPosts, userModel: post.user),
+                      // );
+                    },
+                    child: savedImageCard(savedPostState: state, index: index),
+                  );
+                },
                 staggeredTileBuilder: (index) => StaggeredTile.count(
                     (index % 7 == 3) ? 2 : 1, (index % 7 == 3) ? 2 : 1),
                 mainAxisSpacing: 8.0,

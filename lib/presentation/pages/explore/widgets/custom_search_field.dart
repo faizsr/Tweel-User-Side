@@ -7,7 +7,12 @@ import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
 class CustomSearchField extends StatelessWidget {
   const CustomSearchField({
     super.key,
+    required this.searchController,
+    required this.onChanged,
   });
+
+  final TextEditingController searchController;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,8 @@ class CustomSearchField extends StatelessWidget {
         Container(
           margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: CupertinoSearchTextField(
+            controller: searchController,
+            onChanged: onChanged,
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
             backgroundColor: theme.colorScheme.primaryContainer,
             prefixInsets: const EdgeInsetsDirectional.only(start: 10),

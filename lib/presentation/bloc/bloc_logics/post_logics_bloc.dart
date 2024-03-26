@@ -11,7 +11,8 @@ part 'post_logics_event.dart';
 part 'post_logics_state.dart';
 
 class PostLogicsBloc extends Bloc<PostLogicsEvent, PostLogicsState> {
-  bool isSaved = false;
+  // bool isSaved = false;
+  Set<String> savedPostIds = {};
   PostLogicsBloc() : super(PostLogicsInitial()) {
     on<CreatePostEvent>(createPostEvent);
     on<EditPostEvent>(editPostEvent);
@@ -64,9 +65,11 @@ class PostLogicsBloc extends Bloc<PostLogicsEvent, PostLogicsState> {
   FutureOr<void> savePostEvent(
       SavePostEvent event, Emitter<PostLogicsState> emit) async {
     String response = await PostRepo.savePost(event.postId);
+    // savedPostIds.add(event.postId);
     if (response == 'success') {
-      isSaved = true;
-      print(isSaved);
+      savedPostIds.add(event.postId);
+      // isSaved = true;
+      // print(isSaved);
       debugPrint('Saved');
       emit(SavedPostSuccessState());
     }
@@ -76,8 +79,9 @@ class PostLogicsBloc extends Bloc<PostLogicsEvent, PostLogicsState> {
       UnsavePostEvent event, Emitter<PostLogicsState> emit) async {
     String response = await PostRepo.unsavePost(event.postId);
     if (response == 'success') {
-      isSaved = false;
-      print(isSaved);
+      savedPostIds.remove(event.postId);
+      // isSaved = false;
+      // print(isSaved);
       debugPrint('Unsaved');
       emit(UnsavePostSuccessState());
     }

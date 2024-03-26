@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
+import 'package:tweel_social_media/presentation/bloc/bloc/search_user_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/bloc_logics/post_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/follow_unfollow_user/follow_unfollow_user_bloc.dart';
@@ -18,6 +19,7 @@ import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down/drop_down_cubit.dart';
+import 'package:tweel_social_media/presentation/cubit/on_search/on_search_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/story_index/story_index_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/splash/splash_page.dart';
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UserByIdBloc()),
         BlocProvider(create: (context) => FollowUnfollowUserBloc()),
         BlocProvider(create: (context) => SearchBloc()),
+        BlocProvider(create: (context) => OnSearchCubit()),
+        BlocProvider(create: (context) => SearchUserBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeMode>(
         builder: (context, state) {

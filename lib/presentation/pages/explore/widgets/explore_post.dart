@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/explore/widgets/grid_tile.dart';
+import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 
 class ExplorePosts extends StatefulWidget {
   const ExplorePosts({super.key});
@@ -13,7 +17,6 @@ class ExplorePosts extends StatefulWidget {
 class _ExplorePostsState extends State<ExplorePosts> {
   @override
   void initState() {
-    context.read<PostBloc>().add(PostInitialFetchEvent());
     super.initState();
   }
 
@@ -21,6 +24,9 @@ class _ExplorePostsState extends State<ExplorePosts> {
   Widget build(BuildContext context) {
     return BlocBuilder<PostBloc, PostState>(
       builder: (context, state) {
+        if (state is PostInitialState) {
+          context.read<PostBloc>().add(PostInitialFetchEvent());
+        }
         if (state is PostDetailFetchingLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -42,34 +48,78 @@ class _ExplorePostsState extends State<ExplorePosts> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: state.posts.length,
                 itemBuilder: (context, index) {
-                  if (index % 2 == 0 &&
-                      state.posts[index].mediaURL![0]
-                          .toString()
-                          .contains('image')) {
-                    return Tile(
-                      height: 220,
-                      imageUrl: state.posts[index].mediaURL![0],
-                    );
-                  }
-                  if (index % 3 == 0 &&
-                      state.posts[index].mediaURL![0]
-                          .toString()
-                          .contains('image')) {
-                    return Tile(
-                      height: 150,
-                      imageUrl: state.posts[index].mediaURL![0],
-                    );
-                  }
-                  if (state.posts[index].mediaURL![0]
+                  PostModel post = state.posts[index];
+                  final isImage = state.posts[index].mediaURL![0]
                       .toString()
-                      .contains('image')) {
-                    return Tile(
+                      .contains('image');
+                  final url = state.posts[index].mediaURL![0];
+                  if (index % 2 == 0 && isImage) {
+                    return ImageTile(
+                      height: 220,
+                      imageUrl: url,
+                      onTap: () {
+                        nextScreen(
+                          context,
+                          PostDetailPage(postModel: post, userModel: post.user),
+                        );
+                      },
+                    );
+                  } else if (!isImage) {
+                    return VideoTile(
+                      url: url,
+                      height: 220,
+                      onTap: () {
+                        nextScreen(
+                          context,
+                          PostDetailPage(postModel: post, userModel: post.user),
+                        );
+                      },
+                    );
+                  }
+                  if (index % 3 == 0 && isImage) {
+                    return ImageTile(
+                      height: 150,
+                      imageUrl: url,
+                      onTap: () {
+                        nextScreen(
+                          context,
+                          PostDetailPage(postModel: post, userModel: post.user),
+                        );
+                      },
+                    );
+                  } else if (!isImage) {
+                    return VideoTile(
+                      url: url,
+                      height: 150,
+                      onTap: () {
+                        nextScreen(
+                          context,
+                          PostDetailPage(postModel: post, userModel: post.user),
+                        );
+                      },
+                    );
+                  }
+                  if (isImage) {
+                    return ImageTile(
                       height: 190,
-                      imageUrl: state.posts[index].mediaURL![0]
-                              .toString()
-                              .contains('image')
-                          ? state.posts[index].mediaURL![0]
-                          : '',
+                      imageUrl: url,
+                      onTap: () {
+                        nextScreen(
+                          context,
+                          PostDetailPage(postModel: post, userModel: post.user),
+                        );
+                      },
+                    );
+                  } else if (!isImage) {
+                    return VideoTile(
+                      url: url,
+                      height: 190,
+                      onTap: () {
+                        nextScreen(
+                          context,
+                          PostDetailPage(postModel: post, userModel: post.user),
+                        );
+                      },
                     );
                   }
                   return Container();
@@ -85,31 +135,6 @@ class _ExplorePostsState extends State<ExplorePosts> {
           child: Text('No data'),
         );
       },
-    );
-  }
-}
-
-class Tile extends StatelessWidget {
-  const Tile({
-    super.key,
-    required this.height,
-    required this.imageUrl,
-  });
-
-  final double height;
-  final String imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
-          fit: BoxFit.cover,
-        ),
-      ),
     );
   }
 }

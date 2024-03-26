@@ -9,7 +9,6 @@ part 'post_event.dart';
 part 'post_state.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
-  bool isSaved = false;
   PostBloc() : super(PostInitialState()) {
     on<PostInitialFetchEvent>(postInitialFetchEvent);
  

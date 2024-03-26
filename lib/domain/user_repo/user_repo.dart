@@ -142,6 +142,40 @@ class UserRepo {
           message: 'failure', followers: [], following: []);
     }
   }
+
+  static Future<List<UserModel>> searchUsers(String value) async {
+    Dio dio = Dio();
+    String token = await UserToken.getToken();
+    String userListUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.userSearch}?query=$value";
+    List<UserModel> users = [];
+    try {
+      var response = await dio.get(
+        userListUrl,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      debugPrint("json response ::::: ${response.data}");
+      debugPrint('Statusdfd code: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = response.data;
+        List userList = responseData['users'];
+        for (int i = 0; i < userList.length; i++) {
+          UserModel post = UserModel.fromJson(userList[i]);
+          users.add(post);
+        }
+        return users;
+      }
+      return [];
+    } catch (e) {
+      debugPrint('message2: ${e.toString()}');
+      return [];
+    }
+  }
 }
 
 class UserDetailsModel {

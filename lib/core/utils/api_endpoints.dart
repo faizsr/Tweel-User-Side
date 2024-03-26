@@ -31,4 +31,6 @@ class ApiEndPoints {
 
   static String followUser = "/follow/";
   static String unfollowUser = "/unfollow/";
+
+  static String userSearch = "/search";
 }
