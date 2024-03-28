@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
 
 class StoryRepo {
@@ -20,11 +20,10 @@ class StoryRepo {
           },
         ),
       );
-      debugPrint('Status code: ${response.statusCode}');
+      debugPrint('Fetch Stories Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         final List storyList = response.data;
         for (int i = 0; i < storyList.length; i++) {
-          // debugPrint('From message ::: ${storyList[0]}');
           StoryModel post = StoryModel.fromJson(storyList[i]);
           posts.add(post);
         }
@@ -32,7 +31,7 @@ class StoryRepo {
       }
       return [];
     } catch (e) {
-      debugPrint('messsaage: ${e.toString()}');
+      debugPrint('Fetch Stories Error: ${e.toString()}');
       return [];
     }
   }
@@ -56,14 +55,13 @@ class StoryRepo {
           },
         ),
       );
-      debugPrint('Status code: ${response.statusCode}');
-      debugPrint('Story response: ${response.data.toString()}');
+      debugPrint('Add Story Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint('messsaage: ${e.toString()}');
+      debugPrint('Add Story Error: $e');
       return '';
     }
   }

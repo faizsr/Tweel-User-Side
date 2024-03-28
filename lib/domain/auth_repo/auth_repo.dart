@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
 class AuthRepo {
@@ -18,8 +18,7 @@ class AuthRepo {
       );
 
       var jsonResponse = jsonDecode(response.body);
-      debugPrint('Status code: ${response.statusCode}');
-      debugPrint(response.body);
+      debugPrint('User Sign Up Status: ${response.statusCode}');
 
       if (response.statusCode == 201) {
         await UserAuthStatus.saveUserStatus(true);
@@ -44,7 +43,7 @@ class AuthRepo {
       }
       return 'error';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('User Sign Up Error: $e');
       return 'error';
     }
   }
@@ -64,9 +63,7 @@ class AuthRepo {
         headers: {'Content-Type': 'application/json'},
       );
       var jsonResponse = jsonDecode(response.body);
-      debugPrint('Status code: ${response.statusCode}');
-      debugPrint(response.body);
-
+      debugPrint('User Sign In Status: ${response.statusCode}');
       if (response.statusCode == 201) {
         await UserAuthStatus.saveUserStatus(true);
         await UserToken.saveToken(jsonResponse['token']);
@@ -85,13 +82,12 @@ class AuthRepo {
       }
       return SignInResult(status: 'error', responseBody: null);
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('User Sign in Status: $e');
       return SignInResult(status: 'error', responseBody: null);
     }
   }
 
   static Future<String> userVerifyOtp({required String email}) async {
-    debugPrint(email);
     var client = http.Client();
     String signUpUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.userVerifyOtp}";
     try {
@@ -100,8 +96,7 @@ class AuthRepo {
         Uri.parse(signUpUrl),
         body: body,
       );
-      debugPrint('Status code: ${response.statusCode}');
-      debugPrint(response.body);
+      debugPrint('User Verify Otp Status: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         return 'success';
@@ -111,7 +106,7 @@ class AuthRepo {
       }
       return 'error';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('User Verify Otp Error: $e');
       return 'error';
     }
   }

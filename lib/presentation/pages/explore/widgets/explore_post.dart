@@ -7,18 +7,8 @@ import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/grid_tile.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 
-class ExplorePosts extends StatefulWidget {
+class ExplorePosts extends StatelessWidget {
   const ExplorePosts({super.key});
-
-  @override
-  State<ExplorePosts> createState() => _ExplorePostsState();
-}
-
-class _ExplorePostsState extends State<ExplorePosts> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,8 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_action_btns.dart';
-import 'package:tweel_social_media/presentation/widgets/post_image_widget.dart';
-import 'package:tweel_social_media/presentation/widgets/post_user_widget.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_image_widget.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_user_widget.dart';
 import 'package:tweel_social_media/presentation/widgets/read_more_widget.dart';
 
 class PostCardWidget extends StatelessWidget {

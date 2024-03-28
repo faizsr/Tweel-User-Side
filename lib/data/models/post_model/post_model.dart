@@ -28,7 +28,6 @@ class PostModel {
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
-    // print("Comment type: ${json['comments'] is String?}");
     return PostModel(
       id: json['_id'],
       description: json['description'],
@@ -91,4 +90,15 @@ class CommentModel {
         'comment': comment,
         'createdAt': createdDate,
       };
+
+  @override
+  bool operator ==(Object other) {
+    if (other is PostModel) {
+      return id == other.id;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

@@ -40,9 +40,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
         preferredSize: const Size.fromHeight(40),
         child: CreatePostAppbar(
           onTap: () {
-            print(descriptionController.text);
-            print(locationController.text);
-            print(widget.selectedAssetList.length);
             context.read<PostLogicsBloc>().add(
                   CreatePostEvent(
                     description: descriptionController.text,

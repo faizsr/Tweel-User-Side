@@ -18,12 +18,9 @@ class ForgetPasswordBloc
       ForgetSentOtpEvent event, Emitter<ForgetPasswordState> emit) async {
     emit(ForgetSentOtpLoadingState());
     String response = await ForgetRepo.forgetSendOtp(email: event.email);
-    debugPrint('isVerified $response');
     if (response == 'success') {
-      debugPrint(response);
       emit(ForgetSentOtpSuccessState());
     } else if (response == 'user-not-found') {
-      debugPrint(response);
       emit(ForgetUserNotExistState());
     } else {
       emit(ForgetSentOtpErrorState());

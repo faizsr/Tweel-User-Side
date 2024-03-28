@@ -6,18 +6,18 @@ import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
-import 'package:tweel_social_media/presentation/pages/get_started/widgets/rotating_image.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
+import 'package:tweel_social_media/presentation/pages/on_boarding/widgets/rotating_image.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
-class GetStartedPage extends StatefulWidget {
-  const GetStartedPage({super.key});
+class OnBoardingPage extends StatefulWidget {
+  const OnBoardingPage({super.key});
 
   @override
-  State<GetStartedPage> createState() => _GetStartedPageState();
+  State<OnBoardingPage> createState() => _OnBoardingPageState();
 }
 
-class _GetStartedPageState extends State<GetStartedPage> {
+class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;

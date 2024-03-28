@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
-import 'package:tweel_social_media/presentation/pages/get_started/get_started_page.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
+import 'package:tweel_social_media/presentation/pages/on_boarding/on_boarding_page.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
@@ -43,7 +43,7 @@ class _SplashPageState extends State<SplashPage> {
     final userOnInitial = await UserAuthStatus.isUserOnInitial();
     final userSignIn = await UserAuthStatus.getUserStatus();
     if (userOnInitial == false) {
-      nextScreen(context, const GetStartedPage());
+      nextScreen(context, const OnBoardingPage());
     } else {
       if (userSignIn == false) {
         await Future.delayed(const Duration(seconds: 3));

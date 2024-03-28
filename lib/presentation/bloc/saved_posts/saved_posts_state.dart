@@ -8,7 +8,7 @@ final class SavedPostsInitial extends SavedPostsState {}
 class FetchAllSavedPostLoadingState extends SavedPostsState {}
 
 class FetchAllSavedPostSuccessState extends SavedPostsState {
-  final List<SavedPostModel> savedPosts;
+  final List<PostModel> savedPosts;
 
   FetchAllSavedPostSuccessState({
     required this.savedPosts,

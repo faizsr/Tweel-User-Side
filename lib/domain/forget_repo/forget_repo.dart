@@ -4,7 +4,6 @@ import 'package:tweel_social_media/core/utils/api_endpoints.dart';
 
 class ForgetRepo {
   static Future<String> forgetSendOtp({required String email}) async {
-    debugPrint(email);
     var client = http.Client();
     String signUpUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.forgetSendOtp}";
     try {
@@ -13,8 +12,7 @@ class ForgetRepo {
         Uri.parse(signUpUrl),
         body: body,
       );
-      debugPrint('Status code: ${response.statusCode}');
-      debugPrint(response.body);
+      debugPrint('Forget Password Otp Status: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         return 'success';
@@ -24,7 +22,7 @@ class ForgetRepo {
       }
       return 'error';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Forget Password Otp Error: $e');
       return 'error';
     }
   }
@@ -33,7 +31,6 @@ class ForgetRepo {
       {required String email,
       required String otp,
       required String password}) async {
-    debugPrint(email);
     var client = http.Client();
     String signUpUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.resetPassword}";
     try {
@@ -46,8 +43,7 @@ class ForgetRepo {
         Uri.parse(signUpUrl),
         body: body,
       );
-      debugPrint('Status code: ${response.statusCode}');
-      debugPrint(response.body);
+      debugPrint('Reset Password Status: ${response.statusCode}');
 
       if (response.statusCode == 201) {
         return 'success';
@@ -57,7 +53,7 @@ class ForgetRepo {
       }
       return 'error';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Reset Password Error: $e');
       return 'error';
     }
   }

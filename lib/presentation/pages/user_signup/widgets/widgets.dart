@@ -63,7 +63,6 @@ class SignUpWidgets {
                 if (state is UserSignUpSuccessState) {
                   nextScreenRemoveUntil(context, MainPage());
                 }
-                debugPrint('First');
                 if (state is UsernameExistsErrorState) {
                   debugPrint('Username already exists');
                   Navigator.pop(context);

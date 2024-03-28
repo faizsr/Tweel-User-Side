@@ -13,7 +13,6 @@ class VideoThumbnailServices {
         maxHeight: 64,
         quality: 75,
       );
-      debugPrint(fileName.path);
       return fileName;
     } catch (e) {
       debugPrint(e.toString());

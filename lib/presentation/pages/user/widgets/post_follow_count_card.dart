@@ -23,23 +23,13 @@ class PostFollowCountWidget extends StatelessWidget {
     return BlocBuilder<FollowUnfollowUserBloc, FollowUnfollowUserState>(
       builder: (context, state) {
         if (state is FollowedUserState) {
-          debugPrint('state is follow');
           if (!userModel.followers!.contains(currentUserModel)) {
             userModel.followers!.add(currentUserModel);
-            debugPrint(
-                'Followers List Length After Adding: ${userModel.followers!.length}');
-            debugPrint(
-                'Followers List Length After Adding: ${state.followersList.length}');
           }
         }
         if (state is UnfollowedUserState) {
-          debugPrint('state is unfollow');
           if (userModel.followers!.contains(currentUserModel)) {
             userModel.followers!.remove(currentUserModel);
-            debugPrint(
-                'Followers List Length After Removing: ${userModel.followers!.length}');
-            debugPrint(
-                'Followers List Length After Removing: ${state.followersList.length}');
           }
         }
         return Container(

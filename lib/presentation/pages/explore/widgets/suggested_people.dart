@@ -41,9 +41,14 @@ class SuggestedPeople extends StatelessWidget {
         children: [
           const Text('Suggested People'),
           const Spacer(),
-          Text(
-            'Show all',
-            style: TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
+          InkWell(
+            onTap: () {
+              
+            },
+            child: Text(
+              'Show all',
+              style: TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
+            ),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
@@ -19,7 +20,7 @@ class StoryCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: lLightWhite,
             backgroundImage: storyModel.user['profile_picture'] == ""
                 ? Image.asset(profilePlaceholder).image
                 : NetworkImage(storyModel.user['profile_picture']),

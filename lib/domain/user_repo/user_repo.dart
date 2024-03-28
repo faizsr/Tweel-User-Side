@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
@@ -21,13 +21,11 @@ class UserRepo {
           },
         ),
       );
-      // debugPrint("json response ::::: ${response.data}");
-      debugPrint('Status code: ${response.statusCode}');
+      debugPrint('Fetch User Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
         List userList = responseData['user'];
         for (int i = 0; i < userList.length; i++) {
-          // debugPrint(':::::: ${userList[0]}');
           UserModel post = UserModel.fromJson(userList[i]);
           users.add(post);
         }
@@ -35,7 +33,7 @@ class UserRepo {
       }
       return [];
     } catch (e) {
-      debugPrint('message2: ${e.toString()}');
+      debugPrint('Fetch User Error: ${e.toString()}');
       return [];
     }
   }
@@ -55,14 +53,12 @@ class UserRepo {
           },
         ),
       );
-      // debugPrint("json response ::::: ${response.statusCode}");
-      debugPrint('Status code: ${response.statusCode}');
+      debugPrint('Fetch User By Id Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
         UserModel user = UserModel.fromJson(responseData['user']);
         final List postsList = responseData['posts'];
         for (int i = 0; i < postsList.length; i++) {
-          // debugPrint(':::::: ${postsList[0]}');
           PostModel post = PostModel.fromJson(postsList[i]);
           posts.add(post);
         }
@@ -70,7 +66,7 @@ class UserRepo {
       }
       return null;
     } catch (e) {
-      debugPrint('message: ${e.toString()}');
+      debugPrint('Fetch User By Id Error: $e');
       return null;
     }
   }
@@ -90,6 +86,7 @@ class UserRepo {
           },
         ),
       );
+      debugPrint('Follow User Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         var jsonResponse = response.data;
         List followersIdList = jsonResponse['newUser']['followers'];
@@ -103,7 +100,7 @@ class UserRepo {
       return FollowUnfollowModel(
           message: 'failure', followers: [], following: []);
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Follow User Error: $e');
       return FollowUnfollowModel(
           message: 'failure', followers: [], following: []);
     }
@@ -124,6 +121,7 @@ class UserRepo {
           },
         ),
       );
+       debugPrint('Unfollow User Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         var jsonResponse = response.data;
         List followersIdList = jsonResponse['newUser']['followers'];
@@ -137,7 +135,7 @@ class UserRepo {
       return FollowUnfollowModel(
           message: 'failure', followers: [], following: []);
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Unfollow User Status: $e');
       return FollowUnfollowModel(
           message: 'failure', followers: [], following: []);
     }
@@ -159,8 +157,7 @@ class UserRepo {
           },
         ),
       );
-      debugPrint("json response ::::: ${response.data}");
-      debugPrint('Statusdfd code: ${response.statusCode}');
+      debugPrint('Search Users Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = response.data;
         List userList = responseData['users'];
@@ -172,7 +169,7 @@ class UserRepo {
       }
       return [];
     } catch (e) {
-      debugPrint('message2: ${e.toString()}');
+      debugPrint('Search Users Error: $e');
       return [];
     }
   }

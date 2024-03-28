@@ -39,7 +39,7 @@ class PostActionButtons extends StatelessWidget {
           title: 'Share',
           icon: CustomIcons.send_2,
           onTap: () {
-            debugPrint('share pressed');
+            debugPrint('Share pressed');
           },
         ),
       ],
@@ -51,7 +51,7 @@ class PostActionButtons extends StatelessWidget {
       title: '${postModel.comments!.length} comments',
       icon: CustomIcons.messages_2,
       onTap: () {
-        debugPrint('comment pressed');
+        debugPrint('Comment pressed');
         changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : lLightWhite);
         nextScreen(
           context,
@@ -81,13 +81,13 @@ class PostActionButtons extends StatelessWidget {
               context.read<LikeUnlikePostBloc>().add(
                     UnlikePostEvent(postId: postModel.id!),
                   );
-              debugPrint('unliking post');
+              debugPrint('Unliking post');
             } else {
               postModel.likes!.add(userModel.id.toString());
               context.read<LikeUnlikePostBloc>().add(
                     LikePostEvent(postId: postModel.id!),
                   );
-              debugPrint('liking post');
+              debugPrint('Liking post');
             }
           },
         );

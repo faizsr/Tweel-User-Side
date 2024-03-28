@@ -10,8 +10,8 @@ import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlik
 import 'package:tweel_social_media/presentation/pages/post_detail/widgets/comment_card_widget.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/widgets/comment_text_field.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_icon_btn.dart';
-import 'package:tweel_social_media/presentation/widgets/post_image_widget.dart';
-import 'package:tweel_social_media/presentation/widgets/post_user_widget.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_image_widget.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_user_widget.dart';
 
 class PostDetailPage extends StatelessWidget {
   PostDetailPage({
@@ -58,6 +58,7 @@ class PostDetailPage extends StatelessWidget {
                         PostUserDetail(
                           postModel: postModel,
                           userModel: userModel,
+                          onDetail: true,
                         ),
                         kHeight(20),
                         Text(
@@ -87,9 +88,10 @@ class PostDetailPage extends StatelessWidget {
                               },
                             ),
                             Container(
-                                color: Theme.of(context).colorScheme.outline,
-                                height: 20,
-                                width: 0.5),
+                              color: Theme.of(context).colorScheme.outline,
+                              height: 20,
+                              width: 0.6,
+                            ),
                             CustomIconBtn(
                               title: 'Share',
                               icon: CustomIcons.send_2,
@@ -99,7 +101,7 @@ class PostDetailPage extends StatelessWidget {
                         ),
                         Divider(
                           height: 30,
-                          thickness: 0.5,
+                          thickness: 0.3,
                           color: Theme.of(context).colorScheme.outline,
                         ),
                       ],

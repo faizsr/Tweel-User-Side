@@ -9,12 +9,12 @@ import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart
 class FollowButton extends StatefulWidget {
   const FollowButton({
     super.key,
-    required this.userModel,
+    this.userModel,
     // required this.height,
     // required this.width,
   });
 
-  final UserModel userModel;
+  final UserModel? userModel;
   // final double height;
   // final double width;
 
@@ -23,20 +23,17 @@ class FollowButton extends StatefulWidget {
 }
 
 class _FollowButtonState extends State<FollowButton> {
-  Set<String> followersIds = {};
-  Set<String> followingIds = {};
+  Set followersIds = {};
+  Set followingIds = {};
 
   @override
   void initState() {
-    followersIds = widget.userModel.followers!
+    followersIds = widget.userModel!.followers!
         .map((user) => user['_id'].toString())
         .toSet();
-    followingIds = widget.userModel.following!
+    followingIds = widget.userModel!.following!
         .map((user) => user['_id'].toString())
         .toSet();
-    debugPrint('Followers User ids:  $followersIds');
-    debugPrint('Followers User ids:  ${followersIds.length}');
-    debugPrint('Following User ids:  ${followingIds.length}');
     super.initState();
   }
 
@@ -54,40 +51,32 @@ class _FollowButtonState extends State<FollowButton> {
           bool isFollowing = followersIds.contains(state2.userDetails.id);
           bool isFollowedByUser = followingIds.contains(state2.userDetails.id);
           return CustomOutlinedBtn(
-            // height: widget.height,
-            // width: widget.width,
             onPressed: () {
               if (isFollowing) {
                 debugPrint('Unfollowed');
                 followersIds.remove(state2.userDetails.id);
-                // followingIds.remove(state2.userDetails.id);
-                debugPrint('User ids after removing: ${followersIds.length}');
                 context.read<FollowUnfollowUserBloc>().add(
                       UnfollowUserEvent(
-                        userId: widget.userModel.id!,
-                        name: widget.userModel.fullName!,
+                        userId: widget.userModel!.id!,
+                        name: widget.userModel!.fullName!,
                       ),
                     );
               } else if (isFollowedByUser) {
                 debugPrint('Followed');
                 followersIds.add(state2.userDetails.id!);
-                // followingIds.add(state2.userDetails.id!);
-                debugPrint('User ids after adding: ${followersIds.length}');
                 context.read<FollowUnfollowUserBloc>().add(
                       FollowUserEvent(
-                        userId: widget.userModel.id!,
-                        name: widget.userModel.fullName!,
+                        userId: widget.userModel!.id!,
+                        name: widget.userModel!.fullName!,
                       ),
                     );
               } else {
                 debugPrint('Followed');
                 followersIds.add(state2.userDetails.id!);
-                // followingIds.add(state2.userDetails.id!);
-                debugPrint('User ids after adding: ${followersIds.length}');
                 context.read<FollowUnfollowUserBloc>().add(
                       FollowUserEvent(
-                        userId: widget.userModel.id!,
-                        name: widget.userModel.fullName!,
+                        userId: widget.userModel!.id!,
+                        name: widget.userModel!.fullName!,
                       ),
                     );
               }

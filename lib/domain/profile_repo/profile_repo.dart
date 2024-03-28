@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
@@ -21,14 +21,12 @@ class ProfileRepo {
           'Authorization': 'Bearer $token',
         },
       );
-      // debugPrint("json response ::::: ${response.statusCode}");
-      debugPrint('Status code: ${response.statusCode}');
+      debugPrint('Fetch Users Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         UserModel user = UserModel.fromJson(responseData['user']);
         final List postsList = responseData['posts'];
         for (int i = 0; i < postsList.length; i++) {
-          // debugPrint(':::::: ${postsList[0]}');
           PostModel post = PostModel.fromJson(postsList[i]);
           posts.add(post);
         }
@@ -36,7 +34,7 @@ class ProfileRepo {
       }
       return null;
     } catch (e) {
-      debugPrint('message1: ${e.toString()}');
+      debugPrint('Fetch Users Error: ${e.toString()}');
       return null;
     }
   }
@@ -70,8 +68,7 @@ class ProfileRepo {
           'Authorization': 'Bearer $token',
         },
       );
-      debugPrint('Status code: ${response.statusCode}');
-      debugPrint('Response: ${response.body}');
+      debugPrint('Update User Status: ${response.statusCode}');
       if (response.statusCode == 201) {
         return 'success';
       }
@@ -80,7 +77,7 @@ class ProfileRepo {
       }
       return '';
     } catch (e) {
-      debugPrint('message: ${e.toString()}');
+      debugPrint('Update User Error: $e');
       return '';
     }
   }

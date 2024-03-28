@@ -22,7 +22,6 @@ class MediaPickerBloc extends Bloc<MediaPickerEvent, MediaPickerState> {
     emit(MediaLoadingState());
     List<AssetPathEntity> albumList =
         await MediaServices().loadAlbums(event.requestType);
-    debugPrint('Album list: ${albumList.length}');
     List<AssetEntity> assetList = [];
     if (albumList.isNotEmpty) {
       debugPrint('Album list: ${albumList.length}');
@@ -36,7 +35,6 @@ class MediaPickerBloc extends Bloc<MediaPickerEvent, MediaPickerState> {
         selectedAssetList: const [],
       ));
     } else {
-      debugPrint('Something error in fetching album');
       emit(MediaLoadingState());
     }
   }
@@ -44,7 +42,6 @@ class MediaPickerBloc extends Bloc<MediaPickerEvent, MediaPickerState> {
   FutureOr<void> loadSelectedAssetEvent(
       LoadSelectedAssetEvent event, Emitter<MediaPickerState> emit) async {
     emit(MediaLoadingState());
-    debugPrint('Length of album: ${event.albumList.length}');
     List<AssetEntity> assetList =
         await MediaServices().loadAssets(event.selectedAlbum!);
     if (assetList.isNotEmpty) {
@@ -55,7 +52,6 @@ class MediaPickerBloc extends Bloc<MediaPickerEvent, MediaPickerState> {
         selectedAssetList: const [],
       ));
     } else {
-      debugPrint('Something error while viewing selected albums');
       emit(MediaErrorState());
     }
   }

@@ -60,7 +60,7 @@ class FollowingSearchResult extends StatelessWidget {
                 height: 35,
                 width: 70,
                 onPressed: () {},
-                btnText: 'UNFOLLOW',
+                btnText: 'VIEW',
               ),
             ),
           ),

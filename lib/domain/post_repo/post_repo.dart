@@ -1,11 +1,8 @@
-// ignore_for_file: avoid_print
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
-import 'package:tweel_social_media/core/utils/shared_preference.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
-import 'package:tweel_social_media/data/models/saved_post_model/saved_post_model.dart';
 
 class PostRepo {
   static Future<List<PostModel>> fetchAllPosts() async {
@@ -23,12 +20,10 @@ class PostRepo {
           },
         ),
       );
-      debugPrint('Status code: ${response.statusCode}');
+      debugPrint('Fetch Post Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         final List postsList = response.data;
-        print(postsList.length);
         for (int i = 0; i < postsList.length; i++) {
-          print('From post');
           PostModel post = PostModel.fromJson(postsList[i]);
           posts.add(post);
         }
@@ -36,15 +31,13 @@ class PostRepo {
       }
       return [];
     } catch (e) {
-      debugPrint('messsaage1: ${e.toString()}');
+      debugPrint('Fetch Post Error: ${e.toString()}');
       return [];
     }
   }
 
   static Future<String> createPost(
       String location, String description, List<String> imageUrlList) async {
-    debugPrint('image url lenght: ${imageUrlList.length}');
-    debugPrint('image 1: ${imageUrlList[0]}');
     final dio = Dio();
     String token = await UserToken.getToken();
     String createPostUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.createPost}";
@@ -64,15 +57,14 @@ class PostRepo {
               'Authorization': 'Bearer $token',
             },
           ));
-      print(response.statusCode);
-      print(response.data);
+      debugPrint('Create Post Status: ${response.statusCode}');
 
       if (response.statusCode == 201) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Create Post Error: $e');
       return '';
     }
   }
@@ -82,11 +74,6 @@ class PostRepo {
     String token = await UserToken.getToken();
     String editPostUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.editPost}${post.id}";
-    print('on repo');
-    print(post.id);
-    print(post.description);
-    print(post.location);
-    print(post.mediaURL!.length);
     try {
       var data = {
         "description": post.description,
@@ -101,15 +88,14 @@ class PostRepo {
               'Authorization': 'Bearer $token',
             },
           ));
-      print(response.statusCode);
-      print(response.data);
+      debugPrint('Edit Post Status: ${response.statusCode}');
 
       if (response.statusCode == 201) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Edit Post Error: $e');
       return '';
     }
   }
@@ -127,14 +113,13 @@ class PostRepo {
               'Authorization': 'Bearer $token',
             },
           ));
-      print(response.statusCode);
-      print(response.data);
+      debugPrint('Remove Post Status: ${response.statusCode}');
       if (response.statusCode == 201) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Remove Post Error: $e');
       return '';
     }
   }
@@ -156,14 +141,13 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
-      print(response.statusCode);
-      print(response.data);
+      debugPrint('Add Comment Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Add Comment Error: $e');
       return '';
     }
   }
@@ -186,14 +170,13 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
-      print(response.statusCode);
-      print(response.data);
+      debugPrint('Delete Comment Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint('Error: $e');
+      debugPrint('Delete Comment Status: $e');
       return '';
     }
   }
@@ -211,14 +194,13 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
-      debugPrint('${response.statusCode}');
-      debugPrint(response.data.toString());
+      debugPrint('Like Post Status: ${response.statusCode}');
       if (response.statusCode == 201) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Like Post Error: $e');
       return '';
     }
   }
@@ -236,14 +218,13 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
-      debugPrint('${response.statusCode}');
-      debugPrint(response.data.toString());
+      debugPrint('Unlike Post Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Unlike Post Error: $e');
       return '';
     }
   }
@@ -253,7 +234,6 @@ class PostRepo {
     String token = await UserToken.getToken();
     String savePostUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.savePost}$postId";
-    print(savePostUrl);
     try {
       var response = await dio.post(
         savePostUrl,
@@ -262,14 +242,13 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
-      debugPrint('${response.statusCode}');
-      debugPrint(response.data.toString());
+      debugPrint('Save Post Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Save Post Error: $e');
       return '';
     }
   }
@@ -279,7 +258,6 @@ class PostRepo {
     String token = await UserToken.getToken();
     String unsavePostUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.unsavePost}$postId";
-    print(unsavePostUrl);
     try {
       var response = await dio.patch(
         unsavePostUrl,
@@ -288,24 +266,23 @@ class PostRepo {
           'Authorization': 'Bearer $token'
         }),
       );
-      debugPrint('${response.statusCode}');
-      debugPrint(response.data.toString());
+      debugPrint('Unsave Post Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         return 'success';
       }
       return '';
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Unsave Post Error: $e');
       return '';
     }
   }
 
-  static Future<List<SavedPostModel>> fetchAllSavedPost() async {
+  static Future<List<PostModel>> fetchAllSavedPost() async {
     final dio = Dio();
     String token = await UserToken.getToken();
     String fetchAllSavedPostUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.allSavedPosts}";
-    List<SavedPostModel> savedPosts = [];
+    List<PostModel> savedPosts = [];
     try {
       var response = await dio.get(
         fetchAllSavedPostUrl,
@@ -316,23 +293,19 @@ class PostRepo {
           },
         ),
       );
-      debugPrint(response.statusCode.toString());
-      // debugPrint(response.data.toString());
+      debugPrint('Fetch Saved Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         var responseData = response.data['saved-posts']['posts'];
         List savedPostsList = responseData;
-        print('Saved post length: ${savedPostsList.length}');
         for (int i = 0; i < savedPostsList.length; i++) {
-          print('from saved post');
-          SavedPostModel savedPost = SavedPostModel.fromJson(savedPostsList[i]);
+          PostModel savedPost = PostModel.fromJson(savedPostsList[i]);
           savedPosts.add(savedPost);
         }
-        print(savedPosts.length.toString());
         return savedPosts;
       }
       return [];
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Fetch Saved Error: $e');
       return [];
     }
   }

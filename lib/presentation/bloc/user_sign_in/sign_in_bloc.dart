@@ -1,5 +1,4 @@
 import 'dart:async';
-// import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,10 +22,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       final userModel = UserModel.fromJson(response.responseBody);
       emit(UserSignInSuccessState(userModel: userModel));
     } else if (response.status == 'invalid-username') {
-      debugPrint('yes invalid username');
       emit(InvalidUsernameErrorState());
     } else if (response.status == 'invalid-password') {
-      debugPrint('yes invalid password');
       emit(InvalidPasswordErrorState());
     } else if (response.status == 'blocked-by-admin') {
       emit(BlockedbyAdminErrorState());

@@ -31,7 +31,6 @@ class _EditBottomImageListviewState extends State<EditBottomImageListview> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           String imageUrl = widget.imageUrlList[index];
-          // assetEntity.file.then((value) => print(value));
           bool isVideo = imageUrl.contains('video');
           return Container(
             margin: const EdgeInsets.only(left: 15),

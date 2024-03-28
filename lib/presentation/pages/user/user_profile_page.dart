@@ -28,8 +28,6 @@ class UserProfilePageState extends State<UserProfilePage> {
             );
           }
           if (state is FetchUserByIdSuccessState) {
-            debugPrint(state.userModel.followers!.length.toString());
-            debugPrint(state.userModel.following!.length.toString());
             return ListView(
               children: [
                 UserProfileDetailsWidget(

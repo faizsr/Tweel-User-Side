@@ -48,7 +48,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                   children: [
                     CircleAvatar(
                       radius: 28,
-                      backgroundColor: Colors.transparent,
+                      backgroundColor: lLightWhite,
                       backgroundImage: state.userDetails.profilePicture == ""
                           ? Image.asset(profilePlaceholder).image
                           : NetworkImage(

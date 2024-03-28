@@ -8,17 +8,19 @@ import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
-import 'package:tweel_social_media/presentation/widgets/post_more_widget.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_more_widget.dart';
 
 class PostUserDetail extends StatelessWidget {
   const PostUserDetail({
     super.key,
     required this.postModel,
     this.userModel,
+    this.onDetail = false,
   });
 
   final PostModel postModel;
   final UserModel? userModel;
+  final bool onDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class PostUserDetail extends StatelessWidget {
           },
           child: CircleAvatar(
             radius: 20,
-            backgroundColor: Colors.transparent,
+            backgroundColor: lLightWhite,
             backgroundImage: postModel.user!.profilePicture == "" ||
                     userModel!.profilePicture == ""
                 ? Image.asset(profilePlaceholder).image
@@ -97,6 +99,7 @@ class PostUserDetail extends StatelessWidget {
                         postModel: postModel,
                         userId: state.userDetails.id!,
                         postId: userModel!.id!,
+                        onDetail: onDetail,
                       );
                     },
                     child: const Icon(Icons.more_vert_sharp),

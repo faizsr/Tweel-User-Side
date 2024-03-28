@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
@@ -51,7 +49,7 @@ class StoryWidget extends StatelessWidget {
           listener: (context, state) {
             if (state is UserDetailFetchingSucessState) {
               userId = state.userDetails.id!;
-              debugPrint('User Id: $userId');
+              debugPrint('Story Success User Id: $userId');
             }
           },
           child: BlocConsumer<StoryBloc, StoryState>(
@@ -74,7 +72,7 @@ class StoryWidget extends StatelessWidget {
               if (state is FetchStoriesSuccessState) {
                 Map<String, List<StoryModel>> userStories =
                     eachUserStory(state.storiesList);
-                print(userStories.length);
+                debugPrint('Stories Length: ${userStories.length}');
                 List<Widget> storyCards = [];
                 userStories.forEach((userId, stories) {
                   if (stories.length > 1) {

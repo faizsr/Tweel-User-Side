@@ -51,7 +51,7 @@ class _MediaPickerState extends State<MediaPicker> {
           child: BlocBuilder<MediaPickerBloc, MediaPickerState>(
             builder: (context, state) {
               if (state is MediaSuccessState) {
-                debugPrint('SelectedAlbum ${state.selectedAlbum}');
+                debugPrint('Selected Album: ${state.selectedAlbum}');
                 debugPrint(
                     'Length of album after selecting ${state.albumList.length}');
                 return MediaPickerAppbar(
@@ -129,7 +129,7 @@ class _MediaPickerState extends State<MediaPicker> {
               selectAsset(assetEntity: assetEntity);
             },
             onLongPress: () async {
-              debugPrint('long press');
+              debugPrint('Long press to view');
               await AssetPickerViewer.pushToViewer(
                 context,
                 previewAssets: assetList,

@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
@@ -55,7 +53,6 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
             }
             return IconButton(
               onPressed: () async {
-                print('ldjfladjk');
                 if (_canSaveChanges()) {
                   UserModel updatedUser = UserModel(
                     fullName: widget.fullnameController.text,
@@ -63,7 +60,6 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
                     bio: widget.bioController.text,
                     profilePicture: widget.widget.user.profilePicture,
                   );
-                  print('ldjfladjfldjf');
                   context.read<ProfileBloc>().add(
                         EditUserDetailEvent(
                           intialUser: widget.widget.user,

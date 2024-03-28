@@ -21,7 +21,7 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   final scrollController = ScrollController();
   final TextEditingController searchController = TextEditingController();
-  final Debouncer debouncer = Debouncer(delay: const Duration(seconds: 3));
+  final Debouncer debouncer = Debouncer(delay: const Duration(milliseconds: 300));
   bool isSearchResult = false;
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class _ExplorePageState extends State<ExplorePage> {
         appBar: Hidable(
           preferredWidgetSize: const Size.fromHeight(80),
           controller: scrollController,
+          // ============ Search Text Field ============
           child: CustomSearchField(
             searchController: searchController,
             onChanged: (value) {
@@ -41,9 +42,9 @@ class _ExplorePageState extends State<ExplorePage> {
                       .read<SearchUserBloc>()
                       .add(SearchUserEvent(query: value));
                 });
-                context.read<OnSearchCubit>().onSearchChange(false);
-              } else {
                 context.read<OnSearchCubit>().onSearchChange(true);
+              } else {
+                context.read<OnSearchCubit>().onSearchChange(false);
               }
             },
           ),
@@ -56,7 +57,8 @@ class _ExplorePageState extends State<ExplorePage> {
           builder: (context, state) {
             var state1 = state[0];
             var state2 = state[1];
-            if (state1) {
+            if (state1 == false) {
+              // ============ Explore page ============
               return ListView(
                 controller: scrollController,
                 children: const [
@@ -65,14 +67,17 @@ class _ExplorePageState extends State<ExplorePage> {
                 ],
               );
             } else {
+              // ============ On Searching ============
               if (state2 is SearchResultLoadingState) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
+              // ============ Search Result View ============
               if (state2 is SearchResultSuccessState) {
                 return UserSearchResultView(state2: state2);
               }
+              // ============ Search No Results ============
               return const Center(
                 child: Text('No User Found'),
               );
