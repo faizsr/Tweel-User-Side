@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
@@ -32,7 +33,19 @@ class PostUserDetail extends StatelessWidget {
         InkWell(
           onTap: () {
             debugPrint('Go to profile');
-            nextScreen(context, const UserProfilePage());
+            changeSystemThemeOnPopup(
+                color: isDarkMode ? dBlueGrey : lLightWhite);
+            nextScreen(
+                context,
+                UserProfilePage(
+                  userId: userModel!.id!,
+                )).then((value) {
+              mySystemTheme(context);
+              if (onDetail) {
+                changeSystemThemeOnPopup(
+                    color: isDarkMode ? dBlueGrey : lLightWhite);
+              }
+            });
             context
                 .read<UserByIdBloc>()
                 .add(FetchUserByIdEvent(userId: userModel!.id!));
@@ -65,7 +78,7 @@ class PostUserDetail extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 12,
                   color: theme.colorScheme.secondary,
                 ),
               ),
@@ -93,7 +106,11 @@ class PostUserDetail extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       changeSystemThemeOnPopup(
-                          color: isDarkMode ? dBottom : lBottom);
+                          color: isDarkMode
+                              ? onDetail
+                                  ? dBottom2
+                                  : dBottom
+                              : lBottom);
                       PostMoreWidget.bottomSheet(
                         context: context,
                         postModel: postModel,
@@ -102,7 +119,7 @@ class PostUserDetail extends StatelessWidget {
                         onDetail: onDetail,
                       );
                     },
-                    child: const Icon(Icons.more_vert_sharp),
+                    child: const Icon(Ktweel.more_vert),
                   );
                 }
                 return Container();

@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/bloc/post_logics/post_logics_bloc.dart';
 
-class CreatePostAppbar extends StatefulWidget {
+class CreatePostAppbar extends StatelessWidget {
   const CreatePostAppbar({
     super.key,
     required this.onTap,
   });
 
   final void Function()? onTap;
-
-  @override
-  State<CreatePostAppbar> createState() => _CreatePostAppbarState();
-}
-
-class _CreatePostAppbarState extends State<CreatePostAppbar> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +33,32 @@ class _CreatePostAppbarState extends State<CreatePostAppbar> {
         style: TextStyle(fontSize: 18),
       ),
       actions: [
-        InkWell(
-          onTap: widget.onTap,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Text(
-              'POST',
-              style: TextStyle(
-                  fontVariations: fontWeightW500,
-                  color: Theme.of(context).colorScheme.onPrimary),
-            ),
-          ),
+        BlocBuilder<PostLogicsBloc, PostLogicsState>(
+          builder: (context, state) {
+            if (state is CreatePostLoadingState) {
+              return Container(
+                height: 15,
+                width: 15,
+                margin: const EdgeInsets.only(right: 10),
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  strokeWidth: 2,
+                ),
+              );
+            }
+            return InkWell(
+              onTap: onTap,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Text(
+                  'POST',
+                  style: TextStyle(
+                      fontVariations: fontWeightW500,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
+              ),
+            );
+          },
         ),
       ],
     );

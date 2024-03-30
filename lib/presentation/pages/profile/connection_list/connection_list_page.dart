@@ -11,11 +11,13 @@ class ConnectionListPage extends StatefulWidget {
     required this.selectedPage,
     required this.followers,
     required this.following,
+    this.isCurrentUser = false,
   });
 
   final int selectedPage;
   final List followers;
   final List following;
+  final bool isCurrentUser;
 
   @override
   State<ConnectionListPage> createState() => ConnectionListPageState();
@@ -60,8 +62,14 @@ class ConnectionListPageState extends State<ConnectionListPage>
       body: TabBarView(
         controller: tabController,
         children: [
-          FollowersView(followers: widget.followers),
-          FollowingView(following: widget.following),
+          FollowersView(
+            followers: widget.followers,
+            isCurrentUser: widget.isCurrentUser,
+          ),
+          FollowingView(
+            following: widget.following,
+            isCurrentUser: widget.isCurrentUser,
+          ),
         ],
       ),
     );

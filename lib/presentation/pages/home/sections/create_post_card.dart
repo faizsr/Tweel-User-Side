@@ -44,61 +44,68 @@ class _CreatePostCardState extends State<CreatePostCard> {
                 return _loadingWidget();
               }
               if (state is UserDetailFetchingSucessState) {
-                return Row(
+                return Column(
                   children: [
-                    CircleAvatar(
-                      radius: 28,
-                      backgroundColor: lLightWhite,
-                      backgroundImage: state.userDetails.profilePicture == ""
-                          ? Image.asset(profilePlaceholder).image
-                          : NetworkImage(
-                              state.userDetails.profilePicture!,
-                            ),
-                    ),
-                    kWidth(20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        const Text(
-                          'Share you thoughts',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontVariations: fontWeightW500,
-                          ),
+                        CircleAvatar(
+                          radius: 28,
+                          backgroundColor: lLightWhite,
+                          backgroundImage:
+                              state.userDetails.profilePicture == ""
+                                  ? Image.asset(profilePlaceholder).image
+                                  : NetworkImage(
+                                      state.userDetails.profilePicture!,
+                                    ),
                         ),
-                        kHeight(5),
-                        Text(
-                          '@${state.userDetails.username}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: theme.colorScheme.secondary,
-                          ),
-                        ),
+                        kWidth(20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Share you thoughts',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontVariations: fontWeightW500,
+                              ),
+                            ),
+                            kHeight(5),
+                            Text(
+                              '@${state.userDetails.username}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: theme.colorScheme.secondary,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
-                    )
+                    ),
+                    kHeight(20),
+                    SizedBox(
+                      height: 45,
+                      width: double.infinity,
+                      child: CustomOutlinedBtn(
+                        onPressed: () {
+                          changeSystemThemeOnPopup(
+                              color: isDarkMode ? dBlueGrey : lLightWhite);
+                          nextScreen(
+                            context,
+                            const MediaPicker(
+                              maxCount: 10,
+                              requestType: RequestType.common,
+                              screenType: ScreenType.post,
+                            ),
+                          ).then((value) => mySystemTheme(context));
+                        },
+                        btnText: 'CREATE NEW POST',
+                      ),
+                    ),
                   ],
                 );
               }
               return Container();
             },
-          ),
-          kHeight(20),
-          CustomOutlinedBtn(
-            width: double.infinity,
-            height: 50,
-            onPressed: () {
-              changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
-              nextScreen(
-                context,
-                const MediaPicker(
-                  maxCount: 10,
-                  requestType: RequestType.common,
-                  screenType: ScreenType.post,
-                ),
-              ).then((value) => mySystemTheme(context));
-            },
-            btnText: 'CREATE NEW POST',
           ),
         ],
       ),
@@ -106,21 +113,48 @@ class _CreatePostCardState extends State<CreatePostCard> {
   }
 
   Widget _loadingWidget() {
-    return Row(
+    return Column(
       children: [
-        const CircleAvatar(
-          radius: 28,
-          backgroundColor: kLightGrey,
-        ),
-        kWidth(20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
           children: [
-            const Skelton(width: 160),
-            kHeight(10),
-            const Skelton(width: 60),
+            CircleAvatar(
+              radius: 28,
+              backgroundColor: Theme.of(context).colorScheme.onSurface,
+            ),
+            kWidth(20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Skelton(width: 160),
+                kHeight(10),
+                const Skelton(width: 60),
+              ],
+            ),
+            kHeight(20),
           ],
-        )
+        ),
+        kHeight(20),
+        Container(
+          height: 45,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 0.5,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Center(
+            child: Text(
+              'CREATE NEW POST',
+              style: TextStyle(
+                fontSize: 10,
+                fontVariations: fontWeightW800,
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

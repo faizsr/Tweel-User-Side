@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
 
 class PostCardLoading extends StatefulWidget {
@@ -22,10 +22,10 @@ class _PostCardLoadingState extends State<PostCardLoading> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      padding: const EdgeInsets.fromLTRB(18, 15, 18, 15),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onPrimaryContainer,
+        color: Theme.of(context).colorScheme.primaryContainer,
         boxShadow: kBoxShadow,
         borderRadius: BorderRadius.circular(12),
       ),
@@ -45,11 +45,11 @@ class _PostCardLoadingState extends State<PostCardLoading> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _postActionBtn('0 likes', CustomIcons.like),
+              _postActionBtn('0 likes', Ktweel.like),
               Container(height: 15, width: 1, color: Colors.grey.shade300),
-              _postActionBtn('0 comments', CustomIcons.messages_2),
+              _postActionBtn('0 comments', Ktweel.comment),
               Container(height: 15, width: 1, color: Colors.grey.shade300),
-              _postActionBtn('Share', CustomIcons.send_2),
+              _postActionBtn('Share', Ktweel.send_2),
             ],
           )
         ],
@@ -60,9 +60,9 @@ class _PostCardLoadingState extends State<PostCardLoading> {
   Row postedUserDetail() {
     return Row(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 20,
-          backgroundColor: kLightGrey,
+          backgroundColor: Theme.of(context).colorScheme.onSurface,
         ),
         kWidth(10),
         Column(
@@ -74,6 +74,10 @@ class _PostCardLoadingState extends State<PostCardLoading> {
           ],
         ),
         const Spacer(),
+        Icon(
+          Icons.more_vert_sharp,
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
       ],
     );
   }

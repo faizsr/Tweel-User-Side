@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
@@ -74,7 +74,7 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
                           ));
                       commentController.clear();
                     },
-                    child: const Icon(CustomIcons.send_2),
+                    child: const Icon(Ktweel.send_2),
                   ),
                 ],
               ),

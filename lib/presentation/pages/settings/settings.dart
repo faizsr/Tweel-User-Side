@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -17,24 +17,28 @@ class SettingsPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(CustomIcons.arrow_left),
+          icon: const Icon(Ktweel.arrow_left),
         ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(15),
         shrinkWrap: true,
         children: [
-          customListTile(CustomIcons.notification_off_bing, 'Notification',
-              Icons.arrow_circle_right_outlined, context),
+          customListTile(Ktweel.notification, 'Notification',
+              Ktweel.arrow_circle_right, context),
           kHeight(15),
-          customListTile(CustomIcons.moon, 'Dark theme',
-              Icons.arrow_circle_right_outlined, context),
+          customListTile(
+              Ktweel.moon, 'Dark theme', Ktweel.arrow_circle_right, context),
           kHeight(15),
-          customListTile(CustomIcons.note_text, 'Privacy & policy',
-              Icons.arrow_circle_right_outlined, context),
+          customListTile(Ktweel.text_file, 'Privacy & policy',
+              Ktweel.arrow_circle_right, context),
           kHeight(15),
-          customListTile(CustomIcons.warning_2, 'About us',
-              Icons.arrow_circle_right_outlined, context),
+          customListTile(
+            Ktweel.about,
+            'About us',
+            Ktweel.arrow_circle_right,
+            context,
+          ),
         ],
       ),
     );

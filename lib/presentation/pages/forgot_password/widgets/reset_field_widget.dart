@@ -93,7 +93,7 @@ class _ResetFieldWidgetState extends State<ResetFieldWidget> {
                           );
                     }
                   } else {
-                    customSnackbar(context, "Passwords doesn't match");
+                    customSnackbar(context, "Passwords doesn't match",leading: Icons.details,trailing: 'OK');
                   }
                 },
               ),
@@ -107,10 +107,10 @@ class _ResetFieldWidgetState extends State<ResetFieldWidget> {
   void resetPasswordListener(BuildContext context, ForgetPasswordState state) {
     if (state is ForgetResetPasswordSuccessState) {
       nextScreenRemoveUntil(context, const UserSignInPage());
-      customSnackbar(context, 'Password changed successfully');
+      customSnackbar(context, 'Password changed successfully',leading: Icons.fork_right, trailing: 'OK');
     }
     if (state is ForgetResetPasswordInvalidOtpState) {
-      customSnackbar(context, 'Entered OTP is invalid');
+      customSnackbar(context, 'Entered OTP is invalid', leading: Icons.dangerous, trailing: 'OK');
     }
   }
 }

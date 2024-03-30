@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
-import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/profile_logics/profile_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -43,13 +44,30 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
           Navigator.pop(context);
           context.read<SetProfileImageCubit>().resetState();
         },
-        icon: const Icon(CustomIcons.arrow_left),
+        icon: const Icon(Ktweel.arrow_left),
       ),
       actions: [
-        BlocBuilder<SetProfileImageCubit, SetProfileImageState>(
+        MultiBlocBuilder(
+          blocs: [
+            context.watch<SetProfileImageCubit>(),
+            context.watch<ProfileLogicsBloc>(),
+          ],
           builder: (context, state) {
-            if (state is SetProfileImageSuccessState) {
-              selectedImage = state.selectedImage;
+            var state1 = state[0];
+            var state2 = state[1];
+            if (state1 is SetProfileImageSuccessState) {
+              selectedImage = state1.selectedImage;
+            }
+            if (state2 is EditUserDetailsLoadingState) {
+              return Container(
+                height: 15,
+                width: 15,
+                margin: const EdgeInsets.only(right: 10),
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  strokeWidth: 2,
+                ),
+              );
             }
             return IconButton(
               onPressed: () async {
@@ -60,7 +78,7 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
                     bio: widget.bioController.text,
                     profilePicture: widget.widget.user.profilePicture,
                   );
-                  context.read<ProfileBloc>().add(
+                  context.read<ProfileLogicsBloc>().add(
                         EditUserDetailEvent(
                           intialUser: widget.widget.user,
                           updatedUser: updatedUser,

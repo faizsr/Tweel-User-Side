@@ -34,12 +34,13 @@ var lightTheme = ThemeData(
     secondary: lDarkGrey, // Text Color Secondary
     onSecondary: lGrey, // Text Light Color
     outline: lLightGrey, // Divider Color
+    outlineVariant: lLightGrey3, // Loading Button & Text Color
     surface: lLightWhite, // Background Color
+    onSurface: lLightGrey2, // Loading Skelton Color
     error: Colors.red,
     onError: Colors.red,
     background: Colors.transparent,
     onBackground: Colors.transparent,
-    onSurface: Colors.transparent,
   ),
   listTileTheme: const ListTileThemeData(iconColor: lBlack, textColor: lBlack),
   appBarTheme: AppBarTheme(
@@ -85,12 +86,13 @@ var darkTheme = ThemeData(
     secondary: dLightGrey, // Text Color Secondary
     onSecondary: dDarkGrey, // Text Light Color
     outline: dDarkGrey2, // Divider Color
+    outlineVariant: dLightBlueGrey2, // Loading Button & Text Color
     surface: dBlueGrey, // Background Color
+    onSurface: dLightBlueGrey2, // Loading Skelton Color
     error: Colors.red,
     onError: Colors.red,
     background: Colors.transparent,
     onBackground: Colors.transparent,
-    onSurface: Colors.transparent,
   ),
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(

@@ -49,6 +49,9 @@ class PostMoreWidget {
       },
     ).then((value) {
       mySystemTheme(context);
+      if (onDetail!) {
+        changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface);
+      }
     });
   }
 }

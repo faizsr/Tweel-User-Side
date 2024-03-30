@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
-import 'package:tweel_social_media/presentation/bloc/bloc_logics/post_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/post_logics/post_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/widgets/user_detail_widget.dart';

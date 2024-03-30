@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/presentation/pages/on_boarding/widgets/rotating_image.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
@@ -74,7 +74,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 ),
                 child: const Align(
                   alignment: Alignment.bottomCenter,
-                  child: Icon(CustomIcons.arrow_down),
+                  child: Icon(Ktweel.arrow_down),
                 ),
               ),
               kHeight(10),

@@ -105,9 +105,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Coco-Gothic-Pro-Alt-Variable-Roman-trial.ttf
     #         style: italic
-    - family: CustomIcons
+    - family: Ktweel
       fonts:
-        - asset: assets/icons/CustomIcons.ttf
+        - asset: assets/icons/Ktweel.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #

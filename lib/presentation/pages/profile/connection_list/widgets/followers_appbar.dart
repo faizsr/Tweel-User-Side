@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 
 class FollowersAppbar extends StatelessWidget {
   const FollowersAppbar({
@@ -29,7 +29,7 @@ class FollowersAppbar extends StatelessWidget {
           Navigator.pop(context);
         },
         icon: const Icon(
-          CustomIcons.arrow_left,
+          Ktweel.arrow_left,
           size: 25,
         ),
       ),
@@ -145,7 +145,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                 )
               : const Padding(
                   padding: EdgeInsets.only(right: 15),
-                  child: Icon(CustomIcons.search_normal_2),
+                  child: Icon(Ktweel.search_2),
                 ),
         ],
       ),

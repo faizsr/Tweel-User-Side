@@ -19,17 +19,26 @@ class UserProfileDetailsWidget extends StatelessWidget {
   final UserModel userModel;
   final List<PostModel> postsList;
 
+  void followUnfollowFunction(
+      UserModel currentUserModel, UserModel user, bool? isUnfollowing) {
+    if (user.followers!.contains(currentUserModel) || isUnfollowing!) {
+      userModel.followers!.removeWhere(
+        (element) => element['_id'] == currentUserModel.id,
+      );
+    } else {
+      userModel.followers!.add(currentUserModel.toJson());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // var brightness = MediaQuery.of(context).platformBrightness;
-    // bool isDarkMode = brightness == Brightness.dark;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: Column(
-        children: [
-          UserHeadingWidget(userModel: userModel),
-          kHeight(10),
-          Stack(
+    return Column(
+      children: [
+        UserHeadingWidget(userModel: userModel),
+        kHeight(10),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+          child: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.center,
             children: [
@@ -46,7 +55,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 70),
+                  padding: const EdgeInsets.fromLTRB(30, 30, 0, 70),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -78,9 +87,9 @@ class UserProfileDetailsWidget extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     height: 35,
-                                    width: 80,
                                     child: FollowButton(
                                       userModel: userModel,
+                                      onFollowUnfollow: followUnfollowFunction,
                                     ),
                                   ),
                                   kWidth(10),
@@ -105,8 +114,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                       return PostFollowCountWidget(
                         postsList: postsList,
                         userModel: userModel,
-                        currentUserModel: state.userDetails,
-                        // isFollow: true,
+                        // currentUserModel: state.userDetails,
                       );
                     }
                     return Container();
@@ -114,16 +122,15 @@ class UserProfileDetailsWidget extends StatelessWidget {
                 ),
               ),
             ],
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
   Widget _messageBtn() {
     return SizedBox(
       height: 35,
-      width: 80,
       child: CustomOutlinedBtn(
         onPressed: () {},
         btnText: 'MESSAGE',

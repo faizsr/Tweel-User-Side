@@ -1,11 +1,12 @@
-// <<<<<<< HEAD
-
-// =======
-// >>>>>>> 3dc048ca250c0fed2f942660e1d93d69a36a53b2
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 
 const kLightGrey = Color(0xFFF4F4F4);
 const kLightGrey2 = Color(0xFFCCCCCC);
+
+const kLightBlueGrey = Color(0xFF373840);
+
+const kTextStyle1 = TextStyle();
 
 const profileOne = 'assets/images/profile1.jpg';
 const profileTwo = 'assets/images/profile2.jpg';
@@ -53,16 +54,41 @@ Future<dynamic> nextScreenRemoveUntil(context, page) {
   );
 }
 
-customSnackbar(BuildContext context, String message) {
+customSnackbar(BuildContext context, String message,
+    {IconData? leading, String? trailing}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+      backgroundColor: dLightBlueGrey2,
+      dismissDirection: DismissDirection.up,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10),
       ),
       behavior: SnackBarBehavior.floating,
-      content: Text(message),
+      content: Row(
+        children: [
+          if (leading != null)
+            Icon(
+              leading,
+              color: lWhite,
+            ),
+          kWidth(10),
+          Text(
+            message,
+            style: const TextStyle(color: lWhite),
+          ),
+          const Spacer(),
+          if (trailing != null)
+            Text(
+              trailing,
+              style: const TextStyle(
+                fontVariations: fontWeightW700,
+                fontSize: 12,
+                color: lWhite,
+              ),
+            )
+        ],
+      ),
     ),
   );
 }
@@ -155,7 +181,7 @@ class CustomAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       elevation: 0,
-      backgroundColor: const Color(0xFFFFFFFF),
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -176,27 +202,28 @@ class CustomAlertDialog extends StatelessWidget {
           child: Text(
             description ?? '',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: descriptionTxtSize ?? 13),
+            style: TextStyle(
+                fontSize: descriptionTxtSize ?? 13,
+                color: Theme.of(context).colorScheme.secondary),
           ),
         ),
         kHeight(10),
         Divider(
           height: 1,
-          color: Colors.grey.shade200,
+          color: Theme.of(context).colorScheme.outlineVariant,
         ),
         disableActionBtn == false
             ? SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 40,
                 child: InkWell(
-                  highlightColor: Colors.grey[200],
                   onTap: onTap,
                   child: Center(
                     child: Text(
                       actionBtnTxt ?? 'Delete',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16.0,
-                        color: Color(0xFF1285b9),
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -206,7 +233,7 @@ class CustomAlertDialog extends StatelessWidget {
             : const SizedBox(),
         Divider(
           height: disableActionBtn == false ? 1.2 : 0,
-          color: Colors.grey.shade200,
+          color: Theme.of(context).colorScheme.outlineVariant,
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,

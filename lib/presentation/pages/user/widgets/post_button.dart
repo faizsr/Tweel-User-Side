@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 
 class PostButton extends StatelessWidget {
   const PostButton({
@@ -10,17 +11,29 @@ class PostButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
-          width: 100,
-          child: MaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(3),
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child: Divider(
+              thickness: 0.5,
+              color: Theme.of(context).colorScheme.outline,
             ),
-            color: Theme.of(context).colorScheme.primary,
-            onPressed: () {},
-            child: const Text('POSTS'),
           ),
         ),
+        // Container(height: 0.5, color: lBlack, width: double.infinity),
+        const Text(
+          'POSTS',
+          style: TextStyle(fontSize: 12,fontVariations: fontWeightW500),
+        ),
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child: Divider(
+              thickness: 0.5,
+              color: Theme.of(context).colorScheme.outline,
+            ),
+          ),
+        )
       ],
     );
   }

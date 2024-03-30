@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
@@ -25,9 +24,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
-    changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : dWhite);
+    changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: const Center(

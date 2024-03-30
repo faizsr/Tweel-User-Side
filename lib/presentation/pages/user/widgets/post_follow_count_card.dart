@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
@@ -11,27 +13,17 @@ class PostFollowCountWidget extends StatelessWidget {
     super.key,
     required this.postsList,
     required this.userModel,
-    required this.currentUserModel,
   });
 
   final List<PostModel> postsList;
   final UserModel userModel;
-  final UserModel currentUserModel;
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return BlocBuilder<FollowUnfollowUserBloc, FollowUnfollowUserState>(
       builder: (context, state) {
-        if (state is FollowedUserState) {
-          if (!userModel.followers!.contains(currentUserModel)) {
-            userModel.followers!.add(currentUserModel);
-          }
-        }
-        if (state is UnfollowedUserState) {
-          if (userModel.followers!.contains(currentUserModel)) {
-            userModel.followers!.remove(currentUserModel);
-          }
-        }
         return Container(
           height: 90,
           decoration: BoxDecoration(
@@ -62,6 +54,8 @@ class PostFollowCountWidget extends StatelessWidget {
                 count: '${userModel.followers!.length}',
                 title: 'FOLLOWERS',
                 onTap: () {
+                  changeSystemThemeOnPopup(
+                      color: isDarkMode ? dBlueGrey : lLightWhite);
                   nextScreen(
                     context,
                     ConnectionListPage(

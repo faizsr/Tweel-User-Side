@@ -26,7 +26,8 @@ class FollowSearchResult extends StatelessWidget {
             context
                 .read<UserByIdBloc>()
                 .add(FetchUserByIdEvent(userId: state.followers[index]['_id']));
-            nextScreen(context, const UserProfilePage());
+            nextScreen(context,
+                UserProfilePage(userId: state.followers[index]['_id']));
           },
           child: ListTile(
             leading: CircleAvatar(
@@ -55,8 +56,6 @@ class FollowSearchResult extends StatelessWidget {
               width: 94,
               height: 30,
               child: CustomOutlinedBtn(
-                height: 35,
-                width: 70,
                 onPressed: () {},
                 btnText: 'VIEW',
               ),

@@ -91,7 +91,7 @@ class _ForgetFieldWidgetState extends State<ForgetFieldWidget> {
       );
     }
     if (state is ForgetUserNotExistState) {
-      customSnackbar(context, 'User not found with the email');
+      customSnackbar(context, 'User not found with the email',leading: Icons.no_accounts,trailing: 'OK');
     }
   }
 }

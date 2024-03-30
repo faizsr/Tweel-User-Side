@@ -29,7 +29,10 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _mediaAppbar(context),
+        MediaAppbar(
+          onPressed: widget.onPressed,
+          selectedAssetList: widget.selectedAssetList,
+        ),
         const SizedBox(
           height: 10,
         ),
@@ -47,10 +50,10 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
           padding: EdgeInsets.symmetric(horizontal: 15),
           height: 40,
         ),
-        iconStyleData: const IconStyleData(
+        iconStyleData: IconStyleData(
           icon: Icon(
             Icons.keyboard_arrow_down,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.primary,
           ),
           iconSize: 18,
         ),
@@ -58,6 +61,9 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
           maxHeight: 300,
           width: double.infinity,
           elevation: 2,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface
+          ),
           scrollbarTheme: ScrollbarThemeData(
             radius: const Radius.circular(40),
             thickness: MaterialStateProperty.all(6),
@@ -85,8 +91,20 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
       ),
     );
   }
+}
 
-  AppBar _mediaAppbar(BuildContext context) {
+class MediaAppbar extends StatelessWidget {
+  const MediaAppbar({
+    super.key,
+    this.selectedAssetList,
+    this.onPressed,
+  });
+
+  final List<AssetEntity>? selectedAssetList;
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 40,
       automaticallyImplyLeading: false,
@@ -107,9 +125,9 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
         style: TextStyle(fontSize: 18, fontVariations: fontWeightW600),
       ),
       actions: [
-        widget.selectedAssetList.isNotEmpty
+        selectedAssetList != null && selectedAssetList!.isNotEmpty
             ? IconButton(
-                onPressed: widget.onPressed,
+                onPressed: onPressed,
                 icon: const Icon(
                   Icons.arrow_forward,
                   size: 22,

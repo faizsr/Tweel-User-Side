@@ -9,29 +9,41 @@ class FollowSearchIdle extends StatelessWidget {
   const FollowSearchIdle({
     super.key,
     required this.followers,
+    required this.isCurrentUser,
   });
 
   final List followers;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-      shrinkWrap: true,
-      itemCount: followers.length,
-      itemBuilder: (context, index) {
-        return UserListTile(
-          onTap: () {
-            context
-                .read<UserByIdBloc>()
-                .add(FetchUserByIdEvent(userId: followers[index]['_id']));
-            nextScreen(context, const UserProfilePage());
-          },
-          username: followers[index]['username'],
-          profileUrl: followers[index]['profile_picture'],
-          fullname: followers[index]['fullname'],
-        );
-      },
-    );
+    return followers.isNotEmpty
+        ? ListView.builder(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            shrinkWrap: true,
+            itemCount: followers.length,
+            itemBuilder: (context, index) {
+              return UserListTile(
+                onTap: () {
+                  context
+                      .read<UserByIdBloc>()
+                      .add(FetchUserByIdEvent(userId: followers[index]['_id']));
+                  nextScreen(context,
+                      UserProfilePage(userId: followers[index]['_id']));
+                },
+                username: followers[index]['username'].toString(),
+                profileUrl: followers[index]['profile_picture'].toString(),
+                fullname: followers[index]['fullname'].toString(),
+              );
+            },
+          )
+        : Center(
+            child: Text(
+              isCurrentUser
+                  ? "No followers yet. Start connecting!"
+                  : 'No followers found!!',
+              style: const TextStyle(fontSize: 15),
+            ),
+          );
   }
 }

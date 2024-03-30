@@ -8,6 +8,7 @@ import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/saved_posts/saved_posts_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/custom_tabbar_widget.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/custom_tabview_widget.dart';
+import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_page_loading.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/user_detail_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -47,9 +48,7 @@ class _ProfilePageState extends State<ProfilePage>
           body: BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
               if (state is UserDetailFetchingLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return const ProfilePageLoading();
               }
               if (state is UserDetailFetchingSucessState) {
                 return ListView(

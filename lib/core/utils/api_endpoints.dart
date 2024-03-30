@@ -1,5 +1,6 @@
 class ApiEndPoints {
   static String baseUrl = 'http://10.0.2.2:5000';
+  // static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
   static String profile = '/me';
   static String editUserProfile = '/profile/edit';
   static String userSignUp = '/signup';

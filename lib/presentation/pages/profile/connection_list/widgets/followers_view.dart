@@ -8,9 +8,11 @@ class FollowersView extends StatelessWidget {
   const FollowersView({
     super.key,
     required this.followers,
+    required this.isCurrentUser,
   });
 
   final List followers;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,10 @@ class FollowersView extends StatelessWidget {
                 )
               : FollowSearchResult(state: state);
         }
-        return FollowSearchIdle(followers: followers);
+        return FollowSearchIdle(
+          followers: followers,
+          isCurrentUser: isCurrentUser,
+        );
       },
     );
   }

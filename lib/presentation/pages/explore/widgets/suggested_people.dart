@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/explore/sub_page/all_suggested_user_page.dart';
+import 'package:tweel_social_media/presentation/pages/explore/widgets/explore_loading.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/suggested_grid_view.dart';
 
 class SuggestedPeople extends StatelessWidget {
@@ -15,15 +18,18 @@ class SuggestedPeople extends StatelessWidget {
           context.read<UserBloc>().add(FetchAllUserEvent());
         }
         if (state is UserDetailFetchingLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Column(
+            children: [
+              suggestedHeading(theme, context),
+              const SuggestedPeopleLoading(),
+            ],
           );
         }
         if (state is UserDetailFetchingSuccessState) {
           return Column(
             children: [
-              suggestedHeading(theme),
-              SuggestedPeopleGridView(theme: theme, state:state),
+              suggestedHeading(theme, state: state, context),
+              SuggestedPeopleGridView(theme: theme, state: state, maxCount: 4),
             ],
           );
         }
@@ -34,7 +40,8 @@ class SuggestedPeople extends StatelessWidget {
     );
   }
 
-  Padding suggestedHeading(ThemeData theme) {
+  Padding suggestedHeading(ThemeData theme, BuildContext context,
+      {UserDetailFetchingSuccessState? state}) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
@@ -43,11 +50,17 @@ class SuggestedPeople extends StatelessWidget {
           const Spacer(),
           InkWell(
             onTap: () {
-              
+              if (state != null) {
+                nextScreen(
+                  context,
+                  AllSuggestedUsersPage(state: state, theme: theme),
+                );
+              }
             },
             child: Text(
               'Show all',
-              style: TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
+              style:
+                  TextStyle(fontSize: 12, color: theme.colorScheme.onPrimary),
             ),
           ),
         ],
@@ -55,4 +68,3 @@ class SuggestedPeople extends StatelessWidget {
     );
   }
 }
-

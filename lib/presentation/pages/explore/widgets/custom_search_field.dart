@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 
 class CustomSearchField extends StatelessWidget {
   const CustomSearchField({
@@ -30,7 +30,7 @@ class CustomSearchField extends StatelessWidget {
             prefixInsets: const EdgeInsetsDirectional.only(start: 10),
             suffixInsets: const EdgeInsetsDirectional.only(end: 10),
             prefixIcon: Icon(
-              CustomIcons.search_normal_2,
+              Ktweel.search_2,
               color: theme.colorScheme.primary,
               size: 20,
             ),

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
 
 class Skelton extends StatelessWidget {
-  const Skelton({super.key, this.height, this.width});
+  const Skelton({
+    super.key,
+    this.height,
+    this.width,
+    this.color,
+  });
 
   final double? height, width;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ class Skelton extends StatelessWidget {
       width: width,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: kLightGrey,
+        color: color ?? Theme.of(context).colorScheme.onSurface,
         borderRadius: BorderRadius.circular(16),
       ),
     );

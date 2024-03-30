@@ -1,14 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlike_post_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/widgets/comment_card_widget.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/widgets/comment_text_field.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_appbar_2.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_icon_btn.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_image_widget.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_user_widget.dart';
@@ -29,18 +29,9 @@ class PostDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: const Text(
-          'Post',
-          style: TextStyle(fontSize: 18),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(CustomIcons.arrow_left, size: 24),
-        ),
-        titleSpacing: 0,
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(56),
+        child: CustomAppbar2(title: 'Post'),
       ),
       body: Column(
         children: [
@@ -82,7 +73,7 @@ class PostDetailPage extends StatelessWidget {
                                 return CustomIconBtn(
                                   title:
                                       '${postModel.comments!.length} comments',
-                                  icon: CustomIcons.messages_2,
+                                  icon: Ktweel.comment,
                                   onTap: () {},
                                 );
                               },
@@ -94,7 +85,7 @@ class PostDetailPage extends StatelessWidget {
                             ),
                             CustomIconBtn(
                               title: 'Share',
-                              icon: CustomIcons.send_2,
+                              icon: Ktweel.send_2,
                               onTap: () {},
                             ),
                           ],
@@ -149,8 +140,8 @@ class PostDetailPage extends StatelessWidget {
         return CustomIconBtn(
           title: '${postModel.likes!.length} likes',
           icon: postModel.likes!.contains(userModel!.id)
-              ? CupertinoIcons.heart_fill
-              : CustomIcons.like,
+              ? Ktweel.dislike
+              : Ktweel.like,
           onTap: () {
             if (postModel.likes!.contains(userModel!.id)) {
               postModel.likes!.remove(userModel!.id.toString());

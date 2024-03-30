@@ -30,6 +30,7 @@ class VideoTile extends StatelessWidget {
                   image: Image.file(File(snapshot.data!.path)).image,
                   fit: BoxFit.cover,
                 ),
+                borderRadius: BorderRadius.circular(3),
               ),
             ),
           );
@@ -59,12 +60,12 @@ class ImageTile extends StatelessWidget {
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          image: DecorationImage(
-            image: NetworkImage(imageUrl),
-            fit: BoxFit.cover,
-          ),
-        ),
+            color: Theme.of(context).colorScheme.primaryContainer,
+            image: DecorationImage(
+              image: NetworkImage(imageUrl),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.circular(3)),
       ),
     );
   }

@@ -66,7 +66,7 @@ class StoryWidget extends StatelessWidget {
               if (state is FetchStoriesLoadingState) {
                 return Row(
                   children: List.generate(
-                      10, (index) => StoryUtils.loadingStoryCard()),
+                      10, (index) => StoryUtils.loadingStoryCard(context)),
                 );
               }
               if (state is FetchStoriesSuccessState) {

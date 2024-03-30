@@ -10,13 +10,11 @@ class FollowButton extends StatefulWidget {
   const FollowButton({
     super.key,
     this.userModel,
-    // required this.height,
-    // required this.width,
+    this.onFollowUnfollow,
   });
 
   final UserModel? userModel;
-  // final double height;
-  // final double width;
+  final void Function(UserModel, UserModel, bool)? onFollowUnfollow;
 
   @override
   State<FollowButton> createState() => _FollowButtonState();
@@ -45,7 +43,6 @@ class _FollowButtonState extends State<FollowButton> {
         context.watch<ProfileBloc>()
       ],
       builder: (context, state) {
-        // var state1 = state[0];
         var state2 = state[1];
         if (state2 is UserDetailFetchingSucessState) {
           bool isFollowing = followersIds.contains(state2.userDetails.id);
@@ -54,6 +51,8 @@ class _FollowButtonState extends State<FollowButton> {
             onPressed: () {
               if (isFollowing) {
                 debugPrint('Unfollowed');
+                widget.onFollowUnfollow!(
+                    state2.userDetails, widget.userModel!, true);
                 followersIds.remove(state2.userDetails.id);
                 context.read<FollowUnfollowUserBloc>().add(
                       UnfollowUserEvent(
@@ -63,6 +62,8 @@ class _FollowButtonState extends State<FollowButton> {
                     );
               } else if (isFollowedByUser) {
                 debugPrint('Followed');
+                widget.onFollowUnfollow!(
+                    state2.userDetails, widget.userModel!, false);
                 followersIds.add(state2.userDetails.id!);
                 context.read<FollowUnfollowUserBloc>().add(
                       FollowUserEvent(
@@ -72,6 +73,8 @@ class _FollowButtonState extends State<FollowButton> {
                     );
               } else {
                 debugPrint('Followed');
+                widget.onFollowUnfollow!(
+                    state2.userDetails, widget.userModel!, false);
                 followersIds.add(state2.userDetails.id!);
                 context.read<FollowUnfollowUserBloc>().add(
                       FollowUserEvent(

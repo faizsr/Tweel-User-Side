@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
-import 'package:tweel_social_media/presentation/bloc/bloc_logics/post_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/post_logics/post_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/saved_posts/saved_posts_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/edit_post/edit_post.dart';
+import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
 
 class PostMoreBottomSheet extends StatefulWidget {
   const PostMoreBottomSheet({
@@ -78,7 +81,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
           // =========== else ===========
           (widget.postModel.user!.id ?? widget.postId) != widget.userId
               ? Column(
-                  children: [reportPostBtn(), viewAccountBtn()],
+                  children: [reportPostBtn(), viewAccountBtn(isDarkMode)],
                 )
               : const SizedBox(),
         ],
@@ -87,17 +90,37 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
   }
 
   // =========== View Account Button ===========
-  Widget viewAccountBtn() {
-    return const ListTile(
-      leading: Icon(Icons.person),
-      title: Text('View account'),
+  Widget viewAccountBtn(bool isDarkMode) {
+    return ListTile(
+      leading: const Icon(Ktweel.user, size: 22),
+      title: const Text('View account'),
+      onTap: () {
+        debugPrint('Go to profile');
+        changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : lLightWhite);
+        nextScreen(
+            context,
+            UserProfilePage(
+              userId: widget.postModel.user!.id!,
+            )).then(
+          (value) {
+            mySystemTheme(context);
+            Navigator.pop(context);
+          },
+        );
+        context
+            .read<UserByIdBloc>()
+            .add(FetchUserByIdEvent(userId: widget.postModel.user!.id!));
+      },
     );
   }
 
 // =========== Report Post Button ===========
   Widget reportPostBtn() {
     return const ListTile(
-      leading: Icon(Icons.report_sharp),
+      leading: Icon(
+        Ktweel.danger,
+        size: 22,
+      ),
       title: Text('Report'),
     );
   }
@@ -115,10 +138,13 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
         }
       },
       child: ListTile(
-        leading: const Icon(Icons.delete),
+        leading: const Icon(Ktweel.remove_2),
         title: const Text('Remove post'),
         onTap: () {
-          changeSystemThemeOnPopup(color: const Color(0xFF575757));
+          changeSystemThemeOnPopup(
+            color:
+                isDarkMode ? const Color(0xFF000000) : const Color(0xFF575757),
+          );
           showDialog(
             context: context,
             builder: (context) {
@@ -156,7 +182,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
         }
       },
       child: ListTile(
-        leading: const Icon(Icons.edit),
+        leading: const Icon(Ktweel.edit),
         title: const Text('Edit post'),
         onTap: () {
           nextScreen(
@@ -191,8 +217,8 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
       builder: (context, state) {
         return ListTile(
           leading: isSaved
-              ? const Icon(Icons.bookmark)
-              : const Icon(Icons.bookmark_border_outlined),
+              ? const Icon(Ktweel.unbookmark, size: 22)
+              : const Icon(Ktweel.bookmark, size: 22),
           onTap: () {
             if (isSaved) {
               isSaved = false;

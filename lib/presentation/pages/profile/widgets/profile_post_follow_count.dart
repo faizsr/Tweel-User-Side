@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/pages/profile/connection_list/connection_list_page.dart';
 
 class ProfilePostFollowCountWidget extends StatelessWidget {
-  const ProfilePostFollowCountWidget({
-    super.key,
-    required this.postsList,
-    required this.userModel,
-  });
+  const ProfilePostFollowCountWidget(
+      {super.key,
+      required this.postsList,
+      required this.userModel,
+      this.isCurrentUser = false});
 
   final List<PostModel> postsList;
   final UserModel userModel;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Container(
       height: 90,
       decoration: BoxDecoration(
@@ -46,14 +51,17 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
             count: '${userModel.followers!.length}',
             title: 'FOLLOWERS',
             onTap: () {
+              changeSystemThemeOnPopup(
+                  color: isDarkMode ? dBlueGrey : lLightWhite);
               nextScreen(
                 context,
                 ConnectionListPage(
                   selectedPage: 0,
                   followers: userModel.followers!,
                   following: userModel.following!,
+                  isCurrentUser: isCurrentUser,
                 ),
-              );
+              ).then((value) => mySystemTheme(context));
             },
           ),
           Container(
@@ -65,14 +73,17 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
             count: '${userModel.following!.length}',
             title: 'FOLLOWING',
             onTap: () {
+              changeSystemThemeOnPopup(
+                  color: isDarkMode ? dBlueGrey : lLightWhite);
               nextScreen(
                 context,
                 ConnectionListPage(
                   selectedPage: 1,
                   followers: userModel.followers!,
                   following: userModel.following!,
+                  isCurrentUser: isCurrentUser,
                 ),
-              );
+              ).then((value) => mySystemTheme(context));
             },
           ),
         ],

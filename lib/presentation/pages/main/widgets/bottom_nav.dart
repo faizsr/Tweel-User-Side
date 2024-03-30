@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 
 ValueNotifier<int> indexChangeNotifier = ValueNotifier(0);
 
@@ -19,25 +19,25 @@ class BottomNavigationWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              kIconbutton(0, CustomIcons.home, theme),
+              kIconbutton(0, Ktweel.home, theme),
               Container(
                 height: 20,
                 width: 2,
                 color: theme.colorScheme.outline,
               ),
-              kIconbutton(1, CustomIcons.search_normal, theme),
+              kIconbutton(1, Ktweel.search, theme),
               Container(
                 height: 20,
                 width: 2,
                 color: theme.colorScheme.outline,
               ),
-              kIconbutton(2, CustomIcons.message_off, theme),
+              kIconbutton(2, Ktweel.message, theme),
               Container(
                 height: 20,
                 width: 2,
                 color: theme.colorScheme.outline,
               ),
-              kIconbutton(3, CustomIcons.user, theme),
+              kIconbutton(3, Ktweel.user, theme),
             ],
           ),
         );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
@@ -26,10 +26,10 @@ class _StoryHeadingWidgetState extends State<StoryHeadingWidget> {
       child: Row(
         children: [
           const Icon(
-            CustomIcons.refresh,
-            size: 14,
+            Ktweel.status,
+            size: 16,
           ),
-          kWidth(10),
+          kWidth(5),
           const Text(
             'Stories',
             style: TextStyle(fontSize: 15),
@@ -42,7 +42,6 @@ class _StoryHeadingWidgetState extends State<StoryHeadingWidget> {
               var state2 = state[1];
               if (state2 is UserDetailFetchingSucessState) {
                 userId = state2.userDetails.id!;
-                debugPrint('User Id: $userId');
               }
               if (state1 is FetchStoriesSuccessState) {
                 return GestureDetector(
@@ -61,13 +60,14 @@ class _StoryHeadingWidgetState extends State<StoryHeadingWidget> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        width: 0.5,
-                        color: Theme.of(context).colorScheme.primary,
+                        width: 1,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
-                    child: const Icon(
-                      CustomIcons.add,
-                      size: 25,
+                    child: Icon(
+                      Ktweel.add,
+                      size: 22,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 );

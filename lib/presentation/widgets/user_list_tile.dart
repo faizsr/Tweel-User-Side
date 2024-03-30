@@ -48,8 +48,6 @@ class UserListTile extends StatelessWidget {
           width: 94,
           height: 30,
           child: CustomOutlinedBtn(
-            height: 35,
-            width: 70,
             onPressed: () {},
             btnText: 'VIEW',
           ),

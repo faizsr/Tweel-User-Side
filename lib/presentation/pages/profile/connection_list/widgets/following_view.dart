@@ -5,9 +5,14 @@ import 'package:tweel_social_media/presentation/pages/profile/connection_list/wi
 import 'package:tweel_social_media/presentation/pages/profile/connection_list/widgets/following_search_result.dart';
 
 class FollowingView extends StatelessWidget {
-  const FollowingView({super.key, required this.following});
+  const FollowingView({
+    super.key,
+    required this.following,
+    required this.isCurrentUser,
+  });
 
   final List following;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,10 @@ class FollowingView extends StatelessWidget {
                 )
               : FollowingSearchResult(state: state);
         }
-        return FollowingSearchIdle(following: following);
+        return FollowingSearchIdle(
+          following: following,
+          isCurrentUser: isCurrentUser,
+        );
       },
     );
   }

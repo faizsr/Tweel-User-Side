@@ -1,7 +1,9 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/image_preview_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/media_picker/media_picker_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
@@ -42,6 +44,8 @@ class _MediaPickerState extends State<MediaPicker> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return ColorfulSafeArea(
       color: Theme.of(context).colorScheme.surface,
       child: Scaffold(
@@ -64,8 +68,15 @@ class _MediaPickerState extends State<MediaPicker> {
                   },
                   onPressed: () {
                     if (widget.screenType == ScreenType.post) {
-                      nextScreen(context,
-                          CreatePostPage(selectedAssetList: selectedAssetList));
+                      changeSystemThemeOnPopup(
+                          color: isDarkMode ? dBlueGrey : lLightWhite);
+                      nextScreen(
+                        context,
+                        CreatePostPage(selectedAssetList: selectedAssetList),
+                      ).then((value) {
+                        changeSystemThemeOnPopup(
+                            color: isDarkMode ? dBlueGrey : lLightWhite);
+                      });
                     } else if (widget.screenType == ScreenType.profile) {
                       context
                           .read<SetProfileImageCubit>()
@@ -82,7 +93,7 @@ class _MediaPickerState extends State<MediaPicker> {
                   },
                 );
               }
-              return Container();
+              return const MediaAppbar();
             },
           ),
         ),

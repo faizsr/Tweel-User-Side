@@ -19,10 +19,3 @@ class UserDetailFetchingSucessState extends ProfileState {
 
 class UserDetailFetchingErrorState extends ProfileState {}
 
-class EditUserDetailsLoadingState extends ProfileState {}
-
-class EditUserDetailsSuccessState extends ProfileState {}
-
-class EditUsernameAlreadyExistsState extends ProfileState {}
-
-class EditUserDetailsErrorState extends ProfileState {}

@@ -5,7 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
@@ -22,6 +22,8 @@ class PostsGridViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return StaggeredGridView.countBuilder(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       crossAxisCount: 3,
@@ -31,13 +33,15 @@ class PostsGridViewWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
+            changeSystemThemeOnPopup(
+                color: isDarkMode ? dBlueGrey : lLightWhite);
             nextScreen(
               context,
               PostDetailPage(
                 postModel: profileState.posts[index],
                 userModel: profileState.userDetails,
               ),
-            );
+            ).then((value) => mySystemTheme(context));
           },
           child: postImageCard(index: index),
         );
@@ -89,52 +93,52 @@ class PostEmtpyViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
+    return Column(
       children: [
-        kHeight(80),
-        Center(
-          child: Column(
-            children: [
-              IconButton(
-                style: IconButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    side: BorderSide(
-                      width: 1,
-                      color: Theme.of(context).colorScheme.onSecondary,
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  changeSystemThemeOnPopup(
-                      color: isDarkMode ? dBlueGrey : lLightWhite);
-                  nextScreen(
-                    context,
-                    const MediaPicker(
-                      maxCount: 10,
-                      requestType: RequestType.common,
-                      screenType: ScreenType.post,
-                    ),
-                  ).then((value) => mySystemTheme(context));
-                },
-                icon: Icon(
-                  CustomIcons.add,
-                  size: 40,
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
+        kHeight(70),
+        IconButton(
+          style: IconButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: BorderSide(
+                width: 1.5,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
-              kHeight(10),
-              Text(
-                'No posts yet!',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontVariations: fontWeightW600,
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
+            ),
+          ),
+          onPressed: () {
+            changeSystemThemeOnPopup(
+                color: isDarkMode ? dBlueGrey : lLightWhite);
+            nextScreen(
+              context,
+              const MediaPicker(
+                maxCount: 10,
+                requestType: RequestType.common,
+                screenType: ScreenType.post,
               ),
-            ],
+            ).then((value) => mySystemTheme(context));
+          },
+          icon: Icon(
+            Ktweel.add,
+            size: 40,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+        ),
+        kHeight(10),
+        const Text(
+          "You haven't posts yet!",
+          style: TextStyle(
+            fontSize: 18,
+            fontVariations: fontWeightW600,
+          ),
+        ),
+        kHeight(5),
+        Text(
+          'Share your thoughts and experiences \nwith the community!',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 12,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
         ),
       ],

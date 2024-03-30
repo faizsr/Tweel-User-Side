@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/profile_logics/profile_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
-import 'package:tweel_social_media/presentation/pages/post/create_post/widgets/create_loading_snackbar.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/widgets/edit_appbar.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/widgets/edit_form_field.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/widgets/profile_picture.dart';
@@ -53,19 +54,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
           showCheckIcon: true,
         ),
       ),
-      body: BlocListener<ProfileBloc, ProfileState>(
+      body: BlocListener<ProfileLogicsBloc, ProfileLogicsState>(
         listener: (context, state) {
+          if (state is EditUsernameAlreadyExistsState) {
+            customSnackbar(context, 'Username already taken',
+                leading: Ktweel.user_remove, trailing: 'OK');
+          }
           if (state is EditUserDetailsSuccessState) {
             Navigator.pop(context);
+            customSnackbar(context, 'Profile Details Updated',
+                leading: Ktweel.clipboard_tick, trailing: 'OK');
             context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
             context.read<PostBloc>().add(PostInitialFetchEvent());
             context.read<SetProfileImageCubit>().resetState();
-          }
-          if (state is EditUsernameAlreadyExistsState) {
-            customSnackbar(context, 'Username already taken');
-          }
-          if (state is EditUserDetailsLoadingState) {
-            CreateLoadingSnackbar.showSnackbar(context);
           }
         },
         child: ListView(

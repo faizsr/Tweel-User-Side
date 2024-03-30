@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlike_post_bloc.dart';
@@ -37,7 +36,7 @@ class PostActionButtons extends StatelessWidget {
             height: 15, width: 1, color: Theme.of(context).colorScheme.outline),
         CustomIconBtn(
           title: 'Share',
-          icon: CustomIcons.send_2,
+          icon: Ktweel.send_2,
           onTap: () {
             debugPrint('Share pressed');
           },
@@ -49,7 +48,7 @@ class PostActionButtons extends StatelessWidget {
   Widget commentButton(BuildContext context, bool isDarkMode) {
     return CustomIconBtn(
       title: '${postModel.comments!.length} comments',
-      icon: CustomIcons.messages_2,
+      icon: Ktweel.comment,
       onTap: () {
         debugPrint('Comment pressed');
         changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : lLightWhite);
@@ -73,8 +72,8 @@ class PostActionButtons extends StatelessWidget {
               ? theme.colorScheme.onPrimary
               : theme.colorScheme.primary,
           icon: postModel.likes!.contains(userModel.id)
-              ? CupertinoIcons.heart_fill
-              : CustomIcons.like,
+              ? Ktweel.dislike
+              : Ktweel.like,
           onTap: () {
             if (postModel.likes!.contains(userModel.id)) {
               postModel.likes!.remove(userModel.id.toString());

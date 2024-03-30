@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 
@@ -55,7 +55,7 @@ class CommentCardWidget extends StatelessWidget {
                     kHeight(10),
                     Row(
                       children: [
-                        const Icon(CustomIcons.like, size: 18),
+                        const Icon(Ktweel.like, size: 18),
                         kWidth(5),
                         const Text('like'),
                       ],

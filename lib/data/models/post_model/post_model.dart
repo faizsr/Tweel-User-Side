@@ -90,15 +90,4 @@ class CommentModel {
         'comment': comment,
         'createdAt': createdDate,
       };
-
-  @override
-  bool operator ==(Object other) {
-    if (other is PostModel) {
-      return id == other.id;
-    }
-    return false;
-  }
-
-  @override
-  int get hashCode => id.hashCode;
 }

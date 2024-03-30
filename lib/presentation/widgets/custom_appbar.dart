@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 
 class CustomAppbar {
   static AppBar show(BuildContext context, enableIcon) {
@@ -13,7 +13,7 @@ class CustomAppbar {
               duration: const Duration(milliseconds: 1000),
               child: IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(CustomIcons.arrow_left),
+                icon: const Icon(Ktweel.arrow_left),
               ),
             )
           : const SizedBox(),

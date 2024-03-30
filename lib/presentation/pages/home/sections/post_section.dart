@@ -22,7 +22,7 @@ class PostSection extends StatelessWidget {
             style: TextStyle(fontSize: 16),
           ),
           kHeight(10),
-          BlocBuilder<PostBloc,PostState>(
+          BlocBuilder<PostBloc, PostState>(
             builder: (context, state) {
               if (state is PostInitialState) {
                 context.read<PostBloc>().add(PostInitialFetchEvent());

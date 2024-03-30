@@ -11,7 +11,6 @@ part 'post_state.dart';
 class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc() : super(PostInitialState()) {
     on<PostInitialFetchEvent>(postInitialFetchEvent);
- 
   }
 
   FutureOr<void> postInitialFetchEvent(
@@ -24,6 +23,4 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(PostDetailFetchingErrorState());
     }
   }
-
-  
 }

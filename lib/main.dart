@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
-import 'package:tweel_social_media/presentation/bloc/bloc/search_user_bloc.dart';
-import 'package:tweel_social_media/presentation/bloc/bloc_logics/post_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/profile_logics/profile_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/search_user/search_user_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/post_logics/post_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/follow_unfollow_user/follow_unfollow_user_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/forget_password/forget_password_bloc.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SetProfileImageCubit()),
         BlocProvider(create: (context) => ForgetPasswordBloc()),
         BlocProvider(create: (context) => ProfileBloc()),
+        BlocProvider(create: (context) => ProfileLogicsBloc()),
         BlocProvider(create: (context) => PostBloc()),
         BlocProvider(create: (context) => SavedPostsBloc()),
         BlocProvider(create: (context) => PostLogicsBloc()),

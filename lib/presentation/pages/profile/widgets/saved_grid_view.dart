@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
 import 'package:tweel_social_media/presentation/bloc/saved_posts/saved_posts_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
@@ -42,8 +43,56 @@ class SavedGridViewWidget extends StatelessWidget {
             crossAxisSpacing: 8.0,
           );
         }
+        if (state is FetchAllSavedPostErrorState) {
+          return savedPostEmptyWidget(context);
+        }
         return Container();
       },
+    );
+  }
+
+  Center savedPostEmptyWidget(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          kHeight(70),
+          IconButton(
+            padding: const EdgeInsets.all(15),
+            style: IconButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(
+                  width: 1,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+              ),
+            ),
+            onPressed: () {},
+            icon: Icon(
+              Ktweel.unbookmark,
+              size: 25,
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
+          ),
+          kHeight(10),
+          const Text(
+            'No Saved posts yet!',
+            style: TextStyle(
+              fontSize: 18,
+              fontVariations: fontWeightW600,
+            ),
+          ),
+          kHeight(5),
+          Text(
+            'Save your favorite posts to \nread them later.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

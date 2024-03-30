@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
 class NotifyAppbar extends StatelessWidget {
@@ -17,7 +17,7 @@ class NotifyAppbar extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(CustomIcons.arrow_left_2),
+            icon: const Icon(Ktweel.arrow_left_ios),
           ),
           const Text(
             'Notifications',
@@ -26,10 +26,7 @@ class NotifyAppbar extends StatelessWidget {
           const Spacer(),
           SizedBox(
             height: 35,
-            width: 100,
             child: CustomOutlinedBtn(
-              height: 35,
-              width: 70,
               onPressed: () {},
               btnText: 'MARK AS READ',
             ),

@@ -2,23 +2,24 @@
 
 import 'dart:ui';
 
-import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
-import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
-import 'package:tweel_social_media/presentation/pages/settings/settings.dart';
-import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
     super.key,
     required this.profileImage,
+    required this.ontap,
+    required this.buttonLabel,
+    required this.leading,
   });
 
   final String profileImage;
+  final List<void Function()?> ontap;
+  final List<String> buttonLabel;
+  final List<IconData> leading;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,9 @@ class ProfileMenu extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 60,
-                backgroundImage: profileImage == "" ? Image.asset(profilePlaceholder).image : NetworkImage(profileImage),
+                backgroundImage: profileImage == ""
+                    ? Image.asset(profilePlaceholder).image
+                    : NetworkImage(profileImage),
               )
                   .animate()
                   .fade(duration: const Duration(milliseconds: 200))
@@ -50,55 +53,37 @@ class ProfileMenu extends StatelessWidget {
   }
 
   Widget _buildBottomBtns(BuildContext context, bool isDarkMode) {
-    return SeparatedColumn(
-      separatorBuilder: () =>
-          const Divider(thickness: 1, height: 1, color: lWhite).animate().scale(
-                duration: const Duration(milliseconds: 800),
-                delay: const Duration(microseconds: 500),
-                curve: Curves.easeOutBack,
-              ),
-      children: [
-        _MenuTextBtn(
-          label: 'Settings',
-          onTap: () async {
-            changeSystemThemeOnPopup(
-                color: isDarkMode ? dBlueGrey : lLightWhite);
-            await nextScreen(context, const SettingsPage()).then((value) {
-              Navigator.pop(context);
-            });
-          },
-        ),
-        _MenuTextBtn(
-          label: 'Logout',
-          onTap: () async {
-            UserAuthStatus.saveUserStatus(false);
-            changeSystemThemeOnPopup(
-                color: isDarkMode ? dBlueGrey : lLightWhite);
-            await nextScreenRemoveUntil(
-              context,
-              const UserSignInPage(),
+    return ListView.separated(
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return _MenuTextBtn(
+          label: buttonLabel[index],
+          onTap: ontap[index],
+          icon: leading[index],
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const Divider(thickness: 1, height: 1, color: lWhite)
+            .animate()
+            .scale(
+              duration: const Duration(milliseconds: 800),
+              delay: const Duration(microseconds: 500),
+              curve: Curves.easeOutBack,
             );
-            mySystemTheme(context);
-          },
-        ),
-        _MenuTextBtn(
-          label: 'About us',
-          onTap: () {},
-        ),
-      ]
-          .animate(interval: 50.ms)
-          .fade(delay: const Duration(milliseconds: 100))
-          .slide(begin: const Offset(0, .1), curve: Curves.easeOut),
+      },
+      itemCount: buttonLabel.length,
     );
   }
 }
 
 class _MenuTextBtn extends StatelessWidget {
   const _MenuTextBtn({
+    required this.icon,
     required this.label,
     required this.onTap,
   });
   final String label;
+  final IconData icon;
   final void Function()? onTap;
 
   @override
@@ -107,15 +92,20 @@ class _MenuTextBtn extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         height: 50,
-        child: Center(
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 15,
-              color: lWhite,
-              fontVariations: fontWeightW500,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Icon(icon, color: lWhite, size: 20),
+            kWidth(10),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 15,
+                color: lWhite,
+                fontVariations: fontWeightW500,
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

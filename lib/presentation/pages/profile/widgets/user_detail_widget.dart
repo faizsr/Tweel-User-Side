@@ -1,13 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/custom_icons_icons.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_post_follow_count.dart';
+import 'package:tweel_social_media/presentation/pages/settings/settings.dart';
+import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
 class UserDetailsWidget extends StatelessWidget {
@@ -40,16 +45,12 @@ class UserDetailsWidget extends StatelessWidget {
                   changeSystemThemeOnPopup(
                     color: isDarkMode ? dDialog : lDialog,
                   );
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return ProfileMenu(
-                        profileImage: userModel.profilePicture!,
-                      );
-                    },
+                  _profileMore(
+                    context,
+                    isDarkMode,
                   ).then((value) => mySystemTheme(context));
                 },
-                child: const Icon(CustomIcons.setting_2),
+                child: const Icon(Ktweel.settings),
               ),
             ],
           ),
@@ -100,15 +101,14 @@ class UserDetailsWidget extends StatelessWidget {
                               ),
                               kHeight(10),
                               SizedBox(
+                                height: 35,
                                 width: 150,
                                 child: CustomOutlinedBtn(
-                                  height: 40,
-                                  width: double.infinity,
                                   onPressed: () {
                                     changeSystemThemeOnPopup(
-                                        color: isDarkMode
-                                            ? dBlueGrey
-                                            : lLightWhite);
+                                      color:
+                                          isDarkMode ? dBlueGrey : lLightWhite,
+                                    );
                                     nextScreen(context,
                                             EditProfilePage(user: userModel))
                                         .then(
@@ -132,12 +132,50 @@ class UserDetailsWidget extends StatelessWidget {
                 child: ProfilePostFollowCountWidget(
                   postsList: postsList,
                   userModel: userModel,
+                  isCurrentUser: true,
                 ),
               ),
             ],
           )
         ],
       ),
+    );
+  }
+
+  Future<dynamic> _profileMore(BuildContext context, bool isDarkMode) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return ProfileMenu(
+          profileImage: userModel.profilePicture!,
+          leading: const [
+            Ktweel.settings,
+            Ktweel.about,
+            Ktweel.logout_2,
+          ],
+          buttonLabel: const ["Settings", "About Us", "Logout"],
+          ontap: [
+            () async {
+              changeSystemThemeOnPopup(
+                  color: isDarkMode ? dBlueGrey : lLightWhite);
+              await nextScreen(context, const SettingsPage()).then((value) {
+                Navigator.pop(context);
+              });
+            },
+            () {},
+            () async {
+              UserAuthStatus.saveUserStatus(false);
+              changeSystemThemeOnPopup(
+                  color: isDarkMode ? dBlueGrey : lLightWhite);
+              await nextScreenRemoveUntil(
+                context,
+                const UserSignInPage(),
+              );
+              mySystemTheme(context);
+            }
+          ],
+        );
+      },
     );
   }
 }
