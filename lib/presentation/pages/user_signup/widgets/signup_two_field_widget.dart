@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/core/utils/validations.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/widgets/widgets.dart';
@@ -105,7 +106,7 @@ class _SignUpTwoFieldWidgetState extends State<SignUpTwoFieldWidget> {
                             .add(UserOtpVerificationEvent(email: widget.email));
                       }
                     } else {
-                      customSnackbar(context, "Passwords doesn't match");
+                      customSnackbar(context, "Passwords doesn't match",leading: Ktweel.shield_cross,trailing: 'OK');
                     }
                   },
                 ),

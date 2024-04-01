@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
@@ -51,9 +52,8 @@ class SignUpWidgets {
           title: Text(
             'Verification',
             style: TextStyle(
-              fontVariations: fontWeightW600,
-              color: Theme.of(context).colorScheme.primary
-            ),
+                fontVariations: fontWeightW600,
+                color: Theme.of(context).colorScheme.primary),
           ),
           content: const Text(
               'A 6 - Digit OTP has been sent to your email address, enter it below to continue'),
@@ -66,17 +66,19 @@ class SignUpWidgets {
                 if (state is UsernameExistsErrorState) {
                   debugPrint('Username already exists');
                   Navigator.pop(context);
-                  customSnackbar(context, 'Username already exists');
+                  customSnackbar(context, 'Username already exists',
+                      leading: Ktweel.user_remove, trailing: 'OK');
                 }
                 if (state is EmailExistsErrorState) {
                   debugPrint('Email already exists');
                   Navigator.pop(context);
-                  customSnackbar(context, 'Email already exists');
+                  customSnackbar(context, 'Email already exists',
+                      leading: Ktweel.info_circle, trailing: 'OK');
                 }
                 if (state is PhonenoExistsErrorState) {
-                  debugPrint('Phone number already exists');
                   Navigator.pop(context);
-                  customSnackbar(context, 'Phone number already exists');
+                  customSnackbar(context, 'Phone number already exists',
+                      leading: Ktweel.info_circle, trailing: 'OK');
                 }
               },
               builder: (context, state) {

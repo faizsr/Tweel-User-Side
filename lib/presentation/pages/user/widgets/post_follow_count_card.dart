@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
@@ -20,8 +19,6 @@ class PostFollowCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return BlocBuilder<FollowUnfollowUserBloc, FollowUnfollowUserState>(
       builder: (context, state) {
         return Container(
@@ -55,7 +52,7 @@ class PostFollowCountWidget extends StatelessWidget {
                 title: 'FOLLOWERS',
                 onTap: () {
                   changeSystemThemeOnPopup(
-                      color: isDarkMode ? dBlueGrey : lLightWhite);
+                      color: Theme.of(context).colorScheme.surface,context: context,);
                   nextScreen(
                     context,
                     ConnectionListPage(

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
-// import 'package:tweel_social_media/data/models/user_model/user_model.dart';
-// import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
@@ -26,8 +23,6 @@ class SuggestedPeopleGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return StaggeredGridView.countBuilder(
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
@@ -40,7 +35,7 @@ class SuggestedPeopleGridView extends StatelessWidget {
           onTap: () {
             debugPrint('Go to profile');
             changeSystemThemeOnPopup(
-                color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,context: context,);
             nextScreen(context, UserProfilePage(userId: state.users[index].id!))
                 .then((value) => mySystemTheme(context));
             context

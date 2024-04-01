@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -27,8 +26,6 @@ class UserDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Column(
@@ -43,11 +40,10 @@ class UserDetailsWidget extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   changeSystemThemeOnPopup(
-                    color: isDarkMode ? dDialog : lDialog,
+                    color: Theme.of(context).colorScheme.surfaceTint,context: context,
                   );
                   _profileMore(
                     context,
-                    isDarkMode,
                   ).then((value) => mySystemTheme(context));
                 },
                 child: const Icon(Ktweel.settings),
@@ -107,7 +103,7 @@ class UserDetailsWidget extends StatelessWidget {
                                   onPressed: () {
                                     changeSystemThemeOnPopup(
                                       color:
-                                          isDarkMode ? dBlueGrey : lLightWhite,
+                                          Theme.of(context).colorScheme.surface,context: context,
                                     );
                                     nextScreen(context,
                                             EditProfilePage(user: userModel))
@@ -142,7 +138,7 @@ class UserDetailsWidget extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _profileMore(BuildContext context, bool isDarkMode) {
+  Future<dynamic> _profileMore(BuildContext context) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -157,7 +153,7 @@ class UserDetailsWidget extends StatelessWidget {
           ontap: [
             () async {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                  color: Theme.of(context).colorScheme.surface,context: context,);
               await nextScreen(context, const SettingsPage()).then((value) {
                 Navigator.pop(context);
               });
@@ -166,7 +162,7 @@ class UserDetailsWidget extends StatelessWidget {
             () async {
               UserAuthStatus.saveUserStatus(false);
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                  color: Theme.of(context).colorScheme.surface,context: context,);
               await nextScreenRemoveUntil(
                 context,
                 const UserSignInPage(),

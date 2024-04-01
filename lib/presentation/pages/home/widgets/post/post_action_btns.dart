@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlike_post_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_icon_btn.dart';
@@ -23,17 +23,21 @@ class PostActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         likeButton(theme),
         Container(
-            height: 15, width: 1, color: Theme.of(context).colorScheme.outline),
-        commentButton(context, isDarkMode),
+          height: 15,
+          width: 1,
+          color: Theme.of(context).colorScheme.outline,
+        ),
+        commentButton(context),
         Container(
-            height: 15, width: 1, color: Theme.of(context).colorScheme.outline),
+          height: 15,
+          width: 1,
+          color: Theme.of(context).colorScheme.outline,
+        ),
         CustomIconBtn(
           title: 'Share',
           icon: Ktweel.send_2,
@@ -45,20 +49,27 @@ class PostActionButtons extends StatelessWidget {
     );
   }
 
-  Widget commentButton(BuildContext context, bool isDarkMode) {
-    return CustomIconBtn(
-      title: '${postModel.comments!.length} comments',
-      icon: Ktweel.comment,
-      onTap: () {
-        debugPrint('Comment pressed');
-        changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : lLightWhite);
-        nextScreen(
-          context,
-          PostDetailPage(
-            postModel: postModel,
-            userModel: userModel,
-          ),
-        ).then((value) => mySystemTheme(context));
+  Widget commentButton(BuildContext context) {
+    return BlocBuilder<CommentBloc, CommentState>(
+      builder: (context, state) {
+        return CustomIconBtn(
+          title: '${postModel.comments!.length} comments',
+          icon: Ktweel.comment,
+          onTap: () {
+            debugPrint('Comment pressed');
+            changeSystemThemeOnPopup(
+              color: Theme.of(context).colorScheme.surface,
+              context: context,
+            );
+            nextScreen(
+              context,
+              PostDetailPage(
+                postModel: postModel,
+                userModel: userModel,
+              ),
+            ).then((value) => mySystemTheme(context));
+          },
+        );
       },
     );
   }

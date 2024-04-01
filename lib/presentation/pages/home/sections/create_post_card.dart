@@ -22,8 +22,6 @@ class _CreatePostCardState extends State<CreatePostCard> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       width: MediaQuery.of(context).size.width,
@@ -88,7 +86,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                       child: CustomOutlinedBtn(
                         onPressed: () {
                           changeSystemThemeOnPopup(
-                              color: isDarkMode ? dBlueGrey : lLightWhite);
+                              color: theme.colorScheme.surface,context: context,);
                           nextScreen(
                             context,
                             const MediaPicker(

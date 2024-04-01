@@ -6,18 +6,22 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 var mainFont = 'Coco-Gothic-Pro';
 
 void mySystemTheme(BuildContext context) {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Theme.of(context).colorScheme.primaryContainer,
-    statusBarIconBrightness: Theme.of(context).colorScheme.brightness,
-  ));
-}
-
-void changeSystemThemeOnPopup({Color? color}) {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Theme.of(context).colorScheme.brightness,
+      statusBarBrightness: Theme.of(context).colorScheme.brightness,
+      systemNavigationBarColor: Theme.of(context).colorScheme.primaryContainer,
+    ),
+  );
+}
+
+void changeSystemThemeOnPopup({Color? color, required BuildContext context}) {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Theme.of(context).colorScheme.brightness,
+      statusBarBrightness: Theme.of(context).colorScheme.brightness,
       systemNavigationBarColor: color ?? const Color(0xFFb8b7bb),
     ),
   );
@@ -25,8 +29,9 @@ void changeSystemThemeOnPopup({Color? color}) {
 
 var lightTheme = ThemeData(
   fontFamily: mainFont,
+  // brightness: Brightness.light,
   colorScheme: const ColorScheme(
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     primary: lBlack, // Icon || Text Primary Color
     onPrimary: lBlue, // Selected Color
     primaryContainer: lWhite, // Card Color
@@ -37,6 +42,10 @@ var lightTheme = ThemeData(
     outlineVariant: lLightGrey3, // Loading Button & Text Color
     surface: lLightWhite, // Background Color
     onSurface: lLightGrey2, // Loading Skelton Color
+    tertiary: lDarkGrey2, // For Remove Dialog Box
+    onTertiary: lBottom, // For Bottom Sheet
+    surfaceTint: lDialog, // For Dialog Box
+    surfaceVariant: lBottom,
     error: Colors.red,
     onError: Colors.red,
     background: Colors.transparent,
@@ -51,9 +60,6 @@ var lightTheme = ThemeData(
       fontVariations: fontWeightRegular,
     ),
     iconTheme: const IconThemeData(color: lBlack),
-    systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-    ),
   ),
   iconTheme: const IconThemeData(color: lBlack),
   textTheme: const TextTheme(
@@ -78,7 +84,7 @@ var lightTheme = ThemeData(
 var darkTheme = ThemeData(
   fontFamily: mainFont,
   colorScheme: const ColorScheme(
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     primary: dWhite, // Icon || Text Primary Color
     onPrimary: dBlue, // Selected Color
     primaryContainer: dLightBlueGrey, // Card Color
@@ -89,6 +95,10 @@ var darkTheme = ThemeData(
     outlineVariant: dLightBlueGrey2, // Loading Button & Text Color
     surface: dBlueGrey, // Background Color
     onSurface: dLightBlueGrey2, // Loading Skelton Color
+    tertiary: dBlack, // For Remove Dialog Box
+    onTertiary: dBottom, // For Bottom Sheet
+    surfaceTint: dDialog, // For Dialog box
+    surfaceVariant: dBottom2,
     error: Colors.red,
     onError: Colors.red,
     background: Colors.transparent,
@@ -102,9 +112,6 @@ var darkTheme = ThemeData(
       fontVariations: fontWeightRegular,
     ),
     iconTheme: const IconThemeData(color: dWhite),
-    systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.light,
-    ),
   ),
   listTileTheme: const ListTileThemeData(iconColor: dWhite, textColor: dWhite),
   dividerColor: kLightGrey2,

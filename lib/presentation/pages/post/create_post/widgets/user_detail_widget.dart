@@ -8,9 +8,6 @@ class UserDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
-    });
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is UserDetailFetchingSucessState) {

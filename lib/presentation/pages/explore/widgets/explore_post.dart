@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
@@ -15,8 +14,6 @@ class ExplorePosts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return BlocBuilder<PostBloc, PostState>(
       builder: (context, state) {
         if (state is PostInitialState) {
@@ -34,7 +31,7 @@ class ExplorePosts extends StatelessWidget {
           return Column(
             children: [
               _titleWidget(),
-              _postGridView(state, isDarkMode),
+              _postGridView(state),
             ],
           );
         }
@@ -45,8 +42,7 @@ class ExplorePosts extends StatelessWidget {
     );
   }
 
-  StaggeredGridView _postGridView(
-      PostDetailFetchingSucessState state, bool isDarkMode) {
+  StaggeredGridView _postGridView(PostDetailFetchingSucessState state) {
     return StaggeredGridView.countBuilder(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
       crossAxisCount: 2,
@@ -64,10 +60,15 @@ class ExplorePosts extends StatelessWidget {
             imageUrl: url,
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
-                PostDetailPage(postModel: post, userModel: post.user),
+                PostDetailPage(
+                  postModel: post,
+                  userModel: post.user,
+                ),
               ).then((value) => mySystemTheme(context));
             },
           );
@@ -77,10 +78,15 @@ class ExplorePosts extends StatelessWidget {
             height: 220,
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
-                PostDetailPage(postModel: post, userModel: post.user),
+                PostDetailPage(
+                  postModel: post,
+                  userModel: post.user,
+                ),
               ).then((value) => mySystemTheme(context));
             },
           );
@@ -91,10 +97,15 @@ class ExplorePosts extends StatelessWidget {
             imageUrl: url,
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
-                PostDetailPage(postModel: post, userModel: post.user),
+                PostDetailPage(
+                  postModel: post,
+                  userModel: post.user,
+                ),
               ).then((value) => mySystemTheme(context));
             },
           );
@@ -104,10 +115,15 @@ class ExplorePosts extends StatelessWidget {
             height: 150,
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
-                PostDetailPage(postModel: post, userModel: post.user),
+                PostDetailPage(
+                  postModel: post,
+                  userModel: post.user,
+                ),
               ).then((value) => mySystemTheme(context));
             },
           );
@@ -118,10 +134,15 @@ class ExplorePosts extends StatelessWidget {
             imageUrl: url,
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
-                PostDetailPage(postModel: post, userModel: post.user),
+                PostDetailPage(
+                  postModel: post,
+                  userModel: post.user,
+                ),
               ).then((value) => mySystemTheme(context));
             },
           );
@@ -131,10 +152,15 @@ class ExplorePosts extends StatelessWidget {
             height: 190,
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
-                PostDetailPage(postModel: post, userModel: post.user),
+                PostDetailPage(
+                  postModel: post,
+                  userModel: post.user,
+                ),
               ).then((value) => mySystemTheme(context));
             },
           );

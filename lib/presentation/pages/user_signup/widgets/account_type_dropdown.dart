@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down/drop_down_cubit.dart';
 
 class AccountTypeDropDown extends StatelessWidget {
@@ -96,7 +97,7 @@ class AccountTypeDropDown extends StatelessWidget {
           ),
           iconStyleData: IconStyleData(
             icon: Icon(
-              Icons.arrow_drop_down,
+              Ktweel.arrow_bottom_outlined,
               color: Theme.of(context).colorScheme.primary,
             ),
             iconSize: 24,

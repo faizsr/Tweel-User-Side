@@ -23,8 +23,6 @@ class ProfileMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
       child: Center(
@@ -43,7 +41,7 @@ class ProfileMenu extends StatelessWidget {
                   .fade(duration: const Duration(milliseconds: 200))
                   .scale(begin: const Offset(.8, .8), curve: Curves.easeOut),
               kHeight(20),
-              _buildBottomBtns(context, isDarkMode),
+              _buildBottomBtns(context),
               kHeight(50),
             ],
           ),
@@ -52,7 +50,7 @@ class ProfileMenu extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomBtns(BuildContext context, bool isDarkMode) {
+  Widget _buildBottomBtns(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       itemBuilder: (context, index) {

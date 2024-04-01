@@ -44,6 +44,7 @@ class PostSection extends StatelessWidget {
                       return PostCardWidget(
                         postModel: state.posts[index],
                         userModel: state.posts[index].user!,
+                        index: index,
                       );
                     }
                     return Container();

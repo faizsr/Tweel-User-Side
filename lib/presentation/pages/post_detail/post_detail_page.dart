@@ -58,7 +58,11 @@ class PostDetailPage extends StatelessWidget {
                           style: const TextStyle(fontSize: 13),
                         ),
                         kHeight(10),
-                        PostImageWidget(postModel: postModel, height: 420),
+                        PostImageWidget(
+                          postModel: postModel,
+                          height: 420,
+                          onDetail: true,
+                        ),
                         kHeight(20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

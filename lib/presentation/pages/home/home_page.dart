@@ -8,6 +8,7 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
+import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
 import 'package:tweel_social_media/presentation/pages/home/sections/create_post_card.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/heading_widget.dart';
 import 'package:tweel_social_media/presentation/pages/home/sections/post_section.dart';
@@ -26,18 +27,18 @@ class HomePage extends StatelessWidget {
     }
 
     mySystemTheme(context);
-    return RefreshIndicator(
-      onRefresh: handleRefresh,
-      child: ColorfulSafeArea(
-        color: Theme.of(context).colorScheme.surface,
-        child: Scaffold(
-          extendBodyBehindAppBar: true,
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          body: ListView(
+    return ColorfulSafeArea(
+      color: Theme.of(context).colorScheme.surface,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: RefreshWidget(
+          onRefresh: handleRefresh,
+          child: ListView(
             shrinkWrap: true,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
                 child: Column(
                   children: [
                     const HeadingWidget(),

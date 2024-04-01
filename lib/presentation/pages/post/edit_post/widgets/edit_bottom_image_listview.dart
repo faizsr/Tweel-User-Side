@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/widgets/video_player.dart';
 import 'package:http/http.dart' as http;
 
@@ -56,7 +57,7 @@ class _EditBottomImageListviewState extends State<EditBottomImageListview> {
                               errorBuilder: (context, error, stackTrace) {
                                 return const Center(
                                   child: Icon(
-                                    Icons.error,
+                                    Ktweel.info_rugged,
                                     color: Colors.red,
                                   ),
                                 );
@@ -109,7 +110,7 @@ class _EditBottomImageListviewState extends State<EditBottomImageListview> {
                       backgroundColor: lWhite,
                       foregroundColor: lBlack,
                       child: Icon(
-                        Icons.close,
+                        Ktweel.close,
                         size: 15,
                       ),
                     ),

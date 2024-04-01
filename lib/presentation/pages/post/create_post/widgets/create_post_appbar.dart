@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/post_logics/post_logics_bloc.dart';
 
 class CreatePostAppbar extends StatelessWidget {
@@ -22,8 +23,8 @@ class CreatePostAppbar extends StatelessWidget {
           Navigator.pop(context);
         },
         icon: const Icon(
-          Icons.close,
-          size: 22,
+          Ktweel.close,
+          size: 26,
         ),
       ),
       titleSpacing: 0,

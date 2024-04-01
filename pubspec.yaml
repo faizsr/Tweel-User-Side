@@ -62,6 +62,9 @@ dependencies:
   provider: ^6.1.2
   path_provider: ^2.1.2
   get_thumbnail_video: ^0.6.1
+  custom_refresh_indicator: ^3.1.0
+  flutter_spinkit: ^5.2.1
+  widget_zoom: ^0.0.4
 
 dev_dependencies:
   flutter_test:

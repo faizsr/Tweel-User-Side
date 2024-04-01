@@ -139,7 +139,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               ? Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Icon(
-                    Icons.close,
+                    Ktweel.close,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 )

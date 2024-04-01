@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface);
+    changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface,context: context,);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: const Center(
@@ -47,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
         nextScreenRemoveUntil(context, const UserSignInPage());
       } else {
         await Future.delayed(const Duration(seconds: 3));
-         nextScreenRemoveUntil(context, MainPage());
+        nextScreenRemoveUntil(context, MainPage());
       }
     }
   }

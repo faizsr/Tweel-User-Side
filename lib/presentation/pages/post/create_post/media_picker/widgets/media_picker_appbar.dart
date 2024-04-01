@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class MediaPickerAppbar extends StatefulWidget {
@@ -52,7 +53,8 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
         ),
         iconStyleData: IconStyleData(
           icon: Icon(
-            Icons.keyboard_arrow_down,
+            Ktweel.arrow_down_ios,
+            size: 15,
             color: Theme.of(context).colorScheme.primary,
           ),
           iconSize: 18,
@@ -114,8 +116,8 @@ class MediaAppbar extends StatelessWidget {
           Navigator.pop(context);
         },
         icon: const Icon(
-          Icons.close,
-          size: 22,
+          Ktweel.close,
+          size: 26,
         ),
       ),
       titleSpacing: 0,
@@ -129,7 +131,7 @@ class MediaAppbar extends StatelessWidget {
             ? IconButton(
                 onPressed: onPressed,
                 icon: const Icon(
-                  Icons.arrow_forward,
+                  Ktweel.arrow_right,
                   size: 22,
                 ),
               )

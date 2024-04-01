@@ -75,7 +75,7 @@ class _PostCardLoadingState extends State<PostCardLoading> {
         ),
         const Spacer(),
         Icon(
-          Icons.more_vert_sharp,
+          Ktweel.more_vert,
           color: Theme.of(context).colorScheme.onSurface,
         ),
       ],

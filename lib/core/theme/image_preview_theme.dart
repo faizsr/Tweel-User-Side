@@ -7,10 +7,13 @@ var imagePreviewlightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: lBlack,
     ),
-    color: lWhite,
+    color: lBlack,
+    iconTheme: IconThemeData(color: lWhite),
+    titleTextStyle: TextStyle(color: lWhite),
   ),
-  scaffoldBackgroundColor: lWhite,
+  scaffoldBackgroundColor: lBlack,
   canvasColor: lBlack,
   iconTheme: const IconThemeData(color: lBlack),
 );

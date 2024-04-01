@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/core/utils/validations.dart';
 import 'package:tweel_social_media/presentation/bloc/forget_password/forget_password_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/forgot_password/reset_password_page.dart';
@@ -91,7 +92,7 @@ class _ForgetFieldWidgetState extends State<ForgetFieldWidget> {
       );
     }
     if (state is ForgetUserNotExistState) {
-      customSnackbar(context, 'User not found with the email',leading: Icons.no_accounts,trailing: 'OK');
+      customSnackbar(context, 'User not found with the email',leading: Ktweel.user_remove,trailing: 'OK');
     }
   }
 }

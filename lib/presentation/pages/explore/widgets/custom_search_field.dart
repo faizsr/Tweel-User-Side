@@ -35,8 +35,9 @@ class CustomSearchField extends StatelessWidget {
               size: 20,
             ),
             suffixIcon: Icon(
-              Icons.close,
-              color: theme.colorScheme.onSecondary,
+              Ktweel.close,
+              size: 24,
+              color: theme.colorScheme.secondary,
             ),
             placeholder: 'Search here...',
             placeholderStyle: TextStyle(

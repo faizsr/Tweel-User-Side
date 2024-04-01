@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -22,8 +21,6 @@ class PostsGridViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return StaggeredGridView.countBuilder(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       crossAxisCount: 3,
@@ -34,7 +31,7 @@ class PostsGridViewWidget extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             changeSystemThemeOnPopup(
-                color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,context: context,);
             nextScreen(
               context,
               PostDetailPage(
@@ -91,8 +88,6 @@ class PostEmtpyViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Column(
       children: [
         kHeight(70),
@@ -108,7 +103,7 @@ class PostEmtpyViewWidget extends StatelessWidget {
           ),
           onPressed: () {
             changeSystemThemeOnPopup(
-                color: isDarkMode ? dBlueGrey : lLightWhite);
+                color: Theme.of(context).colorScheme.surface,context: context,);
             nextScreen(
               context,
               const MediaPicker(

@@ -89,7 +89,7 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
                   debugPrint('Nothing to change');
                 }
               },
-              icon: const Icon(Icons.done_rounded),
+              icon: const Icon(Ktweel.tick),
             );
           },
         )

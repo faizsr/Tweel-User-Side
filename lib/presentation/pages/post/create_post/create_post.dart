@@ -25,6 +25,7 @@ class CreatePostPage extends StatefulWidget {
 class _CreatePostPageState extends State<CreatePostPage> {
   final locationController = TextEditingController();
   final descriptionController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +37,15 @@ class _CreatePostPageState extends State<CreatePostPage> {
           preferredSize: const Size.fromHeight(40),
           child: CreatePostAppbar(
             onTap: () {
-              context.read<PostLogicsBloc>().add(
-                    CreatePostEvent(
-                      description: descriptionController.text,
-                      location: locationController.text,
-                      selectedAssets: widget.selectedAssetList,
-                    ),
-                  );
+              if (formKey.currentState!.validate()) {
+                context.read<PostLogicsBloc>().add(
+                      CreatePostEvent(
+                        description: descriptionController.text,
+                        location: locationController.text,
+                        selectedAssets: widget.selectedAssetList,
+                      ),
+                    );
+              }
             },
           ),
         ),
@@ -60,25 +63,31 @@ class _CreatePostPageState extends State<CreatePostPage> {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: Column(
-                children: [
-                  const UserDetailWidget(),
-                  kHeight(20),
-                  createPostTextField(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    const UserDetailWidget(),
+                    kHeight(20),
+                    createPostTextField(
                       context: context,
                       controller: locationController,
-                      hintText: 'Enter location'),
-                  createPostTextField(
+                      hintText: 'Enter location',
+                    ),
+                    createPostTextField(
                       context: context,
                       controller: descriptionController,
-                      hintText: 'What do you want to talk about?'),
-                ],
+                      hintText: 'What do you want to talk about?',
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-        bottomSheet:
-            BottomImageListview(selectedAssetList: widget.selectedAssetList),
+        bottomSheet: BottomImageListview(
+          selectedAssetList: widget.selectedAssetList,
+        ),
       ),
     );
   }
@@ -96,6 +105,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
         hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
         border: InputBorder.none,
       ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'This field is required.';
+        }
+        return '';
+      },
     );
   }
 }

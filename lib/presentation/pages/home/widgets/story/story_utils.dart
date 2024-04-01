@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -24,11 +23,9 @@ class StoryUtils {
   }
 
   static Widget emptyStoryView(BuildContext context, String? userId) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return GestureDetector(
       onTap: () {
-        changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : lLightWhite);
+        changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface,context: context,);
         nextScreen(
           context,
           MediaPicker(

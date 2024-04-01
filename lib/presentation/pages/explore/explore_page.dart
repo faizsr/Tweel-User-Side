@@ -14,6 +14,7 @@ import 'package:tweel_social_media/presentation/pages/explore/widgets/custom_sea
 import 'package:tweel_social_media/presentation/pages/explore/widgets/explore_post.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/suggested_people.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/user_search_result_view.dart';
+import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -37,10 +38,10 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _handleRefresh,
-      child: ColorfulSafeArea(
-        color: Theme.of(context).colorScheme.surface,
+    return ColorfulSafeArea(
+      color: Theme.of(context).colorScheme.surface,
+      child: RefreshWidget(
+        onRefresh: _handleRefresh,
         child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           appBar: Hidable(

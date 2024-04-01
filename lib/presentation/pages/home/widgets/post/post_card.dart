@@ -12,10 +12,12 @@ class PostCardWidget extends StatelessWidget {
     super.key,
     required this.postModel,
     required this.userModel,
+    required this.index,
   });
 
   final PostModel postModel;
   final UserModel userModel;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +49,17 @@ class PostCardWidget extends StatelessWidget {
           kHeight(15),
 
           // Post Image Section
-          PostImageWidget(postModel: postModel, height: 380),
+          PostImageWidget(
+            postModel: postModel,
+            height: 400,
+          ),
           kHeight(15),
 
           // Post Action Buttons
-          PostActionButtons(postModel: postModel, userModel: userModel)
+          PostActionButtons(
+            postModel: postModel,
+            userModel: userModel,
+          )
         ],
       ),
     );

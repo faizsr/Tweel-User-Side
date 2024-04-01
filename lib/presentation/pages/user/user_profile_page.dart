@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
+import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/post_button.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/post_grid_view.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/user_detail_widget.dart';
@@ -30,31 +32,34 @@ class UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _handleRefresh,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        body: BlocBuilder<UserByIdBloc, UserByIdState>(
-          builder: (context, state) {
-            if (state is FetchUserByIdLoadingState) {
-              return const UserProfilePageLoading();
-            }
-            if (state is FetchUserByIdSuccessState) {
-              return ListView(
-                children: [
-                  UserProfileDetailsWidget(
-                    userModel: state.userModel,
-                    postsList: state.posts,
-                  ),
-                  kHeight(55),
-                  checkAccountType(state),
-                ],
+    return ColorfulSafeArea(
+      color: Theme.of(context).colorScheme.surface,
+      child: RefreshWidget(
+        onRefresh: _handleRefresh,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          body: BlocBuilder<UserByIdBloc, UserByIdState>(
+            builder: (context, state) {
+              if (state is FetchUserByIdLoadingState) {
+                return const UserProfilePageLoading();
+              }
+              if (state is FetchUserByIdSuccessState) {
+                return ListView(
+                  children: [
+                    UserProfileDetailsWidget(
+                      userModel: state.userModel,
+                      postsList: state.posts,
+                    ),
+                    kHeight(55),
+                    checkAccountType(state),
+                  ],
+                );
+              }
+              return const Center(
+                child: Text('No data'),
               );
-            }
-            return const Center(
-              child: Text('No data'),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

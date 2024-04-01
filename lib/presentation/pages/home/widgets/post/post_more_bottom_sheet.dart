@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -51,9 +50,6 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
-
     return AnimatedContainer(
       curve: Curves.fastOutSlowIn,
       duration: const Duration(seconds: 1),
@@ -66,14 +62,14 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
-          saveUnsaveBtn(isDarkMode),
+          saveUnsaveBtn(),
 
           // =========== If post is of current user ===========
           (widget.postModel.user!.id ?? widget.postId) == widget.userId
               ? Column(
                   children: [
                     editPostBtn(context),
-                    removePostBtn(context, isDarkMode),
+                    removePostBtn(context),
                   ],
                 )
               : const SizedBox(),
@@ -81,7 +77,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
           // =========== else ===========
           (widget.postModel.user!.id ?? widget.postId) != widget.userId
               ? Column(
-                  children: [reportPostBtn(), viewAccountBtn(isDarkMode)],
+                  children: [reportPostBtn(), viewAccountBtn()],
                 )
               : const SizedBox(),
         ],
@@ -90,13 +86,16 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
   }
 
   // =========== View Account Button ===========
-  Widget viewAccountBtn(bool isDarkMode) {
+  Widget viewAccountBtn() {
     return ListTile(
       leading: const Icon(Ktweel.user, size: 22),
       title: const Text('View account'),
       onTap: () {
         debugPrint('Go to profile');
-        changeSystemThemeOnPopup(color: isDarkMode ? dBlueGrey : lLightWhite);
+        changeSystemThemeOnPopup(
+          color: Theme.of(context).colorScheme.surface,
+          context: context,
+        );
         nextScreen(
             context,
             UserProfilePage(
@@ -126,7 +125,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
   }
 
 // =========== Remove Post Button ===========
-  Widget removePostBtn(BuildContext context, bool isDarkMode) {
+  Widget removePostBtn(BuildContext context) {
     return BlocListener<PostLogicsBloc, PostLogicsState>(
       listener: (context, state) {
         if (state is RemovePostSuccessState) {
@@ -142,8 +141,8 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
         title: const Text('Remove post'),
         onTap: () {
           changeSystemThemeOnPopup(
-            color:
-                isDarkMode ? const Color(0xFF000000) : const Color(0xFF575757),
+            color: Theme.of(context).colorScheme.tertiary,
+            context: context,
           );
           showDialog(
             context: context,
@@ -163,8 +162,10 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
                 },
               );
             },
-          ).then((value) =>
-              changeSystemThemeOnPopup(color: isDarkMode ? dBottom : lBottom));
+          ).then((value) => changeSystemThemeOnPopup(
+                color: Theme.of(context).colorScheme.onTertiary,
+                context: context,
+              ));
         },
       ),
     );
@@ -200,17 +201,23 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
   }
 
 // =========== Save Unsave Button ===========
-  Widget saveUnsaveBtn(bool isDarkMode) {
+  Widget saveUnsaveBtn() {
     return BlocConsumer<PostLogicsBloc, PostLogicsState>(
       listener: (context, state) {
         if (state is SavedPostSuccessState) {
-          changeSystemThemeOnPopup(color: isDarkMode ? dBottom : lBottom);
+          changeSystemThemeOnPopup(
+            color: Theme.of(context).colorScheme.onTertiary,
+            context: context,
+          );
           debugPrint('Saved post is success');
           context.read<SavedPostsBloc>().add(FetchAllSavedPostEvent());
         }
         if (state is UnsavePostSuccessState) {
           debugPrint('Unsaved post is success');
-          changeSystemThemeOnPopup(color: isDarkMode ? dBottom : lBottom);
+          changeSystemThemeOnPopup(
+            color: Theme.of(context).colorScheme.onTertiary,
+            context: context,
+          );
           context.read<SavedPostsBloc>().add(FetchAllSavedPostEvent());
         }
       },

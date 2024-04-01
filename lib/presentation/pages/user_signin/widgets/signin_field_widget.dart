@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/forgot_password/forget_password_page.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
@@ -116,19 +117,23 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
 
   void signInListener(BuildContext context, SignInState state) {
     if (state is InvalidUsernameErrorState) {
-      customSnackbar(context, "Username doesn't exist");
+      customSnackbar(context, "Username doesn't exist",
+          leading: Ktweel.user_remove, trailing: 'OK');
     }
     if (state is InvalidPasswordErrorState) {
-      customSnackbar(context, "Incorrect password");
+      customSnackbar(context, "Incorrect password",
+          leading: Ktweel.shield_cross, trailing: 'OK');
     }
     if (state is BlockedbyAdminErrorState) {
-      customSnackbar(context, 'You have by blocked by tweel');
+      customSnackbar(context, 'You have by blocked by tweel',
+          leading: Ktweel.info_rugged, trailing: 'OK');
     }
     if (state is UserSignInSuccessState) {
       nextScreenRemoveUntil(context, MainPage());
     }
     if (state is UserSignInErrorState) {
-      customSnackbar(context, 'Error signing in');
+      customSnackbar(context, 'Please try again after some times',
+          leading: Ktweel.close_circle, trailing: 'OK');
     }
   }
 }

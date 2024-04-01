@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
@@ -19,8 +18,6 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Container(
       height: 90,
       decoration: BoxDecoration(
@@ -52,7 +49,7 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
             title: 'FOLLOWERS',
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                  color: Theme.of(context).colorScheme.surface,context: context,);
               nextScreen(
                 context,
                 ConnectionListPage(
@@ -74,7 +71,7 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
             title: 'FOLLOWING',
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: isDarkMode ? dBlueGrey : lLightWhite);
+                  color: Theme.of(context).colorScheme.surface,context: context,);
               nextScreen(
                 context,
                 ConnectionListPage(

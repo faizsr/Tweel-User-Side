@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
@@ -19,8 +19,6 @@ class PostGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return state.posts.isNotEmpty
         ? StaggeredGridView.countBuilder(
             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -32,7 +30,7 @@ class PostGridView extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   changeSystemThemeOnPopup(
-                      color: isDarkMode ? dBlueGrey : lLightWhite);
+                      color: Theme.of(context).colorScheme.surface,context: context,);
                   nextScreen(
                     context,
                     PostDetailPage(
@@ -65,7 +63,7 @@ class PostGridView extends StatelessWidget {
                 ),
                 onPressed: () {},
                 icon: Icon(
-                  Icons.dashboard,
+                  Ktweel.grid,
                   size: 35,
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),

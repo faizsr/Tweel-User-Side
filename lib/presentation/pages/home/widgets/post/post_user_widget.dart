@@ -25,8 +25,6 @@ class PostUserDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     ThemeData theme = Theme.of(context);
     return Row(
       children: [
@@ -34,7 +32,9 @@ class PostUserDetail extends StatelessWidget {
           onTap: () {
             debugPrint('Go to profile');
             changeSystemThemeOnPopup(
-                color: isDarkMode ? dBlueGrey : lLightWhite);
+              color: Theme.of(context).colorScheme.surface,
+              context: context,
+            );
             nextScreen(
                 context,
                 UserProfilePage(
@@ -43,7 +43,9 @@ class PostUserDetail extends StatelessWidget {
               mySystemTheme(context);
               if (onDetail) {
                 changeSystemThemeOnPopup(
-                    color: isDarkMode ? dBlueGrey : lLightWhite);
+                  color: Theme.of(context).colorScheme.surface,
+                  context: context,
+                );
               }
             });
             context
@@ -106,11 +108,11 @@ class PostUserDetail extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       changeSystemThemeOnPopup(
-                          color: isDarkMode
-                              ? onDetail
-                                  ? dBottom2
-                                  : dBottom
-                              : lBottom);
+                        color: onDetail
+                            ? Theme.of(context).colorScheme.surfaceVariant
+                            : Theme.of(context).colorScheme.onTertiary,
+                        context: context,
+                      );
                       PostMoreWidget.bottomSheet(
                         context: context,
                         postModel: postModel,

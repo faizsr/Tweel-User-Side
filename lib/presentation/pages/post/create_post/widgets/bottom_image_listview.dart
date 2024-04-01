@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/image_preview_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class BottomImageListview extends StatefulWidget {
@@ -53,7 +54,7 @@ class _BottomImageListviewState extends State<BottomImageListview> {
                         errorBuilder: (context, error, stackTrace) {
                           return const Center(
                             child: Icon(
-                              Icons.error,
+                              Ktweel.info_rugged,
                               color: Colors.red,
                             ),
                           );
@@ -101,7 +102,7 @@ class _BottomImageListviewState extends State<BottomImageListview> {
                       backgroundColor: lWhite,
                       foregroundColor: lBlack,
                       child: Icon(
-                        Icons.close,
+                        Ktweel.close,
                         size: 15,
                       ),
                     ),
