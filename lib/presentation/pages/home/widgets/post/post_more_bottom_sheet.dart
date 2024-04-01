@@ -173,30 +173,29 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
 
 // =========== Edit Post Button ===========
   Widget editPostBtn(BuildContext context) {
-    return BlocListener<PostLogicsBloc, PostLogicsState>(
-      listener: (context, state) {
-        if (state is EditPostSuccessState) {
-          Navigator.pop(context);
-          Navigator.pop(context);
-          context.read<PostBloc>().add(PostInitialFetchEvent());
-          context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
-        }
+    return ListTile(
+      leading: const Icon(Ktweel.edit),
+      title: const Text('Edit post'),
+      onTap: () {
+        changeSystemThemeOnPopup(
+          color: Theme.of(context).colorScheme.surface,
+          context: context,
+        );
+        nextScreen(
+          context,
+          EditPostPage(
+            description: widget.postModel.description,
+            location: widget.postModel.location,
+            imageUrlList: widget.postModel.mediaURL!,
+            postId: widget.postModel.id!,
+            onDetail: widget.onDetail,
+          ),
+        ).then(
+          (value) {
+            mySystemTheme(context);
+          },
+        );
       },
-      child: ListTile(
-        leading: const Icon(Ktweel.edit),
-        title: const Text('Edit post'),
-        onTap: () {
-          nextScreen(
-            context,
-            EditPostPage(
-              description: widget.postModel.description,
-              location: widget.postModel.location,
-              imageUrlList: widget.postModel.mediaURL!,
-              postId: widget.postModel.id!,
-            ),
-          );
-        },
-      ),
     );
   }
 

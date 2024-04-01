@@ -68,9 +68,27 @@ class PostUserDetail extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              postModel.user!.fullName ?? userModel!.fullName!,
-              style: const TextStyle(fontSize: 15),
+            Row(
+              children: [
+                Text(
+                  postModel.user!.fullName ?? userModel!.fullName!,
+                  style: const TextStyle(fontSize: 15),
+                ),
+                kWidth(15),
+                if (postModel.createdDate != postModel.updatedDate)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      postModel.createdDate != postModel.updatedDate
+                          ? "Edited"
+                          : "",
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: theme.colorScheme.onSecondary,
+                      ),
+                    ),
+                  )
+              ],
             ),
             kHeight(5),
             SizedBox(

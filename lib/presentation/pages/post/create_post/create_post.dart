@@ -109,7 +109,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
         if (value!.isEmpty) {
           return 'This field is required.';
         }
-        return '';
+        return null;
       },
     );
   }

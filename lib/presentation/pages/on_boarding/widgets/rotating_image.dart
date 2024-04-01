@@ -38,28 +38,10 @@ class _LoginAssetsState extends State<LoginAssets>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(40,20,40,40),
+      padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 20,
-            right: 20,
-            child: Padding(
-              padding: const EdgeInsets.all(60.0),
-              child: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                child: const Padding(
-                  padding: EdgeInsets.all(0.0),
-                  child: CircleAvatar(
-                    radius: 35,
-                    backgroundImage: AssetImage(profileOne),
-                  ),
-                ),
-              ),
-            ),
-          ),
           AnimatedRotation(
             turns: 1 - _animation.value,
             duration: const Duration(seconds: 10),
@@ -71,12 +53,14 @@ class _LoginAssetsState extends State<LoginAssets>
               dashPattern: const [10, 10],
               child: Container(
                 height: 400,
-                width: 400,
-                decoration: const BoxDecoration(shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  // color: lBlack,
+                ),
                 child: Stack(
                   children: [
                     Positioned(
-                      top: 70,
+                      top: 60,
                       left: 20,
                       child: RotationTransition(
                         turns: _animation,
@@ -87,8 +71,8 @@ class _LoginAssetsState extends State<LoginAssets>
                       ),
                     ),
                     Positioned(
-                      top: 60,
-                      right: 20,
+                      top: 90,
+                      right: 0,
                       child: RotationTransition(
                         turns: _animation,
                         child: const CircleAvatar(
@@ -98,8 +82,8 @@ class _LoginAssetsState extends State<LoginAssets>
                       ),
                     ),
                     Positioned(
-                      bottom: 40,
-                      right: 210,
+                      bottom: 60,
+                      right: 30,
                       child: RotationTransition(
                         turns: _animation,
                         child: const CircleAvatar(
@@ -109,8 +93,8 @@ class _LoginAssetsState extends State<LoginAssets>
                       ),
                     ),
                     Positioned(
-                      bottom: 60,
-                      left: 220,
+                      bottom: 90,
+                      left: 0,
                       child: RotationTransition(
                         turns: _animation,
                         child: const CircleAvatar(
@@ -121,6 +105,17 @@ class _LoginAssetsState extends State<LoginAssets>
                     ),
                   ],
                 ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: CircleAvatar(
+              radius: 90,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              child: const CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage(profileOne),
               ),
             ),
           ),

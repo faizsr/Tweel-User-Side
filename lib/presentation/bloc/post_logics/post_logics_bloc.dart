@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/domain/cloud_repo/cloud_repo.dart';
 import 'package:tweel_social_media/domain/post_repo/post_repo.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -13,7 +12,6 @@ part 'post_logics_state.dart';
 class PostLogicsBloc extends Bloc<PostLogicsEvent, PostLogicsState> {
   PostLogicsBloc() : super(PostLogicsInitial()) {
     on<CreatePostEvent>(createPostEvent);
-    on<EditPostEvent>(editPostEvent);
     on<RemovePostEvent>(removePostEvent);
     on<SavePostEvent>(savePostEvent);
     on<UnsavePostEvent>(unsavePostEvent);
@@ -32,17 +30,6 @@ class PostLogicsBloc extends Bloc<PostLogicsEvent, PostLogicsState> {
       emit(CreatePostSuccessState(imagePathList: imageUrlList));
     } else {
       emit(CreatePostErrorState());
-    }
-  }
-
-  FutureOr<void> editPostEvent(
-      EditPostEvent event, Emitter<PostLogicsState> emit) async {
-    emit(EditPostLoadingState());
-    String response = await PostRepo.editPost(event.postModel);
-    if (response == 'success') {
-      emit(EditPostSuccessState());
-    } else {
-      emit(EditPostErrorState());
     }
   }
 

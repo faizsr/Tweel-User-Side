@@ -15,13 +15,7 @@ class CreatePostEvent extends PostLogicsEvent {
   });
 }
 
-class EditPostEvent extends PostLogicsEvent {
-  final PostModel postModel;
 
-  EditPostEvent({
-    required this.postModel,
-  });
-}
 
 class RemovePostEvent extends PostLogicsEvent {
   final String postId;

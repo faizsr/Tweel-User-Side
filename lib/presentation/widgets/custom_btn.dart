@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/presentation/bloc/forget_password/forget_password_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
@@ -57,7 +58,7 @@ class CustomButton extends StatelessWidget {
                     duration: const Duration(milliseconds: 1000),
                     child: Text(
                       buttonText,
-                      style: const TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16,color: lWhite),
                     ),
                   );
           },

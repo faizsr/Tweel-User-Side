@@ -5,9 +5,11 @@ class CustomAppbar2 extends StatelessWidget {
   const CustomAppbar2({
     super.key,
     required this.title,
+    required this.onPressed,
   });
 
   final String title;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,7 @@ class CustomAppbar2 extends StatelessWidget {
         style: const TextStyle(fontSize: 18),
       ),
       leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: onPressed,
         icon: const Icon(Ktweel.arrow_left, size: 24),
       ),
       titleSpacing: 0,

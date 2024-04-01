@@ -29,9 +29,14 @@ class PostDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(56),
-        child: CustomAppbar2(title: 'Post'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: CustomAppbar2(
+          title: 'Post',
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -102,7 +107,6 @@ class PostDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  kHeight(10),
                   BlocBuilder<CommentBloc, CommentState>(
                     builder: (context, state) {
                       return Column(

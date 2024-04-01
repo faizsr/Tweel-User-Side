@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
-import 'package:tweel_social_media/presentation/bloc/post_logics/post_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/post_edit/post_edit_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 
 class EditPostAppbar extends StatelessWidget {
-  const EditPostAppbar({super.key, required this.onTap});
+  const EditPostAppbar({
+    super.key,
+    required this.onTap,
+    required this.onDetail,
+  });
 
   final void Function()? onTap;
+  final bool onDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +25,8 @@ class EditPostAppbar extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
-          Navigator.pop(context);
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
         },
         icon: const Icon(
           Ktweel.close,
@@ -33,7 +40,18 @@ class EditPostAppbar extends StatelessWidget {
         style: TextStyle(fontSize: 18, fontVariations: fontWeightW600),
       ),
       actions: [
-        BlocBuilder<PostLogicsBloc, PostLogicsState>(
+        BlocConsumer<PostEditBloc, PostEditState>(
+          listener: (context, state) {
+            if (state is EditPostSuccessState) {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              if (onDetail) {
+                Navigator.of(context).pop();
+              }
+              context.read<PostBloc>().add(PostInitialFetchEvent());
+              context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+            }
+          },
           builder: (context, state) {
             if (state is EditPostLoadingState) {
               return Container(

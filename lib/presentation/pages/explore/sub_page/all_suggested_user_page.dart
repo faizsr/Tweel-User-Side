@@ -17,9 +17,14 @@ class AllSuggestedUsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(56),
-        child: CustomAppbar2(title: 'Suggested for you'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: CustomAppbar2(
+          title: 'Suggested for you',
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SuggestedPeopleGridView(theme: theme, state: state),
     );

@@ -19,7 +19,10 @@ class OnBoardingPage extends StatefulWidget {
 class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
-    changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface,context: context,);
+    changeSystemThemeOnPopup(
+      color: Theme.of(context).colorScheme.surface,
+      context: context,
+    );
     return ColorfulSafeArea(
       color: Theme.of(context).colorScheme.surface,
       child: Scaffold(
@@ -32,16 +35,18 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           child: Column(
             children: [
               const LoginAssets(),
-              kHeight(20),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   children: [
-                    TextSpan(text: 'A tool to help', style: thinFontStyle),
-                    TextSpan(text: ' share', style: boldFontStyle),
-                    TextSpan(text: '\nmoments', style: boldFontStyle),
-                    TextSpan(text: ' with', style: thinFontStyle),
-                    TextSpan(text: ' friends', style: boldFontStyle),
+                    TextSpan(
+                      text: 'A tool to help',
+                      style: thinFontStyle(context),
+                    ),
+                    TextSpan(text: ' share', style: boldFontStyle(context)),
+                    TextSpan(text: '\nmoments', style: boldFontStyle(context)),
+                    TextSpan(text: ' with', style: thinFontStyle(context)),
+                    TextSpan(text: ' friends', style: boldFontStyle(context)),
                   ],
                 ),
               ),
@@ -50,7 +55,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               const Spacer(),
               Container(
                 width: 70,
-                padding: const EdgeInsets.only(bottom: 20,top: 50),
+                padding: const EdgeInsets.only(bottom: 20, top: 50),
                 // clipBehavior: Clip.hardEdge,
                 foregroundDecoration: BoxDecoration(
                   border: Border(
@@ -81,15 +86,18 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
     );
   }
-}
 
-var thinFontStyle = TextStyle(
-  fontFamily: mainFont,
-  fontVariations: fontWeightW300,
-  fontSize: 30,
-);
-var boldFontStyle = TextStyle(
-  fontSize: 30,
-  fontVariations: fontWeightW800,
-  fontFamily: mainFont,
-);
+  TextStyle thinFontStyle(BuildContext context) => TextStyle(
+        fontFamily: mainFont,
+        fontVariations: fontWeightW300,
+        fontSize: 30,
+        color: Theme.of(context).colorScheme.primary,
+      );
+
+  TextStyle boldFontStyle(BuildContext context) => TextStyle(
+        fontSize: 30,
+        fontVariations: fontWeightW800,
+        fontFamily: mainFont,
+        color: Theme.of(context).colorScheme.primary,
+      );
+}

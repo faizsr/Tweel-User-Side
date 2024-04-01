@@ -79,43 +79,43 @@ class _EditBottomImageListviewState extends State<EditBottomImageListview> {
                         ),
                         const SizedBox(width: 5),
                         FutureBuilder(
-                          future: getVideoDuration(imageUrl),
-                          builder: (context,snapshot) {
-                            return Text(
-                              '${formattedTime(timeInSecond: snapshot.hasData ? snapshot.data! : 0)}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            );
-                          }
-                        ),
+                            future: getVideoDuration(imageUrl),
+                            builder: (context, snapshot) {
+                              return Text(
+                                '${formattedTime(timeInSecond: snapshot.hasData ? snapshot.data! : 0)}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }),
                       ],
                     ),
                   ),
-                Positioned(
-                  top: 5,
-                  right: 5,
-                  child: GestureDetector(
-                    onTap: () {
-                      if (widget.imageUrlList.contains(imageUrl)) {
-                        setState(() {
-                          widget.imageUrlList.remove(imageUrl);
-                        });
-                      }
-                    },
-                    child: const CircleAvatar(
-                      radius: 10,
-                      backgroundColor: lWhite,
-                      foregroundColor: lBlack,
-                      child: Icon(
-                        Ktweel.close,
-                        size: 15,
+                if (widget.imageUrlList.length != 1)
+                  Positioned(
+                    top: 5,
+                    right: 5,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (widget.imageUrlList.contains(imageUrl)) {
+                          setState(() {
+                            widget.imageUrlList.remove(imageUrl);
+                          });
+                        }
+                      },
+                      child: const CircleAvatar(
+                        radius: 10,
+                        backgroundColor: lWhite,
+                        foregroundColor: lBlack,
+                        child: Icon(
+                          Ktweel.close,
+                          size: 15,
+                        ),
                       ),
                     ),
                   ),
-                ),
               ],
             ),
           );
