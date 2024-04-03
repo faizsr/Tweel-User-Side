@@ -26,8 +26,12 @@ class FollowingSearchResult extends StatelessWidget {
             context
                 .read<UserByIdBloc>()
                 .add(FetchUserByIdEvent(userId: state.following[index]['_id']));
-            nextScreen(context,
-                UserProfilePage(userId: state.following[index]['_id']));
+            nextScreen(
+                context,
+                UserProfilePage(
+                  userId: state.following[index]['_id'],
+                  isCurrentUser: false,
+                ));
           },
           child: ListTile(
             leading: CircleAvatar(

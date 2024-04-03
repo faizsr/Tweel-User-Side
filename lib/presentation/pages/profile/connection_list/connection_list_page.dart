@@ -12,12 +12,14 @@ class ConnectionListPage extends StatefulWidget {
     required this.followers,
     required this.following,
     this.isCurrentUser = false,
+    required this.userId,
   });
 
   final int selectedPage;
   final List followers;
   final List following;
   final bool isCurrentUser;
+  final String userId;
 
   @override
   State<ConnectionListPage> createState() => ConnectionListPageState();
@@ -45,6 +47,7 @@ class ConnectionListPageState extends State<ConnectionListPage>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: FollowersAppbar(
+          userId: widget.userId,
           tabController: tabController,
           searchController: searchController,
           onChanged: (value) {

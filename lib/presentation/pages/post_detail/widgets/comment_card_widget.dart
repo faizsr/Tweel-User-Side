@@ -76,6 +76,7 @@ class CommentCardWidget extends StatelessWidget {
                                   context,
                                   UserProfilePage(
                                     userId: commentModel.user.id!,
+                                    isCurrentUser: false,
                                   )).then((value) {
                                 changeSystemThemeOnPopup(
                                   color: Theme.of(context).colorScheme.surface,

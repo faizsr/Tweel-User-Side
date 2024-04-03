@@ -6,6 +6,7 @@ import 'package:tweel_social_media/presentation/bloc/post_edit/post_edit_bloc.da
 import 'package:tweel_social_media/presentation/pages/post/create_post/widgets/user_detail_widget.dart';
 import 'package:tweel_social_media/presentation/pages/post/edit_post/widgets/edit_bottom_image_listview.dart';
 import 'package:tweel_social_media/presentation/pages/post/edit_post/widgets/edit_post_appbar.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_textfield_2.dart';
 
 class EditPostPage extends StatefulWidget {
   const EditPostPage({
@@ -67,21 +68,13 @@ class _EditPostPageState extends State<EditPostPage> {
             children: [
               const UserDetailWidget(),
               kHeight(20),
-              TextFormField(
+              CustomTextField2(
                 controller: locationController,
-                maxLines: 1,
-                decoration: const InputDecoration(
-                  hintText: 'Enter location',
-                  border: InputBorder.none,
-                ),
+                hintText: 'Enter location',
               ),
-              TextFormField(
+              CustomTextField2(
                 controller: descriptionController,
-                maxLines: null,
-                decoration: const InputDecoration(
-                  hintText: 'What do you want to talk about?',
-                  border: InputBorder.none,
-                ),
+                hintText: 'What do you want to talk about?',
               ),
             ],
           ),

@@ -9,6 +9,7 @@ import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/widgets/bottom_image_listview.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/widgets/create_post_appbar.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/widgets/user_detail_widget.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_textfield_2.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class CreatePostPage extends StatefulWidget {
@@ -69,13 +70,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   children: [
                     const UserDetailWidget(),
                     kHeight(20),
-                    createPostTextField(
-                      context: context,
+                    CustomTextField2(
                       controller: locationController,
                       hintText: 'Enter location',
                     ),
-                    createPostTextField(
-                      context: context,
+                    CustomTextField2(
                       controller: descriptionController,
                       hintText: 'What do you want to talk about?',
                     ),
@@ -89,28 +88,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
           selectedAssetList: widget.selectedAssetList,
         ),
       ),
-    );
-  }
-
-  TextFormField createPostTextField({
-    required BuildContext context,
-    required TextEditingController controller,
-    required String hintText,
-  }) {
-    return TextFormField(
-      controller: controller,
-      maxLines: 1,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        border: InputBorder.none,
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'This field is required.';
-        }
-        return null;
-      },
     );
   }
 }

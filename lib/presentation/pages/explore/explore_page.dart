@@ -38,30 +38,33 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
-      child: RefreshWidget(
-        onRefresh: _handleRefresh,
+    return RefreshWidget(
+      onRefresh: _handleRefresh,
+      child: ColorfulSafeArea(
+        color: Theme.of(context).colorScheme.surface,
         child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           appBar: Hidable(
             preferredWidgetSize: const Size.fromHeight(80),
             controller: scrollController,
             // ============ Search Text Field ============
-            child: CustomSearchField(
-              searchController: searchController,
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  debouncer.run(() {
-                    context
-                        .read<SearchUserBloc>()
-                        .add(SearchUserEvent(query: value));
-                  });
-                  context.read<OnSearchCubit>().onSearchChange(true);
-                } else {
-                  context.read<OnSearchCubit>().onSearchChange(false);
-                }
-              },
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: CustomSearchField(
+                searchController: searchController,
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    debouncer.run(() {
+                      context
+                          .read<SearchUserBloc>()
+                          .add(SearchUserEvent(query: value));
+                    });
+                    context.read<OnSearchCubit>().onSearchChange(true);
+                  } else {
+                    context.read<OnSearchCubit>().onSearchChange(false);
+                  }
+                },
+              ),
             ),
           ),
           body: MultiBlocBuilder(

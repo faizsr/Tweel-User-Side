@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_detail_widget.dart';
 import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/post_button.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/post_grid_view.dart';
@@ -16,9 +17,11 @@ class UserProfilePage extends StatefulWidget {
   const UserProfilePage({
     super.key,
     required this.userId,
+    required this.isCurrentUser,
   });
 
   final String userId;
+  final bool isCurrentUser;
 
   @override
   State<UserProfilePage> createState() => UserProfilePageState();
@@ -41,15 +44,26 @@ class UserProfilePageState extends State<UserProfilePage> {
           body: BlocBuilder<UserByIdBloc, UserByIdState>(
             builder: (context, state) {
               if (state is FetchUserByIdLoadingState) {
-                return const UserProfilePageLoading();
+                return UserProfilePageLoading(
+                  isCurrentUser: widget.isCurrentUser,
+                  onProfile: false,
+                );
               }
               if (state is FetchUserByIdSuccessState) {
                 return ListView(
                   children: [
-                    UserProfileDetailsWidget(
-                      userModel: state.userModel,
-                      postsList: state.posts,
-                    ),
+                    widget.isCurrentUser
+                        ? ProfileDetailsWidget(
+                            postsList: state.posts,
+                            userModel: state.userModel,
+                            onProfile: false,
+                            isCurrentUser: widget.isCurrentUser,
+                          )
+                        : UserProfileDetailsWidget(
+                            userModel: state.userModel,
+                            postsList: state.posts,
+                            userId: widget.userId,
+                          ),
                     kHeight(55),
                     checkAccountType(state),
                   ],

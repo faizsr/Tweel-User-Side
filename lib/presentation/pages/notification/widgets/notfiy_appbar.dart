@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/presentation/bloc/notification/notification_bloc.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
 class NotifyAppbar extends StatelessWidget {
@@ -27,7 +29,11 @@ class NotifyAppbar extends StatelessWidget {
           SizedBox(
             height: 35,
             child: CustomOutlinedBtn(
-              onPressed: () {},
+              onPressed: () {
+                context
+                    .read<NotificationBloc>()
+                    .add(ClearAllNotificationEvent());
+              },
               btnText: 'MARK AS READ',
             ),
           )

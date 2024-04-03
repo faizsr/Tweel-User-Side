@@ -28,8 +28,12 @@ class FollowingSearchIdle extends StatelessWidget {
                   context
                       .read<UserByIdBloc>()
                       .add(FetchUserByIdEvent(userId: following[index]['_id']));
-                  nextScreen(context,
-                      UserProfilePage(userId: following[index]['_id']));
+                  nextScreen(
+                      context,
+                      UserProfilePage(
+                        userId: following[index]['_id'],
+                        isCurrentUser: false,
+                      ));
                 },
                 child: ListTile(
                   leading: CircleAvatar(

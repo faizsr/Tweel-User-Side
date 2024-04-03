@@ -11,47 +11,46 @@ import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_post_follow_count.dart';
 import 'package:tweel_social_media/presentation/pages/settings/settings.dart';
+import 'package:tweel_social_media/presentation/pages/user/widgets/user_heading_widget.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 
-class UserDetailsWidget extends StatelessWidget {
-  const UserDetailsWidget({
+class ProfileDetailsWidget extends StatelessWidget {
+  const ProfileDetailsWidget({
     super.key,
     required this.userModel,
     required this.postsList,
+    this.onProfile = false,
+    required this.isCurrentUser,
   });
 
   final UserModel userModel;
   final List<PostModel> postsList;
+  final bool onProfile;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                userModel.username!,
-                style: const TextStyle(fontVariations: fontWeightW700),
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () async {
-                  changeSystemThemeOnPopup(
-                    color: Theme.of(context).colorScheme.surfaceTint,context: context,
-                  );
-                  _profileMore(
-                    context,
-                  ).then((value) => mySystemTheme(context));
-                },
-                child: const Icon(Ktweel.settings),
-              ),
-            ],
-          ),
-          kHeight(10),
-          Stack(
+    return Column(
+      children: [
+        UserHeadingWidget(
+          isCurrentUser: isCurrentUser,
+          userModel: userModel,
+          onProfile: onProfile,
+          onTap: () {
+            changeSystemThemeOnPopup(
+              color: Theme.of(context).colorScheme.surfaceTint,
+              context: context,
+            );
+            _profileMore(
+              context,
+            ).then((value) => mySystemTheme(context));
+          },
+        ),
+        kHeight(10),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+          child: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.center,
             children: [
@@ -103,7 +102,8 @@ class UserDetailsWidget extends StatelessWidget {
                                   onPressed: () {
                                     changeSystemThemeOnPopup(
                                       color:
-                                          Theme.of(context).colorScheme.surface,context: context,
+                                          Theme.of(context).colorScheme.surface,
+                                      context: context,
                                     );
                                     nextScreen(context,
                                             EditProfilePage(user: userModel))
@@ -132,9 +132,9 @@ class UserDetailsWidget extends StatelessWidget {
                 ),
               ),
             ],
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
@@ -153,7 +153,9 @@ class UserDetailsWidget extends StatelessWidget {
           ontap: [
             () async {
               changeSystemThemeOnPopup(
-                  color: Theme.of(context).colorScheme.surface,context: context,);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               await nextScreen(context, const SettingsPage()).then((value) {
                 Navigator.pop(context);
               });
@@ -162,7 +164,9 @@ class UserDetailsWidget extends StatelessWidget {
             () async {
               UserAuthStatus.saveUserStatus(false);
               changeSystemThemeOnPopup(
-                  color: Theme.of(context).colorScheme.surface,context: context,);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               await nextScreenRemoveUntil(
                 context,
                 const UserSignInPage(),

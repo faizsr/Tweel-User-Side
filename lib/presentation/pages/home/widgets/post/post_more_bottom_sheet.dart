@@ -10,6 +10,7 @@ import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/saved_posts/saved_posts_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/edit_post/edit_post.dart';
+import 'package:tweel_social_media/presentation/pages/report/report_page.dart';
 import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
 
 class PostMoreBottomSheet extends StatefulWidget {
@@ -100,6 +101,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
             context,
             UserProfilePage(
               userId: widget.postModel.user!.id!,
+              isCurrentUser: false,
             )).then(
           (value) {
             mySystemTheme(context);
@@ -115,12 +117,24 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
 
 // =========== Report Post Button ===========
   Widget reportPostBtn() {
-    return const ListTile(
-      leading: Icon(
+    return ListTile(
+      onTap: () {
+        changeSystemThemeOnPopup(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          context: context,
+        );
+        nextScreen(context, ReportPage(
+          postId: widget.postModel.id!,
+        )).then((value) {
+          mySystemTheme(context);
+          Navigator.pop(context);
+        });
+      },
+      leading: const Icon(
         Ktweel.danger,
         size: 22,
       ),
-      title: Text('Report'),
+      title: const Text('Report'),
     );
   }
 

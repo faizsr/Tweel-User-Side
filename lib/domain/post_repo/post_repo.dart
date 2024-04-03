@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
@@ -307,6 +308,38 @@ class PostRepo {
     } catch (e) {
       debugPrint('Fetch Saved Error: $e');
       return [];
+    }
+  }
+
+  static Future<String> reportPost(String postId, String description) async {
+    final client = http.Client();
+    String token = await UserToken.getToken();
+    String reportPostUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.reportPost}";
+    try {
+      var data = {
+        'postId': postId,
+        'description': description,
+      };
+      var response = await client.post(
+        Uri.parse(reportPostUrl),
+        body: data,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      debugPrint('Report Post Status: ${response.statusCode}');
+      debugPrint('Report Post Body: ${response.body.toString()}');
+
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      if (response.statusCode == 400) {
+        return 'already-reported';
+      }
+      return '';
+    } catch (e) {
+      debugPrint('Report Post Error: $e');
+      return '';
     }
   }
 }

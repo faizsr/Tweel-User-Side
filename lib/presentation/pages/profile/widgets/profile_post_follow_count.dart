@@ -49,7 +49,9 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
             title: 'FOLLOWERS',
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: Theme.of(context).colorScheme.surface,context: context,);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
                 ConnectionListPage(
@@ -57,6 +59,7 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
                   followers: userModel.followers!,
                   following: userModel.following!,
                   isCurrentUser: isCurrentUser,
+                  userId: userModel.id!,
                 ),
               ).then((value) => mySystemTheme(context));
             },
@@ -71,7 +74,9 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
             title: 'FOLLOWING',
             onTap: () {
               changeSystemThemeOnPopup(
-                  color: Theme.of(context).colorScheme.surface,context: context,);
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
               nextScreen(
                 context,
                 ConnectionListPage(
@@ -79,6 +84,7 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
                   followers: userModel.followers!,
                   following: userModel.following!,
                   isCurrentUser: isCurrentUser,
+                  userId: userModel.id!,
                 ),
               ).then((value) => mySystemTheme(context));
             },
@@ -95,6 +101,7 @@ Widget _userPostFollowCountCard(
     onTap: onTap,
     child: Container(
       decoration: BoxDecoration(
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
       ),
       width: 100,

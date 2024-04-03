@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/data/models/notification_model/notification_model.dart';
 
 import '../../../../core/utils/constants.dart';
 
 class LikeNotifyCard extends StatelessWidget {
   const LikeNotifyCard({
     super.key,
+    required this.notificationModel,
   });
+
+  final NotificationModel notificationModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +23,16 @@ class LikeNotifyCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 25,
+                backgroundColor: Theme.of(context).colorScheme.onSurface,
+                backgroundImage:
+                    NetworkImage(notificationModel.user.profilePicture!),
               ),
               kWidth(10),
-              const Text(
-                'Alex zack liked your post.',
-                style: TextStyle(fontSize: 14),
+              Text(
+                '${notificationModel.user.fullName} liked your post.',
+                style: const TextStyle(fontSize: 14),
               ),
               const Spacer(),
             ],
@@ -33,7 +40,7 @@ class LikeNotifyCard extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: Text(
-              '2 min ago',
+              timeAgo(DateTime.parse(notificationModel.updatedAt)),
               style: TextStyle(
                 fontSize: 11,
                 color: Theme.of(context).colorScheme.onSecondary,

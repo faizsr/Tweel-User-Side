@@ -32,6 +32,7 @@ class PostDetailPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: CustomAppbar2(
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: 'Post',
           onPressed: () {
             Navigator.of(context).pop(true);

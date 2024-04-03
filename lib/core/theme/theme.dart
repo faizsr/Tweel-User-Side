@@ -31,7 +31,7 @@ var lightTheme = ThemeData(
   fontFamily: mainFont,
   // brightness: Brightness.light,
   colorScheme: const ColorScheme(
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     primary: lBlack, // Icon || Text Primary Color
     onPrimary: lBlue, // Selected Color
     primaryContainer: lWhite, // Card Color
@@ -84,7 +84,7 @@ var lightTheme = ThemeData(
 var darkTheme = ThemeData(
   fontFamily: mainFont,
   colorScheme: const ColorScheme(
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     primary: dWhite, // Icon || Text Primary Color
     onPrimary: dBlue, // Selected Color
     primaryContainer: dLightBlueGrey, // Card Color

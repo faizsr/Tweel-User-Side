@@ -5,7 +5,14 @@ import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
 
 class UserProfilePageLoading extends StatelessWidget {
-  const UserProfilePageLoading({super.key});
+  const UserProfilePageLoading({
+    super.key,
+    required this.isCurrentUser,
+    required this.onProfile,
+  });
+
+  final bool isCurrentUser;
+  final bool onProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +38,23 @@ class UserProfilePageLoading extends StatelessWidget {
                     ),
                   ),
                   kWidth(10),
-                  Skelton(width: 70, color: Theme.of(context).colorScheme.primaryContainer),
+                  Skelton(
+                      width: 70,
+                      color: Theme.of(context).colorScheme.primaryContainer),
                   const Spacer(),
-                  InkWell(
-                    onTap: () {},
-                    child: Icon(
-                      Ktweel.settings_2,
-                      color: Theme.of(context).colorScheme.outlineVariant,
-                    ),
-                  ),
+                  isCurrentUser
+                      ? const SizedBox()
+                      : onProfile
+                          ? Icon(
+                              Ktweel.settings,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
+                            )
+                          : Icon(
+                              Ktweel.settings_2,
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
+                            ),
                 ],
               ),
             ),
@@ -82,63 +97,92 @@ class UserProfilePageLoading extends StatelessWidget {
                                   kHeight(10),
                                   const Skelton(width: 50),
                                   kHeight(10),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        height: 35,
-                                        width: 75,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 0.5,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .outlineVariant,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(3),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'FOLLOW',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontVariations: fontWeightW800,
+                                  isCurrentUser
+                                      ? Container(
+                                          height: 35,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 0.5,
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .outlineVariant,
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(3),
                                           ),
-                                        ),
-                                      ),
-                                      kWidth(10),
-                                      Container(
-                                        height: 35,
-                                        width: 75,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 0.5,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .outlineVariant,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(3),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'MESSAGE',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontVariations: fontWeightW800,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .outlineVariant,
+                                          child: Center(
+                                            child: Text(
+                                              'EDIT PROFILE',
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontVariations: fontWeightW800,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .outlineVariant,
+                                              ),
                                             ),
                                           ),
+                                        )
+                                      : Row(
+                                          children: [
+                                            Container(
+                                              height: 35,
+                                              width: 75,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  width: 0.5,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .outlineVariant,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(3),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'FOLLOW',
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontVariations:
+                                                        fontWeightW800,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .outlineVariant,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            kWidth(10),
+                                            Container(
+                                              height: 35,
+                                              width: 75,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  width: 0.5,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .outlineVariant,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(3),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'MESSAGE',
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontVariations:
+                                                        fontWeightW800,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .outlineVariant,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ],
@@ -269,7 +313,8 @@ class UserProfilePageLoading extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: 4,
           itemBuilder: (context, index) {
-            return Container(color: Theme.of(context).colorScheme.primaryContainer);
+            return Container(
+                color: Theme.of(context).colorScheme.primaryContainer);
           },
           staggeredTileBuilder: (index) => StaggeredTile.count(
               (index % 7 == 3) ? 2 : 1, (index % 7 == 3) ? 2 : 1),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
+import 'package:tweel_social_media/presentation/pages/report/report_page.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/follow_btn_widget.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/post_follow_count_card.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/user_heading_widget.dart';
@@ -14,10 +18,12 @@ class UserProfileDetailsWidget extends StatelessWidget {
     super.key,
     required this.userModel,
     required this.postsList,
+    required this.userId,
   });
 
   final UserModel userModel;
   final List<PostModel> postsList;
+  final String userId;
 
   void followUnfollowFunction(
       UserModel currentUserModel, UserModel user, bool? isUnfollowing) {
@@ -34,7 +40,49 @@ class UserProfileDetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        UserHeadingWidget(userModel: userModel),
+        UserHeadingWidget(
+          isCurrentUser: false,
+          userModel: userModel,
+          onProfile: false,
+          onTap: () {
+            changeSystemThemeOnPopup(
+              color: Theme.of(context).colorScheme.surfaceTint,
+              context: context,
+            );
+            showDialog(
+              context: context,
+              builder: (context) {
+                return ProfileMenu(
+                  leading: const [Ktweel.send, Ktweel.danger, Ktweel.close],
+                  profileImage: userModel.profilePicture!,
+                  buttonLabel: const [
+                    "Sent Message",
+                    "Report Account",
+                    "Cancel"
+                  ],
+                  ontap: [
+                    () {},
+                    () {
+                      changeSystemThemeOnPopup(
+                        color: Theme.of(context).colorScheme.surface,
+                        context: context,
+                      );
+                      nextScreen(
+                        context,
+                        ReportPage(userId: userModel.id!),
+                      ).then(
+                        (value) => Navigator.pop(context),
+                      );
+                    },
+                    () {
+                      Navigator.pop(context);
+                    },
+                  ],
+                );
+              },
+            ).then((value) => mySystemTheme(context));
+          },
+        ),
         kHeight(10),
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
@@ -114,7 +162,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                       return PostFollowCountWidget(
                         postsList: postsList,
                         userModel: userModel,
-                        // currentUserModel: state.userDetails,
+                        userId: userId,
                       );
                     }
                     return Container();

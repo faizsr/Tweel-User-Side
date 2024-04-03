@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/data/models/notification_model/notification_model.dart';
 
 class CommentNotifyCard extends StatelessWidget {
   const CommentNotifyCard({
     super.key,
+    required this.notificationModel,
   });
+
+  final NotificationModel notificationModel;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +25,22 @@ class CommentNotifyCard extends StatelessWidget {
               Container(
                 height: 50,
                 width: 50,
-                color: kLightGrey,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  borderRadius: BorderRadius.circular(2),
+                  image: DecorationImage(
+                    image: NetworkImage(notificationModel.user.profilePicture!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               kWidth(10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Emma watson commented',
-                    style: TextStyle(fontSize: 14),
+                  Text(
+                    '${notificationModel.user.fullName} commented',
+                    style: const TextStyle(fontSize: 14),
                   ),
                   kHeight(5),
                   Text(
@@ -47,7 +58,7 @@ class CommentNotifyCard extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: Text(
-              '1 hour ago',
+              timeAgo(DateTime.parse(notificationModel.updatedAt)),
               style: TextStyle(
                   fontSize: 11,
                   color: Theme.of(context).colorScheme.onSecondary),

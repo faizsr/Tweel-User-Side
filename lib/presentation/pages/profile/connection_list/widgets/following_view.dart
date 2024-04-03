@@ -23,7 +23,9 @@ class FollowingView extends StatelessWidget {
               ? const Center(
                   child: Text('No users found'),
                 )
-              : FollowingSearchResult(state: state);
+              : FollowingSearchResult(
+                  state: state,
+                );
         }
         return FollowingSearchIdle(
           following: following,

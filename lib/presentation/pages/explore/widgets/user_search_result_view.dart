@@ -34,10 +34,15 @@ class UserSearchResultView extends StatelessWidget {
                     .read<UserByIdBloc>()
                     .add(FetchUserByIdEvent(userId: state2.users[index].id!));
                 changeSystemThemeOnPopup(
-                    color: Theme.of(context).colorScheme.surface,context: context,);
+                  color: Theme.of(context).colorScheme.surface,
+                  context: context,
+                );
                 nextScreen(
                   context,
-                  UserProfilePage(userId: state2.users[index].id!),
+                  UserProfilePage(
+                    userId: state2.users[index].id!,
+                    isCurrentUser: false,
+                  ),
                 ).then((value) => mySystemTheme(context));
               },
               profileUrl: state2.users[index].profilePicture!,

@@ -35,9 +35,15 @@ class SuggestedPeopleGridView extends StatelessWidget {
           onTap: () {
             debugPrint('Go to profile');
             changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,context: context,);
-            nextScreen(context, UserProfilePage(userId: state.users[index].id!))
-                .then((value) => mySystemTheme(context));
+              color: Theme.of(context).colorScheme.surface,
+              context: context,
+            );
+            nextScreen(
+                context,
+                UserProfilePage(
+                  userId: state.users[index].id!,
+                  isCurrentUser: false,
+                )).then((value) => mySystemTheme(context));
             context
                 .read<UserByIdBloc>()
                 .add(FetchUserByIdEvent(userId: state.users[index].id!));
@@ -58,9 +64,7 @@ class SuggestedPeopleGridView extends StatelessWidget {
                   backgroundColor: kLightGrey,
                   backgroundImage: state.users[index].profilePicture == ""
                       ? Image.asset(profilePlaceholder).image
-                      : NetworkImage(
-                          state.users[index].profilePicture!,
-                        ),
+                      : NetworkImage(state.users[index].profilePicture!),
                 ),
                 kHeight(10),
                 Text(state.users[index].fullName!),

@@ -24,7 +24,10 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface,context: context,);
+    changeSystemThemeOnPopup(
+      color: Theme.of(context).colorScheme.surface,
+      context: context,
+    );
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: const Center(

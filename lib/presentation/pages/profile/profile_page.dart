@@ -11,7 +11,7 @@ import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/custom_tabbar_widget.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/custom_tabview_widget.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_page_loading.dart';
-import 'package:tweel_social_media/presentation/pages/profile/widgets/user_detail_widget.dart';
+import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_detail_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -57,9 +57,11 @@ class _ProfilePageState extends State<ProfilePage>
                 if (state is UserDetailFetchingSucessState) {
                   return ListView(
                     children: [
-                      UserDetailsWidget(
+                      ProfileDetailsWidget(
                         userModel: state.userDetails,
                         postsList: state.posts,
+                        onProfile: true,
+                        isCurrentUser: false,
                       ),
                       kHeight(50),
                       CustomTabBarWiget(tabController: tabController),

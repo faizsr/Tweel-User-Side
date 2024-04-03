@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 
 class FollowersAppbar extends StatelessWidget {
   const FollowersAppbar({
@@ -10,11 +12,13 @@ class FollowersAppbar extends StatelessWidget {
     required this.searchController,
     required this.onChanged,
     required this.tabController,
+    required this.userId,
   });
 
   final TextEditingController searchController;
   final void Function(String)? onChanged;
   final TabController tabController;
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,9 @@ class FollowersAppbar extends StatelessWidget {
       centerTitle: true,
       leading: IconButton(
         onPressed: () {
+          context
+              .read<UserByIdBloc>()
+              .add(FetchUserByIdEvent(userId: userId));
           Navigator.pop(context);
         },
         icon: const Icon(

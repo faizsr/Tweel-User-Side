@@ -23,6 +23,7 @@ class AuthRepo {
       if (response.statusCode == 201) {
         await UserAuthStatus.saveUserStatus(true);
         await UserToken.saveToken(jsonResponse['token']);
+        await CurrentUserId.saveUserId(jsonResponse['userId']);
         return 'success';
       }
       if (response.statusCode == 400) {
@@ -67,6 +68,7 @@ class AuthRepo {
       if (response.statusCode == 201) {
         await UserAuthStatus.saveUserStatus(true);
         await UserToken.saveToken(jsonResponse['token']);
+        await CurrentUserId.saveUserId(jsonResponse['userId']);
         return SignInResult(status: 'success', responseBody: jsonResponse);
       }
       if (response.statusCode == 400) {

@@ -28,8 +28,13 @@ class FollowSearchIdle extends StatelessWidget {
                   context
                       .read<UserByIdBloc>()
                       .add(FetchUserByIdEvent(userId: followers[index]['_id']));
-                  nextScreen(context,
-                      UserProfilePage(userId: followers[index]['_id']));
+                  nextScreen(
+                    context,
+                    UserProfilePage(
+                      userId: followers[index]['_id'],
+                      isCurrentUser: false,
+                    ),
+                  );
                 },
                 username: followers[index]['username'].toString(),
                 profileUrl: followers[index]['profile_picture'].toString(),

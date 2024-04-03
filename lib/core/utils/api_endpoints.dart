@@ -1,6 +1,6 @@
 class ApiEndPoints {
-  static String baseUrl = 'http://10.0.2.2:5000';
-  // static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
+  // static String baseUrl = 'http://10.0.2.2:5000';
+  static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
   static String profile = '/me';
   static String editUserProfile = '/profile/edit';
   static String userSignUp = '/signup';
@@ -13,6 +13,9 @@ class ApiEndPoints {
   static String createPost = "/createpost";
   static String editPost = "/post/";
   static String removePost = "/post/";
+
+  static String reportPost = "/report/post";
+  static String reportUser = "/report/user";
 
   static String addComment = "/post/comment/add";
   static String deleteComment = "/post/comment/delete";
@@ -34,4 +37,7 @@ class ApiEndPoints {
   static String unfollowUser = "/unfollow/";
 
   static String userSearch = "/search";
+
+  static String allNotification = '/activity';
+  static String clearNotification = '/activity';
 }

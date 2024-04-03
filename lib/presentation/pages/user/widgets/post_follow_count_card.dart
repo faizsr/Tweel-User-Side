@@ -12,10 +12,12 @@ class PostFollowCountWidget extends StatelessWidget {
     super.key,
     required this.postsList,
     required this.userModel,
+    required this.userId,
   });
 
   final List<PostModel> postsList;
   final UserModel userModel;
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +54,16 @@ class PostFollowCountWidget extends StatelessWidget {
                 title: 'FOLLOWERS',
                 onTap: () {
                   changeSystemThemeOnPopup(
-                      color: Theme.of(context).colorScheme.surface,context: context,);
+                    color: Theme.of(context).colorScheme.surface,
+                    context: context,
+                  );
                   nextScreen(
                     context,
                     ConnectionListPage(
                       selectedPage: 0,
                       followers: userModel.followers!,
                       following: userModel.following!,
+                      userId: userId,
                     ),
                   );
                 },
@@ -78,6 +83,7 @@ class PostFollowCountWidget extends StatelessWidget {
                       selectedPage: 1,
                       followers: userModel.followers!,
                       following: userModel.following!,
+                      userId: userId,
                     ),
                   );
                 },

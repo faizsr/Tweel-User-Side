@@ -20,6 +20,7 @@ class AllSuggestedUsersPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: CustomAppbar2(
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: 'Suggested for you',
           onPressed: () {
             Navigator.pop(context);

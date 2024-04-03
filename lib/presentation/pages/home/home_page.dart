@@ -30,7 +30,6 @@ class HomePage extends StatelessWidget {
     return ColorfulSafeArea(
       color: Theme.of(context).colorScheme.surface,
       child: Scaffold(
-        extendBodyBehindAppBar: true,
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: RefreshWidget(
           onRefresh: handleRefresh,

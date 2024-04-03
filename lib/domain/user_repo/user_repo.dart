@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:tweel_social_media/core/utils/api_endpoints.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
@@ -9,6 +10,7 @@ class UserRepo {
   static Future<List<UserModel>> fetchUserDetails() async {
     Dio dio = Dio();
     String token = await UserToken.getToken();
+    String userId = await CurrentUserId.getUserId();
     String userListUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.allUsers}";
     List<UserModel> users = [];
     try {
@@ -26,8 +28,10 @@ class UserRepo {
         final Map<String, dynamic> responseData = response.data;
         List userList = responseData['user'];
         for (int i = 0; i < userList.length; i++) {
-          UserModel post = UserModel.fromJson(userList[i]);
-          users.add(post);
+          UserModel user = UserModel.fromJson(userList[i]);
+          if (user.id != userId) {
+            users.add(user);
+          }
         }
         return users;
       }
@@ -121,7 +125,7 @@ class UserRepo {
           },
         ),
       );
-       debugPrint('Unfollow User Status: ${response.statusCode}');
+      debugPrint('Unfollow User Status: ${response.statusCode}');
       if (response.statusCode == 200) {
         var jsonResponse = response.data;
         List followersIdList = jsonResponse['newUser']['followers'];
@@ -171,6 +175,38 @@ class UserRepo {
     } catch (e) {
       debugPrint('Search Users Error: $e');
       return [];
+    }
+  }
+
+  static Future<String> reportUser(String userId, String description) async {
+    final client = http.Client();
+    String token = await UserToken.getToken();
+    String reportUserUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.reportUser}";
+    try {
+      var data = {
+        "description": description,
+        'reportUserId': userId,
+      };
+      var response = await client.post(
+        Uri.parse(reportUserUrl),
+        body: data,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      debugPrint('Report User Status: ${response.statusCode}');
+
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      if (response.statusCode == 400) {
+        debugPrint('Report Post Body: ${response.body.toString()}');
+        return 'already-reported';
+      }
+      return '';
+    } catch (e) {
+      debugPrint('Report User Error: $e');
+      return '';
     }
   }
 }
