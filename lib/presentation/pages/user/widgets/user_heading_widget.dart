@@ -41,7 +41,7 @@ class UserHeadingWidget extends StatelessWidget {
                 ),
           kWidth(10),
           Text(
-            userModel.username!,
+            userModel.username!.toLowerCase(),
             style: const TextStyle(fontVariations: fontWeightW700),
           ),
           const Spacer(),

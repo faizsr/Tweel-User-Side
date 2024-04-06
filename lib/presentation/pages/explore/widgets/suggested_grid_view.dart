@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
+import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
-import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/follow_btn_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -34,19 +34,14 @@ class SuggestedPeopleGridView extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             debugPrint('Go to profile');
-            changeSystemThemeOnPopup(
-              color: Theme.of(context).colorScheme.surface,
-              context: context,
-            );
             nextScreen(
                 context,
                 UserProfilePage(
                   userId: state.users[index].id!,
                   isCurrentUser: false,
-                )).then((value) => mySystemTheme(context));
-            context
-                .read<UserByIdBloc>()
-                .add(FetchUserByIdEvent(userId: state.users[index].id!));
+                )).then(
+              (value) => mySystemTheme(context),
+            );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -69,32 +64,47 @@ class SuggestedPeopleGridView extends StatelessWidget {
                 kHeight(10),
                 Text(state.users[index].fullName!),
                 Text(
-                  '@${state.users[index].username!}',
+                  '@${state.users[index].username!.toLowerCase()}',
                   style: TextStyle(
                     fontSize: 12,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 kHeight(10),
-                BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, profileState) {
-                    if (profileState is UserDetailFetchingSucessState) {
-                      return SizedBox(
-                        height: 35,
-                        width: double.infinity,
-                        child: FollowButton(
-                          userModel: state.users[index],
-                          // onFollowUnfollow: followUnfollowFunction,
-                        ),
-                      );
-                    }
-                    return Container();
-                  },
-                )
+                _followBtn(index)
               ],
             ),
           ),
         );
+      },
+    );
+  }
+
+  BlocBuilder<ProfileBloc, ProfileState> _followBtn(int index) {
+    void followUnfollowFunction(
+        UserModel currentUserModel, UserModel user, bool? isUnfollowing) {
+      if (user.followers!.contains(currentUserModel) || isUnfollowing!) {
+        state.users[index].followers!.removeWhere(
+          (element) => element['_id'] == currentUserModel.id,
+        );
+      } else {
+        state.users[index].followers!.add(currentUserModel.toJson());
+      }
+    }
+
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, profileState) {
+        if (profileState is ProfileFetchingSucessState) {
+          return SizedBox(
+            height: 35,
+            width: double.infinity,
+            child: FollowButton(
+              userModel: state.users[index],
+              onFollowUnfollow: followUnfollowFunction,
+            ),
+          );
+        }
+        return Container();
       },
     );
   }

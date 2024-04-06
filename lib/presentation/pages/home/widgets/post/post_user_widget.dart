@@ -58,7 +58,7 @@ class _PostUserDetailState extends State<PostUserDetail> {
               children: [
                 Text(
                   widget.postModel.user!.fullName ??
-                      widget.userModel!.fullName!,
+                      widget.userModel!.fullName!.capitalize(),
                   style: const TextStyle(fontSize: 15),
                 ),
                 kWidth(15),
@@ -111,7 +111,7 @@ class _PostUserDetailState extends State<PostUserDetail> {
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
-                if (state is UserDetailFetchingSucessState) {
+                if (state is ProfileFetchingSucessState) {
                   return InkWell(
                     onTap: () {
                       changeSystemThemeOnPopup(

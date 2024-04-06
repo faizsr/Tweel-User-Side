@@ -59,10 +59,6 @@ class ExplorePosts extends StatelessWidget {
             height: 220,
             imageUrl: url,
             onTap: () {
-              changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
-                context: context,
-              );
               nextScreen(
                 context,
                 PostDetailPage(
@@ -77,10 +73,6 @@ class ExplorePosts extends StatelessWidget {
             url: url,
             height: 220,
             onTap: () {
-              changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
-                context: context,
-              );
               nextScreen(
                 context,
                 PostDetailPage(
@@ -96,10 +88,6 @@ class ExplorePosts extends StatelessWidget {
             height: 150,
             imageUrl: url,
             onTap: () {
-              changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
-                context: context,
-              );
               nextScreen(
                 context,
                 PostDetailPage(
@@ -114,10 +102,6 @@ class ExplorePosts extends StatelessWidget {
             url: url,
             height: 150,
             onTap: () {
-              changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
-                context: context,
-              );
               nextScreen(
                 context,
                 PostDetailPage(
@@ -133,10 +117,6 @@ class ExplorePosts extends StatelessWidget {
             height: 190,
             imageUrl: url,
             onTap: () {
-              changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
-                context: context,
-              );
               nextScreen(
                 context,
                 PostDetailPage(
@@ -151,10 +131,6 @@ class ExplorePosts extends StatelessWidget {
             url: url,
             height: 190,
             onTap: () {
-              changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
-                context: context,
-              );
               nextScreen(
                 context,
                 PostDetailPage(

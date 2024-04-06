@@ -30,7 +30,7 @@ class CommentCardWidget extends StatelessWidget {
           builder: (context, state) {
             return BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
-                if (state is UserDetailFetchingSucessState) {
+                if (state is ProfileFetchingSucessState) {
                   return Slidable(
                     enabled: commentModel.user.id == state.userDetails.id,
                     endActionPane: ActionPane(
@@ -61,7 +61,7 @@ class CommentCardWidget extends StatelessWidget {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -89,8 +89,11 @@ class CommentCardWidget extends StatelessWidget {
                             },
                             child: CircleAvatar(
                               radius: 22,
-                              backgroundImage: NetworkImage(
-                                  commentModel.user.profilePicture!),
+                              backgroundImage:
+                                  commentModel.user.profilePicture == ""
+                                      ? Image.asset(profilePlaceholder).image
+                                      : NetworkImage(
+                                          commentModel.user.profilePicture!),
                             ),
                           ),
                           kWidth(10),
@@ -116,8 +119,9 @@ class CommentCardWidget extends StatelessWidget {
                                   Icon(
                                     CupertinoIcons.heart,
                                     size: 18,
-                                    color:
-                                        Theme.of(context).colorScheme.onSecondary,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
                                   ),
                                   kWidth(5),
                                   Text(

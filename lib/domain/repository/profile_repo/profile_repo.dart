@@ -81,6 +81,33 @@ class ProfileRepo {
       return '';
     }
   }
+
+  static Future<String> changeAccountType(String accountType) async {
+    var client = http.Client();
+    String token = await UserToken.getToken();
+    String updateDetailUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.changeAccountType}";
+    try {
+      Map<String, dynamic> body = {
+        "account_type": accountType.toLowerCase(),
+      };
+      var response = await client.patch(
+        Uri.parse(updateDetailUrl),
+        body: body,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      debugPrint('Update Account Type Status: ${response.statusCode}');
+      if (response.statusCode == 201) {
+        return 'success';
+      }
+      return '';
+    } catch (e) {
+      debugPrint('Update Account Type Error: $e');
+      return '';
+    }
+  }
 }
 
 class ProfileDetailsModel {

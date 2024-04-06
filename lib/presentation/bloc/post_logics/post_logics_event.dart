@@ -15,8 +15,6 @@ class CreatePostEvent extends PostLogicsEvent {
   });
 }
 
-
-
 class RemovePostEvent extends PostLogicsEvent {
   final String postId;
 

@@ -1,6 +1,7 @@
 class ApiEndPoints {
-  // static String baseUrl = 'http://10.0.2.2:5000';
-  static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
+  static String baseUrl = 'http://10.0.2.2:5000';
+  // static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
+
   static String profile = '/me';
   static String editUserProfile = '/profile/edit';
   static String userSignUp = '/signup';
@@ -8,14 +9,13 @@ class ApiEndPoints {
   static String userVerifyOtp = "/signup-send-otp";
   static String forgetSendOtp = "/forget-send-otp";
   static String resetPassword = "/forget-password";
+  static String changeAccountType = "/account/type";
 
   static String allPosts = "/posts";
+  static String getPostById = "/post/";
   static String createPost = "/createpost";
   static String editPost = "/post/";
   static String removePost = "/post/";
-
-  static String reportPost = "/report/post";
-  static String reportUser = "/report/user";
 
   static String addComment = "/post/comment/add";
   static String deleteComment = "/post/comment/delete";
@@ -23,9 +23,12 @@ class ApiEndPoints {
   static String likePost = "/post/like/";
   static String unlikePost = "/post/unlike/";
 
+  static String allSavedPosts = "/saved-post";
   static String savePost = "/save-post/";
   static String unsavePost = "/unsave-post/";
-  static String allSavedPosts = "/saved-post";
+
+  static String reportPost = "/report/post";
+  static String reportUser = "/report/user";
 
   static String allStories = "/stories";
   static String addStory = "/story/add";

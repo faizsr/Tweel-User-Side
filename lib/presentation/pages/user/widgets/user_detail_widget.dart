@@ -127,7 +127,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                               ),
                               kHeight(5),
                               Text(
-                                '${userModel.accountType} profile',
+                                '${userModel.accountType} profile'.capitalize(),
                                 style: const TextStyle(fontSize: 12),
                               ),
                               kHeight(10),
@@ -158,7 +158,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                 bottom: -40,
                 child: BlocBuilder<ProfileBloc, ProfileState>(
                   builder: (context, state) {
-                    if (state is UserDetailFetchingSucessState) {
+                    if (state is ProfileFetchingSucessState) {
                       return PostFollowCountWidget(
                         postsList: postsList,
                         userModel: userModel,

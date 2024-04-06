@@ -14,3 +14,11 @@ class EditUserDetailEvent extends ProfileLogicsEvent {
     required this.profilePicture,
   });
 }
+
+class ChangeAccountTypeEvent extends ProfileLogicsEvent {
+  final String accountType;
+
+  ChangeAccountTypeEvent({
+    required this.accountType,
+  });
+}

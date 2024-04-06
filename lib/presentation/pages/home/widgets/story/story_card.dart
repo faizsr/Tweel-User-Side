@@ -29,7 +29,7 @@ class StoryCard extends StatelessWidget {
           SizedBox(
             width: 70,
             child: Text(
-              storyModel.user['username']!,
+              storyModel.user['username'].toString().toLowerCase(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

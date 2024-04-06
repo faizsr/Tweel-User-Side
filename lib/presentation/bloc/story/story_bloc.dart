@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
-import 'package:tweel_social_media/domain/cloud_repo/cloud_repo.dart';
-import 'package:tweel_social_media/domain/story_repo/story_repo.dart';
+import 'package:tweel_social_media/domain/repository/cloud_repo/cloud_repo.dart';
+import 'package:tweel_social_media/domain/repository/story_repo/story_repo.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 part 'story_event.dart';

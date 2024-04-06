@@ -28,6 +28,7 @@ class _ReportPageState extends State<ReportPage> {
   final issueController = TextEditingController();
   final scrollController = ScrollController();
   final formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReportRadioCubit, ReportTypeState>(
@@ -129,7 +130,6 @@ class _ReportPageState extends State<ReportPage> {
                     child: CustomTextField2(
                       controller: issueController,
                       hintText: 'Please describe your issue.....',
-                      enableBorder: true,
                       maxLines: 5,
                     ),
                   ),

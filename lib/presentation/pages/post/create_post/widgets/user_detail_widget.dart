@@ -10,7 +10,7 @@ class UserDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        if (state is UserDetailFetchingSucessState) {
+        if (state is ProfileFetchingSucessState) {
           return Row(
             children: [
               CircleAvatar(

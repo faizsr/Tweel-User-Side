@@ -34,14 +34,14 @@ class _CreatePostCardState extends State<CreatePostCard> {
         children: [
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
-              if (state is UserProfileInitialState) {
-                context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+              if (state is ProfileInitialState) {
+                context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
                 return _loadingWidget();
               }
-              if (state is UserDetailFetchingLoadingState) {
+              if (state is ProfileFetchingLoadingState) {
                 return _loadingWidget();
               }
-              if (state is UserDetailFetchingSucessState) {
+              if (state is ProfileFetchingSucessState) {
                 return Column(
                   children: [
                     Row(
@@ -69,7 +69,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                             ),
                             kHeight(5),
                             Text(
-                              '@${state.userDetails.username}',
+                              '@${state.userDetails.username!.toLowerCase()}',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: theme.colorScheme.secondary,
@@ -86,7 +86,9 @@ class _CreatePostCardState extends State<CreatePostCard> {
                       child: CustomOutlinedBtn(
                         onPressed: () {
                           changeSystemThemeOnPopup(
-                              color: theme.colorScheme.surface,context: context,);
+                            color: theme.colorScheme.surface,
+                            context: context,
+                          );
                           nextScreen(
                             context,
                             const MediaPicker(

@@ -1,7 +1,10 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/message/widgets/message_appbar.dart';
+import 'package:tweel_social_media/presentation/pages/message/widgets/message_user_card.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({super.key});
@@ -14,60 +17,33 @@ class _MessagePageState extends State<MessagePage> {
   final SearchController searchController = SearchController();
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final theme = Theme.of(context).colorScheme;
     return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.surface,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.primaryContainer,
         appBar: PreferredSize(
-          preferredSize:
-              Size.fromHeight(MediaQuery.of(context).size.height * 0.18),
+          preferredSize: Size.fromHeight(size.height / 5.5),
           child: MessageAppbar(searchController: searchController),
         ),
-        body: Container(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            itemCount: 10,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    kWidth(15),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'William Sam',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        Text(
-                          'Yeah i know',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
-                        )
-                      ],
-                    ),
-                    const Spacer(),
-                    Text(
-                      '11.47 AM',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
-                    )
-                  ],
-                ),
+        body: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if (state is UserDetailFetchingSuccessState) {
+              return ListView.builder(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                itemCount: state.users.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  UserModel user = state.users[index];
+                  return MessageUserCard(user: user);
+                },
               );
-            },
-          ),
+            }
+            return const Center(
+              child: Text('No Users'),
+            );
+          },
         ),
       ),
     );

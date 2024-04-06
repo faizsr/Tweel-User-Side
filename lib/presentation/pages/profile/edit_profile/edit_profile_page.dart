@@ -64,7 +64,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Navigator.pop(context);
             customSnackbar(context, 'Profile Details Updated',
                 leading: Ktweel.tick_square, trailing: 'OK');
-            context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+            context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
             context.read<PostBloc>().add(PostInitialFetchEvent());
             context.read<SetProfileImageCubit>().resetState();
           }

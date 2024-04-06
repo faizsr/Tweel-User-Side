@@ -40,7 +40,7 @@ class _StoryHeadingWidgetState extends State<StoryHeadingWidget> {
             builder: (context, state) {
               var state1 = state[0];
               var state2 = state[1];
-              if (state2 is UserDetailFetchingSucessState) {
+              if (state2 is ProfileFetchingSucessState) {
                 userId = state2.userDetails.id!;
               }
               if (state1 is FetchStoriesSuccessState) {

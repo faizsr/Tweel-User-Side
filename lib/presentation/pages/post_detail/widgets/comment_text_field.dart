@@ -29,7 +29,7 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        if (state is UserDetailFetchingSucessState) {
+        if (state is ProfileFetchingSucessState) {
           return BottomAppBar(
             padding: EdgeInsets.zero,
             elevation: 0,
@@ -48,8 +48,9 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(state.userDetails.profilePicture!),
+                    backgroundImage: state.userDetails.profilePicture == ""
+                        ? Image.asset(profilePlaceholder).image
+                        : NetworkImage(state.userDetails.profilePicture!),
                   ),
                   kWidth(10),
                   Expanded(
@@ -59,7 +60,8 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
                       controller: commentController,
                       decoration: InputDecoration(
                         hintText: 'Add a comment...',
-                        hintStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                        hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary),
                         border: InputBorder.none,
                       ),
                     ),

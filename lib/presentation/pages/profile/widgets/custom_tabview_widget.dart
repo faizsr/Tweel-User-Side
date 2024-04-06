@@ -11,7 +11,7 @@ class CustomTabviewWidget extends StatelessWidget {
     required this.tabController,
   });
 
-  final UserDetailFetchingSucessState profileState;
+  final ProfileFetchingSucessState profileState;
   final TabController tabController;
 
   @override

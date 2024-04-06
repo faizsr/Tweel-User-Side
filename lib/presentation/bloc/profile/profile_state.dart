@@ -3,19 +3,19 @@ part of 'profile_bloc.dart';
 @immutable
 sealed class ProfileState {}
 
-final class UserProfileInitialState extends ProfileState {}
+final class ProfileInitialState extends ProfileState {}
 
-class UserDetailFetchingLoadingState extends ProfileState {}
+class ProfileFetchingLoadingState extends ProfileState {}
 
-class UserDetailFetchingSucessState extends ProfileState {
+class ProfileFetchingSucessState extends ProfileState {
   final UserModel userDetails;
   final List<PostModel> posts;
 
-  UserDetailFetchingSucessState({
+  ProfileFetchingSucessState({
     required this.userDetails,
     required this.posts,
   });
 }
 
-class UserDetailFetchingErrorState extends ProfileState {}
+class ProfileFetchingErrorState extends ProfileState {}
 

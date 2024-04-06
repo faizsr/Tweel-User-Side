@@ -58,7 +58,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
               customSnackbar(context, 'New post uploaded successfully',
                   leading: Ktweel.clipboard_tick, trailing: 'OK');
               context.read<PostBloc>().add(PostInitialFetchEvent());
-              context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+              context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
             }
           },
           child: SingleChildScrollView(

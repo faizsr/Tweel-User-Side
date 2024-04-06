@@ -3,6 +3,7 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
@@ -28,6 +29,12 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class UserProfilePageState extends State<UserProfilePage> {
+  @override
+  void initState() {
+    context.read<UserByIdBloc>().add(FetchUserByIdEvent(userId: widget.userId));
+    super.initState();
+  }
+
   Future<void> _handleRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
     context.read<UserByIdBloc>().add(FetchUserByIdEvent(userId: widget.userId));
@@ -35,6 +42,10 @@ class UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    changeSystemThemeOnPopup(
+      color: Theme.of(context).colorScheme.surface,
+      context: context,
+    );
     return ColorfulSafeArea(
       color: Theme.of(context).colorScheme.surface,
       child: RefreshWidget(
@@ -98,7 +109,7 @@ class UserProfilePageState extends State<UserProfilePage> {
           List<String> followingId = state.userModel.following!
               .map((e) => e['_id'].toString())
               .toList();
-          if (userState is UserDetailFetchingSucessState) {
+          if (userState is ProfileFetchingSucessState) {
             if (followersId.contains(userState.userDetails.id) &&
                 followingId.contains(userState.userDetails.id)) {
               return Column(

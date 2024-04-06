@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
-import 'package:tweel_social_media/domain/user_repo/user_repo.dart';
+import 'package:tweel_social_media/domain/repository/user_repo/user_repo.dart';
 
 part 'user_by_id_event.dart';
 part 'user_by_id_state.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
-import 'package:tweel_social_media/domain/post_repo/post_repo.dart';
+import 'package:tweel_social_media/domain/repository/post_repo/post_repo.dart';
 
 part 'saved_posts_event.dart';
 part 'saved_posts_state.dart';

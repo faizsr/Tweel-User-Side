@@ -26,7 +26,9 @@ class PostRepo {
         final List postsList = response.data;
         for (int i = 0; i < postsList.length; i++) {
           PostModel post = PostModel.fromJson(postsList[i]);
-          posts.add(post);
+          if (!post.isBlocked) {
+            posts.add(post);
+          }
         }
         return posts;
       }
@@ -34,6 +36,35 @@ class PostRepo {
     } catch (e) {
       debugPrint('Fetch Post Error: ${e.toString()}');
       return [];
+    }
+  }
+
+  static Future<PostModel?> fetchPostsById(String postId) async {
+    final dio = Dio();
+    String token = await UserToken.getToken();
+    String getPostUrl =
+        "${ApiEndPoints.baseUrl}${ApiEndPoints.getPostById}$postId";
+    try {
+      var response = await dio.get(
+        getPostUrl,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      debugPrint('Fetch Post Status: ${response.statusCode}');
+      if (response.statusCode == 201) {
+        final jsonResponse = response.data;
+        print(jsonResponse['data']);
+        PostModel post = PostModel.fromJson(jsonResponse['data']);
+        return post;
+      }
+      return null;
+    } catch (e) {
+      debugPrint('Fetch Post Error: ${e.toString()}');
+      return null;
     }
   }
 

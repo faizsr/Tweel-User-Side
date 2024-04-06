@@ -27,10 +27,14 @@ class _FollowButtonState extends State<FollowButton> {
   @override
   void initState() {
     followersIds = widget.userModel!.followers!
-        .map((user) => user['_id'].toString())
+        .map((user) => user is Map<String, dynamic>
+            ? user['_id'].toString()
+            : user.toString())
         .toSet();
     followingIds = widget.userModel!.following!
-        .map((user) => user['_id'].toString())
+        .map((user) => user is Map<String, dynamic>
+            ? user['_id'].toString()
+            : user.toString())
         .toSet();
     super.initState();
   }
@@ -44,7 +48,7 @@ class _FollowButtonState extends State<FollowButton> {
       ],
       builder: (context, state) {
         var state2 = state[1];
-        if (state2 is UserDetailFetchingSucessState) {
+        if (state2 is ProfileFetchingSucessState) {
           bool isFollowing = followersIds.contains(state2.userDetails.id);
           bool isFollowedByUser = followingIds.contains(state2.userDetails.id);
           return CustomOutlinedBtn(

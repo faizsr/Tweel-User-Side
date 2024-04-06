@@ -47,7 +47,7 @@ class StoryWidget extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
         child: BlocListener<ProfileBloc, ProfileState>(
           listener: (context, state) {
-            if (state is UserDetailFetchingSucessState) {
+            if (state is ProfileFetchingSucessState) {
               userId = state.userDetails.id!;
               debugPrint('Story Success User Id: $userId');
             }
@@ -89,7 +89,7 @@ class StoryWidget extends StatelessWidget {
                           changeSystemThemeOnPopup(color: lBlack,context: context,);
                           nextScreen(
                             context,
-                            MoreStories(
+                            StoryViewPage(
                               imageUrlList: images,
                               dateList: createdDates,
                               story: stories.first,
@@ -108,7 +108,7 @@ class StoryWidget extends StatelessWidget {
                           changeSystemThemeOnPopup(color: lBlack,context: context,);
                           nextScreen(
                             context,
-                            MoreStories(
+                            StoryViewPage(
                               imageUrlList: [stories.first.image],
                               dateList: [stories.first.createdDate],
                               story: stories.first,

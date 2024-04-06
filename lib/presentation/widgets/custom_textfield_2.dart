@@ -5,13 +5,11 @@ class CustomTextField2 extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
-    this.enableBorder = false,
     this.maxLines = 1,
   });
 
   final TextEditingController controller;
   final String hintText;
-  final bool enableBorder;
   final int maxLines;
 
   @override
@@ -22,7 +20,7 @@ class CustomTextField2 extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        border: enableBorder ? InputBorder.none : const OutlineInputBorder(),
+        border: InputBorder.none,
       ),
       validator: (value) {
         if (value!.isEmpty) {

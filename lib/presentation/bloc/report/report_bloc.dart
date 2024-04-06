@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/domain/post_repo/post_repo.dart';
-import 'package:tweel_social_media/domain/user_repo/user_repo.dart';
+import 'package:tweel_social_media/domain/repository/post_repo/post_repo.dart';
+import 'package:tweel_social_media/domain/repository/user_repo/user_repo.dart';
 
 part 'report_event.dart';
 part 'report_state.dart';

@@ -19,12 +19,17 @@ class CustomIconBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: color ?? Theme.of(context).colorScheme.primary),
-          kWidth(5),
-          Text(title, style: const TextStyle(fontSize: 13)),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+        child: Row(
+          children: [
+            Icon(icon,
+                size: 20,
+                color: color ?? Theme.of(context).colorScheme.primary),
+            kWidth(5),
+            Text(title, style: const TextStyle(fontSize: 13)),
+          ],
+        ),
       ),
     );
   }

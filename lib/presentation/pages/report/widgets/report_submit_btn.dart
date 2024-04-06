@@ -26,7 +26,7 @@ class ReportSubmitBtn extends StatelessWidget {
     return BlocBuilder<ReportRadioCubit, ReportTypeState>(
       builder: (context, state) {
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
           child: CustomButton(
             buttonText: 'Submit',
             onPressed: state != ReportTypeState.none

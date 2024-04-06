@@ -12,3 +12,9 @@ class EditUserDetailsSuccessState extends ProfileLogicsState {}
 class EditUsernameAlreadyExistsState extends ProfileLogicsState {}
 
 class EditUserDetailsErrorState extends ProfileLogicsState {}
+
+class ChangeAccountTypeLoadingState extends ProfileLogicsState {}
+
+class ChangeAccountTypeSuccessState extends ProfileLogicsState {}
+
+class ChangeAccountTypeErrorState extends ProfileLogicsState {}

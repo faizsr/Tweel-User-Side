@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/domain/cloud_repo/cloud_repo.dart';
-import 'package:tweel_social_media/domain/post_repo/post_repo.dart';
+import 'package:tweel_social_media/domain/repository/cloud_repo/cloud_repo.dart';
+import 'package:tweel_social_media/domain/repository/post_repo/post_repo.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 part 'post_logics_event.dart';

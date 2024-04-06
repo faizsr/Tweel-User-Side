@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<void> handleRefresh() async {
       await Future.delayed(const Duration(seconds: 2));
-      context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+      context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
       context.read<StoryBloc>().add(FetchAllStoriesEvent());
       context.read<PostBloc>().add(PostInitialFetchEvent());
     }

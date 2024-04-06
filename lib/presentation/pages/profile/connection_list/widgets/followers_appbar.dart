@@ -118,7 +118,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInQuad,
-            width: _isSearchActive ? 300 : 40,
+            width: _isSearchActive ? MediaQuery.of(context).size.width - 100 : 40,
             height: 40,
             child: _isSearchActive
                 ? Expanded(

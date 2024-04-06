@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/cubit/post_image_index.dart/post_image_index.dart';
 import 'package:widget_zoom/widget_zoom.dart';
@@ -33,6 +34,8 @@ class _PostImagePreviewState extends State<PostImagePreview> {
 
   @override
   Widget build(BuildContext context) {
+    changeSystemThemeOnPopup(context: context, color: lBlack);
+
     return BlocBuilder<PostImageIndexCubit, int>(
       builder: (context, state) {
         return Scaffold(

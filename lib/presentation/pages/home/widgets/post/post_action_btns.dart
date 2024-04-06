@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
@@ -57,10 +58,6 @@ class PostActionButtons extends StatelessWidget {
           icon: Ktweel.comment,
           onTap: () {
             debugPrint('Comment pressed');
-            changeSystemThemeOnPopup(
-              color: Theme.of(context).colorScheme.surface,
-              context: context,
-            );
             nextScreen(
               context,
               PostDetailPage(

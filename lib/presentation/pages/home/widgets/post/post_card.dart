@@ -24,7 +24,7 @@ class PostCardWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(18, 15, 18, 15),
+      padding: const EdgeInsets.fromLTRB(18, 15, 18,4),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         boxShadow: kBoxShadow,
@@ -53,7 +53,7 @@ class PostCardWidget extends StatelessWidget {
             postModel: postModel,
             height: 400,
           ),
-          kHeight(15),
+          kHeight(5),
 
           // Post Action Buttons
           PostActionButtons(

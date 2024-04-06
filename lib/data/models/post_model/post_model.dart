@@ -7,6 +7,7 @@ class PostModel {
   final List? mediaURL;
   final List? likes;
   final List<CommentModel>? comments;
+  final List<String>? sComments;
   final String? createdDate;
   final String? updatedDate;
   final UserModel? user;
@@ -20,6 +21,7 @@ class PostModel {
     this.mediaURL,
     this.likes,
     this.comments,
+    this.sComments,
     this.createdDate,
     this.updatedDate,
     this.user,
@@ -34,10 +36,13 @@ class PostModel {
       location: json['location'],
       mediaURL: json['mediaURL'],
       likes: json['likes'],
-      comments: json['comments'] == null
-          ? []
-          : List<CommentModel>.from(json['comments']!
-              .map((comment) => CommentModel.fromJson(comment))),
+      comments: json['comments'] is Map<String, dynamic>
+          ? json['comments'] == null
+              ? []
+              : List<CommentModel>.from(json['comments']!
+                  .map((comment) => CommentModel.fromJson(comment)))
+          : [],
+      sComments: json['comments'] is String ? json['comments'] : [],
       createdDate: json['createdAt'],
       updatedDate: json['updatedAt'],
       isBlocked: json['isBlocked'],
@@ -56,7 +61,7 @@ class PostModel {
         'likes': likes,
         'comments': comments is Map<String, dynamic>
             ? comments!.map((comment) => comment.toJson()).toList()
-            : [],
+            : sComments, 
         'createdAt': createdDate,
         'updatedAt': updatedDate,
         'isBlocked': isBlocked,

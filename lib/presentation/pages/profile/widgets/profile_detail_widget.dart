@@ -91,7 +91,7 @@ class ProfileDetailsWidget extends StatelessWidget {
                               ),
                               kHeight(5),
                               Text(
-                                '${userModel.accountType} profile',
+                                '${userModel.accountType} profile'.capitalize(),
                                 style: const TextStyle(fontSize: 12),
                               ),
                               kHeight(10),
@@ -156,7 +156,10 @@ class ProfileDetailsWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
                 context: context,
               );
-              await nextScreen(context, const SettingsPage()).then((value) {
+              await nextScreen(
+                context,
+                SettingsPage(accountType: userModel.accountType!),
+              ).then((value) {
                 Navigator.pop(context);
               });
             },

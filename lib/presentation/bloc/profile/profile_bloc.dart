@@ -4,27 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
-import 'package:tweel_social_media/domain/profile_repo/profile_repo.dart';
+import 'package:tweel_social_media/domain/repository/profile_repo/profile_repo.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super(UserProfileInitialState()) {
-    on<UserDetailInitialFetchEvent>(userDetailInitialFetchEvent);
+  ProfileBloc() : super(ProfileInitialState()) {
+    on<ProfileInitialFetchEvent>(userDetailInitialFetchEvent);
   }
 
   FutureOr<void> userDetailInitialFetchEvent(
-      UserDetailInitialFetchEvent event, Emitter<ProfileState> emit) async {
-    emit(UserDetailFetchingLoadingState());
+      ProfileInitialFetchEvent event, Emitter<ProfileState> emit) async {
+    emit(ProfileFetchingLoadingState());
     ProfileDetailsModel? userDetails = await ProfileRepo.fetchUserDetails();
     if (userDetails != null) {
-      emit(UserDetailFetchingSucessState(
+      emit(ProfileFetchingSucessState(
         userDetails: userDetails.user,
         posts: userDetails.posts,
       ));
     } else {
-      emit(UserDetailFetchingErrorState());
+      emit(ProfileFetchingErrorState());
     }
   }
 

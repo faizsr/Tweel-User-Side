@@ -20,10 +20,6 @@ class PostFunctions {
       String currentUserId = await CurrentUserId.getUserId();
       if (currentUserId != userModel.id) {
         debugPrint('Go to profile');
-        changeSystemThemeOnPopup(
-          color: Theme.of(context).colorScheme.surface,
-          context: context,
-        );
         nextScreen(
             context,
             UserProfilePage(
@@ -44,10 +40,6 @@ class PostFunctions {
       } else {
         if (onDetail) {
           debugPrint('On detail');
-          changeSystemThemeOnPopup(
-            color: Theme.of(context).colorScheme.surface,
-            context: context,
-          );
           nextScreen(
               context,
               UserProfilePage(

@@ -52,6 +52,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      margin: const EdgeInsets.all(20),
       curve: Curves.fastOutSlowIn,
       duration: const Duration(seconds: 1),
       decoration: BoxDecoration(
@@ -93,10 +94,6 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
       title: const Text('View account'),
       onTap: () {
         debugPrint('Go to profile');
-        changeSystemThemeOnPopup(
-          color: Theme.of(context).colorScheme.surface,
-          context: context,
-        );
         nextScreen(
             context,
             UserProfilePage(
@@ -123,9 +120,10 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
           color: Theme.of(context).colorScheme.primaryContainer,
           context: context,
         );
-        nextScreen(context, ReportPage(
-          postId: widget.postModel.id!,
-        )).then((value) {
+        nextScreen(
+          context,
+          ReportPage(postId: widget.postModel.id!),
+        ).then((value) {
           mySystemTheme(context);
           Navigator.pop(context);
         });
@@ -147,7 +145,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
           Navigator.pop(context);
           if (widget.onDetail) Navigator.pop(context);
           context.read<PostBloc>().add(PostInitialFetchEvent());
-          context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+          context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
         }
       },
       child: ListTile(

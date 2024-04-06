@@ -22,12 +22,11 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
-  int count = 5;
   late TabController tabController;
 
   @override
   void initState() {
-    context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+    context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
     context.read<SavedPostsBloc>().add(FetchAllSavedPostEvent());
     tabController = TabController(length: 2, vsync: this);
     super.initState();
@@ -35,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   Future<void> _handleRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
-    context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+    context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
   }
 
   @override
@@ -51,10 +50,10 @@ class _ProfilePageState extends State<ProfilePage>
             onRefresh: _handleRefresh,
             child: BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
-                if (state is UserDetailFetchingLoadingState) {
+                if (state is ProfileFetchingLoadingState) {
                   return const ProfilePageLoading();
                 }
-                if (state is UserDetailFetchingSucessState) {
+                if (state is ProfileFetchingSucessState) {
                   return ListView(
                     children: [
                       ProfileDetailsWidget(

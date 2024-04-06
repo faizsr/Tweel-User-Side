@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/data/models/notification_model/notification_model.dart';
-import 'package:tweel_social_media/domain/notification_repo/notification_repo.dart';
+import 'package:tweel_social_media/domain/repository/notification_repo/notification_repo.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';

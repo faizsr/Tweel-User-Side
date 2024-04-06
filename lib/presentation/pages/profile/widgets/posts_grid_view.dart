@@ -17,7 +17,7 @@ class PostsGridViewWidget extends StatelessWidget {
     required this.profileState,
   });
 
-  final UserDetailFetchingSucessState profileState;
+  final ProfileFetchingSucessState profileState;
 
   @override
   Widget build(BuildContext context) {

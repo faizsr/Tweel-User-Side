@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/domain/forget_repo/forget_repo.dart';
+import 'package:tweel_social_media/domain/repository/forget_repo/forget_repo.dart';
 
 part 'forget_password_event.dart';
 part 'forget_password_state.dart';

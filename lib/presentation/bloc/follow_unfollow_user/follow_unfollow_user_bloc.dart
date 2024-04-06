@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/domain/user_repo/user_repo.dart';
+import 'package:tweel_social_media/domain/repository/user_repo/user_repo.dart';
 
 part 'follow_unfollow_user_event.dart';
 part 'follow_unfollow_user_state.dart';

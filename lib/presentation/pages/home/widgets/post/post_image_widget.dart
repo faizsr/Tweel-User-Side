@@ -30,7 +30,6 @@ class PostImageWidget extends StatelessWidget {
           return InkWell(
             onTap: () {
               debugPrint('Image preview');
-              changeSystemThemeOnPopup(context: context, color: lBlack);
               nextScreen(
                 context,
                 PostImagePreview(

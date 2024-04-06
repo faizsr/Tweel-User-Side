@@ -49,7 +49,7 @@ class EditPostAppbar extends StatelessWidget {
                 Navigator.of(context).pop();
               }
               context.read<PostBloc>().add(PostInitialFetchEvent());
-              context.read<ProfileBloc>().add(UserDetailInitialFetchEvent());
+              context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
             }
           },
           builder: (context, state) {

@@ -9,8 +9,8 @@ import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
 import 'package:tweel_social_media/presentation/cubit/story_index/story_index_cubit.dart';
 
-class MoreStories extends StatefulWidget {
-  const MoreStories({
+class StoryViewPage extends StatefulWidget {
+  const StoryViewPage({
     super.key,
     required this.imageUrlList,
     required this.dateList,
@@ -21,10 +21,10 @@ class MoreStories extends StatefulWidget {
   final List<String> dateList;
   final StoryModel story;
   @override
-  _MoreStoriesState createState() => _MoreStoriesState();
+  _StoryViewPageState createState() => _StoryViewPageState();
 }
 
-class _MoreStoriesState extends State<MoreStories> {
+class _StoryViewPageState extends State<StoryViewPage> {
   final storyController = StoryController();
   int index = 0;
 

@@ -20,8 +20,6 @@ class HeadingWidget extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,context: context,);
             nextScreen(context, const NotificationPage())
                 .then((value) => mySystemTheme(context));
           },
