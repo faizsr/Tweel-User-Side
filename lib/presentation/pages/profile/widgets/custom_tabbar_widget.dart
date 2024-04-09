@@ -11,6 +11,7 @@ class CustomTabBarWiget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(5)),
       child: Container(
@@ -18,9 +19,11 @@ class CustomTabBarWiget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 70),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Colors.transparent,
           border: Border.all(
-              color: Theme.of(context).colorScheme.primary, width: 0.5),
+            color: theme.colorScheme.outline,
+            width: 1,
+          ),
         ),
         child: TabBar(
           tabAlignment: TabAlignment.fill,
@@ -28,11 +31,11 @@ class CustomTabBarWiget extends StatelessWidget {
           indicatorSize: TabBarIndicatorSize.tab,
           dividerColor: Colors.transparent,
           indicator: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
+            color: theme.colorScheme.primary,
             borderRadius: BorderRadius.circular(5),
           ),
-          labelColor: Theme.of(context).colorScheme.onPrimaryContainer,
-          unselectedLabelColor: Theme.of(context).colorScheme.primary,
+          labelColor: theme.colorScheme.onPrimaryContainer,
+          unselectedLabelColor: theme.colorScheme.primary,
           tabs: const [
             TabItem(title: 'POSTS'),
             TabItem(title: 'SAVED'),

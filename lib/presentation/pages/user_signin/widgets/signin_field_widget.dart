@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/forgot_password/forget_password_page.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
@@ -26,7 +27,7 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
       listener: signInListener,
       builder: (context, state) {
         return FadeInDown(
-          delay: const Duration(milliseconds: 700),
+          delay: const Duration(milliseconds: 400),
           duration: const Duration(milliseconds: 1000),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(40, 40, 40, 30),
@@ -68,14 +69,29 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
                   kHeight(20),
 
                   // Password field
-                  CustomTxtFormField(
-                    controller: passwordController,
-                    hintText: 'Password',
-                    validator: (value) {
-                      if (value!.length < 4) {
-                        return 'Password should not be empty';
-                      }
-                      return null;
+                  BlocBuilder<TogglePasswordCubit, bool>(
+                    builder: (context, state) {
+                      return CustomTxtFormField(
+                        controller: passwordController,
+                        hintText: 'Password',
+                        suffix: GestureDetector(
+                          onTap: () {
+                            context.read<TogglePasswordCubit>().toggle();
+                          },
+                          child: Icon(
+                            state ? Ktweel.eye_slash : Ktweel.eye,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                        obscureText: state,
+                        validator: (value) {
+                          if (value!.length < 4) {
+                            return 'Password should not be empty';
+                          }
+                          return null;
+                        },
+                      );
                     },
                   ),
                   kHeight(25),
@@ -84,6 +100,7 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
                   CustomButton(
                     buttonText: 'Sign In',
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       if (formKey.currentState!.validate()) {
                         context.read<SignInBloc>().add(
                               UserSignInEvent(

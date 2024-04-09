@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -22,6 +21,7 @@ class FollowersAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return AppBar(
       title: const Text(
         'Connections',
@@ -30,9 +30,7 @@ class FollowersAppbar extends StatelessWidget {
       centerTitle: true,
       leading: IconButton(
         onPressed: () {
-          context
-              .read<UserByIdBloc>()
-              .add(FetchUserByIdEvent(userId: userId));
+          context.read<UserByIdBloc>().add(FetchUserByIdEvent(userId: userId));
           Navigator.pop(context);
         },
         icon: const Icon(
@@ -50,17 +48,16 @@ class FollowersAppbar extends StatelessWidget {
         controller: tabController,
         indicatorSize: TabBarIndicatorSize.label,
         indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(
-              width: 2, color: Theme.of(context).colorScheme.onPrimary),
+          borderSide: BorderSide(width: 2, color: theme.colorScheme.onPrimary),
           insets: const EdgeInsets.symmetric(horizontal: 16.0),
           borderRadius: BorderRadius.circular(10),
         ),
         indicatorPadding: const EdgeInsets.all(0),
         splashFactory: NoSplash.splashFactory,
-        dividerColor: Theme.of(context).colorScheme.outline,
-        labelColor: Theme.of(context).colorScheme.onPrimary,
+        dividerColor: theme.colorScheme.outline,
+        labelColor: theme.colorScheme.onPrimary,
         labelPadding: const EdgeInsets.all(0),
-        unselectedLabelColor: Theme.of(context).colorScheme.primary,
+        unselectedLabelColor: theme.colorScheme.primary,
         labelStyle: TextStyle(
           fontFamily: mainFont,
           fontSize: 12,
@@ -111,6 +108,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return GestureDetector(
       onTap: _toggleSearch,
       child: Row(
@@ -118,7 +116,8 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInQuad,
-            width: _isSearchActive ? MediaQuery.of(context).size.width - 100 : 40,
+            width:
+                _isSearchActive ? MediaQuery.of(context).size.width - 100 : 40,
             height: 40,
             child: _isSearchActive
                 ? Expanded(
@@ -127,13 +126,12 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                       textAlign: TextAlign.start,
                       autofocus: true,
                       focusNode: _focusNode,
-                      style: const TextStyle(color: lBlack),
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.only(bottom: 10),
                         border: InputBorder.none,
                         hintText: "Search",
                         hintStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: theme.colorScheme.secondary,
                           fontSize: 16,
                         ),
                       ),
@@ -147,7 +145,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                   padding: const EdgeInsets.only(right: 10),
                   child: Icon(
                     Ktweel.close,
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: theme.colorScheme.secondary,
                   ),
                 )
               : const Padding(

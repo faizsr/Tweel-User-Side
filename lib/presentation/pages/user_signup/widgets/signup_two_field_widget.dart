@@ -37,7 +37,7 @@ class _SignUpTwoFieldWidgetState extends State<SignUpTwoFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return FadeInDown(
-      delay: const Duration(milliseconds: 700),
+      delay: const Duration(milliseconds: 400),
       duration: const Duration(milliseconds: 1000),
       child: Form(
         key: formKey,
@@ -98,6 +98,7 @@ class _SignUpTwoFieldWidgetState extends State<SignUpTwoFieldWidget> {
                 child: CustomButton(
                   buttonText: 'Sign Up',
                   onPressed: () {
+                    FocusScope.of(context).unfocus();
                     if (passWordController.text ==
                         confirmPasswordController.text) {
                       if (formKey.currentState!.validate()) {
@@ -106,7 +107,8 @@ class _SignUpTwoFieldWidgetState extends State<SignUpTwoFieldWidget> {
                             .add(UserOtpVerificationEvent(email: widget.email));
                       }
                     } else {
-                      customSnackbar(context, "Passwords doesn't match",leading: Ktweel.shield_cross,trailing: 'OK');
+                      customSnackbar(context, "Passwords doesn't match",
+                          leading: Ktweel.shield_cross, trailing: 'OK');
                     }
                   },
                 ),

@@ -19,9 +19,9 @@ class RefreshWidget extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       displacement: 10,
       indicatorBuilder: (context, controller) {
-        return SpinKitFadingCircle(
+        return SpinKitChasingDots(
           color: Theme.of(context).colorScheme.primary,
-          size: 30,
+          size: 25,
         );
       },
       onRefresh: onRefresh,

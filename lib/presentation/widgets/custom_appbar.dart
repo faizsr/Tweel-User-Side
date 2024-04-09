@@ -9,7 +9,7 @@ class CustomAppbar {
       centerTitle: true,
       leading: enableIcon
           ? FadeInLeft(
-              delay: const Duration(milliseconds: 700),
+              delay: const Duration(milliseconds: 400),
               duration: const Duration(milliseconds: 1000),
               child: IconButton(
                 onPressed: () => Navigator.pop(context),
@@ -18,7 +18,7 @@ class CustomAppbar {
             )
           : const SizedBox(),
       title: FadeInDown(
-        delay: const Duration(milliseconds: 700),
+        delay: const Duration(milliseconds: 400),
         duration: const Duration(milliseconds: 1000),
         child: const Text(
           'Tweel.',

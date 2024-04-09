@@ -17,6 +17,7 @@ class VideoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return FutureBuilder(
       future: VideoThumbnailServices.getVideoThumbnail(url),
       builder: (context, snapshot) {
@@ -26,6 +27,7 @@ class VideoTile extends StatelessWidget {
             child: Container(
               height: height,
               decoration: BoxDecoration(
+                color: theme.colorScheme.primaryContainer,
                 image: DecorationImage(
                   image: Image.file(File(snapshot.data!.path)).image,
                   fit: BoxFit.cover,
@@ -55,17 +57,19 @@ class ImageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
         height: height,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            image: DecorationImage(
-              image: NetworkImage(imageUrl),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(3)),
+          color: theme.colorScheme.primaryContainer,
+          image: DecorationImage(
+            image: NetworkImage(imageUrl),
+            fit: BoxFit.cover,
+          ),
+          borderRadius: BorderRadius.circular(3),
+        ),
       ),
     );
   }

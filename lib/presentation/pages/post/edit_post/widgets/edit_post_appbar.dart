@@ -18,11 +18,12 @@ class EditPostAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return AppBar(
       toolbarHeight: 40,
       automaticallyImplyLeading: false,
       elevation: 0,
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       leading: IconButton(
         onPressed: () {
           Navigator.of(context).pop();
@@ -59,7 +60,7 @@ class EditPostAppbar extends StatelessWidget {
                 width: 15,
                 margin: const EdgeInsets.only(right: 10),
                 child: CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: theme.colorScheme.onPrimary,
                   strokeWidth: 2,
                 ),
               );
@@ -72,7 +73,7 @@ class EditPostAppbar extends StatelessWidget {
                   'DONE',
                   style: TextStyle(
                     fontVariations: fontWeightW500,
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: theme.colorScheme.onPrimary,
                   ),
                 ),
               ),

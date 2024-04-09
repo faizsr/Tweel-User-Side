@@ -30,10 +30,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.colorScheme.surface,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(40),
           child: CreatePostAppbar(

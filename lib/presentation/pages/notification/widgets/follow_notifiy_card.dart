@@ -18,6 +18,8 @@ class FollowNotifyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     void followUnfollowFunction(
         UserModel currentUserModel, UserModel user, bool? isUnfollowing) {
       if (user.followers!.contains(currentUserModel) || isUnfollowing!) {
@@ -46,7 +48,7 @@ class FollowNotifyCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 14),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: theme.colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Stack(
@@ -67,7 +69,7 @@ class FollowNotifyCard extends StatelessWidget {
                   },
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundColor: Theme.of(context).colorScheme.onSurface,
+                    backgroundColor: theme.colorScheme.onSurface,
                     backgroundImage: notificationModel.user.profilePicture == ""
                         ? Image.asset(profilePlaceholder).image
                         : NetworkImage(notificationModel.user.profilePicture!),
@@ -104,7 +106,7 @@ class FollowNotifyCard extends StatelessWidget {
                 timeAgo(DateTime.parse(notificationModel.updatedAt)),
                 style: TextStyle(
                   fontSize: 11,
-                  color: Theme.of(context).colorScheme.onSecondary,
+                  color: theme.colorScheme.onSecondary,
                 ),
               ),
             )

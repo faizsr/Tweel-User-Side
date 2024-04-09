@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/data/models/notification_model/notification_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
@@ -14,6 +13,7 @@ class CommentNotifyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return InkWell(
       onTap: () {
         nextScreen(
@@ -27,7 +27,7 @@ class CommentNotifyCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: theme.colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Stack(
@@ -38,7 +38,7 @@ class CommentNotifyCard extends StatelessWidget {
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: theme.colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(3),
                     image: DecorationImage(
                       image:
@@ -68,8 +68,7 @@ class CommentNotifyCard extends StatelessWidget {
               child: Text(
                 timeAgo(DateTime.parse(notificationModel.updatedAt)),
                 style: TextStyle(
-                    fontSize: 11,
-                    color: Theme.of(context).colorScheme.onSecondary),
+                    fontSize: 11, color: theme.colorScheme.onSecondary),
               ),
             )
           ],

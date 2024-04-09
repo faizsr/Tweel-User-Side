@@ -22,7 +22,7 @@ class ExplorePosts extends StatelessWidget {
         if (state is PostDetailFetchingLoadingState) {
           return Column(
             children: [
-              _titleWidget(),
+              _titleWidget(context),
               const ExplorePostLoading(),
             ],
           );
@@ -30,8 +30,8 @@ class ExplorePosts extends StatelessWidget {
         if (state is PostDetailFetchingSucessState) {
           return Column(
             children: [
-              _titleWidget(),
-              _postGridView(state),
+              _titleWidget(context),
+              _postGridView(state, context),
             ],
           );
         }
@@ -42,7 +42,9 @@ class ExplorePosts extends StatelessWidget {
     );
   }
 
-  StaggeredGridView _postGridView(PostDetailFetchingSucessState state) {
+  StaggeredGridView _postGridView(
+      PostDetailFetchingSucessState state, BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return StaggeredGridView.countBuilder(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
       crossAxisCount: 2,
@@ -56,7 +58,7 @@ class ExplorePosts extends StatelessWidget {
         final url = state.posts[index].mediaURL![0];
         if (index % 2 == 0 && isImage) {
           return ImageTile(
-            height: 220,
+            height: size.height * 0.26,
             imageUrl: url,
             onTap: () {
               nextScreen(
@@ -71,7 +73,7 @@ class ExplorePosts extends StatelessWidget {
         } else if (!isImage) {
           return VideoTile(
             url: url,
-            height: 220,
+            height: size.height * 0.26,
             onTap: () {
               nextScreen(
                 context,
@@ -85,7 +87,7 @@ class ExplorePosts extends StatelessWidget {
         }
         if (index % 3 == 0 && isImage) {
           return ImageTile(
-            height: 150,
+            height: size.height * 0.22,
             imageUrl: url,
             onTap: () {
               nextScreen(
@@ -100,7 +102,7 @@ class ExplorePosts extends StatelessWidget {
         } else if (!isImage) {
           return VideoTile(
             url: url,
-            height: 150,
+            height: size.height * 0.22,
             onTap: () {
               nextScreen(
                 context,
@@ -114,7 +116,7 @@ class ExplorePosts extends StatelessWidget {
         }
         if (isImage) {
           return ImageTile(
-            height: 190,
+            height: size.height * 0.24,
             imageUrl: url,
             onTap: () {
               nextScreen(
@@ -129,7 +131,7 @@ class ExplorePosts extends StatelessWidget {
         } else if (!isImage) {
           return VideoTile(
             url: url,
-            height: 190,
+            height: size.height * 0.24,
             onTap: () {
               nextScreen(
                 context,
@@ -149,11 +151,31 @@ class ExplorePosts extends StatelessWidget {
     );
   }
 
-  Widget _titleWidget() {
-    return const Center(
-      child: Text(
-        'Explore',
-        style: TextStyle(fontSize: 22),
+  Widget _titleWidget(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 4,
+      child: Stack(
+        fit: StackFit.loose,
+        children: [
+          const Align(
+            child: Text(
+              'Explore',
+              style: TextStyle(fontSize: 22,height: 1.7),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right:  15,
+            child: SizedBox(
+              width: 15,
+              child: Divider(
+                height: 10,
+                thickness: 1,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

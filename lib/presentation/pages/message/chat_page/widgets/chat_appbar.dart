@@ -39,7 +39,7 @@ class ChatAppbar extends StatelessWidget {
               ),
               Text(
                 'Active now',
-                style: TextStyle(color: theme.onSecondary, fontSize: 12),
+                style: TextStyle(color: theme.secondary, fontSize: 12),
               ),
             ],
           ),

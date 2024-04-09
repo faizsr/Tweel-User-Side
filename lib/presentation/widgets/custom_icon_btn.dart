@@ -17,17 +17,20 @@ class CustomIconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Row(
           children: [
-            Icon(icon,
-                size: 20,
-                color: color ?? Theme.of(context).colorScheme.primary),
+            Icon(icon, size: 20, color: color ?? theme.colorScheme.secondary),
             kWidth(5),
-            Text(title, style: const TextStyle(fontSize: 13)),
+            Text(
+              title,
+              style:
+                  TextStyle(fontSize: 13, color: theme.colorScheme.secondary),
+            ),
           ],
         ),
       ),

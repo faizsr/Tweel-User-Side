@@ -6,8 +6,8 @@ import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/media_picker/media_picker_bloc.dart';
-import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/story/story_image_preview_page.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/create_post.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/widgets/media_picker_appbar.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -44,10 +44,11 @@ class _MediaPickerState extends State<MediaPicker> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.colorScheme.surface,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(90),
           child: BlocBuilder<MediaPickerBloc, MediaPickerState>(
@@ -67,13 +68,17 @@ class _MediaPickerState extends State<MediaPicker> {
                   onPressed: () {
                     if (widget.screenType == ScreenType.post) {
                       changeSystemThemeOnPopup(
-                          color: Theme.of(context).colorScheme.surface,context: context,);
+                        color: theme.colorScheme.surface,
+                        context: context,
+                      );
                       nextScreen(
                         context,
                         CreatePostPage(selectedAssetList: selectedAssetList),
                       ).then((value) {
                         changeSystemThemeOnPopup(
-                            color: Theme.of(context).colorScheme.surface,context: context,);
+                          color: theme.colorScheme.surface,
+                          context: context,
+                        );
                       });
                     } else if (widget.screenType == ScreenType.profile) {
                       context
@@ -81,12 +86,12 @@ class _MediaPickerState extends State<MediaPicker> {
                           .setProfileImage(selectedAssetList);
                       Navigator.of(context).pop(selectedAssetList);
                     } else if (widget.screenType == ScreenType.story) {
-                      context.read<StoryBloc>().add(
-                            AddStoryEvent(
-                              userId: widget.userId!,
-                              selectedAssets: selectedAssetList,
-                            ),
-                          );
+                      nextScreen(
+                          context,
+                          StoryImagePreviewPage(
+                            mediaUrl: selectedAssetList,
+                            userId: widget.userId!,
+                          ));
                     }
                   },
                 );

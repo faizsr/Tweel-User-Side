@@ -11,10 +11,12 @@ class TabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tab(
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 12, height: 1),
-        overflow: TextOverflow.ellipsis,
+      child: Center(
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 12),
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }

@@ -6,25 +6,31 @@ import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
+import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
 
 class SignUpWidgets {
   static FadeInUp signInNavigate(BuildContext context) {
     return FadeInUp(
-      delay: const Duration(milliseconds: 700),
+      delay: const Duration(milliseconds: 400),
       duration: const Duration(milliseconds: 1000),
-      child: Text.rich(
-        TextSpan(
-          children: [
-            TextSpan(
-              text: "Already have an account? ",
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
+      child: InkWell(
+        onTap: () {
+          nextScreenRemoveUntil(context, const UserSignInPage());
+        },
+        child: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: "Already have an account? ",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
               ),
-            ),
-            const TextSpan(text: 'Sign In.'),
-          ],
+              const TextSpan(text: 'Sign In.'),
+            ],
+          ),
         ),
       ),
     );
@@ -127,6 +133,7 @@ class SignUpWidgets {
     return CustomButton(
       buttonText: 'Sign Up',
       onPressed: () {
+        FocusScope.of(context).unfocus();
         if (formKey.currentState!.validate()) {
           final user = UserModel(
             accountType: accountType,

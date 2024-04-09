@@ -2,7 +2,6 @@
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 
@@ -73,7 +72,7 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                     },
                     icon: Icon(
                       Icons.emoji_emotions_outlined,
-                      color: widget.theme.onSecondary,
+                      color: widget.theme.secondary,
                       size: 26,
                     ),
                   ),
@@ -111,7 +110,7 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                       border: InputBorder.none,
                       hintText: 'Type here...',
                       hintStyle: TextStyle(
-                        color: widget.theme.onSecondary,
+                        color: widget.theme.secondary,
                         fontSize: 14,
                       ),
                     ),
@@ -152,10 +151,10 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
   Widget emojiWidget() {
     return EmojiPicker(
       config: Config(
-        categoryViewConfig: const CategoryViewConfig(
+        categoryViewConfig: CategoryViewConfig(
           tabBarHeight: 40,
-          tabIndicatorAnimDuration: Duration(milliseconds: 500),
-          backgroundColor: lWhite,
+          tabIndicatorAnimDuration: const Duration(milliseconds: 500),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         ),
         bottomActionBarConfig: const BottomActionBarConfig(
           showBackspaceButton: false,
@@ -164,7 +163,7 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
         emojiViewConfig: EmojiViewConfig(
           columns: 8,
           emojiSizeMax: 25,
-          backgroundColor: lWhite,
+          backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
           noRecents: Text(
             'No Recents',
             style: TextStyle(

@@ -37,11 +37,13 @@ class PostModel {
       mediaURL: json['mediaURL'],
       likes: json['likes'],
       comments: json['comments'] is Map<String, dynamic>
-          ? json['comments'] == null
-              ? []
-              : List<CommentModel>.from(json['comments']!
-                  .map((comment) => CommentModel.fromJson(comment)))
-          : [],
+          // ?
+          // json['comments'] == null
+          ? []
+          : List<CommentModel>.from(json['comments']!
+              .map((comment) => CommentModel.fromJson(comment)))
+      // : []
+      ,
       sComments: json['comments'] is String ? json['comments'] : [],
       createdDate: json['createdAt'],
       updatedDate: json['updatedAt'],
@@ -61,7 +63,7 @@ class PostModel {
         'likes': likes,
         'comments': comments is Map<String, dynamic>
             ? comments!.map((comment) => comment.toJson()).toList()
-            : sComments, 
+            : sComments,
         'createdAt': createdDate,
         'updatedAt': updatedDate,
         'isBlocked': isBlocked,
@@ -84,7 +86,7 @@ class CommentModel {
 
   factory CommentModel.fromJson(Map<String, dynamic> json) => CommentModel(
         id: json['_id'],
-        user: UserModel.fromJson(json['userId']),
+        user: json['userId'] is Map<String, dynamic> ? UserModel.fromJson(json['userId']) : UserModel(),
         comment: json['comment'],
         createdDate: json['createdAt'],
       );

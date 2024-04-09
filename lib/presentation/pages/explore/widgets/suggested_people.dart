@@ -53,7 +53,7 @@ class SuggestedPeople extends StatelessWidget {
               if (state != null) {
                 nextScreen(
                   context,
-                  AllSuggestedUsersPage(state: state, theme: theme),
+                  AllSuggestedUsersPage(state: state),
                 );
               }
             },

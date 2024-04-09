@@ -14,6 +14,7 @@ class CreatePostAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return AppBar(
       toolbarHeight: 40,
       automaticallyImplyLeading: false,
@@ -42,7 +43,7 @@ class CreatePostAppbar extends StatelessWidget {
                 width: 15,
                 margin: const EdgeInsets.only(right: 10),
                 child: CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: theme.colorScheme.onPrimary,
                   strokeWidth: 2,
                 ),
               );
@@ -55,7 +56,7 @@ class CreatePostAppbar extends StatelessWidget {
                   'POST',
                   style: TextStyle(
                       fontVariations: fontWeightW500,
-                      color: Theme.of(context).colorScheme.onPrimary),
+                      color: theme.colorScheme.onPrimary),
                 ),
               ),
             );

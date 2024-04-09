@@ -19,6 +19,7 @@ class DetailPostActionBtns extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Column(
       children: [
         Row(
@@ -26,9 +27,9 @@ class DetailPostActionBtns extends StatelessWidget {
           children: [
             likePostButton(),
             Container(
-              color: Theme.of(context).colorScheme.outline,
-              height: 20,
-              width: 0.6,
+              color: theme.colorScheme.outlineVariant,
+              height: 15,
+              width: 1,
             ),
             BlocBuilder<CommentBloc, CommentState>(
               builder: (context, state) {
@@ -40,9 +41,9 @@ class DetailPostActionBtns extends StatelessWidget {
               },
             ),
             Container(
-              color: Theme.of(context).colorScheme.outline,
-              height: 20,
-              width: 0.6,
+              color: theme.colorScheme.outlineVariant,
+              height: 15,
+              width: 1,
             ),
             CustomIconBtn(
               title: 'Share',
@@ -53,8 +54,8 @@ class DetailPostActionBtns extends StatelessWidget {
         ),
         Divider(
           height: 0,
-          thickness: 0.3,
-          color: Theme.of(context).colorScheme.outline,
+          thickness: 0.5,
+          color: theme.colorScheme.outlineVariant,
         ),
       ],
     );

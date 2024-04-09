@@ -21,6 +21,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     final mediaHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       extendBodyBehindAppBar: true,
       appBar: CustomAppbar.show(context,true),
       body: SingleChildScrollView(

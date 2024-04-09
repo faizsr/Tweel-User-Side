@@ -14,6 +14,7 @@ const profileThree = 'assets/images/profile3.jpg';
 const profileFour = 'assets/images/profile4.jpg';
 const profileFive = 'assets/images/profile5.jpg';
 const profilePlaceholder = 'assets/images/profile_placeholder.jpg';
+const privateIcon = 'assets/images/lock.png';
 
 const fontWeightW300 = <FontVariation>[FontVariation('wght', 300.0)];
 const fontWeightRegular = <FontVariation>[FontVariation('wght', 400.0)];

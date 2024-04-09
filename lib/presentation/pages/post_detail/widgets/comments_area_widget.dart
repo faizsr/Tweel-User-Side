@@ -35,6 +35,7 @@ class CommentAreaWidget extends StatelessWidget {
                 ],
               )
             : ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: postModel.comments!.length,
                 itemBuilder: (context, index) {

@@ -17,6 +17,7 @@ class LikeNotifyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return InkWell(
       onTap: () {
         nextScreen(
@@ -30,7 +31,7 @@ class LikeNotifyCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 14),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: theme.colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Stack(
@@ -41,7 +42,7 @@ class LikeNotifyCard extends StatelessWidget {
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: theme.colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(3),
                     image: DecorationImage(
                       image: NetworkImage(notificationModel.post!.mediaURL![0]),
@@ -71,7 +72,7 @@ class LikeNotifyCard extends StatelessWidget {
                 timeAgo(DateTime.parse(notificationModel.updatedAt)),
                 style: TextStyle(
                   fontSize: 11,
-                  color: Theme.of(context).colorScheme.onSecondary,
+                  color: theme.colorScheme.onSecondary,
                 ),
               ),
             )

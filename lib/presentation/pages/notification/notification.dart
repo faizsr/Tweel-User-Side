@@ -47,14 +47,15 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     changeSystemThemeOnPopup(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       context: context,
     );
     return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.colorScheme.surface,
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: NotifyAppbar(),
@@ -76,7 +77,7 @@ class _NotificationPageState extends State<NotificationPage> {
               if (state1 is FetchAllNotificationSuccessState) {
                 if (state2 is ProfileFetchingSucessState) {
                   return ListView.separated(
-                    separatorBuilder: (context, index) => kHeight(20),
+                    separatorBuilder: (context, index) => kHeight(15),
                     padding: const EdgeInsets.all(15),
                     itemCount: state1.notifications.length,
                     itemBuilder: (context, index) {

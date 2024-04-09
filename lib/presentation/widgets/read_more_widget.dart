@@ -20,11 +20,12 @@ class ReadMoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = Theme.of(context).colorScheme.secondary;
+    var theme = Theme.of(context);
+    var color = theme.colorScheme.secondary;
     return GestureDetector(
       onTap: () {
         changeSystemThemeOnPopup(
-          color: Theme.of(context).colorScheme.surface,
+          color: theme.colorScheme.surface,
           context: context,
         );
         nextScreen(

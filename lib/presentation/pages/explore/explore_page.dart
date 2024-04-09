@@ -14,6 +14,7 @@ import 'package:tweel_social_media/presentation/pages/explore/widgets/custom_sea
 import 'package:tweel_social_media/presentation/pages/explore/widgets/explore_post.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/suggested_people.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/user_search_result_view.dart';
+import 'package:tweel_social_media/presentation/pages/main/widgets/bottom_nav.dart';
 import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -38,12 +39,13 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshWidget(
-      onRefresh: _handleRefresh,
+    var theme = Theme.of(context);
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
       child: ColorfulSafeArea(
-        color: Theme.of(context).colorScheme.surface,
+        color: theme.colorScheme.surface,
         child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: theme.colorScheme.surface,
           appBar: Hidable(
             preferredWidgetSize: const Size.fromHeight(80),
             controller: scrollController,
@@ -67,40 +69,44 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
             ),
           ),
-          body: MultiBlocBuilder(
-            blocs: [
-              context.watch<OnSearchCubit>(),
-              context.watch<SearchUserBloc>()
-            ],
-            builder: (context, state) {
-              var state1 = state[0];
-              var state2 = state[1];
-              if (state1 == false) {
-                // ============ Explore page ============
-                return ListView(
-                  children: const [
-                    SuggestedPeople(),
-                    ExplorePosts(),
-                  ],
-                );
-                // return ExplorePageLoading();
-              } else {
-                // ============ On Searching ============
-                if (state2 is SearchResultLoadingState) {
+          body: RefreshWidget(
+            onRefresh: _handleRefresh,
+            child: MultiBlocBuilder(
+              blocs: [
+                context.watch<OnSearchCubit>(),
+                context.watch<SearchUserBloc>()
+              ],
+              builder: (context, state) {
+                var state1 = state[0];
+                var state2 = state[1];
+                if (state1 == false) {
+                  // ============ Explore page ============
+                  return ListView(
+                    controller: explorePageController,
+                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                    children: const [
+                      SuggestedPeople(),
+                      ExplorePosts(),
+                    ],
+                  );
+                } else {
+                  // ============ On Searching ============
+                  if (state2 is SearchResultLoadingState) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  // ============ Search Result View ============
+                  if (state2 is SearchResultSuccessState) {
+                    return UserSearchResultView(state2: state2);
+                  }
+                  // ============ Search No Results ============
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: Text('No User Found'),
                   );
                 }
-                // ============ Search Result View ============
-                if (state2 is SearchResultSuccessState) {
-                  return UserSearchResultView(state2: state2);
-                }
-                // ============ Search No Results ============
-                return const Center(
-                  child: Text('No User Found'),
-                );
-              }
-            },
+              },
+            ),
           ),
         ),
       ),

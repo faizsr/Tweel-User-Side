@@ -13,17 +13,18 @@ class MessageUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return InkWell(
       onTap: () {
         nextScreen(context, UserChatPage(user: user));
       },
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 10, top: 10),
+        padding: const EdgeInsets.only(bottom: 12, top: 12),
         child: Row(
           children: [
             CircleAvatar(
               radius: 28,
-              backgroundColor: Theme.of(context).colorScheme.onSurface,
+              backgroundColor: theme.colorScheme.onSurface,
               backgroundImage: user.profilePicture == ""
                   ? Image.asset(profilePlaceholder).image
                   : NetworkImage(user.profilePicture!),
@@ -36,11 +37,12 @@ class MessageUserCard extends StatelessWidget {
                   user.fullName!,
                   style: const TextStyle(fontSize: 15),
                 ),
+                kHeight(4),
                 Text(
                   'Yeah i know',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Theme.of(context).colorScheme.onSecondary,
+                    color: theme.colorScheme.secondary,
                   ),
                 )
               ],
@@ -50,7 +52,7 @@ class MessageUserCard extends StatelessWidget {
               '11.47 AM',
               style: TextStyle(
                 fontSize: 12,
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: theme.colorScheme.onSecondary,
               ),
             )
           ],

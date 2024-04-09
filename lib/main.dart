@@ -33,6 +33,7 @@ import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/se
 import 'package:tweel_social_media/presentation/cubit/story_index/story_index_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/theme/theme_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/toggle_notify_cubit/toggle_notify_cubit.dart';
+import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/splash/splash_page.dart';
 
 Future<void> main() async {
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => NotificationBloc()),
         BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(create: (context) => ToggleNotifyCubit()),
+        BlocProvider(create: (context) => TogglePasswordCubit()),
         BlocProvider(create: (context) => ReportRadioCubit()),
         BlocProvider(create: (context) => ReportBloc()),
       ],

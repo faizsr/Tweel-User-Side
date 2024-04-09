@@ -4,20 +4,23 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
+import 'package:tweel_social_media/presentation/widgets/shimmer_animate.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class StoryUtils {
   static Widget loadingStoryCard(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(right: 5, left: 5),
-      child: Column(
-        children: [
-          CircleAvatar(
-              radius: 30,
-              backgroundColor: Theme.of(context).colorScheme.onSurface),
-          kHeight(10),
-          const Skelton(width: 50),
-        ],
+    return ShimmerAnimate(
+      child: Container(
+        padding: const EdgeInsets.only(right: 5, left: 5),
+        child: Column(
+          children: [
+            CircleAvatar(
+                radius: 30,
+                backgroundColor: Theme.of(context).colorScheme.onSurface),
+            kHeight(10),
+            const Skelton(width: 50),
+          ],
+        ),
       ),
     );
   }
@@ -25,7 +28,10 @@ class StoryUtils {
   static Widget emptyStoryView(BuildContext context, String? userId) {
     return GestureDetector(
       onTap: () {
-        changeSystemThemeOnPopup(color: Theme.of(context).colorScheme.surface,context: context,);
+        changeSystemThemeOnPopup(
+          color: Theme.of(context).colorScheme.surface,
+          context: context,
+        );
         nextScreen(
           context,
           MediaPicker(
@@ -46,7 +52,7 @@ class StoryUtils {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                    width: 0.5, color: Theme.of(context).colorScheme.primary),
+                    width: 1, color: Theme.of(context).colorScheme.outline),
               ),
               child: const Icon(Ktweel.add),
             ),

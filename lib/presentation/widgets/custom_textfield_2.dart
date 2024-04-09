@@ -19,7 +19,7 @@ class CustomTextField2 extends StatelessWidget {
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+        hintStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
         border: InputBorder.none,
       ),
       validator: (value) {

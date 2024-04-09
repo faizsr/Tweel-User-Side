@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -40,7 +39,7 @@ class _PostUserDetailState extends State<PostUserDetail> {
           ),
           child: CircleAvatar(
             radius: 20,
-            backgroundColor: lLightWhite,
+            backgroundColor: theme.colorScheme.onSurface,
             backgroundImage: widget.postModel.user!.profilePicture == "" ||
                     widget.userModel!.profilePicture == ""
                 ? Image.asset(profilePlaceholder).image
@@ -116,8 +115,8 @@ class _PostUserDetailState extends State<PostUserDetail> {
                     onTap: () {
                       changeSystemThemeOnPopup(
                         color: widget.onDetail
-                            ? Theme.of(context).colorScheme.surfaceVariant
-                            : Theme.of(context).colorScheme.onTertiary,
+                            ? theme.colorScheme.background
+                            : theme.colorScheme.onBackground,
                         context: context,
                       );
                       PostMoreWidget.bottomSheet(

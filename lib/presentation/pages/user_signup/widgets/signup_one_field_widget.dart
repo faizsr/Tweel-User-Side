@@ -25,7 +25,7 @@ class _SignUpOneFieldWidgetState extends State<SignUpOneFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return FadeInDown(
-      delay: const Duration(milliseconds: 700),
+      delay: const Duration(milliseconds: 400),
       duration: const Duration(milliseconds: 1000),
       child: Form(
         key: formKey,
@@ -100,6 +100,7 @@ class _SignUpOneFieldWidgetState extends State<SignUpOneFieldWidget> {
                   return CustomButton(
                     buttonText: 'Continue',
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       if (formKey.currentState!.validate()) {
                         nextScreen(
                           context,

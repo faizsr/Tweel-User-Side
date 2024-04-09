@@ -27,6 +27,7 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is ProfileFetchingSucessState) {
@@ -40,8 +41,8 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    width: 0.5,
-                    color: Theme.of(context).colorScheme.outline,
+                    width: 1,
+                    color: theme.colorScheme.outlineVariant,
                   ),
                 ),
               ),
@@ -60,8 +61,8 @@ class _CommentTextFieldWidgetState extends State<CommentTextFieldWidget> {
                       controller: commentController,
                       decoration: InputDecoration(
                         hintText: 'Add a comment...',
-                        hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary),
+                        hintStyle:
+                            TextStyle(color: theme.colorScheme.secondary),
                         border: InputBorder.none,
                       ),
                     ),

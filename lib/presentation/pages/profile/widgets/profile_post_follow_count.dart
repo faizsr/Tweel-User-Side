@@ -18,12 +18,14 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return Container(
       height: 90,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        border: Border.all(
-            width: 0.5, color: Theme.of(context).colorScheme.primary),
+        color: theme.colorScheme.primaryContainer,
+        border:
+            Border.all(width: 1, color: theme.colorScheme.outline),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -41,15 +43,15 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
           ),
           Container(
             height: double.infinity,
-            width: 0.5,
-            color: Theme.of(context).colorScheme.primary,
+            width: 1,
+            color: theme.colorScheme.outline,
           ),
           _userPostFollowCountCard(
             count: '${userModel.followers!.length}',
             title: 'FOLLOWERS',
             onTap: () {
               changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
+                color: theme.colorScheme.surface,
                 context: context,
               );
               nextScreen(
@@ -66,15 +68,15 @@ class ProfilePostFollowCountWidget extends StatelessWidget {
           ),
           Container(
             height: double.infinity,
-            width: 0.5,
-            color: Theme.of(context).colorScheme.primary,
+            width: 1,
+            color: theme.colorScheme.outline,
           ),
           _userPostFollowCountCard(
             count: '${userModel.following!.length}',
             title: 'FOLLOWING',
             onTap: () {
               changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
+                color: theme.colorScheme.surface,
                 context: context,
               );
               nextScreen(

@@ -17,9 +17,8 @@ class CustomOutlinedBtn extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          side: BorderSide(
-              width: 0.5, color: theme.textTheme.labelLarge!.color!),
-          borderRadius: BorderRadius.circular(3),
+          side: BorderSide(width: 1, color: theme.colorScheme.outline),
+          borderRadius: BorderRadius.circular(8),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,

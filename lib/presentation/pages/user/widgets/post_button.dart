@@ -8,6 +8,7 @@ class PostButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -16,21 +17,21 @@ class PostButton extends StatelessWidget {
             margin: const EdgeInsets.only(left: 10, right: 10),
             child: Divider(
               thickness: 0.5,
-              color: Theme.of(context).colorScheme.outline,
+              color: theme.colorScheme.outline,
             ),
           ),
         ),
         // Container(height: 0.5, color: lBlack, width: double.infinity),
         const Text(
           'POSTS',
-          style: TextStyle(fontSize: 12,fontVariations: fontWeightW500),
+          style: TextStyle(fontSize: 12, fontVariations: fontWeightW500),
         ),
         Expanded(
           child: Container(
             margin: const EdgeInsets.only(left: 10, right: 10),
             child: Divider(
               thickness: 0.5,
-              color: Theme.of(context).colorScheme.outline,
+              color: theme.colorScheme.outline,
             ),
           ),
         )

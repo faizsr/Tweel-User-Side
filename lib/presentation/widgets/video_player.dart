@@ -62,4 +62,10 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    flickManager.dispose();
+    super.dispose();
+  }
 }

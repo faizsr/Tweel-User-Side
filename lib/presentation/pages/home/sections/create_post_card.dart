@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
+import 'package:tweel_social_media/presentation/widgets/shimmer_animate.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class CreatePostCard extends StatefulWidget {
@@ -48,13 +48,11 @@ class _CreatePostCardState extends State<CreatePostCard> {
                       children: [
                         CircleAvatar(
                           radius: 28,
-                          backgroundColor: lLightWhite,
-                          backgroundImage:
-                              state.userDetails.profilePicture == ""
-                                  ? Image.asset(profilePlaceholder).image
-                                  : NetworkImage(
-                                      state.userDetails.profilePicture!,
-                                    ),
+                          backgroundColor: theme.colorScheme.onSurface,
+                          backgroundImage: state.userDetails.profilePicture ==
+                                  ""
+                              ? Image.asset(profilePlaceholder).image
+                              : NetworkImage(state.userDetails.profilePicture!),
                         ),
                         kWidth(20),
                         Column(
@@ -79,7 +77,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
                         )
                       ],
                     ),
-                    kHeight(20),
+                    kHeight(25),
                     SizedBox(
                       height: 45,
                       width: double.infinity,
@@ -113,49 +111,51 @@ class _CreatePostCardState extends State<CreatePostCard> {
   }
 
   Widget _loadingWidget() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            CircleAvatar(
-              radius: 28,
-              backgroundColor: Theme.of(context).colorScheme.onSurface,
-            ),
-            kWidth(20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Skelton(width: 160),
-                kHeight(10),
-                const Skelton(width: 60),
-              ],
-            ),
-            kHeight(20),
-          ],
-        ),
-        kHeight(20),
-        Container(
-          height: 45,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 0.5,
-              color: Theme.of(context).colorScheme.outlineVariant,
-            ),
-            borderRadius: BorderRadius.circular(4),
+    return ShimmerAnimate(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 28,
+                backgroundColor: Theme.of(context).colorScheme.onSurface,
+              ),
+              kWidth(20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Skelton(width: 160),
+                  kHeight(10),
+                  const Skelton(width: 60),
+                ],
+              ),
+              kHeight(25),
+            ],
           ),
-          child: Center(
-            child: Text(
-              'CREATE NEW POST',
-              style: TextStyle(
-                fontSize: 10,
-                fontVariations: fontWeightW800,
-                color: Theme.of(context).colorScheme.outlineVariant,
+          kHeight(20),
+          Container(
+            height: 45,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(
+                'CREATE NEW POST',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontVariations: fontWeightW800,
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                ),
               ),
             ),
-          ),
-        ),
-      ],
+          )
+        ],
+      ),
     );
   }
 }

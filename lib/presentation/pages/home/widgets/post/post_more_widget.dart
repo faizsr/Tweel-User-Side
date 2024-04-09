@@ -20,9 +20,6 @@ class PostMoreWidget {
       isDismissible: true,
       isScrollControlled: true,
       context: context,
-      // constraints: BoxConstraints(
-      //   maxWidth: MediaQuery.of(context).size.width - 40,
-      // ),
       builder: (context) {
         return BlocBuilder<SavedPostsBloc, SavedPostsState>(
           builder: (context, state) {

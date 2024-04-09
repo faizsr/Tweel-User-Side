@@ -10,6 +10,8 @@ class CustomTxtFormField extends StatelessWidget {
     this.validator,
     this.controller,
     this.onChanged,
+    this.obscureText = false,
+    this.suffix,
   });
 
   final String hintText;
@@ -18,10 +20,15 @@ class CustomTxtFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   final TextEditingController? controller;
+  final bool obscureText;
+  final Widget? suffix;
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return TextFormField(
+      obscureText: obscureText,
       readOnly: readOnly ?? false,
       textCapitalization: TextCapitalization.none,
       controller: controller,
@@ -32,6 +39,8 @@ class CustomTxtFormField extends StatelessWidget {
         labelText: labelText,
         errorMaxLines: 2,
         errorStyle: const TextStyle(),
+        suffixIcon: suffix,
+        suffixIconColor: Theme.of(context).colorScheme.primary,
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         prefixIcon: const SizedBox(width: 15),
         contentPadding: const EdgeInsets.symmetric(
@@ -40,21 +49,21 @@ class CustomTxtFormField extends StatelessWidget {
         ),
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Theme.of(context).colorScheme.secondary,
+          color: theme.colorScheme.secondary,
           fontSize: 14,
           fontVariations: fontWeightRegular,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-            width: 0.5,
+            color: theme.colorScheme.outline,
+            width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: theme.colorScheme.onPrimary,
             width: 1.0,
           ),
         ),

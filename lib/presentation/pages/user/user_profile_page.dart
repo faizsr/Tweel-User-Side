@@ -42,16 +42,17 @@ class UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     changeSystemThemeOnPopup(
       color: Theme.of(context).colorScheme.surface,
       context: context,
     );
     return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       child: RefreshWidget(
         onRefresh: _handleRefresh,
         child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: theme.colorScheme.surface,
           body: BlocBuilder<UserByIdBloc, UserByIdState>(
             builder: (context, state) {
               if (state is FetchUserByIdLoadingState) {
@@ -125,7 +126,7 @@ class UserProfilePageState extends State<UserProfilePage> {
             children: [
               kHeight(50),
               Image.asset(
-                'assets/images/lock.png',
+                privateIcon,
                 width: 80,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),

@@ -9,6 +9,7 @@ class AccountTypeDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<DropdownCubit, DropdownState>(
       builder: (context, state) {
         return DropdownButtonFormField2<DropdownState>(
@@ -26,8 +27,8 @@ class AccountTypeDropDown extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.5,
+                color: theme.colorScheme.outline,
+                width: 1,
               ),
             ),
             focusedBorder: OutlineInputBorder(
@@ -56,7 +57,7 @@ class AccountTypeDropDown extends StatelessWidget {
             'Account Type',
             style: TextStyle(
               fontSize: 14,
-              color: Theme.of(context).colorScheme.secondary,
+              color: theme.colorScheme.secondary,
             ),
           ),
           items: const [
@@ -98,7 +99,7 @@ class AccountTypeDropDown extends StatelessWidget {
           iconStyleData: IconStyleData(
             icon: Icon(
               Ktweel.arrow_bottom_outlined,
-              color: Theme.of(context).colorScheme.primary,
+              color: theme.colorScheme.secondary,
             ),
             iconSize: 24,
           ),

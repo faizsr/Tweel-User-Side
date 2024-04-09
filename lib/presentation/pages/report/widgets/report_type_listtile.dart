@@ -19,6 +19,7 @@ class ReportTypeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<ReportRadioCubit, ReportTypeState>(
       builder: (context, state) {
         return ListTile(
@@ -27,20 +28,21 @@ class ReportTypeListTile extends StatelessWidget {
             title,
             style: const TextStyle(fontVariations: fontWeightW700),
           ),
-          
           subtitle: subTitle != null
               ? Text(
                   subTitle!,
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: theme.colorScheme.secondary,
                     fontSize: 14,
                   ),
                 )
               : null,
           trailing: Radio(
-            fillColor: MaterialStatePropertyAll(
-                Theme.of(context).colorScheme.onSecondary),
-            activeColor: Theme.of(context).colorScheme.onPrimary,
+            fillColor: MaterialStateProperty.resolveWith((states) {
+              return states.contains(MaterialState.selected)
+                  ? theme.colorScheme.onPrimary
+                  : theme.colorScheme.onSecondary;
+            }),
             value: reportState,
             groupValue: state,
             onChanged: (value) {

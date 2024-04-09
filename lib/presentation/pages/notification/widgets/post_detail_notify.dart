@@ -35,12 +35,13 @@ class _PostDetailNotifyState extends State<PostDetailNotify> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: CustomAppbar2(
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: theme.colorScheme.surface,
           title: 'Post',
           onPressed: () {
             Navigator.of(context).pop(true);

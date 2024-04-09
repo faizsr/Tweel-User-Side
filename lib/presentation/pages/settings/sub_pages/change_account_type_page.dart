@@ -27,15 +27,14 @@ class _ChangeAccountTypePageState extends State<ChangeAccountTypePage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          'Change Account Type',
-          style: TextStyle(fontSize: 20),
-        ),
-        titleSpacing: 0,
+        toolbarHeight: 60,
+        backgroundColor: theme.colorScheme.primaryContainer,
+        title: const Text('Account type'),
+        titleSpacing: 5,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -43,7 +42,8 @@ class _ChangeAccountTypePageState extends State<ChangeAccountTypePage> {
           icon: const Icon(Ktweel.arrow_left),
         ),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(5),
         child: Column(
           children: List.generate(
             accountTypes.length,

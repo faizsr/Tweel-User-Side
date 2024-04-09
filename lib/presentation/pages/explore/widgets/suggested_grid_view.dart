@@ -56,13 +56,14 @@ class SuggestedPeopleGridView extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundColor: kLightGrey,
+                  backgroundColor: theme.colorScheme.onSurface,
                   backgroundImage: state.users[index].profilePicture == ""
                       ? Image.asset(profilePlaceholder).image
                       : NetworkImage(state.users[index].profilePicture!),
                 ),
                 kHeight(10),
                 Text(state.users[index].fullName!),
+                kHeight(2),
                 Text(
                   '@${state.users[index].username!.toLowerCase()}',
                   style: TextStyle(

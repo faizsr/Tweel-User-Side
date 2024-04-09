@@ -23,7 +23,10 @@ class HeadingWidget extends StatelessWidget {
             nextScreen(context, const NotificationPage())
                 .then((value) => mySystemTheme(context));
           },
-          child: const Icon(Ktweel.notification_bing),
+          child: Icon(
+            Ktweel.notification_bing,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
       ],
     );

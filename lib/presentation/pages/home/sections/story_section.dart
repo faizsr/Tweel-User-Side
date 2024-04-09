@@ -56,7 +56,9 @@ class StoryWidget extends StatelessWidget {
             listener: (context, state) {
               if (state is AddStorySucessState) {
                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 context.read<StoryBloc>().add(FetchAllStoriesEvent());
+                mySystemTheme(context);
               }
             },
             builder: (context, state) {
@@ -72,7 +74,6 @@ class StoryWidget extends StatelessWidget {
               if (state is FetchStoriesSuccessState) {
                 Map<String, List<StoryModel>> userStories =
                     eachUserStory(state.storiesList);
-                debugPrint('Stories Length: ${userStories.length}');
                 List<Widget> storyCards = [];
                 userStories.forEach((userId, stories) {
                   if (stories.length > 1) {
@@ -86,7 +87,10 @@ class StoryWidget extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           // Handle onTap
-                          changeSystemThemeOnPopup(color: lBlack,context: context,);
+                          changeSystemThemeOnPopup(
+                            color: lBlack,
+                            context: context,
+                          );
                           nextScreen(
                             context,
                             StoryViewPage(
@@ -105,7 +109,10 @@ class StoryWidget extends StatelessWidget {
                     storyCards.add(
                       GestureDetector(
                         onTap: () {
-                          changeSystemThemeOnPopup(color: lBlack,context: context,);
+                          changeSystemThemeOnPopup(
+                            color: lBlack,
+                            context: context,
+                          );
                           nextScreen(
                             context,
                             StoryViewPage(

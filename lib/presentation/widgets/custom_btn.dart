@@ -19,15 +19,16 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return SizedBox(
       width: double.infinity,
       child: MaterialButton(
-        disabledColor: Theme.of(context).colorScheme.secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-        color: Theme.of(context).colorScheme.primary,
+        color: theme.colorScheme.primary,
         onPressed: onPressed,
         child: MultiBlocBuilder(
           blocs: [
@@ -54,18 +55,18 @@ class CustomButton extends StatelessWidget {
                     child: Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        color: theme.colorScheme.onPrimaryContainer,
                       ),
                     ),
                   )
                 : FadeInUp(
-                    delay: const Duration(milliseconds: 700),
+                    delay: const Duration(milliseconds: 400),
                     duration: const Duration(milliseconds: 1000),
                     child: Text(
                       buttonText,
                       style: TextStyle(
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        color: theme.colorScheme.onPrimaryContainer,
                       ),
                     ),
                   );

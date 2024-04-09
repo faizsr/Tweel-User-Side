@@ -37,6 +37,7 @@ class _LoginAssetsState extends State<LoginAssets>
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
       child: Stack(
@@ -48,7 +49,7 @@ class _LoginAssetsState extends State<LoginAssets>
             child: DottedBorder(
               borderType: BorderType.Circle,
               radius: const Radius.circular(30),
-              color: Theme.of(context).colorScheme.secondary,
+              color: theme.colorScheme.secondary,
               strokeWidth: 1,
               dashPattern: const [10, 10],
               child: Container(
@@ -112,7 +113,7 @@ class _LoginAssetsState extends State<LoginAssets>
             alignment: Alignment.center,
             child: CircleAvatar(
               radius: 90,
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              backgroundColor: theme.colorScheme.primaryContainer,
               child: const CircleAvatar(
                 radius: 40,
                 backgroundImage: AssetImage(profileOne),

@@ -43,7 +43,7 @@ class _UserChatPageState extends State<UserChatPage> {
     return ColorfulSafeArea(
       color: theme.primaryContainer,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.surface,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: ChatAppbar(theme: theme, user: widget.user),

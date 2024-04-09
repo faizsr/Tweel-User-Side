@@ -16,15 +16,14 @@ class ThemeSwitchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          'Change Theme',
-          style: TextStyle(fontSize: 20),
-        ),
-        titleSpacing: 0,
+        toolbarHeight: 60,
+        backgroundColor: theme.colorScheme.primaryContainer,
+        title: const Text('Theme'),
+        titleSpacing: 5,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -32,7 +31,8 @@ class ThemeSwitchPage extends StatelessWidget {
           icon: const Icon(Ktweel.arrow_left),
         ),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(5),
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, selectedTheme) {
             return Column(

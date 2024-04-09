@@ -18,10 +18,8 @@ class PostByIdBloc extends Bloc<PostByIdEvent, PostByIdState> {
     emit(FetchPostByIdLoadingState());
     PostModel? postModel = await PostRepo.fetchPostsById(event.postId);
     if (postModel != null) {
-      print('success');
       emit(FetchPostByIdSuccessState(postModel: postModel));
     } else {
-      print('error');
       emit(FetchPostByIdErrorState());
     }
   }

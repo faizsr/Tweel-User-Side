@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
-import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
+import 'package:tweel_social_media/presentation/pages/user/widgets/post_grid_image_tile.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class PostsGridViewWidget extends StatelessWidget {
@@ -31,7 +29,9 @@ class PostsGridViewWidget extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,context: context,);
+              color: Theme.of(context).colorScheme.surface,
+              context: context,
+            );
             nextScreen(
               context,
               PostDetailPage(
@@ -40,7 +40,9 @@ class PostsGridViewWidget extends StatelessWidget {
               ),
             ).then((value) => mySystemTheme(context));
           },
-          child: postImageCard(index: index),
+          child: PostImageGridTile(
+            imageUrl: profileState.posts[index].mediaURL![0],
+          ),
         );
       },
       staggeredTileBuilder: (index) => StaggeredTile.count(
@@ -49,38 +51,6 @@ class PostsGridViewWidget extends StatelessWidget {
       crossAxisSpacing: 8.0,
     );
   }
-
-  Widget postImageCard({
-    required int index,
-  }) {
-    String url = profileState.posts[index].mediaURL![0];
-    if (url.contains('image')) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          url,
-          fit: BoxFit.cover,
-        ),
-      );
-    } else if (url.contains('video')) {
-      return FutureBuilder(
-        future: VideoThumbnailServices.getVideoThumbnail(url),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.file(
-                File(snapshot.data!.path),
-                fit: BoxFit.cover,
-              ),
-            );
-          }
-          return Container();
-        },
-      );
-    }
-    return Container();
-  }
 }
 
 class PostEmtpyViewWidget extends StatelessWidget {
@@ -88,6 +58,7 @@ class PostEmtpyViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Column(
       children: [
         kHeight(70),
@@ -97,13 +68,15 @@ class PostEmtpyViewWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               side: BorderSide(
                 width: 1.5,
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: theme.colorScheme.onSecondary,
               ),
             ),
           ),
           onPressed: () {
             changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,context: context,);
+              color: theme.colorScheme.surface,
+              context: context,
+            );
             nextScreen(
               context,
               const MediaPicker(
@@ -116,7 +89,7 @@ class PostEmtpyViewWidget extends StatelessWidget {
           icon: Icon(
             Ktweel.add,
             size: 40,
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: theme.colorScheme.onSecondary,
           ),
         ),
         kHeight(10),
@@ -133,7 +106,7 @@ class PostEmtpyViewWidget extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 12,
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: theme.colorScheme.onSecondary,
           ),
         ),
       ],

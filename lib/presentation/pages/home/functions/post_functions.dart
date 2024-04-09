@@ -17,6 +17,7 @@ class PostFunctions {
     required bool onDetail,
   }) {
     return () async {
+      var theme = Theme.of(context);
       String currentUserId = await CurrentUserId.getUserId();
       if (currentUserId != userModel.id) {
         debugPrint('Go to profile');
@@ -29,7 +30,7 @@ class PostFunctions {
           mySystemTheme(context);
           if (onDetail) {
             changeSystemThemeOnPopup(
-              color: Theme.of(context).colorScheme.surface,
+              color: theme.colorScheme.surface,
               context: context,
             );
           }
@@ -49,7 +50,7 @@ class PostFunctions {
             mySystemTheme(context);
             if (onDetail) {
               changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.surface,
+                color: theme.colorScheme.surface,
                 context: context,
               );
             }

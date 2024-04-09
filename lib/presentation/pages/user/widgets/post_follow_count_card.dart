@@ -21,14 +21,16 @@ class PostFollowCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return BlocBuilder<FollowUnfollowUserBloc, FollowUnfollowUserState>(
       builder: (context, state) {
         return Container(
           height: 90,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: theme.colorScheme.primaryContainer,
             border: Border.all(
-                width: 0.5, color: Theme.of(context).colorScheme.primary),
+                width: 1, color: theme.colorScheme.outline),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -46,15 +48,15 @@ class PostFollowCountWidget extends StatelessWidget {
               ),
               Container(
                 height: double.infinity,
-                width: 0.5,
-                color: Theme.of(context).colorScheme.primary,
+                width: 1,
+                color: theme.colorScheme.outline,
               ),
               _userPostFollowCountCard(
                 count: '${userModel.followers!.length}',
                 title: 'FOLLOWERS',
                 onTap: () {
                   changeSystemThemeOnPopup(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: theme.colorScheme.surface,
                     context: context,
                   );
                   nextScreen(
@@ -70,8 +72,8 @@ class PostFollowCountWidget extends StatelessWidget {
               ),
               Container(
                 height: double.infinity,
-                width: 0.5,
-                color: Theme.of(context).colorScheme.primary,
+                width: 1,
+                color: theme.colorScheme.outline,
               ),
               _userPostFollowCountCard(
                 count: '${userModel.following!.length}',

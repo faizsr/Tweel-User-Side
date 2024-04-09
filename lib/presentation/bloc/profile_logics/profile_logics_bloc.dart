@@ -38,7 +38,6 @@ class ProfileLogicsBloc extends Bloc<ProfileLogicsEvent, ProfileLogicsState> {
     emit(ChangeAccountTypeLoadingState());
     String response = await ProfileRepo.changeAccountType(event.accountType);
     if (response == 'success') {
-      print('success');
       emit(ChangeAccountTypeSuccessState());
     } else {
       emit(ChangeAccountTypeErrorState());

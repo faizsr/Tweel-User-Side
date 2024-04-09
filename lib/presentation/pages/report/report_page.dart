@@ -31,16 +31,17 @@ class _ReportPageState extends State<ReportPage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return BlocBuilder<ReportRadioCubit, ReportTypeState>(
       builder: (context, state) {
         return Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          backgroundColor: theme.colorScheme.surface,
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(56),
             child: CustomAppbar2(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              backgroundColor: theme.colorScheme.surface,
               title: 'Report an issue',
               onPressed: () {
                 Navigator.pop(context);

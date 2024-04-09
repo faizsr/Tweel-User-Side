@@ -57,7 +57,6 @@ class PostRepo {
       debugPrint('Fetch Post Status: ${response.statusCode}');
       if (response.statusCode == 201) {
         final jsonResponse = response.data;
-        print(jsonResponse['data']);
         PostModel post = PostModel.fromJson(jsonResponse['data']);
         return post;
       }
@@ -156,7 +155,7 @@ class PostRepo {
     }
   }
 
-  static Future<String> addComment(String comment, String postId) async {
+  static Future<CommentModel?> addComment(String comment, String postId) async {
     final dio = Dio();
     String token = await UserToken.getToken();
     String addCommentUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.addComment}";
@@ -175,12 +174,14 @@ class PostRepo {
       );
       debugPrint('Add Comment Status: ${response.statusCode}');
       if (response.statusCode == 200) {
-        return 'success';
+        var jsonResponse = response.data['data'];
+        CommentModel commentModel = CommentModel.fromJson(jsonResponse);
+        return commentModel;
       }
-      return '';
+      return null;
     } catch (e) {
       debugPrint('Add Comment Error: $e');
-      return '';
+      return null;
     }
   }
 

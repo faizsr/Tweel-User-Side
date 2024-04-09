@@ -3,12 +3,14 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
+import 'package:tweel_social_media/presentation/widgets/shimmer_animate.dart';
 
 class ExplorePageLoading extends StatelessWidget {
   const ExplorePageLoading({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return ListView(
       children: [
         Padding(
@@ -21,7 +23,7 @@ class ExplorePageLoading extends StatelessWidget {
                 'Show all',
                 style: TextStyle(
                   fontSize: 12,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: theme.colorScheme.onPrimary,
                 ),
               ),
             ],
@@ -37,7 +39,7 @@ class ExplorePageLoading extends StatelessWidget {
           itemBuilder: (context, index) {
             return Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: theme.colorScheme.primaryContainer,
                 boxShadow: kBoxShadow,
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -106,9 +108,12 @@ class Tile extends StatelessWidget {
   final double height;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      color: Theme.of(context).colorScheme.primaryContainer,
+    var theme = Theme.of(context);
+    return ShimmerAnimate(
+      child: Container(
+        height: height,
+        color: theme.colorScheme.primaryContainer,
+      ),
     );
   }
 }
@@ -118,6 +123,7 @@ class SuggestedPeopleLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return StaggeredGridView.countBuilder(
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
@@ -128,46 +134,48 @@ class SuggestedPeopleLoading extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: theme.colorScheme.primaryContainer,
             boxShadow: kBoxShadow,
             borderRadius: BorderRadius.circular(10),
           ),
           margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Theme.of(context).colorScheme.onSurface,
-              ),
-              kHeight(15),
-              const Skelton(width: 100),
-              kHeight(5),
-              const Skelton(width: 70),
-              kHeight(15),
-              Container(
-                height: 35,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0.5,
-                    color: Theme.of(context).colorScheme.outlineVariant,
-                  ),
-                  borderRadius: BorderRadius.circular(3),
+          child: ShimmerAnimate(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: theme.colorScheme.onSurface,
                 ),
-                child: Center(
-                  child: Text(
-                    'FOLLOW',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontVariations: fontWeightW800,
-                      color: Theme.of(context).colorScheme.outlineVariant,
+                kHeight(15),
+                const Skelton(width: 100),
+                kHeight(5),
+                const Skelton(width: 70),
+                kHeight(15),
+                Container(
+                  height: 35,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.5,
+                      color: theme.colorScheme.outlineVariant,
+                    ),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'FOLLOW',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontVariations: fontWeightW800,
+                        color: theme.colorScheme.outlineVariant,
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         );
       },

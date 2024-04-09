@@ -29,27 +29,28 @@ void changeSystemThemeOnPopup({Color? color, required BuildContext context}) {
 
 var lightTheme = ThemeData(
   fontFamily: mainFont,
-  // brightness: Brightness.light,
+  unselectedWidgetColor: lGray,
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary: lBlack, // Icon || Text Primary Color
     onPrimary: lBlue, // Selected Color
     primaryContainer: lWhite, // Card Color
-    onPrimaryContainer: lWhite,
-    secondary: lDarkGrey, // Text Color Secondary
-    onSecondary: lGrey, // Text Light Color
-    outline: lLightGrey, // Divider Color
+    onPrimaryContainer: lWhite, // Button Color
+    secondary: lGray, // Text Color Secondary
+    onSecondary: lLightGrey, // Text Light Color
+    outline: lLightGrey2, // Divider Color
     outlineVariant: lLightGrey3, // Loading Button & Text Color
     surface: lLightWhite, // Background Color
-    onSurface: lLightGrey2, // Loading Skelton Color
-    tertiary: lDarkGrey2, // For Remove Dialog Box
-    onTertiary: lBottom, // For Bottom Sheet
-    surfaceTint: lDialog, // For Dialog Box
-    surfaceVariant: lBottom,
+    onSurface: lLightGrey4, // Loading Skelton Color
+    tertiary: lDialog, // For Remove Dialog On Detail
+    onTertiary: lDialog2, // For Remove Dialog On Home
+    background: lBottom, // For Bottom Sheet On Detail
+    onBackground: lBottom2, // For Bottom Sheet On Home
+    surfaceVariant: lPDialog, // For Profile More
+    surfaceTint: lPDialog2, // For User Profile More
+    scrim: lLightGrey,
     error: Colors.red,
     onError: Colors.red,
-    background: Colors.transparent,
-    onBackground: Colors.transparent,
   ),
   listTileTheme: const ListTileThemeData(iconColor: lBlack, textColor: lBlack),
   appBarTheme: AppBarTheme(
@@ -83,26 +84,28 @@ var lightTheme = ThemeData(
 
 var darkTheme = ThemeData(
   fontFamily: mainFont,
+  unselectedWidgetColor: dGray,
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: dWhite, // Icon || Text Primary Color
     onPrimary: dBlue, // Selected Color
-    primaryContainer: dLightBlueGrey, // Card Color
-    onPrimaryContainer: lBlack,
-    secondary: dLightGrey, // Text Color Secondary
-    onSecondary: dDarkGrey, // Text Light Color
-    outline: dDarkGrey2, // Divider Color
-    outlineVariant: dLightBlueGrey2, // Loading Button & Text Color
-    surface: dBlueGrey, // Background Color
+    primaryContainer: dDarkGrey, // Card Color
+    onPrimaryContainer: dBlack, // Button Color
+    secondary: dGray, // Text Color Secondary
+    onSecondary: dLightGrey, // Text Light Color
+    outline: dLightGrey2, // Divider Color
+    outlineVariant: dLightGrey3, // Loading Button & Text Color
+    surface: dBlack, // Background Color
     onSurface: dLightBlueGrey2, // Loading Skelton Color
-    tertiary: dBlack, // For Remove Dialog Box
-    onTertiary: dBottom, // For Bottom Sheet
-    surfaceTint: dDialog, // For Dialog box
-    surfaceVariant: dBottom2,
+    tertiary: dDialog, // For Remove Dialog On Detail
+    onTertiary: dDialog, // For Remove Dialog On Home
+    background: dBottom, // For Bottom Sheet On Detail
+    onBackground: dBottom2, // For Bottom Sheet On Home
+    surfaceVariant: dPDialog, // For Profile More
+    surfaceTint: dPDialog, // For User Profile More
+    scrim: dLightGrey,
     error: Colors.red,
     onError: Colors.red,
-    background: Colors.transparent,
-    onBackground: Colors.transparent,
   ),
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(

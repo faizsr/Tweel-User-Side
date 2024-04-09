@@ -11,6 +11,7 @@ class SignInWidgets {
         delay: const Duration(milliseconds: 700),
         duration: const Duration(milliseconds: 1000),
         child: Text.rich(
+          textAlign: TextAlign.center,
           TextSpan(
             children: [
               TextSpan(

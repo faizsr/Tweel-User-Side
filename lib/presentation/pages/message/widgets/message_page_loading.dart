@@ -13,8 +13,9 @@ class _MessagePageState extends State<MessagePage> {
   final SearchController searchController = SearchController();
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Container(
-      color: Theme.of(context).colorScheme.primaryContainer,
+      color: theme.colorScheme.primaryContainer,
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         itemCount: 10,
@@ -26,7 +27,7 @@ class _MessagePageState extends State<MessagePage> {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundColor: Theme.of(context).colorScheme.onSurface,
+                  backgroundColor: theme.colorScheme.onSurface,
                 ),
                 kWidth(15),
                 Column(

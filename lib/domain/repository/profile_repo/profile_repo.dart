@@ -28,7 +28,9 @@ class ProfileRepo {
         final List postsList = responseData['posts'];
         for (int i = 0; i < postsList.length; i++) {
           PostModel post = PostModel.fromJson(postsList[i]);
-          posts.add(post);
+          if (!post.isBlocked) {
+            posts.add(post);
+          }
         }
         return ProfileDetailsModel(user: user, posts: posts);
       }

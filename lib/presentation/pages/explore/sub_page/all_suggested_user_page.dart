@@ -7,20 +7,19 @@ class AllSuggestedUsersPage extends StatelessWidget {
   const AllSuggestedUsersPage({
     super.key,
     required this.state,
-    required this.theme,
   });
 
-  final ThemeData theme;
   final UserDetailFetchingSuccessState state;
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: CustomAppbar2(
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: theme.colorScheme.surface,
           title: 'Suggested for you',
           onPressed: () {
             Navigator.pop(context);

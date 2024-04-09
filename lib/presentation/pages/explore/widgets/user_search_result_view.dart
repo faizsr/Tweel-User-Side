@@ -16,6 +16,7 @@ class UserSearchResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return ListView.builder(
       itemCount: state2.users.length,
       itemBuilder: (context, index) {
@@ -23,7 +24,7 @@ class UserSearchResultView extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
+              color: theme.colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(10),
             ),
             child: UserListTile(

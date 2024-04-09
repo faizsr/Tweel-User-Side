@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
@@ -57,17 +58,15 @@ class _StoryHeadingWidgetState extends State<StoryHeadingWidget> {
                     );
                   },
                   child: Container(
+                    padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 1,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                      color: Theme.of(context).colorScheme.outline,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Ktweel.add,
-                      size: 22,
-                      color: Theme.of(context).colorScheme.secondary,
+                      size: 20,
+                      color: lWhite,
                     ),
                   ),
                 );

@@ -117,7 +117,7 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
     return ListTile(
       onTap: () {
         changeSystemThemeOnPopup(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Theme.of(context).colorScheme.surface,
           context: context,
         );
         nextScreen(
@@ -152,10 +152,17 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
         leading: const Icon(Ktweel.remove_2),
         title: const Text('Remove post'),
         onTap: () {
-          changeSystemThemeOnPopup(
-            color: Theme.of(context).colorScheme.tertiary,
-            context: context,
-          );
+          if (widget.onDetail) {
+            changeSystemThemeOnPopup(
+              color: Theme.of(context).colorScheme.tertiary,
+              context: context,
+            );
+          } else {
+            changeSystemThemeOnPopup(
+              color: Theme.of(context).colorScheme.onTertiary,
+              context: context,
+            );
+          }
           showDialog(
             context: context,
             builder: (context) {
@@ -174,10 +181,19 @@ class _PostMoreBottomSheetState extends State<PostMoreBottomSheet> {
                 },
               );
             },
-          ).then((value) => changeSystemThemeOnPopup(
-                color: Theme.of(context).colorScheme.onTertiary,
+          ).then((value) {
+            if (widget.onDetail) {
+              changeSystemThemeOnPopup(
+                color: Theme.of(context).colorScheme.background,
                 context: context,
-              ));
+              );
+            } else {
+              changeSystemThemeOnPopup(
+                color: Theme.of(context).colorScheme.onBackground,
+                context: context,
+              );
+            }
+          });
         },
       ),
     );

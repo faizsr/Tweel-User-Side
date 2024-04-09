@@ -24,7 +24,7 @@ class PostCardWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(18, 15, 18,4),
+      padding: const EdgeInsets.fromLTRB(18, 15, 18, 4),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         boxShadow: kBoxShadow,
@@ -51,7 +51,7 @@ class PostCardWidget extends StatelessWidget {
           // Post Image Section
           PostImageWidget(
             postModel: postModel,
-            height: 400,
+            height: MediaQuery.of(context).size.height / 2.2,
           ),
           kHeight(5),
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
@@ -31,13 +30,13 @@ class PostActionButtons extends StatelessWidget {
         Container(
           height: 15,
           width: 1,
-          color: Theme.of(context).colorScheme.outline,
+          color: theme.colorScheme.outlineVariant,
         ),
         commentButton(context),
         Container(
           height: 15,
           width: 1,
-          color: Theme.of(context).colorScheme.outline,
+          color: theme.colorScheme.outlineVariant,
         ),
         CustomIconBtn(
           title: 'Share',
@@ -58,6 +57,7 @@ class PostActionButtons extends StatelessWidget {
           icon: Ktweel.comment,
           onTap: () {
             debugPrint('Comment pressed');
+            print('comment: ${postModel.comments!.length}');
             nextScreen(
               context,
               PostDetailPage(
@@ -78,9 +78,9 @@ class PostActionButtons extends StatelessWidget {
           title: '${postModel.likes!.length} likes',
           color: postModel.likes!.contains(userModel.id)
               ? theme.colorScheme.onPrimary
-              : theme.colorScheme.primary,
+              : theme.colorScheme.secondary,
           icon: postModel.likes!.contains(userModel.id)
-              ? Ktweel.dislike
+              ? Ktweel.like
               : Ktweel.like,
           onTap: () {
             if (postModel.likes!.contains(userModel.id)) {

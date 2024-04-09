@@ -13,8 +13,10 @@ class MessageAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Container(
-      color: Theme.of(context).colorScheme.surface,
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      color: theme.colorScheme.surface,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +45,7 @@ class MessageAppbar extends StatelessWidget {
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryContainer,
+                      color: theme.colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(
@@ -56,7 +58,7 @@ class MessageAppbar extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(left: 20,top: 10),
+            padding: EdgeInsets.only(left: 20, top: 10),
             child: Text(
               'All Inbox',
               style: TextStyle(

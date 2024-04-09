@@ -8,6 +8,7 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/main/widgets/bottom_nav.dart';
 import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
 import 'package:tweel_social_media/presentation/pages/home/sections/create_post_card.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/heading_widget.dart';
@@ -19,6 +20,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     Future<void> handleRefresh() async {
       await Future.delayed(const Duration(seconds: 2));
       context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
@@ -28,12 +30,13 @@ class HomePage extends StatelessWidget {
 
     mySystemTheme(context);
     return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.colorScheme.surface,
         body: RefreshWidget(
           onRefresh: handleRefresh,
           child: ListView(
+            controller: homePageController,
             shrinkWrap: true,
             children: [
               Padding(

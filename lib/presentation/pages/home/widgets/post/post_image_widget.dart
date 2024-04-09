@@ -22,6 +22,7 @@ class PostImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return SizedBox(
       height: height,
       child: PageView.builder(
@@ -40,7 +41,7 @@ class PostImageWidget extends StatelessWidget {
                 mySystemTheme(context);
                 if (onDetail) {
                   changeSystemThemeOnPopup(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: theme.colorScheme.surface,
                     context: context,
                   );
                 }
@@ -52,12 +53,24 @@ class PostImageWidget extends StatelessWidget {
               children: [
                 Hero(
                   tag: 'image-pre${postModel.mediaURL![0].toString()}',
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: postModel.mediaURL![index].toString().contains('image')
-                        ? Image.network(postModel.mediaURL![index],
-                            fit: BoxFit.cover)
-                        : VideoPlayerWidget(videoUrl: postModel.mediaURL![index]),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.onSurface,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: postModel.mediaURL![index]
+                              .toString()
+                              .contains('image')
+                          ? Image.network(
+                              postModel.mediaURL![index],
+                              fit: BoxFit.cover,
+                            )
+                          : VideoPlayerWidget(
+                              videoUrl: postModel.mediaURL![index],
+                            ),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -65,7 +78,9 @@ class PostImageWidget extends StatelessWidget {
                   top: 10,
                   child: Container(
                     decoration: BoxDecoration(
-                        color: lBlack, borderRadius: BorderRadius.circular(5)),
+                      color: lBlack,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 6,
                       vertical: 3,

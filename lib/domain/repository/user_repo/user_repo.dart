@@ -64,7 +64,9 @@ class UserRepo {
         final List postsList = responseData['posts'];
         for (int i = 0; i < postsList.length; i++) {
           PostModel post = PostModel.fromJson(postsList[i]);
-          posts.add(post);
+          if (!post.isBlocked) {
+            posts.add(post);
+          }
         }
         return UserDetailsModel(user: user, posts: posts);
       }
@@ -148,12 +150,12 @@ class UserRepo {
   static Future<List<UserModel>> searchUsers(String value) async {
     Dio dio = Dio();
     String token = await UserToken.getToken();
-    String userListUrl =
+    String searchUserUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.userSearch}?query=$value";
     List<UserModel> users = [];
     try {
       var response = await dio.get(
-        userListUrl,
+        searchUserUrl,
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -166,8 +168,8 @@ class UserRepo {
         final Map<String, dynamic> responseData = response.data;
         List userList = responseData['users'];
         for (int i = 0; i < userList.length; i++) {
-          UserModel post = UserModel.fromJson(userList[i]);
-          users.add(post);
+          UserModel user = UserModel.fromJson(userList[i]);
+          users.add(user);
         }
         return users;
       }

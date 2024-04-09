@@ -12,10 +12,11 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       extendBodyBehindAppBar: true,
-      appBar: CustomAppbar.show(context,true),
+      appBar: CustomAppbar.show(context, true),
       body: const ForgetFieldWidget(),
     );
   }

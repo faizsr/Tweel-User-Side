@@ -17,8 +17,10 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
 
   FutureOr<void> addCommentEvent(
       AddCommentEvent event, Emitter<CommentState> emit) async {
-    String response = await PostRepo.addComment(event.comment, event.postId);
-    if (response == 'success') {
+    CommentModel? commentModel = await PostRepo.addComment(event.comment, event.postId);
+    if (commentModel != null) {
+      print(commentModel.id);
+      print(commentModel.comment);
       event.postModel.comments!.add(
         CommentModel(
           user: event.userModel,
@@ -26,7 +28,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
           createdDate: DateTime.now().toString(),
         ),
       );
-      emit(CommentAddedState());
+      emit(CommentAddedState(commentModel: commentModel));
     }
   }
 

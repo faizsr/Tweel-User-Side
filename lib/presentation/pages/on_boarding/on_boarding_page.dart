@@ -2,6 +2,7 @@
 
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -19,14 +20,15 @@ class OnBoardingPage extends StatefulWidget {
 class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     changeSystemThemeOnPopup(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       context: context,
     );
     return ColorfulSafeArea(
-      color: Theme.of(context).colorScheme.surface,
+      color: theme.colorScheme.surface,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.colorScheme.surface,
         body: GestureDetector(
           onDoubleTap: () {
             UserAuthStatus.saveUserinitialStatus(true);
@@ -53,37 +55,29 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               kHeight(10),
               const Text('Swipe up to get started.'),
               const Spacer(),
-              Container(
-                width: 70,
-                padding: const EdgeInsets.only(bottom: 20, top: 50),
-                // clipBehavior: Clip.hardEdge,
-                foregroundDecoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                        width: 0.8,
-                        color: Theme.of(context).colorScheme.primary),
-                    left: BorderSide(
-                        width: 0.8,
-                        color: Theme.of(context).colorScheme.primary),
-                    right: BorderSide(
-                        width: 0.8,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                ),
-                child: const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Icon(Ktweel.arrow_down),
-                ),
-              ),
+              swipeDownWidget(context)
+                  .animate(
+                    onPlay: (controller) => controller.repeat(),
+                  )
+                  .shimmer(
+                      color: theme.colorScheme.onPrimaryContainer,
+                      delay: 400.ms,
+                      duration: 1400.ms),
               kHeight(10),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget swipeDownWidget(BuildContext context) {
+    return const Column(
+      children: [
+        Icon(Ktweel.arrow_down_ios),
+        Icon(Ktweel.arrow_down_ios),
+        Icon(Ktweel.arrow_down_ios),
+      ],
     );
   }
 

@@ -38,6 +38,8 @@ class UserProfileDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return Column(
       children: [
         UserHeadingWidget(
@@ -46,7 +48,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
           onProfile: false,
           onTap: () {
             changeSystemThemeOnPopup(
-              color: Theme.of(context).colorScheme.surfaceTint,
+              color: theme.colorScheme.surfaceTint,
               context: context,
             );
             showDialog(
@@ -64,7 +66,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                     () {},
                     () {
                       changeSystemThemeOnPopup(
-                        color: Theme.of(context).colorScheme.surface,
+                        color: theme.colorScheme.surface,
                         context: context,
                       );
                       nextScreen(
@@ -93,7 +95,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
+                  color: theme.colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -128,7 +130,11 @@ class UserProfileDetailsWidget extends StatelessWidget {
                               kHeight(5),
                               Text(
                                 '${userModel.accountType} profile'.capitalize(),
-                                style: const TextStyle(fontSize: 12),
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: theme
+                                        .colorScheme
+                                        .secondary),
                               ),
                               kHeight(10),
                               Row(
