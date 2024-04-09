@@ -13,4 +13,10 @@ class CommentAddedState extends CommentState {
   });
 }
 
-class CommentDeletedState extends CommentState {}
+class CommentDeletedState extends CommentState {
+  final String commentId;
+
+  CommentDeletedState({
+    required this.commentId,
+  });
+}

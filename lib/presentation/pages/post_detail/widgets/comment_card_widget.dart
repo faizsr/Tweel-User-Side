@@ -7,6 +7,7 @@ import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
+import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/comment/comment_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
@@ -48,25 +49,40 @@ class _CommentCardWidgetState extends State<CommentCardWidget> {
                   children: [
                     kWidth(10),
                     BlocBuilder<CommentBloc, CommentState>(
-                      builder: (context, state) {
+                      builder: (context, commentState) {
                         String commentId = '';
-                        if (state is CommentDeletedState) {
+                        if (commentState is CommentAddedState) {
+                          commentId = commentState.commentModel.id;
+                          CommentModel comment = CommentModel(
+                            user: UserModel(
+                              fullName: state.userDetails.fullName,
+                              id: state.userDetails.id,
+                              profilePicture: state.userDetails.profilePicture,
+                            ),
+                            comment: commentState.commentModel.comment,
+                            createdDate: commentState.commentModel.createdDate,
+                            id: commentState.commentModel.id,
+                          );
+                          widget.postModel.comments!.add(comment);
+                        }
+                        if (commentState is CommentDeletedState) {
                           widget.postModel.comments!.removeWhere(
-                              (element) => element.id == commentId);
+                            (element) => element.id == commentState.commentId,
+                          );
                         }
 
                         return InkWell(
                           onTap: () {
-                            if (state is CommentAddedState) {
-                              commentId = state.commentModel.id;
-                            }
                             context.read<CommentBloc>().add(DeleteCommentEvent(
                                   postId: widget.postModel.id!,
-                                  commentId: commentId != ''
-                                      ? commentId
-                                      : widget.commentModel.id,
+                                  commentId: commentId == ''
+                                      ? widget.commentModel.id
+                                      : commentId,
                                   postModel: widget.postModel,
                                 ));
+                            widget.postModel.comments!.removeWhere(
+                              (element) => element.id == widget.commentModel.id,
+                            );
                           },
                           child: Center(
                             child: CircleAvatar(

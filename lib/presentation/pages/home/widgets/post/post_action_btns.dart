@@ -57,7 +57,6 @@ class PostActionButtons extends StatelessWidget {
           icon: Ktweel.comment,
           onTap: () {
             debugPrint('Comment pressed');
-            print('comment: ${postModel.comments!.length}');
             nextScreen(
               context,
               PostDetailPage(
