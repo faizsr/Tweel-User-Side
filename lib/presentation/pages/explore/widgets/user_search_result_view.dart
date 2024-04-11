@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/presentation/bloc/search_user/search_user_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
 import 'package:tweel_social_media/presentation/widgets/user_list_tile.dart';

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/profile_logics/profile_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/saved_posts/saved_posts_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/main/widgets/bottom_nav.dart';
 import 'package:tweel_social_media/presentation/widgets/refresh_widget.dart';
@@ -42,47 +43,54 @@ class _ProfilePageState extends State<ProfilePage>
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     mySystemTheme(context);
-    return ColorfulSafeArea(
-      color: theme.colorScheme.surface,
-      child: Scaffold(
-        backgroundColor: theme.colorScheme.surface,
-        body: RefreshWidget(
-          onRefresh: _handleRefresh,
-          child: ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            shrinkWrap: true,
-            controller: profilePageController,
-            children: [
-              BlocBuilder<ProfileBloc, ProfileState>(
-                builder: (context, state) {
-                  if (state is ProfileFetchingLoadingState) {
-                    return const ProfilePageLoading();
-                  }
-                  if (state is ProfileFetchingSucessState) {
-                    return ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        ProfileDetailsWidget(
-                          userModel: state.userDetails,
-                          postsList: state.posts,
-                          onProfile: true,
-                          isCurrentUser: false,
-                        ),
-                        kHeight(50),
-                        CustomTabBarWiget(tabController: tabController),
-                        kHeight(15),
-                        CustomTabviewWidget(
-                          profileState: state,
-                          tabController: tabController,
-                        ),
-                      ],
-                    );
-                  }
-                  return Container();
-                },
-              ),
-            ],
+    return BlocListener<ProfileLogicsBloc, ProfileLogicsState>(
+      listener: (context, state) {
+        if (state is ChangeAccountTypeSuccessState) {
+          _handleRefresh();
+        }
+      },
+      child: ColorfulSafeArea(
+        color: theme.colorScheme.surface,
+        child: Scaffold(
+          backgroundColor: theme.colorScheme.surface,
+          body: RefreshWidget(
+            onRefresh: _handleRefresh,
+            child: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              shrinkWrap: true,
+              controller: profilePageController,
+              children: [
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    if (state is ProfileFetchingLoadingState) {
+                      return const ProfilePageLoading();
+                    }
+                    if (state is ProfileFetchingSucessState) {
+                      return ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: [
+                          ProfileDetailsWidget(
+                            userModel: state.userDetails,
+                            postsList: state.posts,
+                            onProfile: true,
+                            isCurrentUser: false,
+                          ),
+                          kHeight(50),
+                          CustomTabBarWiget(tabController: tabController),
+                          kHeight(15),
+                          CustomTabviewWidget(
+                            profileState: state,
+                            tabController: tabController,
+                          ),
+                        ],
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

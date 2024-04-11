@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/empty_post_widget.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_card.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_card_loading.dart';
 
@@ -50,6 +51,9 @@ class PostSection extends StatelessWidget {
                     return Container();
                   }),
                 );
+              }
+              if (state is PostDetailFetchingErrorState) {
+                return const EmptyPostWidget();
               }
               return Container();
             },

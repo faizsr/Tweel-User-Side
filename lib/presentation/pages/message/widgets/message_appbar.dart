@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+// import 'package:tweel_social_media/core/utils/constants.dart';
+// import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/custom_search_field.dart';
 
 class MessageAppbar extends StatelessWidget {
@@ -39,21 +39,21 @@ class MessageAppbar extends StatelessWidget {
                     onChanged: (value) {},
                   ),
                 ),
-                kWidth(10),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Icon(
-                      Ktweel.more_vert_2,
-                      size: 30,
-                    ),
-                  ),
-                )
+                // kWidth(10),
+                // Expanded(
+                //   flex: 1,
+                //   child: Container(
+                //     height: 50,
+                //     decoration: BoxDecoration(
+                //       color: theme.colorScheme.primaryContainer,
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //     child: const Icon(
+                //       Ktweel.more_vert_2,
+                //       size: 30,
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),

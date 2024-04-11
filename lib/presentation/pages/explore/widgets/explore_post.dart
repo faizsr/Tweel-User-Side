@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/explore_loading.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/grid_tile.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/post/empty_post_widget.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 
 class ExplorePosts extends StatelessWidget {
@@ -35,8 +36,9 @@ class ExplorePosts extends StatelessWidget {
             ],
           );
         }
-        return const Center(
-          child: Text('No data'),
+        return const Padding(
+          padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+          child: EmptyPostWidget(),
         );
       },
     );
@@ -160,12 +162,12 @@ class ExplorePosts extends StatelessWidget {
           const Align(
             child: Text(
               'Explore',
-              style: TextStyle(fontSize: 22,height: 1.7),
+              style: TextStyle(fontSize: 22, height: 1.7),
             ),
           ),
           Positioned(
             bottom: 0,
-            right:  15,
+            right: 15,
             child: SizedBox(
               width: 15,
               child: Divider(

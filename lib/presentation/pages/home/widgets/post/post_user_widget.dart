@@ -5,6 +5,7 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/presentation/bloc/post_edit/post_edit_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/home/functions/post_functions.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_more_widget.dart';
@@ -61,21 +62,23 @@ class _PostUserDetailState extends State<PostUserDetail> {
                   style: const TextStyle(fontSize: 15),
                 ),
                 kWidth(15),
-                if (widget.postModel.createdDate !=
-                    widget.postModel.updatedDate)
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      widget.postModel.createdDate !=
-                              widget.postModel.updatedDate
-                          ? "Edited"
-                          : "",
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: theme.colorScheme.onSecondary,
-                      ),
-                    ),
-                  )
+                BlocBuilder<PostEditBloc, PostEditState>(
+                  builder: (context, state) {
+                    if (state is EditPostSuccessState) {
+                      return Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "Edited",
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: theme.colorScheme.onSecondary,
+                          ),
+                        ),
+                      );
+                    }
+                    return const SizedBox();
+                  },
+                )
               ],
             ),
             kHeight(5),

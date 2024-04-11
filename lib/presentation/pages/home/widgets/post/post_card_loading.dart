@@ -43,7 +43,7 @@ class _PostCardLoadingState extends State<PostCardLoading> {
               kHeight(10),
               const Skelton(width: 250),
               kHeight(15),
-              const Skelton(height: 380),
+              Skelton(height: MediaQuery.of(context).size.height / 2.2),
               kHeight(15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

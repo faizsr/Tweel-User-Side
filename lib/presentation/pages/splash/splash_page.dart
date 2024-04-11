@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/presentation/pages/on_boarding/on_boarding_page.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';

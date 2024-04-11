@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/explore/sub_page/all_suggested_user_page.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/explore_loading.dart';

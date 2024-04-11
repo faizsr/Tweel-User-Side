@@ -4,6 +4,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
+import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
@@ -60,9 +61,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     onPlay: (controller) => controller.repeat(),
                   )
                   .shimmer(
-                      color: theme.colorScheme.onPrimaryContainer,
-                      delay: 400.ms,
-                      duration: 1400.ms),
+                    color: theme.colorScheme.onPrimaryContainer,
+                    delay: 400.ms,
+                    duration: 1400.ms,
+                  ),
               kHeight(10),
             ],
           ),

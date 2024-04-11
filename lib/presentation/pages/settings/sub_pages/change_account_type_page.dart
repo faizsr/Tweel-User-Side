@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/profile_logics/profile_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/settings/widgets/settings_appbar.dart';
 
 class ChangeAccountTypePage extends StatefulWidget {
   const ChangeAccountTypePage({
@@ -30,16 +30,11 @@ class _ChangeAccountTypePageState extends State<ChangeAccountTypePage> {
     var theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
-      appBar: AppBar(
-        toolbarHeight: 60,
-        backgroundColor: theme.colorScheme.primaryContainer,
-        title: const Text('Account type'),
-        titleSpacing: 5,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Ktweel.arrow_left),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: SettingsAppbar(
+          theme: theme,
+          title: 'Account type',
         ),
       ),
       body: Padding(

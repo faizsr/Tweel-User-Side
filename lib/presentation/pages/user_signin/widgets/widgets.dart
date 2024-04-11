@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/user_signup_one.dart';
 
 class SignInWidgets {
