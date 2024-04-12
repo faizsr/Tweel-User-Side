@@ -17,15 +17,12 @@ class ProfilePageLoading extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-          child: Column(
-            children: [
-              _headingLoading(theme),
-              kHeight(10),
-              _userDetailCardLoading(theme)
-            ],
-          ),
+        Column(
+          children: [
+            _headingLoading(theme),
+            kHeight(10),
+            _userDetailCardLoading(theme)
+          ],
         ),
         kHeight(50),
         _tabbarLoading(theme),
@@ -88,85 +85,17 @@ class ProfilePageLoading extends StatelessWidget {
     );
   }
 
-  Stack _userDetailCardLoading(ThemeData theme) {
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 40,
-                color: Colors.black.withOpacity(0.05),
-              )
-            ],
-          ),
-          child: ShimmerAnimate(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 30, 30, 70),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundColor: theme.colorScheme.onSurface,
-                      ),
-                      kWidth(20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Skelton(width: 100),
-                          kHeight(10),
-                          const Skelton(width: 50),
-                          kHeight(10),
-                          Container(
-                            height: 35,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 0.5,
-                                color: theme.colorScheme.outlineVariant,
-                              ),
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'EDIT PROFILE',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontVariations: fontWeightW800,
-                                  color: theme.colorScheme.outlineVariant,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  kHeight(15),
-                  const Skelton(width: 200),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: -40,
-          child: Container(
-            height: 90,
+  Widget _userDetailCardLoading(ThemeData theme) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: double.infinity,
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer,
-              border: Border.all(
-                width: 0.5,
-                color: theme.colorScheme.outlineVariant,
-              ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
@@ -176,89 +105,163 @@ class ProfilePageLoading extends StatelessWidget {
               ],
             ),
             child: ShimmerAnimate(
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    width: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 30, 30, 70),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        const Skelton(width: 25, height: 35),
-                        kHeight(5),
-                        const Skelton(width: 40),
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundColor: theme.colorScheme.onSurface,
+                        ),
+                        kWidth(20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Skelton(width: 100),
+                            kHeight(10),
+                            const Skelton(width: 50),
+                            kHeight(10),
+                            Container(
+                              height: 35,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 0.5,
+                                  color: theme.colorScheme.outlineVariant,
+                                ),
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'EDIT PROFILE',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontVariations: fontWeightW800,
+                                    color: theme.colorScheme.outlineVariant,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  ),
-                  Container(
-                    height: double.infinity,
-                    width: 0.5,
-                    color: theme.colorScheme.outlineVariant,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    width: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Skelton(width: 25, height: 35),
-                        kHeight(5),
-                        const Skelton(width: 60),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: double.infinity,
-                    width: 0.5,
-                    color: theme.colorScheme.outlineVariant,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    width: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Skelton(width: 25, height: 35),
-                        kHeight(5),
-                        const Skelton(width: 60),
-                      ],
-                    ),
-                  ),
-                ],
+                    kHeight(15),
+                    const Skelton(width: 200),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+          Positioned(
+            bottom: -40,
+            child: Container(
+              height: 90,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primaryContainer,
+                border: Border.all(
+                  width: 0.5,
+                  color: theme.colorScheme.outlineVariant,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 40,
+                    color: Colors.black.withOpacity(0.05),
+                  )
+                ],
+              ),
+              child: ShimmerAnimate(
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      width: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Skelton(width: 25, height: 35),
+                          kHeight(5),
+                          const Skelton(width: 40),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: double.infinity,
+                      width: 0.5,
+                      color: theme.colorScheme.outlineVariant,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      width: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Skelton(width: 25, height: 35),
+                          kHeight(5),
+                          const Skelton(width: 60),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: double.infinity,
+                      width: 0.5,
+                      color: theme.colorScheme.outlineVariant,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      width: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Skelton(width: 25, height: 35),
+                          kHeight(5),
+                          const Skelton(width: 60),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _headingLoading(ThemeData theme) {
     return ShimmerAnimate(
-      child: Row(
-        children: [
-          Skelton(
-            width: 70,
-            color: theme.colorScheme.primaryContainer,
-          ),
-          const Spacer(),
-          InkWell(
-            onTap: () {},
-            child: Icon(
-              Ktweel.settings,
-              color: theme.colorScheme.outlineVariant,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 15, 0),
+        child: Row(
+          children: [
+            Skelton(
+              width: 70,
+              color: theme.colorScheme.primaryContainer,
             ),
-          ),
-        ],
+            const Spacer(),
+            InkWell(
+              onTap: () {},
+              child: Icon(
+                Ktweel.settings,
+                color: theme.colorScheme.outlineVariant,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

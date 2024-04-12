@@ -25,6 +25,7 @@ import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_by_id/user_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/connectivity_status/connectivity_status_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down/drop_down_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/on_search/on_search_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/post_image_index.dart/post_image_index.dart';
@@ -32,7 +33,6 @@ import 'package:tweel_social_media/presentation/cubit/report_radio/report_radio_
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/story_index/story_index_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/theme/theme_cubit.dart';
-import 'package:tweel_social_media/presentation/cubit/toggle_notify_cubit/toggle_notify_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/splash/splash_page.dart';
 
@@ -79,10 +79,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SearchUserBloc()),
         BlocProvider(create: (context) => NotificationBloc()),
         BlocProvider(create: (context) => ThemeCubit()),
-        BlocProvider(create: (context) => ToggleNotifyCubit()),
         BlocProvider(create: (context) => TogglePasswordCubit()),
         BlocProvider(create: (context) => ReportRadioCubit()),
         BlocProvider(create: (context) => ReportBloc()),
+        BlocProvider(create: (context) => ConnectivityStatusCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, ThemeMode mode) {

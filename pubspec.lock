@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.4"
+  args:
+    dependency: transitive
+    description:
+      name: args
+      sha256: "7cf60b9f0cc88203c5a190b4cd62a99feea42759a7fa695010eb5de1c0b2252a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
   async:
     dependency: transitive
     description:
@@ -105,6 +113,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  connectivity_plus:
+    dependency: "direct main"
+    description:
+      name: connectivity_plus
+      sha256: ebe15d94de9dd7c31dc2ac54e42780acdf3384b1497c69290c9f3c5b0279fc57
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
+  connectivity_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: connectivity_plus_platform_interface
+      sha256: b6a56efe1e6675be240de39107281d4034b64ac23438026355b4234042a35adb
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   cross_file:
     dependency: transitive
     description:
@@ -145,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      sha256: "365c771ac3b0e58845f39ec6deebc76e3276aa9922b0cc60840712094d9047ac"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.10"
   dio:
     dependency: "direct main"
     description:
@@ -270,6 +302,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_markdown:
+    dependency: "direct main"
+    description:
+      name: flutter_markdown
+      sha256: "31c12de79262b5431c5492e9c89948aa789158435f707d3519a7fdef6af28af7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.22+1"
   flutter_shaders:
     dependency: transitive
     description:
@@ -376,6 +416,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.1.5"
+  internet_connection_checker:
+    dependency: "direct main"
+    description:
+      name: internet_connection_checker
+      sha256: "1c683e63e89c9ac66a40748b1b20889fd9804980da732bf2b58d6d5456c8e876"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0+1"
   js:
     dependency: transitive
     description:
@@ -416,6 +464,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  markdown:
+    dependency: transitive
+    description:
+      name: markdown
+      sha256: ef2a1298144e3f985cc736b22e0ccdaf188b5b3970648f2d9dc13efd1d9df051
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.2.2"
   matcher:
     dependency: transitive
     description:
@@ -456,6 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  nm:
+    dependency: transitive
+    description:
+      name: nm
+      sha256: "2c9aae4127bdc8993206464fcc063611e0e36e72018696cd9631023a31b24254"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   octo_image:
     dependency: transitive
     description:
@@ -536,6 +600,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
   photo_manager:
     dependency: "direct main"
     description:
@@ -917,6 +989,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.0"
 sdks:
   dart: ">=3.3.0 <4.0.0"
   flutter: ">=3.19.0"

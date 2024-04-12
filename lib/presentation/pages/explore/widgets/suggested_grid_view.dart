@@ -5,6 +5,7 @@ import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/explore/widgets/loading_flw_btn.dart';
 import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/follow_btn_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -106,7 +107,7 @@ class SuggestedPeopleGridView extends StatelessWidget {
             ),
           );
         }
-        return Container();
+        return const LoadingFollowBtn();
       },
     );
   }

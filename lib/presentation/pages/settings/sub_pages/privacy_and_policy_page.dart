@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/pages/settings/utils/text_styles.dart';
+import 'package:tweel_social_media/presentation/pages/settings/utils/utils.dart';
 import 'package:tweel_social_media/presentation/pages/settings/widgets/settings_appbar.dart';
 
 class PrivacyAndPolicyPage extends StatelessWidget {
@@ -17,53 +20,48 @@ class PrivacyAndPolicyPage extends StatelessWidget {
         ),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(15),
         shrinkWrap: true,
-        children: const [
-          Text(
-            'This privacy policy applies to the Tweel application for mobile devices that was created by Faiz S R as a Free service. This service is intended for use "AS IS".',
+        children: [
+          content(PrivacyPolicy.title),
+          kHeight(20),
+          heading('Information Collection and Use'),
+          content(PrivacyPolicy.informationCollection),
+          bulletedList([], PrivacyPolicy.infoCollectionList),
+          kHeight(15),
+          content(PrivacyPolicy.infoCollection3),
+          kHeight(15),
+          content(PrivacyPolicy.infoCollection4),
+          kHeight(15),
+          content(PrivacyPolicy.infoCollection5),
+          kHeight(20),
+          heading('Opt-Out Rights'),
+          content(PrivacyPolicy.optOutRights),
+          kHeight(20),
+          heading('Data Retention Policy'),
+          content(PrivacyPolicy.dataRetentionPolicy),
+          kHeight(20),
+          heading('Children'),
+          content(PrivacyPolicy.children1),
+          kHeight(15),
+          content(PrivacyPolicy.children2),
+          kHeight(20),
+          heading('Security'),
+          content(PrivacyPolicy.security),
+          kHeight(20),
+          heading('Changes'),
+          content(PrivacyPolicy.changes),
+          kHeight(15),
+          buildSpanText2(
+            PrivacyPolicy.effectiveDate,
+            PrivacyPolicy.effectiveText,
           ),
-          Text('Information Collection and Use'),
-          Text(
-            'The Application collects information when you download and use it. This information may include information such as',
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("• "),
-              Expanded(
-                child: Text("The time spent on the Application"),
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("• "),
-              Expanded(
-                child:
-                    Text("The operating system you use on your mobile device"),
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("• "),
-              Expanded(
-                child: Text(
-                    "Your device's Internet Protocol address (e.g. IP address)"),
-              ),
-            ],
-          ),
-          Text(
-            "The Application does not gather precise information about the location of your mobile device.",
-          ),
-          Text(
-            "The Service Provider may use the information you provided to contact you from time to time to provide you with important information, required notices and marketing promotions.",
-          ),
-          Text(
-            'For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information, including but not limited to Name, phone number, email, profile picture. The information that the Service Provider request will be retained by them and used as described in this privacy policy.',
-          )
+          kHeight(20),
+          heading('Your Consent'),
+          content(PrivacyPolicy.yourConsent),
+          kHeight(20),
+          heading('Contact Us'),
+          content(PrivacyPolicy.contactUs),
         ],
       ),
     );

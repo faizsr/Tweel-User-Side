@@ -32,7 +32,7 @@ class SettingsPage extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             ListView(
-              padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+              padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
               shrinkWrap: true,
               children: [
                 SettingsWidgets.changeThemeTile(context),
@@ -40,6 +40,8 @@ class SettingsPage extends StatelessWidget {
                 SettingsWidgets.changeAccountTypeTile(context, accountType),
                 kHeight(15),
                 SettingsWidgets.privacyPolicyTile(context),
+                kHeight(15),
+                SettingsWidgets.termsConditionsTile(context),
                 kHeight(15),
                 SettingsWidgets.aboutUsListTile(context),
                 kHeight(15),

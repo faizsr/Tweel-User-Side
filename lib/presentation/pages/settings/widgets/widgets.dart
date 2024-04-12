@@ -8,6 +8,7 @@ import 'package:tweel_social_media/data/services/shared_preference/shared_prefer
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/about_us_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/change_account_type_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/privacy_and_policy_page.dart';
+import 'package:tweel_social_media/presentation/pages/settings/sub_pages/terms_conditions_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/theme_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/widgets/setting_listtile.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
@@ -49,6 +50,17 @@ class SettingsWidgets {
     );
   }
 
+  static SettingListTile termsConditionsTile(context) {
+    return SettingListTile(
+      leadingIcon: Ktweel.text_file,
+      title: 'Terms & Conditions',
+      trailing: const Icon(Ktweel.arrow_circle_right),
+      onTap: () {
+        nextScreen(context, const TermsAndConditionsPage());
+      },
+    );
+  }
+
   static SettingListTile changeThemeTile(BuildContext context) {
     return SettingListTile(
       leadingIcon: Ktweel.moon,
@@ -80,16 +92,34 @@ class SettingsWidgets {
       title: 'Logout',
       trailing: const SizedBox(),
       onTap: () async {
-        UserAuthStatus.saveUserStatus(false);
         changeSystemThemeOnPopup(
-          color: Theme.of(context).colorScheme.surface,
           context: context,
+          color: Theme.of(context).colorScheme.surfaceVariant,
         );
-        await nextScreenRemoveUntil(
-          context,
-          const UserSignInPage(),
-        );
-        mySystemTheme(context);
+        showDialog(
+          context: context,
+          builder: (context) => CustomAlertDialog(
+            title: 'Comeback Soon!',
+            description: 'Are you sure, you want \nto logout',
+            popBtnText: 'Cancel',
+            actionBtnTxt: 'Logout',
+            onTap: () async {
+              UserAuthStatus.saveUserStatus(false);
+              changeSystemThemeOnPopup(
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
+              await nextScreenRemoveUntil(
+                context,
+                const UserSignInPage(),
+              );
+              mySystemTheme(context);
+            },
+          ),
+        ).then((value) => changeSystemThemeOnPopup(
+              context: context,
+              color: Theme.of(context).colorScheme.surface,
+            ));
       },
     );
   }

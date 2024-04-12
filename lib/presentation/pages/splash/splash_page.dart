@@ -50,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
         nextScreenRemoveUntil(context, const UserSignInPage());
       } else {
         await Future.delayed(const Duration(seconds: 3));
-        nextScreenRemoveUntil(context, MainPage());
+        nextScreenRemoveUntil(context, const MainPage());
       }
     }
   }

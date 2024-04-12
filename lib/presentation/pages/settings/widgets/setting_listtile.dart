@@ -22,7 +22,7 @@ class SettingListTile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       leading: Icon(leadingIcon),
       title: Text(title),
-      trailing: trailing,
+      // trailing: trailing,
       onTap: onTap,
     );
   }

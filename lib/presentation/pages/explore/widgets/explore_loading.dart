@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/pages/explore/widgets/loading_flw_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
 import 'package:tweel_social_media/presentation/widgets/shimmer_animate.dart';
@@ -153,27 +154,7 @@ class SuggestedPeopleLoading extends StatelessWidget {
                 kHeight(5),
                 const Skelton(width: 70),
                 kHeight(15),
-                Container(
-                  height: 35,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 0.5,
-                      color: theme.colorScheme.outlineVariant,
-                    ),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'FOLLOW',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontVariations: fontWeightW800,
-                        color: theme.colorScheme.outlineVariant,
-                      ),
-                    ),
-                  ),
-                )
+                const LoadingFollowBtn(),
               ],
             ),
           ),

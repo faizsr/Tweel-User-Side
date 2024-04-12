@@ -12,6 +12,7 @@ import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_post_follow_count.dart';
 import 'package:tweel_social_media/presentation/pages/settings/settings.dart';
+import 'package:tweel_social_media/presentation/pages/settings/sub_pages/about_us_page.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/user_heading_widget.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
@@ -96,8 +97,7 @@ class ProfileDetailsWidget extends StatelessWidget {
                                 '${userModel.accountType} profile'.capitalize(),
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color:
-                                      theme.colorScheme.secondary,
+                                  color: theme.colorScheme.secondary,
                                 ),
                               ),
                               kHeight(10),
@@ -107,8 +107,7 @@ class ProfileDetailsWidget extends StatelessWidget {
                                 child: CustomOutlinedBtn(
                                   onPressed: () {
                                     changeSystemThemeOnPopup(
-                                      color:
-                                          theme.colorScheme.surface,
+                                      color: theme.colorScheme.surface,
                                       context: context,
                                     );
                                     nextScreen(context,
@@ -169,7 +168,15 @@ class ProfileDetailsWidget extends StatelessWidget {
                 Navigator.pop(context);
               });
             },
-            () {},
+            () async {
+              changeSystemThemeOnPopup(
+                color: Theme.of(context).colorScheme.surface,
+                context: context,
+              );
+              await nextScreen(context, const AboutUsPage()).then(
+                (value) => Navigator.pop(context),
+              );
+            },
             () async {
               UserAuthStatus.saveUserStatus(false);
               changeSystemThemeOnPopup(

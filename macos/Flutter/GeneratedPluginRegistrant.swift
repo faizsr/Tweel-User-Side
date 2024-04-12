@@ -5,6 +5,7 @@
 import FlutterMacOS
 import Foundation
 
+import connectivity_plus
 import emoji_picker_flutter
 import path_provider_foundation
 import photo_manager
@@ -14,6 +15,7 @@ import video_player_avfoundation
 import wakelock_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
+  ConnectivityPlusPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlusPlugin"))
   EmojiPickerFlutterPlugin.register(with: registry.registrar(forPlugin: "EmojiPickerFlutterPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
   PhotoManagerPlugin.register(with: registry.registrar(forPlugin: "PhotoManagerPlugin"))

@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/connectivity_status/connectivity_status_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/explore/explore_page.dart';
 import 'package:tweel_social_media/presentation/pages/home/home_page.dart';
+import 'package:tweel_social_media/presentation/pages/home/widgets/home_page_loading.dart';
 import 'package:tweel_social_media/presentation/pages/main/widgets/bottom_nav.dart';
 import 'package:tweel_social_media/presentation/pages/message/message_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/profile_page.dart';
 
-class MainPage extends StatelessWidget {
-  MainPage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  late ConnectivityStatusCubit connectivityStatusCubit;
+  @override
+  void initState() {
+    connectivityStatusCubit = context.read<ConnectivityStatusCubit>();
+    connectivityStatusCubit.getConnectiviy(context);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    connectivityStatusCubit.dispose();
+    super.dispose();
+  }
 
   final _pages = [
     const HomePage(),
@@ -24,13 +46,20 @@ class MainPage extends StatelessWidget {
         return;
       },
       child: Scaffold(
-        body: ValueListenableBuilder(
-          valueListenable: indexChangeNotifier,
-          builder: (context, int index, child) {
-            return IndexedStack(
-              index: index,
-              children: _pages,
-            );
+        body: BlocBuilder<ConnectivityStatusCubit, ConnectivityStatus>(
+          builder: (context, state) {
+            if (state == ConnectivityStatus.connected) {
+              return ValueListenableBuilder(
+                valueListenable: indexChangeNotifier,
+                builder: (context, int index, child) {
+                  return IndexedStack(
+                    index: index,
+                    children: _pages,
+                  );
+                },
+              );
+            }
+            return const HomePageLoading();
           },
         ),
         bottomNavigationBar: const BottomNavigationWidget(),

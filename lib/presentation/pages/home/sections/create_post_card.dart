@@ -37,10 +37,10 @@ class _CreatePostCardState extends State<CreatePostCard> {
             builder: (context, state) {
               if (state is ProfileInitialState) {
                 context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
-                return _loadingWidget();
+                return loadingWidget();
               }
               if (state is ProfileFetchingLoadingState) {
-                return _loadingWidget();
+                return loadingWidget();
               }
               if (state is ProfileFetchingSucessState) {
                 return Column(
@@ -111,7 +111,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
     );
   }
 
-  Widget _loadingWidget() {
+  Widget loadingWidget() {
     return ShimmerAnimate(
       child: Column(
         children: [
