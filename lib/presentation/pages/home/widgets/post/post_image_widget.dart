@@ -6,6 +6,7 @@ import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/presentation/cubit/post_image_index.dart/post_image_index.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_image_preview.dart';
+import 'package:tweel_social_media/presentation/widgets/shimmer_animate.dart';
 import 'package:tweel_social_media/presentation/widgets/video_player.dart';
 
 class PostImageWidget extends StatelessWidget {
@@ -55,7 +56,7 @@ class PostImageWidget extends StatelessWidget {
                   tag: 'image-pre${postModel.mediaURL![0].toString()}',
                   child: Container(
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.onSurface,
+                      color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: ClipRRect(
@@ -66,6 +67,15 @@ class PostImageWidget extends StatelessWidget {
                           ? Image.network(
                               postModel.mediaURL![index],
                               fit: BoxFit.cover,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return ShimmerAnimate(
+                                  child: Container(
+                                    color: theme.colorScheme.surface,
+                                  ),
+                                );
+                              },
                             )
                           : VideoPlayerWidget(
                               videoUrl: postModel.mediaURL![index],

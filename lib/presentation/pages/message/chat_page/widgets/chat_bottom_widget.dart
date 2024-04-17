@@ -4,16 +4,20 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/data/services/socket/socket_services.dart';
 
 class ChatBottomWidget extends StatefulWidget {
   const ChatBottomWidget({
     super.key,
     required this.theme,
-    required this.scrollController,
+    required this.currentUser,
+    required this.chatUser,
   });
 
   final ColorScheme theme;
-  final ScrollController scrollController;
+  final UserModel currentUser;
+  final UserModel chatUser;
 
   @override
   State<ChatBottomWidget> createState() => _ChatBottomWidgetState();
@@ -21,9 +25,9 @@ class ChatBottomWidget extends StatefulWidget {
 
 class _ChatBottomWidgetState extends State<ChatBottomWidget> {
   bool show = false;
-  bool sentButton = false;
+  bool sendButton = false;
   FocusNode focusNode = FocusNode();
-  TextEditingController controller = TextEditingController();
+  TextEditingController messageController = TextEditingController();
 
   @override
   void initState() {
@@ -80,30 +84,14 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                 Expanded(
                   flex: 5,
                   child: TextFormField(
-                    onTap: () {
-                      widget.scrollController.animateTo(
-                        widget.scrollController.position.maxScrollExtent,
-                        duration: const Duration(milliseconds: 100),
-                        curve: Curves.fastOutSlowIn,
-                      );
-                    },
                     onChanged: (value) {
                       if (value.isNotEmpty) {
                         setState(() {
-                          sentButton = true;
-                        });
-                      } else {
-                        setState(() {
-                          sentButton = false;
+                          sendButton = true;
                         });
                       }
-                      widget.scrollController.animateTo(
-                        widget.scrollController.position.maxScrollExtent,
-                        duration: const Duration(milliseconds: 100),
-                        curve: Curves.fastOutSlowIn,
-                      );
                     },
-                    controller: controller,
+                    controller: messageController,
                     focusNode: focusNode,
                     style: const TextStyle(fontSize: 14),
                     decoration: InputDecoration(
@@ -120,25 +108,35 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                 kWidth(5),
                 Expanded(
                   flex: 1,
-                  child: IconButton(
-                    style: IconButton.styleFrom(
-                      backgroundColor: widget.theme.onPrimary,
-                      shape: const CircleBorder(),
-                    ),
-                    onPressed: () {},
-                    icon: sentButton
-                        ? Icon(
+                  child: sendButton
+                      ? IconButton(
+                          style: IconButton.styleFrom(
+                            backgroundColor: widget.theme.onPrimary,
+                            shape: const CircleBorder(),
+                          ),
+                          onPressed: () {
+                            if (messageController.text.isNotEmpty) {
+                              // ============ Send message function ============
+                              SocketServices().sendMessage(
+                                message: messageController.text,
+                                currentUser: widget.currentUser,
+                                chatUser: widget.chatUser,
+                                context: context,
+                              );
+                              messageController.clear();
+                              setState(() {
+                                sendButton = false;
+                              });
+                            }
+                          },
+                          icon: Icon(
                             Ktweel.send_2,
                             color: widget.theme.primaryContainer,
                             size: 20,
-                          )
-                        : Icon(
-                            Ktweel.gallery,
-                            color: widget.theme.primaryContainer,
-                            size: 20,
                           ),
-                  ),
-                ),
+                        )
+                      : const SizedBox(),
+                )
               ],
             ),
           ),
@@ -175,7 +173,7 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
       ),
       onEmojiSelected: (category, emoji) {
         setState(() {
-          controller.text = controller.text + emoji.emoji;
+          messageController.text = messageController.text + emoji.emoji;
         });
       },
     );

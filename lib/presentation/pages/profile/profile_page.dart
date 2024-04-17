@@ -28,7 +28,6 @@ class _ProfilePageState extends State<ProfilePage>
 
   @override
   void initState() {
-    context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
     context.read<SavedPostsBloc>().add(FetchAllSavedPostEvent());
     tabController = TabController(length: 2, vsync: this);
     super.initState();

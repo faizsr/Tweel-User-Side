@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
+import 'package:tweel_social_media/presentation/bloc/chat/chat_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/get_chat/get_chat_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/notification/notification_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post_by_id/post_by_id_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post_edit/post_edit_bloc.dart';
@@ -28,6 +30,7 @@ import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.d
 import 'package:tweel_social_media/presentation/cubit/connectivity_status/connectivity_status_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/drop_down/drop_down_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/on_search/on_search_cubit.dart';
+import 'package:tweel_social_media/presentation/cubit/on_search_message/on_search_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/post_image_index.dart/post_image_index.dart';
 import 'package:tweel_social_media/presentation/cubit/report_radio/report_radio_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
@@ -75,6 +78,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FollowUnfollowUserBloc()),
         BlocProvider(create: (context) => SearchBloc()),
         BlocProvider(create: (context) => OnSearchCubit()),
+        BlocProvider(create: (context) => OnSearchMessageCubit()),
         BlocProvider(create: (context) => PostImageIndexCubit()),
         BlocProvider(create: (context) => SearchUserBloc()),
         BlocProvider(create: (context) => NotificationBloc()),
@@ -83,6 +87,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ReportRadioCubit()),
         BlocProvider(create: (context) => ReportBloc()),
         BlocProvider(create: (context) => ConnectivityStatusCubit()),
+        BlocProvider(create: (context) => ChatBloc()),
+        BlocProvider(create: (context) => GetChatBloc()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, ThemeMode mode) {

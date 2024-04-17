@@ -7,6 +7,7 @@ import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/pages/message/chat_page/user_chat_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
 import 'package:tweel_social_media/presentation/pages/report/report_page.dart';
 import 'package:tweel_social_media/presentation/pages/user/widgets/follow_btn_widget.dart';
@@ -133,9 +134,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                                 '${userModel.accountType} profile'.capitalize(),
                                 style: TextStyle(
                                     fontSize: 12,
-                                    color: theme
-                                        .colorScheme
-                                        .secondary),
+                                    color: theme.colorScheme.secondary),
                               ),
                               kHeight(10),
                               Row(
@@ -148,7 +147,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                                     ),
                                   ),
                                   kWidth(10),
-                                  _messageBtn(),
+                                  _messageBtn(context, userModel),
                                 ],
                               ),
                             ],
@@ -183,11 +182,16 @@ class UserProfileDetailsWidget extends StatelessWidget {
     );
   }
 
-  Widget _messageBtn() {
+  Widget _messageBtn(BuildContext context, UserModel chatUser) {
     return SizedBox(
       height: 35,
       child: CustomOutlinedBtn(
-        onPressed: () {},
+        onPressed: () {
+          nextScreen(
+            context,
+            UserChatPage(chatUser: chatUser),
+          );
+        },
         btnText: 'MESSAGE',
       ),
     );

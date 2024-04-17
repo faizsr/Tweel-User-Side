@@ -7,17 +7,20 @@ import 'package:tweel_social_media/presentation/pages/message/chat_page/user_cha
 class MessageUserCard extends StatelessWidget {
   const MessageUserCard({
     super.key,
-    required this.user,
+    required this.chatUser,
   });
 
-  final UserModel user;
+  final UserModel chatUser;
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return InkWell(
       onTap: () {
-        nextScreen(context, UserChatPage(user: user));
+        nextScreen(
+          context,
+          UserChatPage(chatUser: chatUser),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12, top: 12),
@@ -26,21 +29,21 @@ class MessageUserCard extends StatelessWidget {
             CircleAvatar(
               radius: 28,
               backgroundColor: theme.colorScheme.onSurface,
-              backgroundImage: user.profilePicture == ""
+              backgroundImage: chatUser.profilePicture == ""
                   ? Image.asset(profilePlaceholder).image
-                  : NetworkImage(user.profilePicture!),
+                  : NetworkImage(chatUser.profilePicture!),
             ),
             kWidth(15),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  user.fullName!,
+                  chatUser.fullName!,
                   style: const TextStyle(fontSize: 15),
                 ),
                 kHeight(4),
                 Text(
-                  'Yeah i know',
+                  '@${chatUser.username}',
                   style: TextStyle(
                     fontSize: 12,
                     color: theme.colorScheme.secondary,
@@ -53,7 +56,7 @@ class MessageUserCard extends StatelessWidget {
               '11.47 AM',
               style: TextStyle(
                 fontSize: 12,
-                color: theme.colorScheme.onSecondary,
+                color: theme.colorScheme.secondary,
               ),
             )
           ],

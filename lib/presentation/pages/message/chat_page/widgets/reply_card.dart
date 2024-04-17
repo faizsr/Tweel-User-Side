@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/data/models/chat_model/chat_model.dart';
 
 class ReplyCard extends StatelessWidget {
   const ReplyCard({
     super.key,
+    required this.message,
   });
+
+  final ChatModel message;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +34,9 @@ class ReplyCard extends StatelessWidget {
               bottomRight: Radius.circular(10),
             ),
           ),
-          child: const Text(
-            'Good yeahhhhh!!!',
-            style: TextStyle(color: lBlack),
+          child: Text(
+            message.message,
+            style: const TextStyle(color: lBlack),
           ),
         ),
       ),

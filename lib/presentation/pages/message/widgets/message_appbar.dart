@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/data/services/search_debouncer/debouncer.dart';
+import 'package:tweel_social_media/presentation/bloc/search_user/search_user_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/on_search_message/on_search_cubit.dart';
 // import 'package:tweel_social_media/core/utils/constants.dart';
 // import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/custom_search_field.dart';
 
-class MessageAppbar extends StatelessWidget {
+class MessageAppbar extends StatefulWidget {
   const MessageAppbar({
     super.key,
     required this.searchController,
   });
 
   final SearchController searchController;
+
+  @override
+  State<MessageAppbar> createState() => _MessageAppbarState();
+}
+
+class _MessageAppbarState extends State<MessageAppbar> {
+  final Debouncer debouncer =
+      Debouncer(delay: const Duration(milliseconds: 300));
 
   @override
   Widget build(BuildContext context) {
@@ -35,25 +47,21 @@ class MessageAppbar extends StatelessWidget {
                 Expanded(
                   flex: 6,
                   child: CustomSearchField(
-                    searchController: searchController,
-                    onChanged: (value) {},
+                    searchController: widget.searchController,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        debouncer.run(() {
+                          context
+                              .read<SearchUserBloc>()
+                              .add(SearchUserEvent(query: value));
+                        });
+                        context.read<OnSearchMessageCubit>().onSearchChange(true);
+                      } else {
+                        context.read<OnSearchMessageCubit>().onSearchChange(false);
+                      }
+                    },
                   ),
                 ),
-                // kWidth(10),
-                // Expanded(
-                //   flex: 1,
-                //   child: Container(
-                //     height: 50,
-                //     decoration: BoxDecoration(
-                //       color: theme.colorScheme.primaryContainer,
-                //       borderRadius: BorderRadius.circular(10),
-                //     ),
-                //     child: const Icon(
-                //       Ktweel.more_vert_2,
-                //       size: 30,
-                //     ),
-                //   ),
-                // )
               ],
             ),
           ),

@@ -43,4 +43,7 @@ class ApiEndPoints {
 
   static String allNotification = '/activity';
   static String clearNotification = '/activity';
+
+  static String socketUrl = "http://10.0.2.2:5000";
+  static String currentUserChats = "/chat/me";
 }

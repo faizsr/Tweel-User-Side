@@ -67,6 +67,9 @@ dependencies:
   flutter_markdown: ^0.6.22+1
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^6.0.2
+  socket_io_client: ^2.0.3+1
+  grouped_list: ^5.1.2
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
