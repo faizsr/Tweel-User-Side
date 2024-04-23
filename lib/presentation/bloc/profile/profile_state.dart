@@ -18,4 +18,3 @@ class ProfileFetchingSucessState extends ProfileState {
 }
 
 class ProfileFetchingErrorState extends ProfileState {}
-

@@ -17,18 +17,23 @@ class SuggestedPeopleGridView extends StatelessWidget {
     required this.theme,
     required this.state,
     this.maxCount,
+    this.isDetail = false,
   });
 
   final ThemeData theme;
   final UserDetailFetchingSuccessState state;
   final int? maxCount;
+  final bool isDetail;
 
   @override
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: isDetail
+          ? const AlwaysScrollableScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
       shrinkWrap: true,
+      reverse: true,
       crossAxisCount: 2,
       staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
       itemCount: maxCount ?? state.users.length,

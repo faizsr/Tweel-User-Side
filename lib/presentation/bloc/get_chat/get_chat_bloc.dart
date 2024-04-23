@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,19 +27,24 @@ class GetChatBloc extends Bloc<GetChatEvent, GetChatState> {
         if (chats[i].sender.username == event.currentUsername) {
           if (!usernames.contains(chats[i].receiver.username)) {
             usernames.add(chats[i].receiver.username ?? '');
-            chatUsersList.add(chats[i].receiver);
+            if (!chatUsersList.contains(chats[i].receiver)) {
+              chatUsersList.add(chats[i].receiver);
+            }
           }
         }
         if (chats[i].receiver.username == event.currentUsername) {
           if (!usernames.contains(chats[i].sender.username)) {
             usernames.add(chats[i].sender.username ?? '');
-            chatUsersList.add(chats[i].sender);
+            if (!chatUsersList.contains(chats[i].sender)) {
+              chatUsersList.add(chats[i].sender);
+            }
           }
         }
       }
       debugPrint('Total chat users: ${chatUsersList.length}');
       debugPrint('Total string usernames: ${usernames.length}');
-      emit(UserChatsFetchingSuccessState(chats: chats,chatUsersList: chatUsersList ));
+      emit(UserChatsFetchingSuccessState(
+          chats: chats, chatUsersList: chatUsersList));
     } else {
       emit(UserChatsFetchingErrorState());
     }

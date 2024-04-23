@@ -99,6 +99,7 @@ class AuthRepo {
         body: body,
       );
       debugPrint('User Verify Otp Status: ${response.statusCode}');
+      debugPrint('User Verify Otp Body: ${response.body}');
 
       if (response.statusCode == 200) {
         return 'success';

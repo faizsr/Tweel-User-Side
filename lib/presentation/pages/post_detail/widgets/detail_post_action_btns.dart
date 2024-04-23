@@ -66,8 +66,11 @@ class DetailPostActionBtns extends StatelessWidget {
       builder: (context, state) {
         return CustomIconBtn(
           title: '${postModel.likes!.length} likes',
+          color: postModel.likes!.contains(userModel.id)
+              ? Theme.of(context).colorScheme.onPrimary
+              : Theme.of(context).colorScheme.secondary,
           icon: postModel.likes!.contains(userModel.id)
-              ? Ktweel.dislike
+              ? Ktweel.like
               : Ktweel.like,
           onTap: () {
             if (postModel.likes!.contains(userModel.id)) {

@@ -5,6 +5,7 @@ import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
+import 'package:tweel_social_media/data/services/socket/socket_services.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/about_us_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/change_account_type_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/privacy_and_policy_page.dart';
@@ -105,6 +106,7 @@ class SettingsWidgets {
             actionBtnTxt: 'Logout',
             onTap: () async {
               UserAuthStatus.saveUserStatus(false);
+              SocketServices().disconnectSocket();
               changeSystemThemeOnPopup(
                 color: Theme.of(context).colorScheme.surface,
                 context: context,

@@ -26,7 +26,7 @@ class AllSuggestedUsersPage extends StatelessWidget {
           },
         ),
       ),
-      body: SuggestedPeopleGridView(theme: theme, state: state),
+      body: SuggestedPeopleGridView(theme: theme, state: state,isDetail: true,),
     );
   }
 }

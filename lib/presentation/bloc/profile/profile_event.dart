@@ -5,4 +5,3 @@ sealed class ProfileEvent {}
 
 class ProfileInitialFetchEvent extends ProfileEvent {}
 
-

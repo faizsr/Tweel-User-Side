@@ -31,6 +31,7 @@ import 'package:tweel_social_media/presentation/cubit/connectivity_status/connec
 import 'package:tweel_social_media/presentation/cubit/drop_down/drop_down_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/on_search/on_search_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/on_search_message/on_search_cubit.dart';
+import 'package:tweel_social_media/presentation/cubit/online_users/online_users_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/post_image_index.dart/post_image_index.dart';
 import 'package:tweel_social_media/presentation/cubit/report_radio/report_radio_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
@@ -89,6 +90,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ConnectivityStatusCubit()),
         BlocProvider(create: (context) => ChatBloc()),
         BlocProvider(create: (context) => GetChatBloc()),
+        BlocProvider(create: (context) => OnlineUsersCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, ThemeMode mode) {

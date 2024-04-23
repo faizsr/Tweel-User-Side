@@ -8,6 +8,7 @@ import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
+import 'package:tweel_social_media/data/services/socket/socket_services.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_post_follow_count.dart';
@@ -156,29 +157,28 @@ class ProfileDetailsWidget extends StatelessWidget {
           ],
           buttonLabel: const ["Settings", "About Us", "Logout"],
           ontap: [
-            () async {
+            () {
               changeSystemThemeOnPopup(
                 color: Theme.of(context).colorScheme.surface,
                 context: context,
               );
-              await nextScreen(
+              nextScreen(
                 context,
                 SettingsPage(accountType: userModel.accountType!),
-              ).then((value) {
-                Navigator.pop(context);
-              });
+              ).then((value) => Navigator.pop(context));
             },
-            () async {
+            () {
               changeSystemThemeOnPopup(
                 color: Theme.of(context).colorScheme.surface,
                 context: context,
               );
-              await nextScreen(context, const AboutUsPage()).then(
+              nextScreen(context, const AboutUsPage()).then(
                 (value) => Navigator.pop(context),
               );
             },
             () async {
               UserAuthStatus.saveUserStatus(false);
+              SocketServices().disconnectSocket();
               changeSystemThemeOnPopup(
                 color: Theme.of(context).colorScheme.surface,
                 context: context,
@@ -186,8 +186,7 @@ class ProfileDetailsWidget extends StatelessWidget {
               await nextScreenRemoveUntil(
                 context,
                 const UserSignInPage(),
-              );
-              mySystemTheme(context);
+              ).then((value) => mySystemTheme(context));
             }
           ],
         );

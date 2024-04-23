@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 const kLightGrey = Color(0xFFF4F4F4);
 const kLightGrey2 = Color(0xFFCCCCCC);
@@ -25,7 +26,6 @@ const fontWeightW900 = <FontVariation>[FontVariation('wght', 900.0)];
 
 SizedBox kHeight(double? height) => SizedBox(height: height);
 SizedBox kWidth(double? width) => SizedBox(width: width);
-
 
 formattedTime({required int timeInSecond}) {
   int sec = timeInSecond % 60;
@@ -83,13 +83,30 @@ String filterPostTime(DateTime dateTime) {
   }
 }
 
+bool isToday(DateTime date) {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final messageDate = DateTime(date.year, date.month, date.day);
+  return today == messageDate;
+}
+
+bool isYesterday(DateTime date) {
+  final now = DateTime.now();
+  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  final messageDate = DateTime(date.year, date.month, date.day);
+  return yesterday == messageDate;
+}
+
+String formatTime(DateTime time) {
+  return DateFormat('h:mm a').format(time);
+}
+
 var kBoxShadow = [
   BoxShadow(
     blurRadius: 40,
     color: Colors.black.withOpacity(0.05),
   ),
 ];
-
 
 extension StringExtensions on String {
   String capitalize() {

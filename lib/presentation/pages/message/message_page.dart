@@ -4,6 +4,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
+import 'package:tweel_social_media/data/models/chat_model/chat_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/data/services/socket/socket_services.dart';
 import 'package:tweel_social_media/presentation/bloc/chat/chat_bloc.dart';
@@ -40,11 +41,10 @@ class _MessagePageState extends State<MessagePage> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state is ProfileFetchingSucessState) {
-          // currentUsername = state.userDetails.username ?? '';
           // ============= Connection user to the socket io server =============
-          String currentUser = state.userDetails.username ?? '';
+          UserModel currentUser = state.userDetails;
           SocketServices().connectSocket(
-            currentUser,
+            currentUser.username ?? '',
             context,
             messageScrollController,
           );
@@ -84,57 +84,94 @@ class _MessagePageState extends State<MessagePage> {
                         blocs: [
                           context.watch<OnSearchMessageCubit>(),
                           context.watch<SearchUserBloc>(),
+                          context.watch<ChatBloc>(),
+                          context.watch<ProfileBloc>()
                         ],
                         builder: (context, states) {
                           var state1 = states[0];
                           var state2 = states[1];
-                          if (state1 == false) {
-                            return Expanded(
-                              child: ListView.builder(
-                                controller: messagePageController,
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                itemCount: state.chatUsersList.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  UserModel chatUser =
-                                      state.chatUsersList[index];
-                                  return MessageUserCard(chatUser: chatUser);
-                                },
-                              ),
-                            );
-                          } else {
-                            // ============ On Searching ============
-                            if (state2 is SearchResultLoadingState) {
-                              return const Expanded(
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
+                          var state3 = states[2];
+                          var state4 = states[3];
+                          if (state4 is ProfileFetchingSucessState) {
+                            if (state3 is ChatAddedState) {
+                              // ============ Search Idle View ============
+                              if (state1 == false) {
+                                UserModel currentUser = state4.userDetails;
+                                state.chatUsersList.sort((a, b) {
+                                  ChatModel lastMessageA = getLastMessage(
+                                      currentUser, state3.messageList, a);
+                                  ChatModel lastMessageB = getLastMessage(
+                                      currentUser, state3.messageList, b);
+                                  return lastMessageB.sendAt
+                                      .compareTo(lastMessageA.sendAt);
+                                });
+                                return Expanded(
+                                  child: ListView.builder(
+                                    controller: messagePageController,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 10, 15, 10),
+                                    itemCount: state.chatUsersList.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      UserModel chatUser =
+                                          state.chatUsersList[index];
+                                      ChatModel lastMessage = getLastMessage(
+                                        currentUser,
+                                        state3.messageList,
+                                        chatUser,
+                                      );
+                                      return MessageUserCard(
+                                        chatUser: chatUser,
+                                        lastMessage: lastMessage,
+                                      );
+                                    },
+                                  ),
+                                );
+                              } else {
+                                // ============ On Searching ============
+                                if (state2 is SearchResultLoadingState) {
+                                  return const Expanded(
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
+                                // ============ Search Result View ============
+                                if (state2 is SearchResultSuccessState) {
+                                  UserModel currentUser = state4.userDetails;
+                                  return Expanded(
+                                    child: ListView.builder(
+                                      controller: messagePageController,
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 10, 15, 10),
+                                      itemCount: state2.users.length,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        UserModel chatUser =
+                                            state2.users[index];
+                                        ChatModel lastMessage = getLastMessage(
+                                          currentUser,
+                                          state3.messageList,
+                                          chatUser,
+                                        );
+                                        return MessageUserCard(
+                                          chatUser: chatUser,
+                                          lastMessage: lastMessage,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                }
+                                // ============ Search No Results ============
+                                return const Expanded(
+                                  child: Center(
+                                    child: Text('No User Found'),
+                                  ),
+                                );
+                              }
                             }
-                            // ============ Search Result View ============
-                            if (state2 is SearchResultSuccessState) {
-                              return Expanded(
-                                child: ListView.builder(
-                                  controller: messagePageController,
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                  itemCount: state2.users.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    UserModel chatUser = state2.users[index];
-                                    return MessageUserCard(chatUser: chatUser);
-                                  },
-                                ),
-                              );
-                            }
-                            // ============ Search No Results ============
-                            return const Expanded(
-                              child: Center(
-                                child: Text('No User Found'),
-                              ),
-                            );
                           }
+                          return Container();
                         },
                       );
                     }
@@ -151,5 +188,30 @@ class _MessagePageState extends State<MessagePage> {
         ),
       ),
     );
+  }
+
+  ChatModel getLastMessage(
+      UserModel currentUser, List<ChatModel> messageList, UserModel chatUser) {
+    ChatModel? lastMessage;
+    List<ChatModel> receivedMessages = messageList
+        .where(
+          (message) =>
+              message.sender.username == chatUser.username ||
+              message.receiver.username == chatUser.username,
+        )
+        .toList();
+    List<ChatModel> sendMessages = messageList
+        .where(
+          (message) =>
+              message.sender.username == currentUser.username ||
+              message.receiver.username == currentUser.username,
+        )
+        .toList();
+    if (receivedMessages.isNotEmpty) {
+      lastMessage = receivedMessages.last;
+    } else if (sendMessages.isNotEmpty) {
+      lastMessage = sendMessages.last;
+    }
+    return lastMessage!;
   }
 }

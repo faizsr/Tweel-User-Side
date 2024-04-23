@@ -48,7 +48,7 @@ class ExplorePosts extends StatelessWidget {
       PostDetailFetchingSucessState state, BuildContext context) {
     final size = MediaQuery.of(context).size;
     return StaggeredGridView.countBuilder(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+      padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
       crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),

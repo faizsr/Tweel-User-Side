@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/forgot_password/forget_password_page.dart';
@@ -147,7 +151,9 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
           leading: Ktweel.info_rugged, trailing: 'OK');
     }
     if (state is UserSignInSuccessState) {
-      nextScreenRemoveUntil(context, MainPage());
+      context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
+      nextScreenRemoveUntil(context, const MainPage());
+      mySystemTheme(context);
     }
     if (state is UserSignInErrorState) {
       customSnackbar(context, 'Please try again after some times',

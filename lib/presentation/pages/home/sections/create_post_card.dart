@@ -36,6 +36,7 @@ class _CreatePostCardState extends State<CreatePostCard> {
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
               if (state is ProfileInitialState) {
+                print('profile initial');
                 context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
                 return loadingWidget();
               }

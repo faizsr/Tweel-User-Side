@@ -68,7 +68,7 @@ class SignUpWidgets {
             BlocConsumer<SignUpBloc, SignUpState>(
               listener: (context, state) {
                 if (state is UserSignUpSuccessState) {
-                  nextScreenRemoveUntil(context, MainPage());
+                  nextScreenRemoveUntil(context, const MainPage());
                 }
                 if (state is UsernameExistsErrorState) {
                   debugPrint('Username already exists');

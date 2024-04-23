@@ -11,6 +11,7 @@ import 'package:tweel_social_media/data/models/chat_model/chat_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/chat/chat_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/get_chat/get_chat_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/online_users/online_users_cubit.dart';
 
 class SocketServices {
   IO.Socket socket = IO.io(
@@ -27,6 +28,10 @@ class SocketServices {
     _listenMessage(context, scrollController);
     _getOnlineUsers(context);
     _makeUserActive(username);
+  }
+
+  disconnectSocket() {
+    socket.disconnect();
   }
 
   _listenMessage(BuildContext context, ScrollController scrollController) {
@@ -51,7 +56,7 @@ class SocketServices {
       debugPrint('Getting online users');
       for (int i = 0; i < data.length; i++) {
         String username = data[i]['username'];
-        // context.read<OnlineUsersCubit>().getOnlineUsers(username);
+        context.read<OnlineUsersCubit>().getOnlineUsers(username);
         debugPrint(username);
       }
     });

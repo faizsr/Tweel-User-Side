@@ -328,13 +328,15 @@ class PostRepo {
       );
       debugPrint('Fetch Saved Status: ${response.statusCode}');
       if (response.statusCode == 200) {
-        var responseData = response.data['saved-posts']['posts'];
-        List savedPostsList = responseData;
-        for (int i = 0; i < savedPostsList.length; i++) {
-          PostModel savedPost = PostModel.fromJson(savedPostsList[i]);
-          savedPosts.add(savedPost);
+        if (response.data['saved-posts'] != null) {
+          var responseData = response.data['saved-posts']['posts'];
+          List savedPostsList = responseData;
+          for (int i = 0; i < savedPostsList.length; i++) {
+            PostModel savedPost = PostModel.fromJson(savedPostsList[i]);
+            savedPosts.add(savedPost);
+          }
+          return savedPosts;
         }
-        return savedPosts;
       }
       return [];
     } catch (e) {

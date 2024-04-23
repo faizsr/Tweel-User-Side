@@ -27,5 +27,4 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(ProfileFetchingErrorState());
     }
   }
-
 }
