@@ -250,7 +250,7 @@ class ProfilePageLoading extends StatelessWidget {
           children: [
             Skelton(
               width: 70,
-              color: theme.colorScheme.primaryContainer,
+              color: theme.colorScheme.onSurface,
             ),
             const Spacer(),
             InkWell(
