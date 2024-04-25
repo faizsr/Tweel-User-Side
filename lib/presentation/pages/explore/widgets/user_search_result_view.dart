@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
@@ -20,27 +19,25 @@ class UserSearchResultView extends StatelessWidget {
     return ListView.builder(
       itemCount: state2.users.length,
       itemBuilder: (context, index) {
-        return FadeInRight(
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: UserListTile(
-              onTap: () {
-                nextScreen(
-                  context,
-                  UserProfilePage(
-                    userId: state2.users[index].id!,
-                    isCurrentUser: false,
-                  ),
-                ).then((value) => mySystemTheme(context));
-              },
-              profileUrl: state2.users[index].profilePicture!,
-              fullname: state2.users[index].fullName!,
-              username: state2.users[index].username!,
-            ),
+        return Container(
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primaryContainer,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: UserListTile(
+            onTap: () {
+              nextScreen(
+                context,
+                UserProfilePage(
+                  userId: state2.users[index].id!,
+                  isCurrentUser: false,
+                ),
+              ).then((value) => mySystemTheme(context));
+            },
+            profileUrl: state2.users[index].profilePicture!,
+            fullname: state2.users[index].fullName!,
+            username: state2.users[index].username!,
           ),
         );
       },

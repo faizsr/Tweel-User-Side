@@ -14,6 +14,7 @@ import 'package:tweel_social_media/presentation/bloc/get_chat/get_chat_bloc.dart
 import 'package:tweel_social_media/presentation/cubit/online_users/online_users_cubit.dart';
 
 class SocketServices {
+  BuildContext? _context;
   IO.Socket socket = IO.io(
     ApiEndPoints.socketUrl,
     IO.OptionBuilder().setTransports(['websocket']).build(),
@@ -21,23 +22,23 @@ class SocketServices {
 
   connectSocket(String username, BuildContext context,
       ScrollController scrollController) {
-    context
-        .read<GetChatBloc>()
-        .add(FetchAllUserChatsEvent(currentUsername: username));
-
-    _listenMessage(context, scrollController);
-    _getOnlineUsers(context);
-    _makeUserActive(username);
+    _context = context;
+    if (_context != null) {
+      _context!.read<GetChatBloc>().add(FetchAllUserChatsEvent());
+      _listenMessage(_context, scrollController);
+      _getOnlineUsers(_context);
+      _makeUserActive(username);
+    }
   }
 
   disconnectSocket() {
     socket.disconnect();
   }
 
-  _listenMessage(BuildContext context, ScrollController scrollController) {
+  _listenMessage(BuildContext? context, ScrollController scrollController) {
     socket.on('message', (data) {
       debugPrint('Message Event Called');
-      BlocProvider.of<ChatBloc>(context).add(AddNewMessageEvent(
+      BlocProvider.of<ChatBloc>(context!).add(AddNewMessageEvent(
         chatModel: ChatModel.fromJson(data),
       ));
     });
@@ -50,13 +51,13 @@ class SocketServices {
     });
   }
 
-  _getOnlineUsers(BuildContext context) {
+  _getOnlineUsers(BuildContext? context) {
     socket.emit('getOnlineUsers');
     socket.on('onlineUsers', (data) {
       debugPrint('Getting online users');
       for (int i = 0; i < data.length; i++) {
         String username = data[i]['username'];
-        context.read<OnlineUsersCubit>().getOnlineUsers(username);
+        context!.read<OnlineUsersCubit>().getOnlineUsers(username);
         debugPrint(username);
       }
     });
@@ -66,7 +67,6 @@ class SocketServices {
     required String message,
     required UserModel currentUser,
     required UserModel chatUser,
-    required BuildContext context,
   }) {
     debugPrint('How many times is it calling');
     var body = {

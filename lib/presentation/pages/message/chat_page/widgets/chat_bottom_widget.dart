@@ -2,6 +2,7 @@
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
@@ -117,13 +118,16 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                           onPressed: () {
                             if (messageController.text.isNotEmpty) {
                               // ============ Send message function ============
-                              SocketServices().sendMessage(
-                                message: messageController.text,
-                                currentUser: widget.currentUser,
-                                chatUser: widget.chatUser,
-                                context: context,
-                              );
-                              messageController.clear();
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((_) {
+                                SocketServices().sendMessage(
+                                  message: messageController.text,
+                                  currentUser: widget.currentUser,
+                                  chatUser: widget.chatUser,
+                                );
+                                messageController.clear();
+                              });
+
                               setState(() {
                                 sendButton = false;
                               });
@@ -174,8 +178,15 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
       onEmojiSelected: (category, emoji) {
         setState(() {
           messageController.text = messageController.text + emoji.emoji;
+          sendButton = true;
         });
       },
     );
+  }
+
+  @override
+  void dispose() {
+    messageController.dispose();
+    super.dispose();
   }
 }

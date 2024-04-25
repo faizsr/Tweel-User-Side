@@ -17,6 +17,8 @@ import 'package:tweel_social_media/presentation/pages/settings/sub_pages/about_u
 import 'package:tweel_social_media/presentation/pages/user/widgets/user_heading_widget.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
+import 'package:tweel_social_media/presentation/widgets/fadein_animate.dart';
+import 'package:tweel_social_media/presentation/widgets/profile_circle_widget.dart';
 
 class ProfileDetailsWidget extends StatelessWidget {
   const ProfileDetailsWidget({
@@ -77,12 +79,12 @@ class ProfileDetailsWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage: userModel.profilePicture == ""
-                                ? Image.asset(profilePlaceholder).image
-                                : NetworkImage(
-                                    userModel.profilePicture!,
+                          ProfileCircleWidget(
+                            radius: 100,
+                            imageWidget: userModel.profilePicture == ""
+                                ? Image.asset(profilePlaceholder)
+                                : FadedImageLoading(
+                                    imageUrl: userModel.profilePicture!,
                                   ),
                           ),
                           kWidth(20),

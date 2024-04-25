@@ -7,6 +7,7 @@ import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile_logics/profile_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/widgets/edit_appbar.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/widgets/edit_form_field.dart';
@@ -67,6 +68,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 leading: Ktweel.tick_square, trailing: 'OK');
             context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
             context.read<PostBloc>().add(PostInitialFetchEvent());
+            context.read<StoryBloc>().add(FetchAllStoriesEvent());
             context.read<SetProfileImageCubit>().resetState();
           }
         },

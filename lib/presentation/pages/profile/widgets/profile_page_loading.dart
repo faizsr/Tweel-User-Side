@@ -41,7 +41,7 @@ class ProfilePageLoading extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 10,
         itemBuilder: (context, index) {
-          return Container(color: theme.colorScheme.primaryContainer);
+          return Container(color: theme.colorScheme.onSurface);
         },
         staggeredTileBuilder: (index) => StaggeredTile.count(
             (index % 7 == 3) ? 2 : 1, (index % 7 == 3) ? 2 : 1),

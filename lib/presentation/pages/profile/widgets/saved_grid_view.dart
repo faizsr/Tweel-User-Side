@@ -9,6 +9,7 @@ import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
 import 'package:tweel_social_media/presentation/bloc/saved_posts/saved_posts_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
+import 'package:tweel_social_media/presentation/widgets/fadein_animate.dart';
 
 class SavedGridViewWidget extends StatelessWidget {
   const SavedGridViewWidget({super.key});
@@ -105,10 +106,7 @@ class SavedGridViewWidget extends StatelessWidget {
     if (url.contains('image')) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          url,
-          fit: BoxFit.cover,
-        ),
+        child: FadedImageLoading(imageUrl: url),
       );
     } else if (url.contains('video')) {
       return FutureBuilder(

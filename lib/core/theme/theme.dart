@@ -30,6 +30,9 @@ void changeSystemThemeOnPopup({Color? color, required BuildContext context}) {
 var lightTheme = ThemeData(
   fontFamily: mainFont,
   unselectedWidgetColor: lGray,
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
+  splashFactory: NoSplash.splashFactory,
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary: lBlack, // Icon || Text Primary Color
@@ -85,6 +88,9 @@ var lightTheme = ThemeData(
 var darkTheme = ThemeData(
   fontFamily: mainFont,
   unselectedWidgetColor: dGray,
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
+  splashFactory: NoSplash.splashFactory,
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: dWhite, // Icon || Text Primary Color

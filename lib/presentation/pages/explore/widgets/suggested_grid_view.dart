@@ -10,6 +10,8 @@ import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dar
 import 'package:tweel_social_media/presentation/pages/user/widgets/follow_btn_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
+import 'package:tweel_social_media/presentation/widgets/fadein_animate.dart';
+import 'package:tweel_social_media/presentation/widgets/profile_circle_widget.dart';
 
 class SuggestedPeopleGridView extends StatelessWidget {
   const SuggestedPeopleGridView({
@@ -61,12 +63,12 @@ class SuggestedPeopleGridView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: theme.colorScheme.onSurface,
-                  backgroundImage: state.users[index].profilePicture == ""
-                      ? Image.asset(profilePlaceholder).image
-                      : NetworkImage(state.users[index].profilePicture!),
+                ProfileCircleWidget(
+                  radius: 60,
+                  imageWidget: state.users[index].profilePicture == ""
+                      ? Image.asset(profilePlaceholder)
+                      : FadedImageLoading(
+                          imageUrl: state.users[index].profilePicture!),
                 ),
                 kHeight(10),
                 Text(state.users[index].fullName!),

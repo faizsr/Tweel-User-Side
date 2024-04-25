@@ -17,6 +17,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       AddNewMessageEvent event, Emitter<ChatState> emit) {
     messages.add(event.chatModel);
     debugPrint('Message using bloc: ${messages.length}');
+    messages.sort((a, b) => b.sendAt.compareTo(a.sendAt));
     if (messages.isNotEmpty) {
       emit(ChatAddedState(messageList: messages));
     }

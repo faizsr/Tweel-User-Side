@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 import 'package:tweel_social_media/data/models/chat_model/chat_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/pages/message/chat_page/widgets/own_message_card.dart';
 import 'package:tweel_social_media/presentation/pages/message/chat_page/widgets/reply_card.dart';
 
-class ChatView extends StatefulWidget {
+class ChatView extends StatelessWidget {
   const ChatView({
     super.key,
     required this.messageList,
@@ -18,98 +19,82 @@ class ChatView extends StatefulWidget {
   final UserModel chatUser;
 
   @override
-  State<ChatView> createState() => _ChatViewState();
-}
-
-class _ChatViewState extends State<ChatView> {
-  static DateTime returnDateAndTimeFormat(String time) {
-    var dt = DateTime.fromMicrosecondsSinceEpoch(int.parse(time.toString()));
-    // var originalDate = DateFormat('MM/dd/yyyy').format(dt);
-    return DateTime(dt.year, dt.month, dt.day);
-  }
-
-  // function to return date if date changes based on your local date and time
-  static String groupMessageDateAndTime(String time) {
-    var dt = DateTime.fromMicrosecondsSinceEpoch(int.parse(time.toString()));
-    // var originalDate = DateFormat('MM/dd/yyyy').format(dt);
-
-    final todayDate = DateTime.now();
-
-    final today = DateTime(todayDate.year, todayDate.month, todayDate.day);
-    final yesterday =
-        DateTime(todayDate.year, todayDate.month, todayDate.day - 1);
-    String difference = '';
-    final aDate = DateTime(dt.year, dt.month, dt.day);
-
-    if (aDate == today) {
-      difference = "Today";
-    } else if (aDate == yesterday) {
-      difference = "Yesterday";
-    } else {
-      difference = DateFormat.yMMMd().format(dt).toString();
-    }
-
-    return difference;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final filteredMessages = messageList.where((message) =>
+        (message.sender.username == currentUser.username &&
+            message.receiver.username == chatUser.username) ||
+        (message.sender.username == chatUser.username &&
+            message.receiver.username == currentUser.username));
+
+    final groupedMessages = groupBy(filteredMessages, (ChatModel message) {
+      return DateFormat('dd-MM-yyyy').format(message.sendAt);
+    });
+
+    final dates = groupedMessages.keys.toList()..sort((a, b) => b.compareTo(a));
+
     return ListView.builder(
       reverse: true,
       shrinkWrap: true,
       padding: const EdgeInsets.all(8),
       physics: const ClampingScrollPhysics(),
-      itemCount: widget.messageList.length,
+      itemCount: dates.length,
       itemBuilder: (context, index) {
-        final reversedIndex = widget.messageList.length - 1 - index;
-        final message = widget.messageList[reversedIndex];
-        bool isOwnMessage = isOwnMessageFn(message);
-        bool isReplyMessage = isReplyMessageFn(message);
+        final date = dates[index];
+        final messages = groupedMessages[date]!;
+        final formattedDate = formatDate(date);
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (isOwnMessage) OwnMessageCard(message: message),
-            if (isReplyMessage) ReplyCard(message: message),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Text(
+                formattedDate,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ),
+            ...messages.reversed.map((message) {
+              final isOwnMessage = isOwnMessageFn(message);
+              final isReplyMessage = isReplyMessageFn(message);
+
+              if (isOwnMessage) {
+                return OwnMessageCard(message: message);
+              } else if (isReplyMessage) {
+                return ReplyCard(message: message);
+              } else {
+                return const SizedBox();
+              }
+            }).toList(),
           ],
         );
       },
     );
   }
 
-  SizedBox dayDateWidget(String newDate, BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: Center(
-        child: Card(
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Text(
-              newDate,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 12,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  String formatDate(String date) {
+    final now = DateTime.now();
+    final today = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    final yesterday = DateFormat('dd-MM-yyyy')
+        .format(DateTime(now.year, now.month, now.day - 1));
 
-  bool isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
+    if (date == today) {
+      return 'Today';
+    } else if (date == yesterday) {
+      return 'Yesterday';
+    }
+    return date;
   }
 
   bool isOwnMessageFn(ChatModel message) {
-    return message.sender.username == widget.currentUser.username &&
-        message.receiver.username == widget.chatUser.username;
+    return message.sender.username == currentUser.username &&
+        message.receiver.username == chatUser.username;
   }
 
   bool isReplyMessageFn(ChatModel message) {
-    return message.receiver.username == widget.currentUser.username &&
-        message.sender.username == widget.chatUser.username;
+    return message.receiver.username == currentUser.username &&
+        message.sender.username == chatUser.username;
   }
 }

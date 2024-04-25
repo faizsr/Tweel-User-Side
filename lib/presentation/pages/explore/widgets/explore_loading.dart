@@ -113,7 +113,10 @@ class Tile extends StatelessWidget {
     return ShimmerAnimate(
       child: Container(
         height: height,
-        color: theme.colorScheme.primaryContainer,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: theme.colorScheme.onSurface,
+        ),
       ),
     );
   }
@@ -170,7 +173,7 @@ class ExplorePostLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+      padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
       crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),

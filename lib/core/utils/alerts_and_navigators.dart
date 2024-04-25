@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 
 Future<dynamic> nextScreen(context, page) {
   return Navigator.push(
     context,
-    MaterialPageRoute(
-      builder: (context) => page,
+    PageTransition(
+      child: page,
+      type: PageTransitionType.fade,
     ),
   );
 }
 
 Future<dynamic> nextScreenReplacement(context, page) {
   return Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => page,
-    ),
-  );
+      context, PageTransition(child: page, type: PageTransitionType.fade));
 }
 
 Future<dynamic> nextScreenRemoveUntil(context, page) {
   return Navigator.pushAndRemoveUntil(
     context,
-    MaterialPageRoute(
-      builder: (context) => page,
+    PageTransition(
+      child: page,
+      type: PageTransitionType.fade,
     ),
     (route) => false,
   );

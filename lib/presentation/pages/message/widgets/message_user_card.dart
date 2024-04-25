@@ -32,15 +32,19 @@ class _MessageUserCardState extends State<MessageUserCard> {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, profileState) {
         if (profileState is ProfileFetchingSucessState) {
-          isOwnMessage =
-              isOwnMessageFn(widget.lastMessage!, profileState.userDetails);
-          isReplyMessage =
-              isReplyMessageFn(widget.lastMessage!, profileState.userDetails);
-          String lastMessgeTime = isToday(widget.lastMessage!.sendAt)
-              ? formatTime(widget.lastMessage!.sendAt.toLocal())
-              : isYesterday(widget.lastMessage!.sendAt)
-                  ? 'Yesterday'
-                  : DateFormat.yMd().format(widget.lastMessage!.sendAt);
+          String lastMessgeTime = '';
+          if (widget.lastMessage != null) {
+            isOwnMessage =
+                isOwnMessageFn(widget.lastMessage!, profileState.userDetails);
+            isReplyMessage =
+                isReplyMessageFn(widget.lastMessage!, profileState.userDetails);
+            lastMessgeTime = isToday(widget.lastMessage!.sendAt)
+                ? formatTime(widget.lastMessage!.sendAt.toLocal())
+                : isYesterday(widget.lastMessage!.sendAt)
+                    ? 'Yesterday'
+                    : DateFormat('dd-MM-yyyy')
+                        .format(widget.lastMessage!.sendAt);
+          }
 
           return InkWell(
             onTap: () {

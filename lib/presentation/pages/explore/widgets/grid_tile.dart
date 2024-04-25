@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
+import 'package:tweel_social_media/presentation/widgets/fadein_animate.dart';
 
 class VideoTile extends StatelessWidget {
   const VideoTile({
@@ -27,12 +28,12 @@ class VideoTile extends StatelessWidget {
             child: Container(
               height: height,
               decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer,
+                color: theme.colorScheme.onSurface,
                 image: DecorationImage(
                   image: Image.file(File(snapshot.data!.path)).image,
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.circular(3),
+                borderRadius: BorderRadius.circular(6),
               ),
             ),
           );
@@ -63,12 +64,17 @@ class ImageTile extends StatelessWidget {
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          color: theme.colorScheme.primaryContainer,
-          image: DecorationImage(
-            image: NetworkImage(imageUrl),
-            fit: BoxFit.cover,
+          color: theme.colorScheme.onSurface,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: FadeInAnimate(
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
-          borderRadius: BorderRadius.circular(3),
         ),
       ),
     );

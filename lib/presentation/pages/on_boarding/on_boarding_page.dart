@@ -76,9 +76,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget swipeDownWidget(BuildContext context) {
     return const Column(
       children: [
-        Icon(Ktweel.arrow_up_ios),
-        Icon(Ktweel.arrow_up_ios),
-        Icon(Ktweel.arrow_up_ios),
+        Icon(Ktweel.arrow_down_ios),
+        Icon(Ktweel.arrow_down_ios),
+        Icon(Ktweel.arrow_down_ios),
       ],
     );
   }

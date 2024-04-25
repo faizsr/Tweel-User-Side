@@ -42,6 +42,7 @@ class _EditPostPageState extends State<EditPostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40),
@@ -73,6 +74,7 @@ class _EditPostPageState extends State<EditPostPage> {
                 hintText: 'Enter location',
               ),
               CustomTextField2(
+                maxLines: 14,
                 controller: descriptionController,
                 hintText: 'What do you want to talk about?',
               ),
@@ -80,7 +82,7 @@ class _EditPostPageState extends State<EditPostPage> {
           ),
         ),
       ),
-      bottomSheet: EditBottomImageListview(imageUrlList: widget.imageUrlList),
+      bottomNavigationBar: EditBottomImageListview(imageUrlList: widget.imageUrlList),
     );
   }
 }

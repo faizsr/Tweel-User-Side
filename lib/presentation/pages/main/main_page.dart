@@ -17,8 +17,16 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late ConnectivityStatusCubit connectivityStatusCubit;
+  List<Widget> pages = [];
+
   @override
   void initState() {
+    pages = const [
+      HomePage(),
+      ExplorePage(),
+      MessagePage(),
+      ProfilePage(),
+    ];
     connectivityStatusCubit = context.read<ConnectivityStatusCubit>();
     connectivityStatusCubit.getConnectiviy(context);
     super.initState();
@@ -29,13 +37,6 @@ class _MainPageState extends State<MainPage> {
     connectivityStatusCubit.dispose();
     super.dispose();
   }
-
-  final _pages = [
-    const HomePage(),
-    const ExplorePage(),
-    const MessagePage(),
-    const ProfilePage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _MainPageState extends State<MainPage> {
                 builder: (context, int index, child) {
                   return IndexedStack(
                     index: index,
-                    children: _pages,
+                    children: pages,
                   );
                 },
               );

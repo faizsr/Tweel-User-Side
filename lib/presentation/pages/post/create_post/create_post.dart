@@ -77,6 +77,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       hintText: 'Enter location',
                     ),
                     CustomTextField2(
+                      maxLines: 14,
                       controller: descriptionController,
                       hintText: 'What do you want to talk about?',
                     ),
@@ -86,7 +87,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             ),
           ),
         ),
-        bottomSheet: BottomImageListview(
+        bottomNavigationBar: BottomImageListview(
           selectedAssetList: widget.selectedAssetList,
         ),
       ),

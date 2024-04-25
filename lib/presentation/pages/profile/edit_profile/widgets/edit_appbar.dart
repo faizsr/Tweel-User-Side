@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
+import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/presentation/bloc/profile_logics/profile_logics_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/set_profile_image_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_text_btn.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class EditProfileAppbar extends StatefulWidget {
@@ -36,7 +38,10 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
     return AppBar(
       title: const Text(
         'Edit profile',
-        style: TextStyle(fontSize: 18),
+        style: TextStyle(
+          fontSize: 18,
+          fontVariations: fontWeightW500,
+        ),
       ),
       centerTitle: true,
       leading: IconButton(
@@ -62,15 +67,15 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
               return Container(
                 height: 15,
                 width: 15,
-                margin: const EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 15),
                 child: CircularProgressIndicator(
                   color: Theme.of(context).colorScheme.onPrimary,
                   strokeWidth: 2,
                 ),
               );
             }
-            return IconButton(
-              onPressed: () async {
+            return CustomTextBtn(
+              onTap: () async {
                 if (_canSaveChanges()) {
                   UserModel updatedUser = UserModel(
                     fullName: widget.fullnameController.text,
@@ -89,7 +94,7 @@ class _EditProfileAppbarState extends State<EditProfileAppbar> {
                   debugPrint('Nothing to change');
                 }
               },
-              icon: const Icon(Ktweel.tick),
+              bntText: 'SAVE',
             );
           },
         )

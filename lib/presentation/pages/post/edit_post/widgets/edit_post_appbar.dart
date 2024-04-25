@@ -5,6 +5,7 @@ import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/post_edit/post_edit_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_text_btn.dart';
 
 class EditPostAppbar extends StatelessWidget {
   const EditPostAppbar({
@@ -65,19 +66,7 @@ class EditPostAppbar extends StatelessWidget {
                 ),
               );
             }
-            return InkWell(
-              onTap: onTap,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Text(
-                  'DONE',
-                  style: TextStyle(
-                    fontVariations: fontWeightW500,
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                ),
-              ),
-            );
+            return CustomTextBtn(onTap: onTap, bntText: 'DONE');
           },
         ),
       ],

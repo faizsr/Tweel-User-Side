@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/data/services/video_thumbnail/video_thumbnail_services.dart';
+import 'package:tweel_social_media/presentation/widgets/fadein_animate.dart';
 
 class PostImageGridTile extends StatelessWidget {
   const PostImageGridTile({
@@ -19,12 +20,9 @@ class PostImageGridTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Container(
           decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            image: DecorationImage(
-              image: NetworkImage(imageUrl),
-              fit: BoxFit.cover,
-            ),
+            color: theme.colorScheme.onSurface,
           ),
+          child: FadedImageLoading(imageUrl: imageUrl),
         ),
       );
     } else if (imageUrl.contains('video')) {
@@ -44,7 +42,7 @@ class PostImageGridTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: Container(
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer,
+                  color: theme.colorScheme.onSurface,
                   image: DecorationImage(
                     image: FileImage(File(snapshot.data!.path)),
                     fit: BoxFit.cover,

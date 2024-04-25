@@ -54,7 +54,7 @@ class _UserChatPageState extends State<UserChatPage> {
                             );
                             if (!hasMessages) {
                               // ============= Chat Empty View =============
-                              return const ChatEmptyView();
+                              return ChatEmptyView(chatUser: widget.chatUser);
                             } else {
                               // ============= Chat View =============
                               return ChatView(

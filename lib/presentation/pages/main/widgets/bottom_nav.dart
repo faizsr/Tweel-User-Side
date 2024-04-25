@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 
@@ -29,11 +30,15 @@ class BottomNavigationWidget extends StatelessWidget {
                 icon: Ktweel.home,
                 theme: theme,
                 onDoubleTap: () {
-                  homePageController.animateTo(
-                    homePageController.position.minScrollExtent,
-                    duration: 400.ms,
-                    curve: Curves.fastOutSlowIn,
-                  );
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    if (homePageController.hasClients) {
+                      homePageController.animateTo(
+                        homePageController.position.minScrollExtent,
+                        duration: 400.ms,
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    }
+                  });
                 },
               ),
               Container(
@@ -46,11 +51,15 @@ class BottomNavigationWidget extends StatelessWidget {
                 icon: Ktweel.search,
                 theme: theme,
                 onDoubleTap: () {
-                  explorePageController.animateTo(
-                    explorePageController.position.minScrollExtent,
-                    duration: 400.ms,
-                    curve: Curves.fastOutSlowIn,
-                  );
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    if (explorePageController.hasClients) {
+                      explorePageController.animateTo(
+                        explorePageController.position.minScrollExtent,
+                        duration: 400.ms,
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    }
+                  });
                 },
               ),
               Container(
@@ -63,11 +72,15 @@ class BottomNavigationWidget extends StatelessWidget {
                 icon: Ktweel.message,
                 theme: theme,
                 onDoubleTap: () {
-                  messagePageController.animateTo(
-                    messagePageController.position.minScrollExtent,
-                    duration: 400.ms,
-                    curve: Curves.fastOutSlowIn,
-                  );
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    if (messagePageController.hasClients) {
+                      messagePageController.animateTo(
+                        explorePageController.position.minScrollExtent,
+                        duration: 400.ms,
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    }
+                  });
                 },
               ),
               Container(
@@ -80,11 +93,15 @@ class BottomNavigationWidget extends StatelessWidget {
                 icon: Ktweel.user,
                 theme: theme,
                 onDoubleTap: () {
-                  profilePageController.animateTo(
-                    profilePageController.position.minScrollExtent,
-                    duration: 400.ms,
-                    curve: Curves.fastOutSlowIn,
-                  );
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    if (profilePageController.hasClients) {
+                      profilePageController.animateTo(
+                        profilePageController.position.minScrollExtent,
+                        duration: 400.ms,
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    }
+                  });
                 },
               ),
             ],

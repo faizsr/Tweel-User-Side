@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
@@ -6,7 +8,9 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/post/create_post/media_picker/media_picker_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_outlined_btn.dart';
+import 'package:tweel_social_media/presentation/widgets/fadein_animate.dart';
 import 'package:tweel_social_media/presentation/widgets/loading_skelton.dart';
+import 'package:tweel_social_media/presentation/widgets/profile_circle_widget.dart';
 import 'package:tweel_social_media/presentation/widgets/shimmer_animate.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -36,7 +40,6 @@ class _CreatePostCardState extends State<CreatePostCard> {
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
               if (state is ProfileInitialState) {
-                print('profile initial');
                 context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
                 return loadingWidget();
               }
@@ -48,13 +51,13 @@ class _CreatePostCardState extends State<CreatePostCard> {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: 28,
-                          backgroundColor: theme.colorScheme.onSurface,
-                          backgroundImage: state.userDetails.profilePicture ==
-                                  ""
-                              ? Image.asset(profilePlaceholder).image
-                              : NetworkImage(state.userDetails.profilePicture!),
+                        ProfileCircleWidget(
+                          radius: 56,
+                          imageWidget: state.userDetails.profilePicture == ""
+                              ? Image.asset(profilePlaceholder)
+                              : FadedImageLoading(
+                                  imageUrl: state.userDetails.profilePicture!,
+                                ),
                         ),
                         kWidth(20),
                         Column(

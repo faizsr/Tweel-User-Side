@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -48,8 +49,12 @@ class SignUpWidgets {
     TextEditingController? otpController,
   }) {
     final GlobalKey<FormState> formKey = GlobalKey();
-    return showDialog(
+    changeSystemThemeOnPopup(
       context: context!,
+      color: Theme.of(context).colorScheme.surfaceVariant,
+    );
+    return showDialog(
+      context: context,
       builder: (context) {
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.surface,
@@ -118,7 +123,10 @@ class SignUpWidgets {
           ],
         );
       },
-    );
+    ).then((value) => changeSystemThemeOnPopup(
+          color: Theme.of(context).colorScheme.surface,
+          context: context,
+        ));
   }
 
   static Widget signUpButton(

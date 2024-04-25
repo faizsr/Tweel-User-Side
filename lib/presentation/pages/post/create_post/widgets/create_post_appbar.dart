@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/post_logics/post_logics_bloc.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_text_btn.dart';
 
 class CreatePostAppbar extends StatelessWidget {
   const CreatePostAppbar({
@@ -41,24 +41,16 @@ class CreatePostAppbar extends StatelessWidget {
               return Container(
                 height: 15,
                 width: 15,
-                margin: const EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 15),
                 child: CircularProgressIndicator(
                   color: theme.colorScheme.onPrimary,
                   strokeWidth: 2,
                 ),
               );
             }
-            return InkWell(
+            return CustomTextBtn(
               onTap: onTap,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Text(
-                  'POST',
-                  style: TextStyle(
-                      fontVariations: fontWeightW500,
-                      color: theme.colorScheme.onPrimary),
-                ),
-              ),
+              bntText: 'POST',
             );
           },
         ),

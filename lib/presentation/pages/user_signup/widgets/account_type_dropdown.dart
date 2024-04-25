@@ -33,8 +33,8 @@ class AccountTypeDropDown extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
-              borderSide: const BorderSide(
-                color: Colors.blue,
+              borderSide: BorderSide(
+                color: theme.colorScheme.onPrimary,
                 width: 1.0,
               ),
             ),
@@ -97,6 +97,10 @@ class AccountTypeDropDown extends StatelessWidget {
             padding: EdgeInsets.only(right: 8),
           ),
           iconStyleData: IconStyleData(
+            openMenuIcon: Icon(
+              Ktweel.arrow_up_outlined,
+              color: theme.colorScheme.secondary,
+            ),
             icon: Icon(
               Ktweel.arrow_bottom_outlined,
               color: theme.colorScheme.secondary,
@@ -106,6 +110,7 @@ class AccountTypeDropDown extends StatelessWidget {
           dropdownStyleData: DropdownStyleData(
             elevation: 0,
             decoration: BoxDecoration(
+              color: theme.colorScheme.surface,
               border: Border.all(width: 0.5),
               borderRadius: BorderRadius.circular(5),
             ),

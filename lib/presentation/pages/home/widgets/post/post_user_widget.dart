@@ -9,6 +9,8 @@ import 'package:tweel_social_media/presentation/bloc/post_edit/post_edit_bloc.da
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/home/functions/post_functions.dart';
 import 'package:tweel_social_media/presentation/pages/home/widgets/post/post_more_widget.dart';
+import 'package:tweel_social_media/presentation/widgets/fadein_animate.dart';
+import 'package:tweel_social_media/presentation/widgets/profile_circle_widget.dart';
 
 class PostUserDetail extends StatefulWidget {
   const PostUserDetail({
@@ -38,14 +40,13 @@ class _PostUserDetailState extends State<PostUserDetail> {
             userModel: widget.userModel!,
             onDetail: widget.onDetail,
           ),
-          child: CircleAvatar(
-            radius: 20,
-            backgroundColor: theme.colorScheme.onSurface,
-            backgroundImage: widget.postModel.user!.profilePicture == "" ||
+          child: ProfileCircleWidget(
+            radius: 40,
+            imageWidget: widget.postModel.user!.profilePicture == "" ||
                     widget.userModel!.profilePicture == ""
-                ? Image.asset(profilePlaceholder).image
-                : NetworkImage(
-                    widget.postModel.user!.profilePicture ??
+                ? Image.asset(profilePlaceholder)
+                : FadedImageLoading(
+                    imageUrl: widget.postModel.user!.profilePicture ??
                         widget.userModel!.profilePicture!,
                   ),
           ),
