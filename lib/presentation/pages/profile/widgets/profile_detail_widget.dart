@@ -47,6 +47,7 @@ class ProfileDetailsWidget extends StatelessWidget {
           onProfile: onProfile,
           onTap: () {
             debugPrint('dddd');
+            FocusScope.of(context).unfocus();
             changeSystemThemeOnPopup(
               context: context,
             );
