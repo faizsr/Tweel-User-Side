@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/services/socket/socket_services.dart';
+import 'package:tweel_social_media/presentation/bloc/chat/chat_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/about_us_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/change_account_type_page.dart';
 import 'package:tweel_social_media/presentation/pages/settings/sub_pages/privacy_and_policy_page.dart';
@@ -95,7 +97,6 @@ class SettingsWidgets {
       onTap: () async {
         changeSystemThemeOnPopup(
           context: context,
-          color: Theme.of(context).colorScheme.surfaceVariant,
         );
         showDialog(
           context: context,
@@ -116,6 +117,7 @@ class SettingsWidgets {
                 const UserSignInPage(),
               );
               mySystemTheme(context);
+              context.read<ChatBloc>().add(ClearMessageOnLogoutEvent());
             },
           ),
         ).then((value) => changeSystemThemeOnPopup(

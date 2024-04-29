@@ -11,6 +11,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final List<ChatModel> messages = [];
   ChatBloc() : super(ChatInitial()) {
     on<AddNewMessageEvent>(addNewMessageEvent);
+    on<AddInitialMessageEvent>(addInitialMessageEvent);
+    on<ClearMessageOnLogoutEvent>(clearMessageOnLogoutEvent);
   }
 
   FutureOr<void> addNewMessageEvent(
@@ -21,5 +23,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (messages.isNotEmpty) {
       emit(ChatAddedState(messageList: messages));
     }
+  }
+
+  FutureOr<void> addInitialMessageEvent(
+      AddInitialMessageEvent event, Emitter<ChatState> emit) {
+    messages.addAll(event.messageList);
+    debugPrint('Message using bloc: ${messages.length}');
+    messages.sort((a, b) => b.sendAt.compareTo(a.sendAt));
+    emit(ChatAddedState(messageList: messages));
+  }
+
+  FutureOr<void> clearMessageOnLogoutEvent(
+      ClearMessageOnLogoutEvent event, Emitter<ChatState> emit) {
+    messages.clear();
+    debugPrint('Message using bloc: ${messages.length}');
   }
 }

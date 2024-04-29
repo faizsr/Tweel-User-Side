@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/data/services/search_debouncer/debouncer.dart';
 import 'package:tweel_social_media/presentation/bloc/search_user/search_user_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/on_search_message/on_search_cubit.dart';
-// import 'package:tweel_social_media/core/utils/constants.dart';
-// import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/pages/explore/widgets/custom_search_field.dart';
 
 class MessageAppbar extends StatefulWidget {
@@ -48,6 +46,7 @@ class _MessageAppbarState extends State<MessageAppbar> {
                   flex: 6,
                   child: CustomSearchField(
                     searchController: widget.searchController,
+                    hintText: 'Start a new chat...',
                     onChanged: (value) {
                       if (value.isNotEmpty) {
                         debouncer.run(() {

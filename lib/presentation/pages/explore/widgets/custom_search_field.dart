@@ -9,10 +9,12 @@ class CustomSearchField extends StatelessWidget {
     super.key,
     required this.searchController,
     required this.onChanged,
+    this.hintText,
   });
 
   final TextEditingController searchController;
   final void Function(String)? onChanged;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +39,19 @@ class CustomSearchField extends StatelessWidget {
             size: 24,
             color: theme.colorScheme.secondary,
           ),
-          placeholder: 'Search here...',
+          placeholder: hintText ?? 'Search here...',
           placeholderStyle: TextStyle(
             color: theme.colorScheme.secondary,
             fontSize: 14,
             fontFamily: mainFont,
-            fontVariations: fontWeightW500,
+            fontVariations: fontWeightRegular,
             letterSpacing: 0.2,
           ),
           style: TextStyle(
             color: theme.colorScheme.primary,
             fontSize: 14,
             fontFamily: mainFont,
-            fontVariations: fontWeightW500,
+            fontVariations: fontWeightRegular,
             letterSpacing: 0.2,
           ),
         ),

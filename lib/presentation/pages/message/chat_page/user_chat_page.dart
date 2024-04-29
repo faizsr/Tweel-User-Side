@@ -64,7 +64,7 @@ class _UserChatPageState extends State<UserChatPage> {
                               );
                             }
                           }
-                          return const SizedBox();
+                          return ChatEmptyView(chatUser: widget.chatUser);
                         },
                       ),
                     ),

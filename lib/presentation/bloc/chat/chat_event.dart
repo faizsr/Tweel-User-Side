@@ -10,3 +10,13 @@ class AddNewMessageEvent extends ChatEvent {
     required this.chatModel,
   });
 }
+
+class AddInitialMessageEvent extends ChatEvent {
+  final List<ChatModel> messageList;
+
+  AddInitialMessageEvent({
+    required this.messageList,
+  });
+}
+
+class ClearMessageOnLogoutEvent extends ChatEvent {}

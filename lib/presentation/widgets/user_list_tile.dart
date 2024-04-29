@@ -9,12 +9,14 @@ class UserListTile extends StatelessWidget {
     required this.profileUrl,
     required this.fullname,
     required this.username,
+    this.buttonText,
   });
 
   final void Function()? onTap;
   final String profileUrl;
   final String fullname;
   final String username;
+  final String? buttonText;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class UserListTile extends StatelessWidget {
           height: 30,
           child: CustomOutlinedBtn(
             onPressed: () {},
-            btnText: 'VIEW',
+            btnText: buttonText ?? 'VIEW',
           ),
         ),
       ),

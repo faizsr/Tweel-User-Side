@@ -7,7 +7,7 @@ import 'package:tweel_social_media/data/services/shared_preference/shared_prefer
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
 class AuthRepo {
-  static Future<String> userSignUp({required UserModel user}) async {
+  static Future<SignUpResult> userSignUp({required UserModel user}) async {
     var client = http.Client();
     String signUpUrl = "${ApiEndPoints.baseUrl}${ApiEndPoints.userSignUp}";
     try {
@@ -19,33 +19,34 @@ class AuthRepo {
 
       var jsonResponse = jsonDecode(response.body);
       debugPrint('User Sign Up Status: ${response.statusCode}');
+      debugPrint('User Sign Up Body: ${response.body}');
 
       if (response.statusCode == 201) {
         await UserAuthStatus.saveUserStatus(true);
         await UserToken.saveToken(jsonResponse['token']);
         await CurrentUserId.saveUserId(jsonResponse['userId']);
-        return 'success';
+        return SignUpResult(status: 'success', responseBody: response.body);
       }
       if (response.statusCode == 400) {
-        return 'invalid-otp';
+        return SignUpResult(status: 'invalid-otp', responseBody: null);
       }
 
       if (response.statusCode == 409) {
         if (jsonResponse['error'] ==
             "Username Already Taken. Please Choose different one or login instead") {
-          return 'username-exists';
+          return SignUpResult(status: 'username-exists', responseBody: null);
         } else if (jsonResponse['error'] ==
             "A user with this email address already exist. Please login instead") {
-          return 'email-exists';
+          return SignUpResult(status: 'email-exists', responseBody: null);
         } else if (jsonResponse['error'] ==
             "A user with this Phone Number already exist. Please login instead") {
-          return 'phoneno-exists';
+          return SignUpResult(status: 'phoneno-exists', responseBody: null);
         }
       }
-      return 'error';
+      return SignUpResult(status: 'error', responseBody: null);
     } catch (e) {
       debugPrint('User Sign Up Error: $e');
-      return 'error';
+      return SignUpResult(status: 'error', responseBody: null);
     }
   }
 
@@ -120,4 +121,11 @@ class SignInResult {
   final dynamic responseBody;
 
   SignInResult({this.status, this.responseBody});
+}
+
+class SignUpResult {
+  final String? status;
+  final dynamic responseBody;
+
+  SignUpResult({this.status, this.responseBody});
 }

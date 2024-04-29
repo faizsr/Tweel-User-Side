@@ -1,7 +1,7 @@
 class ApiEndPoints {
   // static String baseUrl = 'http://10.0.2.2:5000';
-  // static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
-  static String baseUrl = 'https://tweel.onrender.com';
+  static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
+  // static String baseUrl = 'https://tweel.onrender.com';
 
   static String profile = '/me';
   static String editUserProfile = '/profile/edit';
@@ -45,7 +45,7 @@ class ApiEndPoints {
   static String allNotification = '/activity';
   static String clearNotification = '/activity';
 
-  // static String socketUrl = "https://wqtcrnn3-5000.inc1.devtunnels.ms";
-  static String socketUrl = "https://tweel.onrender.com";
+  static String socketUrl = "https://wqtcrnn3-5000.inc1.devtunnels.ms";
+  // static String socketUrl = "https://tweel.onrender.com";
   static String currentUserChats = "/chat/me";
 }

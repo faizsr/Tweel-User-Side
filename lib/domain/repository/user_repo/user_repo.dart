@@ -198,7 +198,7 @@ class UserRepo {
       );
       debugPrint('Report User Status: ${response.statusCode}');
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return 'success';
       }
       if (response.statusCode == 400) {

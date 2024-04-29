@@ -45,6 +45,7 @@ class _ExplorePageState extends State<ExplorePage> {
       child: PopScope(
         onPopInvoked: (didPop) {
           searchController.clear();
+          FocusScope.of(context).unfocus();
           context.read<OnSearchCubit>().onSearchChange(false);
         },
         child: ColorfulSafeArea(

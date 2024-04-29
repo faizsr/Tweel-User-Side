@@ -17,16 +17,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   FutureOr<void> userSignUpEvent(
       UserSignUpEvent event, Emitter<SignUpState> emit) async {
     emit(UserSignUpLoadingState());
-    String response = await AuthRepo.userSignUp(user: event.user);
-    if (response == 'success') {
-      emit(UserSignUpSuccessState());
-    } else if (response == 'invalid-otp') {
+    SignUpResult response = await AuthRepo.userSignUp(user: event.user);
+    if (response.status == 'success') {
+      final userModel = UserModel.fromJson(response.responseBody);
+      emit(UserSignUpSuccessState(userModel: userModel));
+    } else if (response.status == 'invalid-otp') {
       emit(UserOtpErrorState());
-    } else if (response == 'username-exists') {
+    } else if (response.status == 'username-exists') {
       emit(UsernameExistsErrorState());
-    } else if (response == 'email-exists') {
+    } else if (response.status == 'email-exists') {
       emit(EmailExistsErrorState());
-    } else if (response == 'phoneno-exists') {
+    } else if (response.status == 'phoneno-exists') {
       emit(PhonenoExistsErrorState());
     } else {
       emit(UserSignUpErrorState());

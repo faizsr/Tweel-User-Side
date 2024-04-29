@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/presentation/cubit/on_search/on_search_cubit.dart';
+import 'package:tweel_social_media/presentation/cubit/on_search_message/on_search_cubit.dart';
 
 ValueNotifier<int> indexChangeNotifier = ValueNotifier(0);
 final homePageController = ScrollController();
@@ -26,6 +29,7 @@ class BottomNavigationWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               kIconbutton(
+                context: context,
                 index: 0,
                 icon: Ktweel.home,
                 theme: theme,
@@ -47,6 +51,7 @@ class BottomNavigationWidget extends StatelessWidget {
                 color: theme.colorScheme.outlineVariant,
               ),
               kIconbutton(
+                context: context,
                 index: 1,
                 icon: Ktweel.search,
                 theme: theme,
@@ -68,6 +73,7 @@ class BottomNavigationWidget extends StatelessWidget {
                 color: theme.colorScheme.outlineVariant,
               ),
               kIconbutton(
+                context: context,
                 index: 2,
                 icon: Ktweel.message,
                 theme: theme,
@@ -89,6 +95,7 @@ class BottomNavigationWidget extends StatelessWidget {
                 color: theme.colorScheme.outlineVariant,
               ),
               kIconbutton(
+                context: context,
                 index: 3,
                 icon: Ktweel.user,
                 theme: theme,
@@ -111,15 +118,20 @@ class BottomNavigationWidget extends StatelessWidget {
     );
   }
 
-  IconButton kIconbutton(
-      {required int index,
-      required IconData icon,
-      required ThemeData theme,
-      void Function()? onDoubleTap}) {
+  IconButton kIconbutton({
+    required int index,
+    required IconData icon,
+    required ThemeData theme,
+    void Function()? onDoubleTap,
+    required BuildContext context,
+  }) {
     return IconButton(
       enableFeedback: false,
       onPressed: () {
         indexChangeNotifier.value = index;
+        FocusScope.of(context).unfocus();
+        context.read<OnSearchMessageCubit>().onSearchChange(false);
+        context.read<OnSearchCubit>().onSearchChange(false);
       },
       icon: indexChangeNotifier.value == index
           ? GestureDetector(

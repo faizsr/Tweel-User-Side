@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_print
+// ignore_for_file: library_private_types_in_public_api, avoid_print, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,8 +126,10 @@ class _StoryViewPageState extends State<StoryViewPage> {
               ),
             );
           },
-          icon: Icon(Ktweel.more_vert,
-              color: Theme.of(context).colorScheme.background),
+          icon: Icon(
+            Ktweel.more_vert,
+            color: Theme.of(context).colorScheme.background,
+          ),
         ),
       ],
     );

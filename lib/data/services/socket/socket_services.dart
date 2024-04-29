@@ -1,6 +1,7 @@
 // ignore_for_file: library_prefixes
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,29 +16,38 @@ import 'package:tweel_social_media/presentation/cubit/online_users/online_users_
 
 class SocketServices {
   BuildContext? _context;
+
   IO.Socket socket = IO.io(
     ApiEndPoints.socketUrl,
     IO.OptionBuilder().setTransports(['websocket']).build(),
   );
 
-  connectSocket(String username, BuildContext context,
-      ScrollController scrollController) {
+  connectSocket(String username, BuildContext context) {
     _context = context;
+    socket = IO.io(ApiEndPoints.socketUrl,
+        IO.OptionBuilder().setTransports(['websocket']).build());
     if (_context != null) {
       _context!.read<GetChatBloc>().add(FetchAllUserChatsEvent());
-      _listenMessage(_context, scrollController);
+      _listenMessage(_context);
       _getOnlineUsers(_context);
       _makeUserActive(username);
     }
   }
 
   disconnectSocket() {
+    socket.onDisconnect((data) {
+      log('Is Socket Disconnected: ${socket.disconnected}');
+    });
     socket.disconnect();
+    socket.clearListeners();
+    socket.close();
+    socket.dispose();
+    log('Is Socket Active: ${socket.active}');
   }
 
-  _listenMessage(BuildContext? context, ScrollController scrollController) {
+  _listenMessage(BuildContext? context) {
     socket.on('message', (data) {
-      debugPrint('Message Event Called');
+      debugPrint('Message Event Called ${data['message']}');
       BlocProvider.of<ChatBloc>(context!).add(AddNewMessageEvent(
         chatModel: ChatModel.fromJson(data),
       ));
@@ -45,9 +55,11 @@ class SocketServices {
   }
 
   _makeUserActive(String username) {
+    socket.connect();
     socket.onConnect((data) {
-      debugPrint('$username has been connected');
       socket.emit('newUser', username);
+      log('Is socket connected ${socket.connected}');
+      log('$username has been connected');
     });
   }
 

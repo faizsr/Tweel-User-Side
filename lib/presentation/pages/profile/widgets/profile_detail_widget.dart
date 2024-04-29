@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
@@ -9,6 +10,7 @@ import 'package:tweel_social_media/data/models/post_model/post_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
 import 'package:tweel_social_media/data/services/socket/socket_services.dart';
+import 'package:tweel_social_media/presentation/bloc/chat/chat_bloc.dart';
 import 'package:tweel_social_media/presentation/pages/profile/edit_profile/edit_profile_page.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_menu.dart';
 import 'package:tweel_social_media/presentation/pages/profile/widgets/profile_post_follow_count.dart';
@@ -44,13 +46,16 @@ class ProfileDetailsWidget extends StatelessWidget {
           userModel: userModel,
           onProfile: onProfile,
           onTap: () {
+            debugPrint('dddd');
             changeSystemThemeOnPopup(
-              color: theme.colorScheme.surfaceVariant,
               context: context,
             );
             _profileMore(
               context,
-            ).then((value) => mySystemTheme(context));
+            ).then((value) {
+              mySystemTheme(context);
+              FocusScope.of(context).unfocus();
+            });
           },
         ),
         kHeight(10),
@@ -185,6 +190,7 @@ class ProfileDetailsWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
                 context: context,
               );
+              context.read<ChatBloc>().add(ClearMessageOnLogoutEvent());
               await nextScreenRemoveUntil(
                 context,
                 const UserSignInPage(),

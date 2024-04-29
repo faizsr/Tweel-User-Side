@@ -364,7 +364,7 @@ class PostRepo {
       debugPrint('Report Post Status: ${response.statusCode}');
       debugPrint('Report Post Body: ${response.body.toString()}');
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return 'success';
       }
       if (response.statusCode == 400) {
