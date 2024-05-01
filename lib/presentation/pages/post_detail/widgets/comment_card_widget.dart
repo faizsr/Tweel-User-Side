@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
@@ -29,8 +30,12 @@ class CommentCardWidget extends StatefulWidget {
 }
 
 class _CommentCardWidgetState extends State<CommentCardWidget> {
+  late FToast fToast;
+
   @override
   void initState() {
+    fToast = FToast();
+    fToast.init(context);
     super.initState();
   }
 
@@ -153,23 +158,32 @@ class _CommentCardWidgetState extends State<CommentCardWidget> {
                             ),
                           ),
                           kHeight(10),
-                          Row(
-                            children: [
-                              Icon(
-                                CupertinoIcons.heart,
-                                size: 18,
-                                color: theme.colorScheme.onSecondary,
-                              ),
-                              kWidth(5),
-                              Text(
-                                "0",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontVariations: fontWeightW500,
+                          InkWell(
+                            onTap: () {
+                              fToast.showToast(
+                                child: customToast(context),
+                                gravity: ToastGravity.BOTTOM,
+                                toastDuration: const Duration(seconds: 2),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  CupertinoIcons.heart,
+                                  size: 18,
                                   color: theme.colorScheme.onSecondary,
                                 ),
-                              ),
-                            ],
+                                kWidth(5),
+                                Text(
+                                  "0",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontVariations: fontWeightW500,
+                                    color: theme.colorScheme.onSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

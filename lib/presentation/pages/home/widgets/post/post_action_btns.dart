@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
@@ -10,7 +11,7 @@ import 'package:tweel_social_media/presentation/bloc/like_unlike_post/like_unlik
 import 'package:tweel_social_media/presentation/pages/post_detail/post_detail_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_icon_btn.dart';
 
-class PostActionButtons extends StatelessWidget {
+class PostActionButtons extends StatefulWidget {
   const PostActionButtons({
     super.key,
     required this.postModel,
@@ -21,8 +22,23 @@ class PostActionButtons extends StatelessWidget {
   final UserModel userModel;
 
   @override
+  State<PostActionButtons> createState() => _PostActionButtonsState();
+}
+
+class _PostActionButtonsState extends State<PostActionButtons> {
+  late FToast fToast;
+
+  @override
+  void initState() {
+    fToast = FToast();
+    fToast.init(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -43,6 +59,11 @@ class PostActionButtons extends StatelessWidget {
           icon: Ktweel.send_2,
           onTap: () {
             debugPrint('Share pressed');
+            fToast.showToast(
+              child: customToast(context),
+              gravity: ToastGravity.BOTTOM,
+              toastDuration: const Duration(seconds: 2),
+            );
           },
         ),
       ],
@@ -53,15 +74,15 @@ class PostActionButtons extends StatelessWidget {
     return BlocBuilder<CommentBloc, CommentState>(
       builder: (context, state) {
         return CustomIconBtn(
-          title: '${postModel.comments!.length} comments',
+          title: '${widget.postModel.comments!.length} comments',
           icon: Ktweel.comment,
           onTap: () {
             debugPrint('Comment pressed');
             nextScreen(
               context,
               PostDetailPage(
-                postModel: postModel,
-                userModel: userModel,
+                postModel: widget.postModel,
+                userModel: widget.userModel,
               ),
             ).then((value) => mySystemTheme(context));
           },
@@ -74,24 +95,24 @@ class PostActionButtons extends StatelessWidget {
     return BlocBuilder<LikeUnlikePostBloc, LikeUnlikePostState>(
       builder: (context, state) {
         return CustomIconBtn(
-          title: '${postModel.likes!.length} likes',
-          color: postModel.likes!.contains(userModel.id)
+          title: '${widget.postModel.likes!.length} likes',
+          color: widget.postModel.likes!.contains(widget.userModel.id)
               ? theme.colorScheme.onPrimary
               : theme.colorScheme.secondary,
-          icon: postModel.likes!.contains(userModel.id)
+          icon: widget.postModel.likes!.contains(widget.userModel.id)
               ? Ktweel.like
               : Ktweel.like,
           onTap: () {
-            if (postModel.likes!.contains(userModel.id)) {
-              postModel.likes!.remove(userModel.id.toString());
+            if (widget.postModel.likes!.contains(widget.userModel.id)) {
+              widget.postModel.likes!.remove(widget.userModel.id.toString());
               context.read<LikeUnlikePostBloc>().add(
-                    UnlikePostEvent(postId: postModel.id!),
+                    UnlikePostEvent(postId: widget.postModel.id!),
                   );
               debugPrint('Unliking post');
             } else {
-              postModel.likes!.add(userModel.id.toString());
+              widget.postModel.likes!.add(widget.userModel.id.toString());
               context.read<LikeUnlikePostBloc>().add(
-                    LikePostEvent(postId: postModel.id!),
+                    LikePostEvent(postId: widget.postModel.id!),
                   );
               debugPrint('Liking post');
             }

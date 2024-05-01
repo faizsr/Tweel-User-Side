@@ -3,7 +3,7 @@ part of 'get_chat_bloc.dart';
 @immutable
 sealed class GetChatState {}
 
-final class UserInitial extends GetChatState {}
+final class UserChatsInitial extends GetChatState {}
 
 class UserChatsFetchingLoadingState extends GetChatState {}
 

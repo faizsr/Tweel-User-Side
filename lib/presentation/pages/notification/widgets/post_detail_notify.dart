@@ -52,7 +52,7 @@ class _PostDetailNotifyState extends State<PostDetailNotify> {
         builder: (context, state) {
           if (state is FetchPostByIdLoadingState) {
             return const Center(
-              child: Text('Loading'),
+              child: CircularProgressIndicator(strokeWidth: 2,),
             );
           }
           if (state is FetchPostByIdSuccessState) {

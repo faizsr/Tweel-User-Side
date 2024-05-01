@@ -12,13 +12,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatInitial()) {
     on<AddNewMessageEvent>(addNewMessageEvent);
     on<AddInitialMessageEvent>(addInitialMessageEvent);
+    on<ClearAllMessageEvent>(clearAllMessageEvent);
   }
 
   FutureOr<void> addNewMessageEvent(
       AddNewMessageEvent event, Emitter<ChatState> emit) {
     messages.add(event.chatModel);
-    debugPrint('Message using bloc: ${messages.length}');
-    messages.sort((a, b) => b.sendAt.compareTo(a.sendAt));
+    debugPrint('Message bloc: ${messages.length}');
     if (messages.isNotEmpty) {
       emit(ChatAddedState(messageList: messages));
     }
@@ -26,11 +26,17 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   FutureOr<void> addInitialMessageEvent(
       AddInitialMessageEvent event, Emitter<ChatState> emit) {
-    if (messages.length != event.messageList.length) {
+    if (messages.isEmpty || messages == event.messageList) {
       messages.addAll(event.messageList);
       debugPrint('Message using bloc: ${messages.length}');
     }
-    messages.sort((a, b) => b.sendAt.compareTo(a.sendAt));
+    messages.sort((a, b) => a.sendAt.compareTo(b.sendAt));
     emit(ChatAddedState(messageList: messages));
+  }
+
+  FutureOr<void> clearAllMessageEvent(
+      ClearAllMessageEvent event, Emitter<ChatState> emit) {
+    messages.clear();
+    emit(ChatEmptyState());
   }
 }

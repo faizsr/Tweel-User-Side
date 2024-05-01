@@ -1,12 +1,18 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/data/models/chat_model/chat_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 import 'package:tweel_social_media/data/services/socket/socket_services.dart';
+import 'package:tweel_social_media/presentation/bloc/chat/chat_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/get_chat/get_chat_bloc.dart';
 
 class ChatBottomWidget extends StatefulWidget {
   const ChatBottomWidget({
@@ -107,39 +113,56 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                 ),
                 const Spacer(),
                 kWidth(5),
-                Expanded(
-                  flex: 1,
-                  child: sendButton
-                      ? IconButton(
-                          style: IconButton.styleFrom(
-                            backgroundColor: widget.theme.onPrimary,
-                            shape: const CircleBorder(),
-                          ),
-                          onPressed: () {
-                            if (messageController.text.isNotEmpty) {
-                              // ============ Send message function ============
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((_) {
-                                SocketServices().sendMessage(
-                                  message: messageController.text,
-                                  currentUser: widget.currentUser,
-                                  chatUser: widget.chatUser,
-                                );
-                                messageController.clear();
-                              });
+                BlocBuilder<ChatBloc, ChatState>(
+                  builder: (context, state) {
+                    return Expanded(
+                      flex: 1,
+                      child: sendButton
+                          ? IconButton(
+                              style: IconButton.styleFrom(
+                                backgroundColor: widget.theme.onPrimary,
+                                shape: const CircleBorder(),
+                              ),
+                              onPressed: () {
+                                if (messageController.text.isNotEmpty) {
+                                  if (state is ChatAddedState) {
+                                    bool hasMessages = _hasMessages(
+                                      widget.currentUser.username!,
+                                      widget.chatUser.username!,
+                                      state.messageList,
+                                    );
+                                    if (!hasMessages) {
+                                      log('message chat is empty');
+                                      context
+                                          .read<GetChatBloc>()
+                                          .add(FetchAllUserChatsEvent());
+                                    }
+                                  }
+                                  // ============ Send message function ============
+                                  SchedulerBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    SocketServices().sendMessage(
+                                      message: messageController.text,
+                                      currentUser: widget.currentUser,
+                                      chatUser: widget.chatUser,
+                                    );
+                                    messageController.clear();
+                                  });
 
-                              setState(() {
-                                sendButton = false;
-                              });
-                            }
-                          },
-                          icon: Icon(
-                            Ktweel.send_2,
-                            color: widget.theme.primaryContainer,
-                            size: 20,
-                          ),
-                        )
-                      : const SizedBox(),
+                                  setState(() {
+                                    sendButton = false;
+                                  });
+                                }
+                              },
+                              icon: Icon(
+                                Ktweel.send_2,
+                                color: widget.theme.primaryContainer,
+                                size: 20,
+                              ),
+                            )
+                          : const SizedBox(),
+                    );
+                  },
                 )
               ],
             ),
@@ -148,6 +171,15 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
         ],
       ),
     );
+  }
+
+  bool _hasMessages(
+      String currentUser, String otherUser, List<ChatModel> messages) {
+    return messages.any((message) =>
+        (message.sender.username == currentUser &&
+            message.receiver.username == otherUser) ||
+        (message.receiver.username == currentUser &&
+            message.sender.username == otherUser));
   }
 
   Widget emojiWidget() {

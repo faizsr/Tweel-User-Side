@@ -27,6 +27,7 @@ class SocketServices {
     socket = IO.io(ApiEndPoints.socketUrl,
         IO.OptionBuilder().setTransports(['websocket']).build());
     if (_context != null) {
+      log('From here it is calling');
       _context!.read<GetChatBloc>().add(FetchAllUserChatsEvent());
       _listenMessage(_context);
       _getOnlineUsers(_context);

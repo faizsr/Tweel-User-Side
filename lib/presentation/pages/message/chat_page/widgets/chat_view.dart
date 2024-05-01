@@ -30,7 +30,12 @@ class ChatView extends StatelessWidget {
       return DateFormat('dd-MM-yyyy').format(message.sendAt);
     });
 
-    final dates = groupedMessages.keys.toList()..sort((a, b) => b.compareTo(a));
+    final dates = groupedMessages.keys.toList()
+      ..sort((a, b) {
+        final dateA = DateFormat('dd-MM-yyyy').parse(a);
+        final dateB = DateFormat('dd-MM-yyyy').parse(b);
+        return dateB.compareTo(dateA);
+      });
 
     return ListView.builder(
       reverse: true,
@@ -42,7 +47,7 @@ class ChatView extends StatelessWidget {
         final date = dates[index];
         final messages = groupedMessages[date]!;
         final formattedDate = formatDate(date);
-
+        debugPrint('Date formatted: $formattedDate');
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -56,7 +61,7 @@ class ChatView extends StatelessWidget {
                 ),
               ),
             ),
-            ...messages.reversed.map((message) {
+            ...messages.map((message) {
               final isOwnMessage = isOwnMessageFn(message);
               final isReplyMessage = isReplyMessageFn(message);
 

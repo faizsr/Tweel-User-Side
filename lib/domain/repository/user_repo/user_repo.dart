@@ -147,9 +147,11 @@ class UserRepo {
     }
   }
 
-  static Future<List<UserModel>> searchUsers(String value) async {
+  static Future<List<UserModel>> searchUsers(
+      String value, bool onMessage) async {
     Dio dio = Dio();
     String token = await UserToken.getToken();
+    String currentUserId = await CurrentUserId.getUserId();
     String searchUserUrl =
         "${ApiEndPoints.baseUrl}${ApiEndPoints.userSearch}?query=$value";
     List<UserModel> users = [];
@@ -170,6 +172,9 @@ class UserRepo {
         for (int i = 0; i < userList.length; i++) {
           UserModel user = UserModel.fromJson(userList[i]);
           users.add(user);
+          if (onMessage && user.id == currentUserId) {
+            users.remove(user);
+          }
         }
         return users;
       }

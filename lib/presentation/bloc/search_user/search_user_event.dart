@@ -5,8 +5,10 @@ sealed class SearchUsrEvent {}
 
 class SearchUserEvent extends SearchUsrEvent {
   final String query;
+  final bool onMessage;
 
   SearchUserEvent({
     required this.query,
+    this.onMessage = false,
   });
 }

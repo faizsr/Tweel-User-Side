@@ -37,12 +37,9 @@ class PostModel {
       mediaURL: json['mediaURL'],
       likes: json['likes'],
       comments: json['comments'] is Map<String, dynamic>
-          // ?
-          // json['comments'] == null
           ? []
           : List<CommentModel>.from(json['comments']!
               .map((comment) => CommentModel.fromJson(comment)))
-      // : []
       ,
       sComments: json['comments'] is String ? json['comments'] : [],
       createdDate: json['createdAt'],

@@ -12,3 +12,5 @@ class ChatAddedState extends ChatState {
     required this.messageList,
   });
 }
+
+class ChatEmptyState extends ChatState {}

@@ -20,7 +20,7 @@ class CommentNotifyCard extends StatelessWidget {
         nextScreen(
           context,
           PostDetailNotify(
-            postId: notificationModel.post!.id!,
+            postId: notificationModel.postId,
             currentUser: currentUser,
           ),
         );
@@ -42,8 +42,7 @@ class CommentNotifyCard extends StatelessWidget {
                     color: theme.colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(3),
                     image: DecorationImage(
-                      image:
-                          NetworkImage(notificationModel.post!.mediaURL![0]!),
+                      image: NetworkImage(notificationModel.postMedia),
                       fit: BoxFit.cover,
                     ),
                   ),

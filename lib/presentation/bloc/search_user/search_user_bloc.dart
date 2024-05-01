@@ -16,7 +16,7 @@ class SearchUserBloc extends Bloc<SearchUserEvent, SearchUserState> {
   FutureOr<void> searchUserEvent(
       SearchUserEvent event, Emitter<SearchUserState> emit) async {
     emit(SearchResultLoadingState());
-    List<UserModel> users = await UserRepo.searchUsers(event.query);
+    List<UserModel> users = await UserRepo.searchUsers(event.query,event.onMessage);
     if (users.isNotEmpty) {
       emit(SearchResultSuccessState(users: users));
     } else {

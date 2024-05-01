@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,6 +66,8 @@ class _MessagePageState extends State<MessagePage> {
                     var chatState = state[0];
                     if (chatState is UserChatsFetchingSuccessState) {
                       // ============ Adding all the previous chats ============
+                      debugPrint('Chat Added State 44');
+                      log('Chat added state 44');
                       context.read<ChatBloc>().add(
                           AddInitialMessageEvent(messageList: chatState.chats));
                     }
@@ -91,6 +95,7 @@ class _MessagePageState extends State<MessagePage> {
                                 UserModel currentUser = state2.userDetails;
 
                                 // ============ Sorting users based on last messsage time ============
+                                log('From chat added state');
                                 List<UserModel> chatUsersList =
                                     MessageFunctions.sortChatUserList(
                                   chatUsersList: chatState.chatUsersList,
@@ -123,7 +128,7 @@ class _MessagePageState extends State<MessagePage> {
                       );
                     } else {
                       if (searchState is SearchResultLoadingState) {
-                        return const Expanded(child: MessageLoading());
+                        return const MessageLoading();
                       }
                       if (searchState is SearchResultSuccessState) {
                         return Expanded(

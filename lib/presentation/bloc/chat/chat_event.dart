@@ -18,3 +18,5 @@ class AddInitialMessageEvent extends ChatEvent {
     required this.messageList,
   });
 }
+
+class ClearAllMessageEvent extends ChatEvent {}

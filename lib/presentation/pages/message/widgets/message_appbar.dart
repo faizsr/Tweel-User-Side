@@ -50,13 +50,16 @@ class _MessageAppbarState extends State<MessageAppbar> {
                     onChanged: (value) {
                       if (value.isNotEmpty) {
                         debouncer.run(() {
-                          context
-                              .read<SearchUserBloc>()
-                              .add(SearchUserEvent(query: value));
+                          context.read<SearchUserBloc>().add(
+                              SearchUserEvent(query: value, onMessage: true));
                         });
-                        context.read<OnSearchMessageCubit>().onSearchChange(true);
+                        context
+                            .read<OnSearchMessageCubit>()
+                            .onSearchChange(true);
                       } else {
-                        context.read<OnSearchMessageCubit>().onSearchChange(false);
+                        context
+                            .read<OnSearchMessageCubit>()
+                            .onSearchChange(false);
                       }
                     },
                   ),

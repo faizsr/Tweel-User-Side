@@ -12,7 +12,7 @@ part 'get_chat_event.dart';
 part 'get_chat_state.dart';
 
 class GetChatBloc extends Bloc<GetChatEvent, GetChatState> {
-  GetChatBloc() : super(UserInitial()) {
+  GetChatBloc() : super(UserChatsInitial()) {
     on<FetchAllUserChatsEvent>(fetchAllUsersEvent);
   }
 

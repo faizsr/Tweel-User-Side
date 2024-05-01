@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
@@ -48,9 +50,13 @@ customSnackbar(BuildContext context, String message,
               color: lWhite,
             ),
           kWidth(10),
-          Text(
-            message,
-            style: const TextStyle(color: lWhite),
+          SizedBox(
+            width: MediaQuery.of(context).size.width - 150,
+            child: Text(
+              message,
+              // overflow: TextOverflow.ellipsis,
+              style: const TextStyle(color: lWhite),
+            ),
           ),
           const Spacer(),
           if (trailing != null)
@@ -63,6 +69,25 @@ customSnackbar(BuildContext context, String message,
               ),
             )
         ],
+      ),
+    ),
+  );
+}
+
+customToast(BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(30),
+      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+    ),
+    clipBehavior: Clip.antiAlias,
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      child: const Text(
+        "Sorry, this feature is currently \nunder development",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 13, fontVariations: fontWeightW500),
       ),
     ),
   );
