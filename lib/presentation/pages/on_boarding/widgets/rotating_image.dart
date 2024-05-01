@@ -44,8 +44,8 @@ class _LoginAssetsState extends State<LoginAssets>
         alignment: Alignment.center,
         children: [
           AnimatedRotation(
-            turns: 1 - _animation.value,
-            duration: const Duration(seconds: 10),
+            turns: _animation.value,
+            duration: const Duration(seconds: 30),
             child: DottedBorder(
               borderType: BorderType.Circle,
               radius: const Radius.circular(30),
@@ -56,7 +56,6 @@ class _LoginAssetsState extends State<LoginAssets>
                 height: 400,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  // color: lBlack,
                 ),
                 child: Stack(
                   children: [

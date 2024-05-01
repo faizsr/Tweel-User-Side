@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/data/services/shared_preference/shared_preference.dart';
@@ -30,11 +31,17 @@ class _SplashPageState extends State<SplashPage> {
     );
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: const Center(
-        child: Text(
+      body: Center(
+        child: const Text(
           'Tweel.',
           style: TextStyle(fontSize: 35),
-        ),
+        )
+            .animate()
+            .shimmer(delay: 400.ms, duration: 1000.ms)
+            .shake(hz: 4, curve: Curves.easeInOutCubic)
+            .scaleXY(end: 1.1, duration: 600.ms)
+            .then(delay: 600.ms)
+            .scaleXY(end: 1 / 1.1),
       ),
     );
   }
@@ -46,10 +53,10 @@ class _SplashPageState extends State<SplashPage> {
       nextScreen(context, const OnBoardingPage());
     } else {
       if (userSignIn == false) {
-        await Future.delayed(const Duration(seconds: 3));
+        await Future.delayed(2500.ms);
         nextScreenRemoveUntil(context, const UserSignInPage());
       } else {
-        await Future.delayed(const Duration(seconds: 3));
+        await Future.delayed(2500.ms);
         nextScreenRemoveUntil(context, const MainPage());
       }
     }

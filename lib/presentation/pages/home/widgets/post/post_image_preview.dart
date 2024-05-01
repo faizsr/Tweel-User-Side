@@ -34,7 +34,6 @@ class _PostImagePreviewState extends State<PostImagePreview> {
   @override
   Widget build(BuildContext context) {
     changeSystemThemeOnPopup(context: context, color: lBlack);
-
     return BlocBuilder<PostImageIndexCubit, int>(
       builder: (context, state) {
         return Scaffold(

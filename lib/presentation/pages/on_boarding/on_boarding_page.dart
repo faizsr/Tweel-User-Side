@@ -28,16 +28,19 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
     return ColorfulSafeArea(
       color: theme.colorScheme.surface,
-      child: Scaffold(
-        backgroundColor: theme.colorScheme.surface,
-        body: GestureDetector(
-          onDoubleTap: () {
-            UserAuthStatus.saveUserinitialStatus(true);
-            nextScreenRemoveUntil(context, const UserSignInPage());
-          },
-          child: Column(
+      child: GestureDetector(
+        onVerticalDragUpdate: (dragUpdateDetails) {
+          print('object');
+          UserAuthStatus.saveUserinitialStatus(true);
+          nextScreenRemoveUntil(context, const UserSignInPage());
+        },
+        child: Scaffold(
+          backgroundColor: theme.colorScheme.surface,
+          body: Column(
             children: [
+              const Spacer(),
               const LoginAssets(),
+              const Spacer(),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -60,12 +63,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   .animate(
                     onPlay: (controller) => controller.repeat(),
                   )
-                  .shimmer(
-                    color: theme.colorScheme.onPrimaryContainer,
-                    delay: 400.ms,
-                    duration: 1400.ms,
-                  ),
-              kHeight(10),
+                  .shimmer(delay: 400.ms, duration: 1000.ms)
+                  .shake(hz: 4, curve: Curves.easeInOutCubic)
+                  .scaleXY(end: 1.1, duration: 600.ms)
+                  .then(delay: 600.ms)
+                  .scaleXY(end: 1 / 1.1),
+              const Spacer(),
             ],
           ),
         ),
@@ -74,12 +77,28 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   }
 
   Widget swipeDownWidget(BuildContext context) {
-    return const Column(
-      children: [
-        Icon(Ktweel.arrow_down_ios),
-        Icon(Ktweel.arrow_down_ios),
-        Icon(Ktweel.arrow_down_ios),
-      ],
+    return const SizedBox(
+      height: 50,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Icon(Ktweel.arrow_up_ios, size: 30),
+          Positioned(
+            top: 20,
+            child: Icon(Ktweel.arrow_up_ios, size: 20),
+          ),
+          Positioned(
+            top: 35,
+            child: Text(
+              '●',
+              style: TextStyle(
+                fontVariations: fontWeightRegular,
+                fontSize: 8,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
