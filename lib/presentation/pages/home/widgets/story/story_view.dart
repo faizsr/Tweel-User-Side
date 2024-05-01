@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:story_view/widgets/story_view.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
-import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/story_model/story_model.dart';
 import 'package:tweel_social_media/presentation/cubit/story_index/story_index_cubit.dart';
 
@@ -117,20 +116,20 @@ class _StoryViewPageState extends State<StoryViewPage> {
           ],
         ),
         const Spacer(),
-        IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => const AlertDialog(
-                content: Text('Delele story'),
-              ),
-            );
-          },
-          icon: Icon(
-            Ktweel.more_vert,
-            color: Theme.of(context).colorScheme.background,
-          ),
-        ),
+        // IconButton(
+        //   onPressed: () {
+        //     showDialog(
+        //       context: context,
+        //       builder: (context) => const AlertDialog(
+        //         content: Text('Delele story'),
+        //       ),
+        //     );
+        //   },
+        //   icon: Icon(
+        //     Ktweel.more_vert,
+        //     color: Theme.of(context).colorScheme.background,
+        //   ),
+        // ),
       ],
     );
   }

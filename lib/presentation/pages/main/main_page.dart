@@ -53,7 +53,6 @@ class _MainPageState extends State<MainPage> {
               return ValueListenableBuilder(
                 valueListenable: indexChangeNotifier,
                 builder: (context, int index, child) {
-                  FocusScope.of(context).requestFocus(FocusNode());
                   return IndexedStack(
                     index: index,
                     children: pages,

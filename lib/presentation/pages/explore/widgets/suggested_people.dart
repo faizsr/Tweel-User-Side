@@ -29,7 +29,12 @@ class SuggestedPeople extends StatelessWidget {
           return Column(
             children: [
               suggestedHeading(theme, state: state, context),
-              SuggestedPeopleGridView(theme: theme, state: state, maxCount: 4),
+              SuggestedPeopleGridView(
+                theme: theme,
+                state: state,
+                maxCount: 4,
+                reverse: true,
+              ),
             ],
           );
         }

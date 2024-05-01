@@ -57,7 +57,7 @@ class _SignUpOneFieldWidgetState extends State<SignUpOneFieldWidget> {
                 controller: fullnameController,
                 validator: (val) {
                   if (val!.length < 3) {
-                    return 'Email field cannot be empty';
+                    return 'Please enter a valid name';
                   }
                   return null;
                 },

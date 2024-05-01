@@ -17,7 +17,7 @@ const Color lLightWhite = Color(0xFFF3F2F7);
 // Selected Color - Text || Icon
 const Color lBlue = Color(0xFF067CF7);
 
-const Color lLightGrey4 = Color(0x3388888A);
+const Color lLightGrey4 = Color(0xFFe7e7e8);
 
 const Color lDialog = Color(0xFF505054);
 const Color lDialog2 = Color(0xFF555555);

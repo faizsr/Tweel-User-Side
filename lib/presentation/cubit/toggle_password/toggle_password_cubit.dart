@@ -6,4 +6,8 @@ class TogglePasswordCubit extends Cubit<bool> {
   void toggle() {
     emit(!state);
   }
+
+  void reset() {
+    emit(true); 
+  }
 }

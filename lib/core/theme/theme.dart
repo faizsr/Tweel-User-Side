@@ -18,10 +18,11 @@ void mySystemTheme(BuildContext context) {
   );
 }
 
-void changeSystemThemeOnPopup({Color? color, required BuildContext context}) {
+void changeSystemThemeOnPopup(
+    {Color? color, required BuildContext context, Color? statusColor}) {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: statusColor ?? Colors.transparent,
       statusBarIconBrightness: Theme.of(context).colorScheme.brightness,
       statusBarBrightness: Theme.of(context).colorScheme.brightness,
       systemNavigationBarColor: color ?? const Color(0xFFb8b7bb),

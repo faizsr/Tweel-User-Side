@@ -92,7 +92,9 @@ class _MediaPickerState extends State<MediaPicker> {
                           StoryImagePreviewPage(
                             mediaUrl: selectedAssetList,
                             userId: widget.userId!,
-                          ));
+                          )).then(
+                        (value) => mySystemTheme(context),
+                      );
                     }
                   },
                 );

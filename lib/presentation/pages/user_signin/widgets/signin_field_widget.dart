@@ -154,6 +154,7 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
       context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
       nextScreenRemoveUntil(context, const MainPage());
       mySystemTheme(context);
+      context.read<TogglePasswordCubit>().reset();
     }
     if (state is UserSignInErrorState) {
       customSnackbar(context, 'Please try again after some times',

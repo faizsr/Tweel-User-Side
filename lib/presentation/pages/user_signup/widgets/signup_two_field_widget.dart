@@ -6,6 +6,7 @@ import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/core/utils/validations.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/widgets/widgets.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_txt_form_field.dart';
@@ -68,27 +69,57 @@ class _SignUpTwoFieldWidgetState extends State<SignUpTwoFieldWidget> {
 
               // Create password field
               kHeight(20),
-              CustomTxtFormField(
-                hintText: 'Create password',
-                controller: passWordController,
-                validator: (val) {
-                  if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
-                    return 'Passwords should be 8 characters, at least one number and one special character';
-                  }
-                  return null;
+              BlocBuilder<TogglePasswordCubit, bool>(
+                builder: (context, state) {
+                  return CustomTxtFormField(
+                    hintText: 'Create password',
+                    controller: passWordController,
+                    validator: (val) {
+                      if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
+                        return 'Passwords should be 8 characters, at least one number and one special character';
+                      }
+                      return null;
+                    },
+                    obscureText: state,
+                    suffix: GestureDetector(
+                      onTap: () {
+                        context.read<TogglePasswordCubit>().toggle();
+                      },
+                      child: Icon(
+                        state ? Ktweel.eye_slash : Ktweel.eye,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  );
                 },
               ),
               kHeight(20),
 
               // Confirm passowrd field
-              CustomTxtFormField(
-                hintText: 'Confirm password',
-                controller: confirmPasswordController,
-                validator: (val) {
-                  if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
-                    return 'Passwords should be 8 characters, at least one number and one special character';
-                  }
-                  return null;
+              BlocBuilder<TogglePasswordCubit, bool>(
+                builder: (context, state) {
+                  return CustomTxtFormField(
+                    hintText: 'Confirm password',
+                    controller: confirmPasswordController,
+                    validator: (val) {
+                      if (!RegExp(passowrdRegexPattern).hasMatch(val!)) {
+                        return 'Passwords should be 8 characters, at least one number and one special character';
+                      }
+                      return null;
+                    },
+                    obscureText: state,
+                    suffix: GestureDetector(
+                      onTap: () {
+                        context.read<TogglePasswordCubit>().toggle();
+                      },
+                      child: Icon(
+                        state ? Ktweel.eye_slash : Ktweel.eye,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  );
                 },
               ),
               kHeight(25),

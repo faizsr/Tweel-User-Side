@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:tweel_social_media/data/models/chat_model/chat_model.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
 
@@ -19,6 +21,9 @@ class MessageFunctions {
               message.receiver.username == currentUser.username,
         )
         .toList();
+    log('message length S: ${sendMessages.length}');
+    log('message length R: ${receivedMessages.length}');
+
     if (receivedMessages.isNotEmpty) {
       lastMessage = receivedMessages.first;
     } else if (sendMessages.isNotEmpty) {

@@ -5,7 +5,7 @@ import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tweel_social_media/presentation/widgets/user_list_tile.dart';
 
-class FollowSearchIdle extends StatelessWidget {
+class FollowSearchIdle extends StatefulWidget {
   const FollowSearchIdle({
     super.key,
     required this.followers,
@@ -16,35 +16,44 @@ class FollowSearchIdle extends StatelessWidget {
   final bool isCurrentUser;
 
   @override
+  State<FollowSearchIdle> createState() => _FollowSearchIdleState();
+}
+
+class _FollowSearchIdleState extends State<FollowSearchIdle> {
+  Set<String> userIds = {};
+
+  @override
   Widget build(BuildContext context) {
-    return followers.isNotEmpty
+    return widget.followers.isNotEmpty
         ? ListView.builder(
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             shrinkWrap: true,
-            itemCount: followers.length,
+            itemCount: widget.followers.length,
             itemBuilder: (context, index) {
+              final follower = widget.followers[index];
               return UserListTile(
                 onTap: () {
                   context
                       .read<UserByIdBloc>()
-                      .add(FetchUserByIdEvent(userId: followers[index]['_id']));
+                      .add(FetchUserByIdEvent(userId: follower['_id']));
                   nextScreen(
                     context,
                     UserProfilePage(
-                      userId: followers[index]['_id'],
+                      userId: follower['_id'],
                       isCurrentUser: false,
                     ),
                   );
                 },
-                username: followers[index]['username'].toString(),
-                profileUrl: followers[index]['profile_picture'].toString(),
-                fullname: followers[index]['fullname'].toString(),
+                username: widget.followers[index]['username'].toString(),
+                profileUrl:
+                    widget.followers[index]['profile_picture'].toString(),
+                fullname: widget.followers[index]['fullname'].toString(),
               );
             },
           )
         : Center(
             child: Text(
-              isCurrentUser
+              widget.isCurrentUser
                   ? "No followers yet. Start connecting!"
                   : 'No followers found!!',
               style: const TextStyle(fontSize: 15),

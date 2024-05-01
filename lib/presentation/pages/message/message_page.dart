@@ -31,7 +31,6 @@ class _MessagePageState extends State<MessagePage> {
 
   Future<void> _handleRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
-    context.read<ChatBloc>().add(ClearMessageOnLogoutEvent());
     context.read<GetChatBloc>().add(FetchAllUserChatsEvent());
   }
 

@@ -24,6 +24,7 @@ class FollowingSearchIdle extends StatefulWidget {
 
 class _FollowingSearchIdleState extends State<FollowingSearchIdle> {
   bool isFollowing = false;
+  Set<String> userIds = {};
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,12 @@ class _FollowingSearchIdleState extends State<FollowingSearchIdle> {
             shrinkWrap: true,
             itemCount: widget.following.length,
             itemBuilder: (context, index) {
+              final following = widget.following[index];
               return InkWell(
                 onTap: () {
-                  context.read<UserByIdBloc>().add(FetchUserByIdEvent(
-                      userId: widget.following[index]['_id']));
+                  context
+                      .read<UserByIdBloc>()
+                      .add(FetchUserByIdEvent(userId: following['_id']));
                   nextScreen(
                       context,
                       UserProfilePage(
@@ -47,15 +50,14 @@ class _FollowingSearchIdleState extends State<FollowingSearchIdle> {
                 child: ListTile(
                   leading: CircleAvatar(
                     radius: 25,
-                    backgroundImage:
-                        widget.following[index]['profile_picture'] == ""
-                            ? Image.asset(profilePlaceholder).image
-                            : NetworkImage(
-                                widget.following[index]['profile_picture'],
-                              ),
+                    backgroundImage: following['profile_picture'] == ""
+                        ? Image.asset(profilePlaceholder).image
+                        : NetworkImage(
+                            following['profile_picture'],
+                          ),
                   ),
                   title: Text(
-                    widget.following[index]['fullname'],
+                    following['fullname'],
                     style: const TextStyle(
                       fontSize: 15,
                       fontVariations: fontWeightW500,
@@ -64,7 +66,7 @@ class _FollowingSearchIdleState extends State<FollowingSearchIdle> {
                   ),
                   minVerticalPadding: 18,
                   subtitle: Text(
-                    widget.following[index]['username'],
+                    following['username'],
                     style: TextStyle(
                       fontSize: 12,
                       color: Theme.of(context).colorScheme.secondary,

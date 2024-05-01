@@ -18,5 +18,3 @@ class AddInitialMessageEvent extends ChatEvent {
     required this.messageList,
   });
 }
-
-class ClearMessageOnLogoutEvent extends ChatEvent {}

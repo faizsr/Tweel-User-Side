@@ -5,6 +5,7 @@ import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/presentation/bloc/story/story_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/post_image_index.dart/post_image_index.dart';
+import 'package:tweel_social_media/presentation/widgets/custom_text_btn.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class StoryImagePreviewPage extends StatelessWidget {
@@ -55,18 +56,14 @@ class StoryImagePreviewPage extends StatelessWidget {
                             strokeWidth: 2,
                           ),
                         )
-                      : IconButton(
-                          onPressed: () {
+                      : CustomTextBtn(
+                          onTap: () async {
                             context.read<StoryBloc>().add(AddStoryEvent(
                                   userId: userId,
                                   selectedAssets: mediaUrl,
                                 ));
                           },
-                          icon: const Icon(
-                            Ktweel.tick,
-                            size: 30,
-                            color: lWhite,
-                          ),
+                          bntText: 'SHARE',
                         );
                 },
               ),

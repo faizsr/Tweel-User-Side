@@ -87,9 +87,9 @@ class StoryWidget extends StatelessWidget {
                     storyCards.add(
                       GestureDetector(
                         onTap: () {
-                          // Handle onTap
                           changeSystemThemeOnPopup(
                             color: lBlack,
+                            statusColor: lBlack,
                             context: context,
                           );
                           nextScreen(
@@ -112,6 +112,7 @@ class StoryWidget extends StatelessWidget {
                         onTap: () {
                           changeSystemThemeOnPopup(
                             color: lBlack,
+                            statusColor: lBlack,
                             context: context,
                           );
                           nextScreen(

@@ -10,7 +10,7 @@ import 'package:tweel_social_media/presentation/pages/message/chat_page/widgets/
 import 'package:tweel_social_media/presentation/pages/message/chat_page/widgets/chat_empty_view.dart';
 import 'package:tweel_social_media/presentation/pages/message/chat_page/widgets/chat_view.dart';
 
-class UserChatPage extends StatefulWidget {
+class UserChatPage extends StatelessWidget {
   const UserChatPage({
     super.key,
     required this.chatUser,
@@ -18,11 +18,6 @@ class UserChatPage extends StatefulWidget {
 
   final UserModel chatUser;
 
-  @override
-  State<UserChatPage> createState() => _UserChatPageState();
-}
-
-class _UserChatPageState extends State<UserChatPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
@@ -33,7 +28,7 @@ class _UserChatPageState extends State<UserChatPage> {
         backgroundColor: theme.surface,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: ChatAppbar(theme: theme, user: widget.chatUser),
+          child: ChatAppbar(theme: theme, user: chatUser),
         ),
         body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, profileState) {
@@ -49,22 +44,22 @@ class _UserChatPageState extends State<UserChatPage> {
                             final currentUser = profileState.userDetails;
                             bool hasMessages = _hasMessages(
                               currentUser.username!,
-                              widget.chatUser.username!,
+                              chatUser.username!,
                               state.messageList,
                             );
                             if (!hasMessages) {
                               // ============= Chat Empty View =============
-                              return ChatEmptyView(chatUser: widget.chatUser);
+                              return ChatEmptyView(chatUser: chatUser);
                             } else {
                               // ============= Chat View =============
                               return ChatView(
                                 messageList: state.messageList,
                                 currentUser: currentUser,
-                                chatUser: widget.chatUser,
+                                chatUser: chatUser,
                               );
                             }
                           }
-                          return ChatEmptyView(chatUser: widget.chatUser);
+                          return ChatEmptyView(chatUser: chatUser);
                         },
                       ),
                     ),
@@ -73,7 +68,7 @@ class _UserChatPageState extends State<UserChatPage> {
                   // ============= Message Input Field =============
                   ChatBottomWidget(
                     theme: theme,
-                    chatUser: widget.chatUser,
+                    chatUser: chatUser,
                     currentUser: profileState.userDetails,
                   ),
                 ],
