@@ -28,7 +28,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       autoPlay: false,
       videoPlayerController: VideoPlayerController.networkUrl(
         Uri.parse(widget.videoUrl),
-        httpHeaders: {"Authorization": "787284768575152"},
+        httpHeaders: {"Authorization": "153836577623374"},
       ),
     );
     dataManager =

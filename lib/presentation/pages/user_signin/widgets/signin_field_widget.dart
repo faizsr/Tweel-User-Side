@@ -7,7 +7,9 @@ import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_in/sign_in_bloc.dart';
 import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/forgot_password/forget_password_page.dart';
@@ -152,6 +154,8 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
     }
     if (state is UserSignInSuccessState) {
       context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
+      context.read<UserBloc>().add(FetchAllUserEvent());
+      context.read<PostBloc>().add(PostInitialFetchEvent());
       nextScreenRemoveUntil(context, const MainPage());
       mySystemTheme(context);
       context.read<TogglePasswordCubit>().reset();

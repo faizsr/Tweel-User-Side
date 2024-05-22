@@ -9,11 +9,11 @@ class CloudRepo {
       List<AssetEntity> selectedAssets) async {
     File? image;
     List<String> imagePath = [];
-    final url = Uri.parse('https://api.cloudinary.com/v1_1/dsqdeuryl/upload');
+    final url = Uri.parse('https://api.cloudinary.com/v1_1/domckmnha/upload');
     for (int i = 0; i < selectedAssets.length; i++) {
       image = await selectedAssets[i].file;
       final request = http.MultipartRequest('POST', url)
-        ..fields['upload_preset'] = 'goybdoeq'
+        ..fields['upload_preset'] = 'wbi7jenn'
         ..files.add(await http.MultipartFile.fromPath('file', image!.path));
       final response = await request.send();
       if (response.statusCode == 200) {

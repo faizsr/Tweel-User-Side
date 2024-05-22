@@ -29,7 +29,7 @@ class UserRepo {
         List userList = responseData['user'];
         for (int i = 0; i < userList.length; i++) {
           UserModel user = UserModel.fromJson(userList[i]);
-          if (user.id != userId) {
+          if (user.id != userId && !user.isBlocked!) {
             users.add(user);
           }
         }
@@ -171,7 +171,9 @@ class UserRepo {
         List userList = responseData['users'];
         for (int i = 0; i < userList.length; i++) {
           UserModel user = UserModel.fromJson(userList[i]);
-          users.add(user);
+          if (!user.isBlocked!) {
+            users.add(user);
+          }
           if (onMessage && user.id == currentUserId) {
             users.remove(user);
           }
