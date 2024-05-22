@@ -128,8 +128,11 @@ class _MediaPickerState extends State<MediaPicker> {
                 );
               }
             }
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onPrimary,
+                strokeWidth: 2,
+              ),
             );
           },
         ),

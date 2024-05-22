@@ -99,8 +99,11 @@ class _ExplorePageState extends State<ExplorePage> {
                   } else {
                     // ============ On Searching ============
                     if (state2 is SearchResultLoadingState) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          strokeWidth: 2,
+                        ),
                       );
                     }
                     // ============ Search Result View ============
