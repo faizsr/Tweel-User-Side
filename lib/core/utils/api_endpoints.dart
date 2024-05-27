@@ -1,7 +1,8 @@
 class ApiEndPoints {
   // static String baseUrl = 'http://10.0.2.2:5000';
   // static String baseUrl = 'https://wqtcrnn3-5000.inc1.devtunnels.ms';
-  static String baseUrl = 'https://tweel.onrender.com';
+  // static String baseUrl = 'https://tweel.onrender.com';
+  static String baseUrl = 'http://tweel.online';
 
   static String profile = '/me';
   static String editUserProfile = '/profile/edit';
