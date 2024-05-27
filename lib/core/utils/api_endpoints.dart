@@ -47,6 +47,7 @@ class ApiEndPoints {
   static String clearNotification = '/activity';
 
   // static String socketUrl = "https://wqtcrnn3-5000.inc1.devtunnels.ms";
-  static String socketUrl = "https://tweel.onrender.com";
+  // static String socketUrl = "https://tweel.onrender.com";
+  static String socketUrl = 'http://tweel.online';
   static String currentUserChats = "/chat/me";
 }
