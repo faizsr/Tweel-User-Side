@@ -7,13 +7,7 @@ final class SignUpInitial extends SignUpState {}
 
 class UserSignUpLoadingState extends SignUpState {}
 
-class UserSignUpSuccessState extends SignUpState {
-  final UserModel userModel;
-
-  UserSignUpSuccessState({
-    required this.userModel,
-  });
-}
+class UserSignUpSuccessState extends SignUpState {}
 
 class UserSignUpErrorState extends SignUpState {}
 

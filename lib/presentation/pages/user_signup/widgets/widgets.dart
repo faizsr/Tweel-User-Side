@@ -8,7 +8,11 @@ import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/user_model/user_model.dart';
+import 'package:tweel_social_media/presentation/bloc/post/post_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/profile/profile_bloc.dart';
+import 'package:tweel_social_media/presentation/bloc/user/user_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/user_sign_up/sign_up_bloc.dart';
+import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
 import 'package:tweel_social_media/presentation/pages/main/main_page.dart';
 import 'package:tweel_social_media/presentation/pages/user_signin/user_signin_page.dart';
 import 'package:tweel_social_media/presentation/widgets/custom_btn.dart';
@@ -75,7 +79,12 @@ class SignUpWidgets {
             BlocConsumer<SignUpBloc, SignUpState>(
               listener: (context, state) {
                 if (state is UserSignUpSuccessState) {
+                  context.read<ProfileBloc>().add(ProfileInitialFetchEvent());
+                  context.read<UserBloc>().add(FetchAllUserEvent());
+                  context.read<PostBloc>().add(PostInitialFetchEvent());
                   nextScreenRemoveUntil(context, const MainPage());
+                  mySystemTheme(context);
+                  context.read<TogglePasswordCubit>().reset();
                 }
                 if (state is UsernameExistsErrorState) {
                   debugPrint('Username already exists');

@@ -19,8 +19,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(UserSignUpLoadingState());
     SignUpResult response = await AuthRepo.userSignUp(user: event.user);
     if (response.status == 'success') {
-      final userModel = UserModel.fromJson(response.responseBody);
-      emit(UserSignUpSuccessState(userModel: userModel));
+      emit(UserSignUpSuccessState());
     } else if (response.status == 'invalid-otp') {
       emit(UserOtpErrorState());
     } else if (response.status == 'username-exists') {
