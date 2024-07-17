@@ -44,6 +44,7 @@ class KRefreshWidgetConfig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return RefreshConfiguration(
       headerBuilder: () => CustomHeader(
         builder: (context, mode) {
@@ -54,9 +55,9 @@ class KRefreshWidgetConfig extends StatelessWidget {
               text: "Pull down to refresh",
             );
           } else if (mode == RefreshStatus.refreshing) {
-            body = const CupertinoActivityIndicator(
+            body = CupertinoActivityIndicator(
               radius: 12,
-              color: Colors.black,
+              color: theme.colorScheme.secondary,
             );
           } else if (mode == RefreshStatus.failed) {
             body = const RefreshHelperWidget(
@@ -84,9 +85,9 @@ class KRefreshWidgetConfig extends StatelessWidget {
         builder: (context, mode) {
           Widget body = const SizedBox();
           if (mode == LoadStatus.loading) {
-            body = const CupertinoActivityIndicator(
+            body = CupertinoActivityIndicator(
               radius: 12,
-              color: Colors.black,
+              color: theme.colorScheme.secondary,
             );
           } else if (mode == LoadStatus.failed) {
             body = const RefreshHelperWidget(

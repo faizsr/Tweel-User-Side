@@ -41,6 +41,7 @@ class _BottomImageListviewState extends State<BottomImageListview> {
                     onTap: () async {
                       await AssetPickerViewer.pushToViewer(
                         context,
+                        currentIndex: index,
                         previewAssets: widget.selectedAssetList,
                         themeData: imagePreviewlightTheme,
                       );

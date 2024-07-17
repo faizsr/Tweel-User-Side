@@ -102,7 +102,6 @@ class _MediaPickerState extends State<MediaPicker> {
                 return MediaPickerAppbar(
                   albumList: state.albumList,
                   selectedAlbum: state.selectedAlbum ?? state.albumList[0],
-                  // selectedAssetList: selectedAssetList,
                   onChanged: onAlbumChange,
                   onPressed: onDonePressed,
                 );
@@ -141,6 +140,7 @@ class _MediaPickerState extends State<MediaPicker> {
                         albumList: state.albumList,
                         selectedAlbum: currentAlbum,
                         maxCount: widget.maxCount,
+                        currentIndex: index,
                       ),
                     );
                   },

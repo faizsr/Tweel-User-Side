@@ -60,8 +60,10 @@ var lightTheme = ThemeData(
     onError: Colors.red,
   ),
   listTileTheme: const ListTileThemeData(iconColor: lBlack, textColor: lBlack),
+  bottomAppBarTheme: const BottomAppBarTheme(color: lLightWhite),
   appBarTheme: AppBarTheme(
-    // forceMaterialTransparency: true,
+    backgroundColor: lLightWhite,
+    elevation: 0,
     surfaceTintColor: Colors.transparent,
     titleTextStyle: TextStyle(
       color: lBlack,
@@ -92,6 +94,7 @@ var lightTheme = ThemeData(
 );
 
 var darkTheme = ThemeData(
+  useMaterial3: false,
   fontFamily: mainFont,
   unselectedWidgetColor: dGray,
   splashColor: Colors.transparent,
@@ -119,7 +122,11 @@ var darkTheme = ThemeData(
     error: Colors.red,
     onError: Colors.red,
   ),
+  bottomAppBarTheme: const BottomAppBarTheme(color: dBlack),
   appBarTheme: AppBarTheme(
+    backgroundColor: dBlack,
+    elevation: 0,
+    surfaceTintColor: Colors.transparent,
     titleTextStyle: TextStyle(
       color: dWhite,
       fontFamily: mainFont,

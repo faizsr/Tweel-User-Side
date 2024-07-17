@@ -13,6 +13,7 @@ class AssetCardWidget extends StatefulWidget {
   final List<AssetPathEntity> albumList;
   final AssetPathEntity? selectedAlbum;
   final int maxCount;
+  final int currentIndex;
 
   const AssetCardWidget({
     super.key,
@@ -22,6 +23,7 @@ class AssetCardWidget extends StatefulWidget {
     required this.maxCount,
     required this.albumList,
     this.selectedAlbum,
+    required this.currentIndex,
   });
 
   @override
@@ -38,6 +40,7 @@ class _AssetCardWidgetState extends State<AssetCardWidget> {
       onLongPress: () async {
         await AssetPickerViewer.pushToViewer(
           context,
+          currentIndex: widget.currentIndex,
           previewAssets: widget.assetList,
           themeData: imagePreviewlightTheme,
         );

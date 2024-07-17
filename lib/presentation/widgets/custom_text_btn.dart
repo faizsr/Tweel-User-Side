@@ -15,7 +15,8 @@ class CustomTextBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Padding(
+      child: Container(
+        alignment: Alignment.center,
         padding: const EdgeInsets.only(right: 10),
         child: Text(
           bntText,
