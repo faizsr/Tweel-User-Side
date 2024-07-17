@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,71 +11,80 @@ part 'media_picker_state.dart';
 
 class MediaPickerBloc extends Bloc<MediaPickerEvent, MediaPickerState> {
   List<AssetEntity> selectedAssetList = [];
+  List<AssetEntity> assetList = [];
+  List<AssetPathEntity> albumList = [];
+  int end = 24;
+
   MediaPickerBloc() : super(MediaPickerInitial()) {
     on<LoadAlbumsAndAssetsEvent>(loadAlbumsAndAssetsEvent);
-    on<LoadSelectedAssetEvent>(loadSelectedAssetEvent);
     on<SelectAssetEvent>(selectAssetEvent);
     on<UnselectAssetEvent>(unselectAssetEvent);
   }
 
   FutureOr<void> loadAlbumsAndAssetsEvent(
       LoadAlbumsAndAssetsEvent event, Emitter<MediaPickerState> emit) async {
-    emit(MediaLoadingState());
-    List<AssetPathEntity> albumList =
-        await MediaServices().loadAlbums(event.requestType);
-    List<AssetEntity> assetList = [];
-    if (albumList.isNotEmpty) {
-      debugPrint('Album list: ${albumList.length}');
-      assetList = await MediaServices().loadAssets(albumList[0]);
-    }
-    if (assetList.isNotEmpty) {
-      emit(MediaSuccessState(
-        albumList: albumList,
-        assetList: assetList,
-        selectedAlbum: albumList[0],
-        selectedAssetList: const [],
-      ));
-    } else {
+    if (event.onRefresh) {
+      if (!event.onAlbumChange) selectedAssetList.clear();
+      end = 24;
       emit(MediaLoadingState());
-    }
-  }
-
-  FutureOr<void> loadSelectedAssetEvent(
-      LoadSelectedAssetEvent event, Emitter<MediaPickerState> emit) async {
-    emit(MediaLoadingState());
-    List<AssetEntity> assetList =
-        await MediaServices().loadAssets(event.selectedAlbum!);
-    if (assetList.isNotEmpty) {
-      emit(MediaSuccessState(
-        assetList: assetList,
-        albumList: event.albumList,
-        selectedAlbum: event.selectedAlbum,
-        selectedAssetList: const [],
-      ));
+      albumList = await MediaServices().loadAlbums(event.requestType);
+      AssetPathEntity currentAlbum = event.currentAlbum ?? albumList[0];
+      if (albumList.isNotEmpty) {
+        log('Album list refresh: ${currentAlbum.name}');
+        assetList = await MediaServices().loadAssets(currentAlbum, 24);
+      }
+      if (assetList.isNotEmpty) {
+        emit(MediaSuccessState(
+          albumList: albumList,
+          assetList: assetList,
+          selectedAlbum: currentAlbum,
+          selectedAssetList: selectedAssetList
+        ));
+      }
     } else {
-      emit(MediaErrorState());
+      albumList = await MediaServices().loadAlbums(event.requestType);
+      AssetPathEntity currentAlbum = event.currentAlbum ?? albumList[0];
+      end += 24;
+
+      if (albumList.isNotEmpty) {
+        var assets = await MediaServices().loadAssets(currentAlbum, end);
+        log('Album list not refresh: ${currentAlbum.name}');
+        if (assets.isNotEmpty) {
+          assetList.addAll(await MediaServices().loadAssets(currentAlbum, end));
+        }
+      }
+      if (assetList.isNotEmpty) {
+        emit(MediaSuccessState(
+          albumList: albumList,
+          assetList: assetList,
+          selectedAlbum: currentAlbum,
+          selectedAssetList: selectedAssetList,
+        ));
+      }
     }
   }
 
   FutureOr<void> selectAssetEvent(
       SelectAssetEvent event, Emitter<MediaPickerState> emit) {
     selectedAssetList.add(event.assetEntity);
+    log('Selecting asset after length: ${selectedAssetList.length}');
     emit(MediaSuccessState(
-      assetList: event.assetList,
-      albumList: event.albumList,
+      albumList: albumList,
+      assetList: assetList,
+      selectedAlbum: event.selectedAlbum ?? albumList[0],
       selectedAssetList: selectedAssetList,
-      selectedAlbum: event.selectedAlbum,
     ));
   }
 
   FutureOr<void> unselectAssetEvent(
       UnselectAssetEvent event, Emitter<MediaPickerState> emit) {
     selectedAssetList.remove(event.assetEntity);
+    log('Unselecting asset after length: ${selectedAssetList.length}');
     emit(MediaSuccessState(
-      assetList: event.assetList,
-      albumList: event.albumList,
+      albumList: albumList,
+      assetList: assetList,
+      selectedAlbum: event.selectedAlbum ?? albumList[0],
       selectedAssetList: selectedAssetList,
-      selectedAlbum: event.selectedAlbum,
     ));
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:photo_manager/photo_manager.dart';
 
 class MediaServices {
@@ -20,11 +22,22 @@ class MediaServices {
     return albumList;
   }
 
-  Future<List<AssetEntity>> loadAssets(AssetPathEntity selectedAlbum) async {
-    List<AssetEntity> assetList = await selectedAlbum.getAssetListRange(
-      start: 0,
-      end: await selectedAlbum.assetCountAsync,
-    );
+  Future<List<AssetEntity>> loadAssets(
+      AssetPathEntity selectedAlbum, int end) async {
+    final count = await selectedAlbum.assetCountAsync;
+    List<AssetEntity> assetList = [];
+
+    if (end <= count) {
+      if (count - end < 24) {
+        end += count - end;
+      }
+      int start = end - 24;
+      log('Start $start');
+      log('End $end');
+      log('Total: $count');
+      assetList = await selectedAlbum.getAssetListRange(start: start, end: end);
+      return assetList;
+    }
     return assetList;
   }
 }

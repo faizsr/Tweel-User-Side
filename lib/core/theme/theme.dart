@@ -31,6 +31,7 @@ void changeSystemThemeOnPopup(
 }
 
 var lightTheme = ThemeData(
+  useMaterial3: false,
   fontFamily: mainFont,
   unselectedWidgetColor: lGray,
   splashColor: Colors.transparent,
@@ -60,6 +61,8 @@ var lightTheme = ThemeData(
   ),
   listTileTheme: const ListTileThemeData(iconColor: lBlack, textColor: lBlack),
   appBarTheme: AppBarTheme(
+    // forceMaterialTransparency: true,
+    surfaceTintColor: Colors.transparent,
     titleTextStyle: TextStyle(
       color: lBlack,
       fontFamily: mainFont,

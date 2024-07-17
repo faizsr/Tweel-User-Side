@@ -67,11 +67,10 @@ class SocketServices {
   _getOnlineUsers(BuildContext? context) {
     socket.emit('getOnlineUsers');
     socket.on('onlineUsers', (data) {
-      debugPrint('Getting online users');
+      debugPrint('Getting online users ${data.length}');
       for (int i = 0; i < data.length; i++) {
         String username = data[i]['username'];
         context!.read<OnlineUsersCubit>().getOnlineUsers(username);
-        debugPrint(username);
       }
     });
   }

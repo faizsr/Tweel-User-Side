@@ -4,19 +4,21 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
+import 'package:tweel_social_media/presentation/bloc/media_picker/media_picker_bloc.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MediaPickerAppbar extends StatefulWidget {
   const MediaPickerAppbar({
     super.key,
-    required this.selectedAssetList,
+    // required this.selectedAssetList,
     required this.albumList,
     required this.selectedAlbum,
     required this.onChanged,
     required this.onPressed,
   });
 
-  final List<AssetEntity> selectedAssetList;
+  // final List<AssetEntity> selectedAssetList;
   final List<AssetPathEntity> albumList;
   final AssetPathEntity? selectedAlbum;
   final void Function(AssetPathEntity?)? onChanged;
@@ -34,11 +36,9 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
       children: [
         MediaAppbar(
           onPressed: widget.onPressed,
-          selectedAssetList: widget.selectedAssetList,
+          // selectedAssetList: widget.selectedAssetList,
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         _mediaDropdown(),
       ],
     );
@@ -65,9 +65,8 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
           maxHeight: 300,
           width: double.infinity,
           elevation: 2,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface
-          ),
+          decoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.surface),
           scrollbarTheme: ScrollbarThemeData(
             radius: const Radius.circular(40),
             thickness: MaterialStateProperty.all(6),
@@ -100,15 +99,16 @@ class _MediaPickerAppbarState extends State<MediaPickerAppbar> {
 class MediaAppbar extends StatelessWidget {
   const MediaAppbar({
     super.key,
-    this.selectedAssetList,
+    // this.selectedAssetList,
     this.onPressed,
   });
 
-  final List<AssetEntity>? selectedAssetList;
+  // final List<AssetEntity>? selectedAssetList;
   final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
+    var selectedAssetList = context.read<MediaPickerBloc>().selectedAssetList;
     return AppBar(
       toolbarHeight: 40,
       automaticallyImplyLeading: false,
@@ -129,7 +129,7 @@ class MediaAppbar extends StatelessWidget {
         style: TextStyle(fontSize: 18, fontVariations: fontWeightW600),
       ),
       actions: [
-        selectedAssetList != null && selectedAssetList!.isNotEmpty
+        selectedAssetList.isNotEmpty
             ? IconButton(
                 onPressed: onPressed,
                 icon: const Icon(
