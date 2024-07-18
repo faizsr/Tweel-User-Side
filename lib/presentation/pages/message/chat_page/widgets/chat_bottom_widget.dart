@@ -6,6 +6,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 import 'package:tweel_social_media/core/utils/ktweel_icons.dart';
 import 'package:tweel_social_media/data/models/chat_model/chat_model.dart';
@@ -91,14 +92,19 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                 Expanded(
                   flex: 5,
                   child: TextFormField(
+                    controller: messageController,
                     onChanged: (value) {
                       if (value.isNotEmpty) {
                         setState(() {
                           sendButton = true;
                         });
+                      } else {
+                        setState(() {
+                          sendButton = false;
+                        });
                       }
+                      log('Send Button: $sendButton');
                     },
-                    controller: messageController,
                     focusNode: focusNode,
                     style: const TextStyle(fontSize: 14),
                     decoration: InputDecoration(
@@ -118,46 +124,50 @@ class _ChatBottomWidgetState extends State<ChatBottomWidget> {
                     return Expanded(
                       flex: 1,
                       child: sendButton
-                          ? IconButton(
-                              style: IconButton.styleFrom(
-                                backgroundColor: widget.theme.onPrimary,
-                                shape: const CircleBorder(),
+                          ? Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: widget.theme.onPrimary,
                               ),
-                              onPressed: () {
-                                if (messageController.text.isNotEmpty) {
-                                  if (state is ChatAddedState) {
-                                    bool hasMessages = _hasMessages(
-                                      widget.currentUser.username!,
-                                      widget.chatUser.username!,
-                                      state.messageList,
-                                    );
-                                    if (!hasMessages) {
-                                      log('message chat is empty');
-                                      context
-                                          .read<GetChatBloc>()
-                                          .add(FetchAllUserChatsEvent());
+                              child: IconButton(
+                                icon: const Icon(
+                                  Ktweel.send_2,
+                                  color: lWhite,
+                                  size: 20,
+                                ),
+                                onPressed: () {
+                                  if (messageController.text.isNotEmpty) {
+                                    if (state is ChatAddedState) {
+                                      bool hasMessages = _hasMessages(
+                                        widget.currentUser.username!,
+                                        widget.chatUser.username!,
+                                        state.messageList,
+                                      );
+                                      if (!hasMessages) {
+                                        log('message chat is empty');
+                                        context
+                                            .read<GetChatBloc>()
+                                            .add(FetchAllUserChatsEvent());
+                                      }
                                     }
-                                  }
-                                  // ============ Send message function ============
-                                  SchedulerBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    SocketServices().sendMessage(
-                                      message: messageController.text,
-                                      currentUser: widget.currentUser,
-                                      chatUser: widget.chatUser,
-                                    );
-                                    messageController.clear();
-                                  });
+                                    // ============ Send message function ============
+                                    SchedulerBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      SocketServices().sendMessage(
+                                        message: messageController.text,
+                                        currentUser: widget.currentUser,
+                                        chatUser: widget.chatUser,
+                                      );
+                                      messageController.clear();
+                                    });
 
-                                  setState(() {
-                                    sendButton = false;
-                                  });
-                                }
-                              },
-                              icon: Icon(
-                                Ktweel.send_2,
-                                color: widget.theme.primaryContainer,
-                                size: 20,
+                                    setState(() {
+                                      sendButton = false;
+                                    });
+                                  }
+                                },
                               ),
                             )
                           : const SizedBox(),

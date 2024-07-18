@@ -101,7 +101,6 @@ class _SignUpOneFieldWidgetState extends State<SignUpOneFieldWidget> {
                   return CustomButton(
                     buttonText: 'Continue',
                     onPressed: () {
-                      FocusScope.of(context).unfocus();
                       if (formKey.currentState!.validate()) {
                         nextScreen(
                           context,

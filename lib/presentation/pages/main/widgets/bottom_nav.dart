@@ -129,7 +129,6 @@ class BottomNavigationWidget extends StatelessWidget {
       enableFeedback: false,
       onPressed: () {
         indexChangeNotifier.value = index;
-        FocusScope.of(context).unfocus();
         context.read<OnSearchMessageCubit>().onSearchChange(false);
         context.read<OnSearchCubit>().onSearchChange(false);
       },

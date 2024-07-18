@@ -42,41 +42,38 @@ class ConnectionListPageState extends State<ConnectionListPage>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
-          child: FollowersAppbar(
-            userId: widget.userId,
-            tabController: tabController,
-            searchController: searchController,
-            onChanged: (value) {
-              if (tabController.index == 0) {
-                context.read<SearchBloc>().add(SearchFollowerEvent(
-                    query: value, followers: widget.followers));
-              }
-              if (tabController.index == 1) {
-                context.read<SearchBloc>().add(SearchFollowingEvent(
-                    query: value, following: widget.following));
-              }
-            },
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: FollowersAppbar(
+          userId: widget.userId,
+          tabController: tabController,
+          searchController: searchController,
+          onChanged: (value) {
+            if (tabController.index == 0) {
+              context.read<SearchBloc>().add(SearchFollowerEvent(
+                  query: value, followers: widget.followers));
+            }
+            if (tabController.index == 1) {
+              context.read<SearchBloc>().add(SearchFollowingEvent(
+                  query: value, following: widget.following));
+            }
+          },
+        ),
+      ),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          FollowersView(
+            followers: widget.followers,
+            isCurrentUser: widget.isCurrentUser,
           ),
-        ),
-        body: TabBarView(
-          controller: tabController,
-          children: [
-            FollowersView(
-              followers: widget.followers,
-              isCurrentUser: widget.isCurrentUser,
-            ),
-            FollowingView(
-              following: widget.following,
-              isCurrentUser: widget.isCurrentUser,
-            ),
-          ],
-        ),
+          FollowingView(
+            following: widget.following,
+            isCurrentUser: widget.isCurrentUser,
+          ),
+        ],
       ),
     );
   }

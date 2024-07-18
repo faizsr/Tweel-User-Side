@@ -30,82 +30,79 @@ class PostDetailPage extends StatelessWidget {
       color: theme.colorScheme.surface,
       context: context,
     );
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        backgroundColor: theme.colorScheme.surface,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(56),
-          child: CustomAppbar2(
-            backgroundColor: theme.colorScheme.surface,
-            title: 'Post',
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
-          ),
+    return Scaffold(
+      backgroundColor: theme.colorScheme.surface,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: CustomAppbar2(
+          backgroundColor: theme.colorScheme.surface,
+          title: 'Post',
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ListView(
-                  controller: scrollController,
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-                  children: [
-                    // ============= Posted User Detial =============
-                    PostUserDetail(
-                      postModel: postModel,
-                      userModel: userModel,
-                      onDetail: true,
-                    ),
-                    kHeight(20),
-
-                    // ============= Post Description =============
-                    Text(
-                      postModel.description,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(fontSize: 13),
-                    ),
-                    kHeight(10),
-
-                    // ============= Post Image Widget =============
-                    PostImageWidget(
-                      postModel: postModel,
-                      height: size.height * 0.5,
-                      onDetail: true,
-                    ),
-                    kHeight(5),
-
-                    // ============= Post Action Buttons =============
-                    DetailPostActionBtns(
-                      postModel: postModel,
-                      userModel: userModel!,
-                    ),
-
-                    // ============= Comments View Section
-                    CommentAreaWidget(postModel: postModel),
-                  ],
-                ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ListView(
+                controller: scrollController,
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                children: [
+                  // ============= Posted User Detial =============
+                  PostUserDetail(
+                    postModel: postModel,
+                    userModel: userModel,
+                    onDetail: true,
+                  ),
+                  kHeight(20),
+    
+                  // ============= Post Description =============
+                  Text(
+                    postModel.description,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(fontSize: 13),
+                  ),
+                  kHeight(10),
+    
+                  // ============= Post Image Widget =============
+                  PostImageWidget(
+                    postModel: postModel,
+                    height: size.height * 0.5,
+                    onDetail: true,
+                  ),
+                  kHeight(5),
+    
+                  // ============= Post Action Buttons =============
+                  DetailPostActionBtns(
+                    postModel: postModel,
+                    userModel: userModel!,
+                  ),
+    
+                  // ============= Comments View Section
+                  CommentAreaWidget(postModel: postModel),
+                ],
               ),
             ),
-
-            // ============= Comment Input Field =============
-            CommentTextFieldWidget(
-              postModel: postModel,
-              onChanged: (p0) {
-                scrollController.jumpTo(
-                  scrollController.position.maxScrollExtent,
-                );
-              },
-              onTap: () {
-                scrollController.jumpTo(
-                  scrollController.position.maxScrollExtent,
-                );
-              },
-            ),
-          ],
-        ),
+          ),
+    
+          // ============= Comment Input Field =============
+          CommentTextFieldWidget(
+            postModel: postModel,
+            onChanged: (p0) {
+              scrollController.jumpTo(
+                scrollController.position.maxScrollExtent,
+              );
+            },
+            onTap: () {
+              scrollController.jumpTo(
+                scrollController.position.maxScrollExtent,
+              );
+            },
+          ),
+        ],
       ),
     );
   }

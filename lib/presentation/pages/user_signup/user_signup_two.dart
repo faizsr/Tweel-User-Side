@@ -26,32 +26,29 @@ class _UserSignUpPageTwoState extends State<UserSignUpPageTwo> {
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
 
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        extendBodyBehindAppBar: true,
-        appBar: CustomAppbar.show(context,true),
-        body: SingleChildScrollView(
-          child: Container(
-            constraints: BoxConstraints(minHeight: mediaHeight),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 40, 0, 30),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  SignUpTwoFieldWidget(
-                    email: widget.email,
-                    phoneNo: widget.phoneNo,
-                    fullName: widget.fullName,
-                    accountType: widget.accountType,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    child: SignUpWidgets.signInNavigate(context),
-                  ),
-                ],
-              ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppbar.show(context,true),
+      body: SingleChildScrollView(
+        child: Container(
+          constraints: BoxConstraints(minHeight: mediaHeight),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 40, 0, 30),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SignUpTwoFieldWidget(
+                  email: widget.email,
+                  phoneNo: widget.phoneNo,
+                  fullName: widget.fullName,
+                  accountType: widget.accountType,
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: SignUpWidgets.signInNavigate(context),
+                ),
+              ],
             ),
           ),
         ),

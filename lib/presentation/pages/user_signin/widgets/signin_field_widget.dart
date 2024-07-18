@@ -107,7 +107,6 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
                   CustomButton(
                     buttonText: 'Sign In',
                     onPressed: () {
-                      FocusScope.of(context).unfocus();
                       if (formKey.currentState!.validate()) {
                         context.read<SignInBloc>().add(
                               UserSignInEvent(

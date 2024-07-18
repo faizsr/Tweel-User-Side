@@ -153,7 +153,6 @@ class SignUpWidgets {
     return CustomButton(
       buttonText: 'Sign Up',
       onPressed: () {
-        FocusScope.of(context).unfocus();
         if (formKey.currentState!.validate()) {
           final user = UserModel(
             accountType: accountType,

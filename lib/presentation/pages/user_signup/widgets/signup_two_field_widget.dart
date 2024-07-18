@@ -130,7 +130,6 @@ class _SignUpTwoFieldWidgetState extends State<SignUpTwoFieldWidget> {
                 child: CustomButton(
                   buttonText: 'Sign Up',
                   onPressed: () {
-                    FocusScope.of(context).unfocus();
                     if (passWordController.text ==
                         confirmPasswordController.text) {
                       if (formKey.currentState!.validate()) {

@@ -68,10 +68,19 @@ class SocketServices {
     socket.emit('getOnlineUsers');
     socket.on('onlineUsers', (data) {
       debugPrint('Getting online users ${data.length}');
+      debugPrint('Online users $data');
       for (int i = 0; i < data.length; i++) {
         String username = data[i]['username'];
         context!.read<OnlineUsersCubit>().getOnlineUsers(username);
       }
+    });
+  }
+
+  printOnlineUsers() {
+    socket.emit('getOnlineUsers');
+    socket.on('onlineUsers', (data) {
+      debugPrint('Getting online users ${data.length}');
+      log('Online users: $data');
     });
   }
 

@@ -38,10 +38,12 @@ import 'package:tweel_social_media/presentation/cubit/set_profile_image/cubit/se
 import 'package:tweel_social_media/presentation/cubit/story_index/story_index_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/theme/theme_cubit.dart';
 import 'package:tweel_social_media/presentation/cubit/toggle_password/toggle_password_cubit.dart';
+import 'package:tweel_social_media/presentation/pages/splash/life_cycle_event_handler.dart';
 import 'package:tweel_social_media/presentation/pages/splash/splash_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  lifecycleEventHandler.init();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
@@ -55,54 +57,59 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => SignUpBloc()),
-        BlocProvider(create: (context) => SignInBloc()),
-        BlocProvider(create: (context) => DropdownCubit()),
-        BlocProvider(create: (context) => SetProfileImageCubit()),
-        BlocProvider(create: (context) => ForgetPasswordBloc()),
-        BlocProvider(create: (context) => ProfileBloc()),
-        BlocProvider(create: (context) => ProfileLogicsBloc()),
-        BlocProvider(create: (context) => PostEditBloc()),
-        BlocProvider(create: (context) => PostBloc()),
-        BlocProvider(create: (context) => PostByIdBloc()),
-        BlocProvider(create: (context) => SavedPostsBloc()),
-        BlocProvider(create: (context) => PostLogicsBloc()),
-        BlocProvider(create: (context) => CommentBloc()),
-        BlocProvider(create: (context) => LikeUnlikePostBloc()),
-        BlocProvider(create: (context) => StoryBloc()),
-        BlocProvider(create: (context) => MediaPickerBloc()),
-        BlocProvider(create: (context) => StoryIndexCubit()),
-        BlocProvider(create: (context) => UserBloc()),
-        BlocProvider(create: (context) => UserByIdBloc()),
-        BlocProvider(create: (context) => FollowUnfollowUserBloc()),
-        BlocProvider(create: (context) => SearchBloc()),
-        BlocProvider(create: (context) => OnSearchCubit()),
-        BlocProvider(create: (context) => OnSearchMessageCubit()),
-        BlocProvider(create: (context) => PostImageIndexCubit()),
-        BlocProvider(create: (context) => SearchUserBloc()),
-        BlocProvider(create: (context) => NotificationBloc()),
-        BlocProvider(create: (context) => ThemeCubit()),
-        BlocProvider(create: (context) => TogglePasswordCubit()),
-        BlocProvider(create: (context) => ReportRadioCubit()),
-        BlocProvider(create: (context) => ReportBloc()),
-        BlocProvider(create: (context) => ConnectivityStatusCubit()),
-        BlocProvider(create: (context) => ChatBloc()),
-        BlocProvider(create: (context) => GetChatBloc()),
-        BlocProvider(create: (context) => OnlineUsersCubit()),
-      ],
-      child: BlocBuilder<ThemeCubit, ThemeMode>(
-        builder: (context, ThemeMode mode) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Tweel Social Media',
-            theme: lightTheme,
-            themeMode: mode,
-            darkTheme: darkTheme,
-            home: const SplashPage(),
-          );
-        },
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => SignUpBloc()),
+          BlocProvider(create: (context) => SignInBloc()),
+          BlocProvider(create: (context) => DropdownCubit()),
+          BlocProvider(create: (context) => SetProfileImageCubit()),
+          BlocProvider(create: (context) => ForgetPasswordBloc()),
+          BlocProvider(create: (context) => ProfileBloc()),
+          BlocProvider(create: (context) => ProfileLogicsBloc()),
+          BlocProvider(create: (context) => PostEditBloc()),
+          BlocProvider(create: (context) => PostBloc()),
+          BlocProvider(create: (context) => PostByIdBloc()),
+          BlocProvider(create: (context) => SavedPostsBloc()),
+          BlocProvider(create: (context) => PostLogicsBloc()),
+          BlocProvider(create: (context) => CommentBloc()),
+          BlocProvider(create: (context) => LikeUnlikePostBloc()),
+          BlocProvider(create: (context) => StoryBloc()),
+          BlocProvider(create: (context) => MediaPickerBloc()),
+          BlocProvider(create: (context) => StoryIndexCubit()),
+          BlocProvider(create: (context) => UserBloc()),
+          BlocProvider(create: (context) => UserByIdBloc()),
+          BlocProvider(create: (context) => FollowUnfollowUserBloc()),
+          BlocProvider(create: (context) => SearchBloc()),
+          BlocProvider(create: (context) => OnSearchCubit()),
+          BlocProvider(create: (context) => OnSearchMessageCubit()),
+          BlocProvider(create: (context) => PostImageIndexCubit()),
+          BlocProvider(create: (context) => SearchUserBloc()),
+          BlocProvider(create: (context) => NotificationBloc()),
+          BlocProvider(create: (context) => ThemeCubit()),
+          BlocProvider(create: (context) => TogglePasswordCubit()),
+          BlocProvider(create: (context) => ReportRadioCubit()),
+          BlocProvider(create: (context) => ReportBloc()),
+          BlocProvider(create: (context) => ConnectivityStatusCubit()),
+          BlocProvider(create: (context) => ChatBloc()),
+          BlocProvider(create: (context) => GetChatBloc()),
+          BlocProvider(create: (context) => OnlineUsersCubit()),
+        ],
+        child: BlocBuilder<ThemeCubit, ThemeMode>(
+          builder: (context, ThemeMode mode) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Tweel Social Media',
+              theme: lightTheme,
+              themeMode: mode,
+              darkTheme: darkTheme,
+              home: const SplashPage(),
+            );
+          },
+        ),
       ),
     );
   }
