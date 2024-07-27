@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
         body: RefreshWidget(
           onRefresh: handleRefresh,
           child: ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             controller: homePageController,
             shrinkWrap: true,
             children: [

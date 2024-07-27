@@ -43,6 +43,7 @@ class StoryWidget extends StatelessWidget {
   Widget _stoiesListview(BuildContext context) {
     String userId = '';
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),

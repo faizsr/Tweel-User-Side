@@ -25,7 +25,6 @@ class MessageListView extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
       itemCount: chatUsersList.length,
       shrinkWrap: true,
-      physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         UserModel chatUser = chatUsersList[index];
         ChatModel lastMessage = MessageFunctions.getLastMessage(

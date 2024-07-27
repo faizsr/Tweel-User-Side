@@ -142,63 +142,66 @@ class _CommentCardWidgetState extends State<CommentCardWidget> {
                         ),
                       ),
                       kWidth(10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.commentModel.user.fullName!,
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                          kHeight(6),
-                          Text(
-                            widget.commentModel.comment,
-                            style: TextStyle(
-                              color: theme.colorScheme.secondary,
-                              fontSize: 13,
-                            ),
-                          ),
-                          kHeight(10),
-                          InkWell(
-                            onTap: () {
-                              fToast.showToast(
-                                child: customToast(context),
-                                gravity: ToastGravity.BOTTOM,
-                                toastDuration: const Duration(seconds: 2),
-                              );
-                            },
-                            child: Row(
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(
-                                  CupertinoIcons.heart,
-                                  size: 18,
-                                  color: theme.colorScheme.onSecondary,
-                                ),
-                                kWidth(5),
                                 Text(
-                                  "0",
+                                  widget.commentModel.user.fullName!,
+                                  style: const TextStyle(fontSize: 15),
+                                ),
+                                Text(
+                                  timeAgo(DateTime.parse(
+                                      widget.commentModel.createdDate)),
                                   style: TextStyle(
-                                    fontSize: 15,
-                                    fontVariations: fontWeightW500,
-                                    color: theme.colorScheme.onSecondary,
+                                    color: theme.colorScheme.secondary,
+                                    fontSize: 11,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          Text(
-                            timeAgo(DateTime.parse(
-                                widget.commentModel.createdDate)),
-                            style: TextStyle(
-                              color: theme.colorScheme.secondary,
-                              fontSize: 11,
+                            kHeight(6),
+                            Text(
+                              widget.commentModel.comment,
+                              style: TextStyle(
+                                color: theme.colorScheme.secondary,
+                                fontSize: 13,
+                              ),
                             ),
-                          ),
-                        ],
+                            kHeight(10),
+                            InkWell(
+                              onTap: () {
+                                fToast.showToast(
+                                  child: customToast(context),
+                                  gravity: ToastGravity.BOTTOM,
+                                  toastDuration: const Duration(seconds: 2),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    CupertinoIcons.heart,
+                                    size: 18,
+                                    color: theme.colorScheme.onSecondary,
+                                  ),
+                                  kWidth(5),
+                                  Text(
+                                    "0",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontVariations: fontWeightW500,
+                                      color: theme.colorScheme.onSecondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

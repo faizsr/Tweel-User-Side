@@ -48,6 +48,7 @@ class PostDetailPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ListView(
+                physics: const BouncingScrollPhysics(),
                 controller: scrollController,
                 padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
                 children: [
@@ -58,7 +59,7 @@ class PostDetailPage extends StatelessWidget {
                     onDetail: true,
                   ),
                   kHeight(20),
-    
+
                   // ============= Post Description =============
                   Text(
                     postModel.description,
@@ -66,7 +67,7 @@ class PostDetailPage extends StatelessWidget {
                     style: const TextStyle(fontSize: 13),
                   ),
                   kHeight(10),
-    
+
                   // ============= Post Image Widget =============
                   PostImageWidget(
                     postModel: postModel,
@@ -74,20 +75,20 @@ class PostDetailPage extends StatelessWidget {
                     onDetail: true,
                   ),
                   kHeight(5),
-    
+
                   // ============= Post Action Buttons =============
                   DetailPostActionBtns(
                     postModel: postModel,
                     userModel: userModel!,
                   ),
-    
+
                   // ============= Comments View Section
                   CommentAreaWidget(postModel: postModel),
                 ],
               ),
             ),
           ),
-    
+
           // ============= Comment Input Field =============
           CommentTextFieldWidget(
             postModel: postModel,

@@ -85,6 +85,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 if (state1 == false) {
                   // ============ Explore page ============
                   return ListView(
+                    physics: const BouncingScrollPhysics(),
                     controller: explorePageController,
                     keyboardDismissBehavior:
                         ScrollViewKeyboardDismissBehavior.onDrag,
