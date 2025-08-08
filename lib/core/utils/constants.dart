@@ -27,7 +27,7 @@ const fontWeightW900 = <FontVariation>[FontVariation('wght', 900.0)];
 SizedBox kHeight(double? height) => SizedBox(height: height);
 SizedBox kWidth(double? width) => SizedBox(width: width);
 
-formattedTime({required int timeInSecond}) {
+String formattedTime({required int timeInSecond}) {
   int sec = timeInSecond % 60;
   int min = (timeInSecond / 60).floor();
   String minute = min.toString().length <= 1 ? "0$min" : "$min";

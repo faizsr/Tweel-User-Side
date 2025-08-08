@@ -72,7 +72,7 @@ class ChatView extends StatelessWidget {
               } else {
                 return const SizedBox();
               }
-            }).toList(),
+            }),
           ],
         );
       },

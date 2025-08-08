@@ -77,7 +77,7 @@ class _BottomImageListviewState extends State<BottomImageListview> {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          '${formattedTime(timeInSecond: assetEntity.duration)}',
+                          formattedTime(timeInSecond: assetEntity.duration),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10,

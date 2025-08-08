@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:tweel_social_media/core/theme/color_theme.dart';
 import 'package:tweel_social_media/core/utils/constants.dart';
 
-Future<dynamic> nextScreen(context, page) {
+Future<dynamic> nextScreen(BuildContext context, Widget page) {
   return Navigator.push(
     context,
     PageTransition(
@@ -15,12 +15,12 @@ Future<dynamic> nextScreen(context, page) {
   );
 }
 
-Future<dynamic> nextScreenReplacement(context, page) {
+Future<dynamic> nextScreenReplacement(BuildContext context, Widget page) {
   return Navigator.pushReplacement(
       context, PageTransition(child: page, type: PageTransitionType.fade));
 }
 
-Future<dynamic> nextScreenRemoveUntil(context, page) {
+Future<dynamic> nextScreenRemoveUntil(BuildContext context, Widget page) {
   return Navigator.pushAndRemoveUntil(
     context,
     PageTransition(
@@ -31,7 +31,7 @@ Future<dynamic> nextScreenRemoveUntil(context, page) {
   );
 }
 
-customSnackbar(BuildContext context, String message,
+void customSnackbar(BuildContext context, String message,
     {IconData? leading, String? trailing}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -74,7 +74,7 @@ customSnackbar(BuildContext context, String message,
   );
 }
 
-customToast(BuildContext context) {
+Container customToast(BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
     decoration: BoxDecoration(

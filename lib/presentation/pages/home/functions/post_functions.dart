@@ -11,7 +11,7 @@ import 'package:tweel_social_media/presentation/pages/main/widgets/bottom_nav.da
 import 'package:tweel_social_media/presentation/pages/user/user_profile_page.dart';
 
 class PostFunctions {
-  static onProfileTap({
+  static Future<Null> Function() onProfileTap({
     required BuildContext context,
     required UserModel userModel,
     required bool onDetail,

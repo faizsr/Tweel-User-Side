@@ -30,7 +30,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       color: theme.colorScheme.surface,
       child: GestureDetector(
         onVerticalDragUpdate: (dragUpdateDetails) {
-          print('object');
           UserAuthStatus.saveUserinitialStatus(true);
           nextScreenRemoveUntil(context, const UserSignInPage());
         },

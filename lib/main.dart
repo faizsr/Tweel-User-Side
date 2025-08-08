@@ -1,8 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:tweel_social_media/core/theme/theme.dart';
 import 'package:tweel_social_media/presentation/bloc/chat/chat_bloc.dart';
 import 'package:tweel_social_media/presentation/bloc/get_chat/get_chat_bloc.dart';
@@ -44,11 +41,6 @@ import 'package:tweel_social_media/presentation/pages/splash/splash_page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   lifecycleEventHandler.init();
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: kIsWeb
-        ? HydratedStorage.webStorageDirectory
-        : await getApplicationDocumentsDirectory(),
-  );
   runApp(const MyApp());
 }
 
@@ -98,17 +90,12 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => GetChatBloc()),
           BlocProvider(create: (context) => OnlineUsersCubit()),
         ],
-        child: BlocBuilder<ThemeCubit, ThemeMode>(
-          builder: (context, ThemeMode mode) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Tweel Social Media',
-              theme: lightTheme,
-              themeMode: mode,
-              darkTheme: darkTheme,
-              home: const SplashPage(),
-            );
-          },
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Tweel Social Media',
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          home: const SplashPage(),
         ),
       ),
     );

@@ -33,7 +33,7 @@ class SettingsWidgets {
     );
   }
 
-  static SettingListTile aboutUsListTile(context) {
+  static SettingListTile aboutUsListTile(BuildContext context) {
     return SettingListTile(
       leadingIcon: Ktweel.about,
       title: 'About us',
@@ -44,7 +44,7 @@ class SettingsWidgets {
     );
   }
 
-  static SettingListTile privacyPolicyTile(context) {
+  static SettingListTile privacyPolicyTile(BuildContext context) {
     return SettingListTile(
       leadingIcon: Ktweel.text_file,
       title: 'Privacy & policy',
@@ -55,7 +55,7 @@ class SettingsWidgets {
     );
   }
 
-  static SettingListTile termsConditionsTile(context) {
+  static SettingListTile termsConditionsTile(BuildContext context) {
     return SettingListTile(
       leadingIcon: Ktweel.text_file,
       title: 'Terms & Conditions',

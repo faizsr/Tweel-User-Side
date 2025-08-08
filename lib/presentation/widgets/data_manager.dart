@@ -25,7 +25,7 @@ class DataManager {
     return currentPlaying != 0;
   }
 
-  skipToNextVideo([Duration? duration]) {
+  void skipToNextVideo([Duration? duration]) {
     if (hasNextVideo()) {
       flickManager.handleChangeVideo(
           VideoPlayerController.networkUrl(Uri.parse(urls[currentPlaying + 1])),
@@ -35,7 +35,7 @@ class DataManager {
     }
   }
 
-  skipToPreviousVideo() {
+  void skipToPreviousVideo() {
     if (hasPreviousVideo()) {
       currentPlaying--;
       flickManager.handleChangeVideo(
@@ -43,7 +43,7 @@ class DataManager {
     }
   }
 
-  cancelVideoAutoPlayTimer({required bool playNext}) {
+  void cancelVideoAutoPlayTimer({required bool playNext}) {
     if (playNext != true) {
       currentPlaying--;
     }

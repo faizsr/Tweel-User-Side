@@ -7,7 +7,7 @@ class UserToken {
     return bearer!;
   }
 
-  static saveToken(String token) async {
+  static Future<void> saveToken(String token) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('TOKEN', token);
   }
@@ -19,7 +19,7 @@ class CurrentUserId {
     return bearer!;
   }
 
-  static saveUserId(String userId) async {
+  static Future<void> saveUserId(String userId) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('USERID', userId);
   }
@@ -39,12 +39,12 @@ class UserAuthStatus {
     return status ?? false;
   }
 
-  static saveUserinitialStatus(bool status) async {
+  static Future<void> saveUserinitialStatus(bool status) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool('ON_INITIAL', status);
   }
 
-  static saveUserStatus(bool status) async {
+  static Future<void> saveUserStatus(bool status) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool('SIGNIN', status);
   }

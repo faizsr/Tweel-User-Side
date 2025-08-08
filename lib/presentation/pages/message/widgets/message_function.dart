@@ -28,7 +28,7 @@ class MessageFunctions {
     return lastMessage!;
   }
 
-  static sortChatUserList({
+  static List<UserModel> sortChatUserList({
     required List<UserModel> chatUsersList,
     required UserModel currentUser,
     required List<ChatModel> messageList,

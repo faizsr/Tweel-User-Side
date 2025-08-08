@@ -10,7 +10,7 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
 
   LifecycleEventHandler._();
 
-  init() {
+  void init() {
     WidgetsBinding.instance.addObserver(lifecycleEventHandler);
   }
 

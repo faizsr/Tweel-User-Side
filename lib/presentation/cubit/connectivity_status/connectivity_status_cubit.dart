@@ -65,7 +65,7 @@ class ConnectivityStatusCubit extends Cubit<ConnectivityStatus> {
     );
   }
 
-  showDialogBox(BuildContext context) {
+  Widget showDialogBox(BuildContext context) {
     return CustomAlertDialog(
       title: 'No Connection!',
       description: 'Please check your internet \nconnectivity',

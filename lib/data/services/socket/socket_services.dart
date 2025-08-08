@@ -22,7 +22,7 @@ class SocketServices {
     IO.OptionBuilder().setTransports(['websocket']).build(),
   );
 
-  connectSocket(String username, BuildContext context) {
+  void connectSocket(String username, BuildContext context) {
     _context = context;
     socket = IO.io(ApiEndPoints.socketUrl,
         IO.OptionBuilder().setTransports(['websocket']).build());
@@ -35,7 +35,7 @@ class SocketServices {
     }
   }
 
-  disconnectSocket() {
+  void disconnectSocket() {
     socket.onDisconnect((data) {
       log('Is Socket Disconnected: ${socket.disconnected}');
     });
@@ -46,7 +46,7 @@ class SocketServices {
     log('Is Socket Active: ${socket.active}');
   }
 
-  _listenMessage(BuildContext? context) {
+  void _listenMessage(BuildContext? context) {
     socket.on('message', (data) {
       debugPrint('Message Event Called ${data['message']}');
       BlocProvider.of<ChatBloc>(context!).add(AddNewMessageEvent(
@@ -55,7 +55,7 @@ class SocketServices {
     });
   }
 
-  _makeUserActive(String username) {
+  void _makeUserActive(String username) {
     socket.connect();
     socket.onConnect((data) {
       socket.emit('newUser', username);
@@ -64,7 +64,7 @@ class SocketServices {
     });
   }
 
-  _getOnlineUsers(BuildContext? context) {
+  void _getOnlineUsers(BuildContext? context) {
     socket.emit('getOnlineUsers');
     socket.on('onlineUsers', (data) {
       debugPrint('Getting online users ${data.length}');
@@ -76,7 +76,7 @@ class SocketServices {
     });
   }
 
-  printOnlineUsers() {
+  void printOnlineUsers() {
     socket.emit('getOnlineUsers');
     socket.on('onlineUsers', (data) {
       debugPrint('Getting online users ${data.length}');
@@ -84,7 +84,7 @@ class SocketServices {
     });
   }
 
-  sendMessage({
+  void sendMessage({
     required String message,
     required UserModel currentUser,
     required UserModel chatUser,

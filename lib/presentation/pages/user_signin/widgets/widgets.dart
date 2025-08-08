@@ -4,7 +4,7 @@ import 'package:tweel_social_media/core/utils/alerts_and_navigators.dart';
 import 'package:tweel_social_media/presentation/pages/user_signup/user_signup_one.dart';
 
 class SignInWidgets {
-  static InkWell signUpNavigate(context) {
+  static InkWell signUpNavigate(BuildContext context) {
     return InkWell(
       onTap: () => nextScreen(context, const UserSignUpPageOne()),
       child: FadeInUp(

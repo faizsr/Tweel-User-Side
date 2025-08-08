@@ -82,7 +82,7 @@ class _EditBottomImageListviewState extends State<EditBottomImageListview> {
                             future: getVideoDuration(imageUrl),
                             builder: (context, snapshot) {
                               return Text(
-                                '${formattedTime(timeInSecond: snapshot.hasData ? snapshot.data! : 0)}',
+                                formattedTime(timeInSecond: snapshot.hasData ? snapshot.data! : 0),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 10,

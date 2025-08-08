@@ -1,12 +1,12 @@
 class ApiEndPoints {
   // static String baseUrl = 'http://10.0.2.2:5000';
-  // static String baseUrl = 'https://6k8jwwzh-5000.inc1.devtunnels.ms';
+  static String baseUrl = 'https://3l9m38td-5000.inc1.devtunnels.ms';
   // static String baseUrl = 'https://tweel.onrender.com';
-  static String baseUrl = 'http://tweel.online';
+  // static String baseUrl = 'http://tweel.online';
 
-  // static String socketUrl = "https://6k8jwwzh-5000.inc1.devtunnels.ms";
+  static String socketUrl = "https://3l9m38td-5000.inc1.devtunnels.ms";
   // static String socketUrl = "https://tweel.onrender.com";
-  static String socketUrl = 'http://tweel.online';
+  // static String socketUrl = 'http://tweel.online';
 
   static String currentUserChats = "/chat/me";
 

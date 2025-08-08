@@ -5,9 +5,12 @@ import 'package:provider/provider.dart';
 import 'data_manager.dart';
 
 class CustomOrientationControls extends StatelessWidget {
-  const CustomOrientationControls(
-      {Key? key, this.iconSize = 20, this.fontSize = 12, this.dataManager})
-      : super(key: key);
+  const CustomOrientationControls({
+    super.key,
+    this.iconSize = 20,
+    this.fontSize = 12,
+    this.dataManager,
+  });
   final double iconSize;
   final double fontSize;
   final DataManager? dataManager;

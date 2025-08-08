@@ -83,7 +83,7 @@ class _AssetCardWidgetState extends State<AssetCardWidget> {
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    '${formattedTime(timeInSecond: widget.assetEntity.duration)}',
+                    formattedTime(timeInSecond: widget.assetEntity.duration),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
